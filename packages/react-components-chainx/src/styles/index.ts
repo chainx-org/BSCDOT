@@ -150,9 +150,9 @@ export default createGlobalStyle<Props & ThemeProps>`
 
     &:hover:not(.isDisabled):not(.isReadOnly),
     &.isSelected {
-      background: #e1b15b;
-      color: ${getContrast};
-      text-shadow: none;
+      // background: transparent;
+      // color: ${getContrast};
+      // text-shadow: none;
 
       &:not(.isIcon),
       &.withoutLink {

@@ -2086,162 +2086,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@polkadot/app-addresses@workspace:packages/page-addresses":
-  version: 0.0.0-use.local
-  resolution: "@polkadot/app-addresses@workspace:packages/page-addresses"
-  dependencies:
-    "@babel/runtime": ^7.12.5
-    "@polkadot/react-components": ^0.68.2-19
-    "@testing-library/react": ^11.2.2
-    file-saver: ^2.0.5
-    testcontainers: ^4.7.0
-  languageName: unknown
-  linkType: soft
-
-"@polkadot/app-calendar@workspace:packages/page-calendar":
-  version: 0.0.0-use.local
-  resolution: "@polkadot/app-calendar@workspace:packages/page-calendar"
-  dependencies:
-    "@babel/runtime": ^7.12.5
-    "@polkadot/react-components": ^0.68.2-19
-  languageName: unknown
-  linkType: soft
-
-"@polkadot/app-claims@workspace:packages/page-claims":
-  version: 0.0.0-use.local
-  resolution: "@polkadot/app-claims@workspace:packages/page-claims"
-  dependencies:
-    "@babel/runtime": ^7.12.5
-    "@polkadot/react-components": ^0.68.2-19
-    secp256k1: ^3.8.0
-  languageName: unknown
-  linkType: soft
-
 "@polkadot/app-contracts@workspace:packages/page-contracts":
   version: 0.0.0-use.local
   resolution: "@polkadot/app-contracts@workspace:packages/page-contracts"
   dependencies:
     "@babel/runtime": ^7.12.5
     "@polkadot/api-contract": ^2.8.2-3
-  languageName: unknown
-  linkType: soft
-
-"@polkadot/app-council@workspace:packages/page-council":
-  version: 0.0.0-use.local
-  resolution: "@polkadot/app-council@workspace:packages/page-council"
-  dependencies:
-    "@babel/runtime": ^7.12.5
-    "@polkadot/react-components": ^0.68.2-19
-    "@polkadot/react-query": ^0.68.2-19
-  languageName: unknown
-  linkType: soft
-
-"@polkadot/app-democracy-chainx@workspace:packages/page-democracy-chainx":
-  version: 0.0.0-use.local
-  resolution: "@polkadot/app-democracy-chainx@workspace:packages/page-democracy-chainx"
-  dependencies:
-    "@babel/runtime": ^7.12.5
-    "@polkadot/react-components": ^0.68.2-19
-    "@polkadot/react-components-chainx": ^0.68.2-19
-    "@polkadot/react-query": ^0.68.2-19
-  languageName: unknown
-  linkType: soft
-
-"@polkadot/app-democracy@workspace:packages/page-democracy":
-  version: 0.0.0-use.local
-  resolution: "@polkadot/app-democracy@workspace:packages/page-democracy"
-  dependencies:
-    "@babel/runtime": ^7.12.5
-    "@polkadot/react-components": ^0.68.2-19
-    "@polkadot/react-query": ^0.68.2-19
-  languageName: unknown
-  linkType: soft
-
-"@polkadot/app-explorer-chainx@workspace:packages/page-explorer-chainx":
-  version: 0.0.0-use.local
-  resolution: "@polkadot/app-explorer-chainx@workspace:packages/page-explorer-chainx"
-  dependencies:
-    "@babel/runtime": ^7.12.5
-    "@polkadot/react-components": ^0.68.2-19
-    "@polkadot/react-components-chainx": ^0.68.2-19
-  languageName: unknown
-  linkType: soft
-
-"@polkadot/app-explorer@^0.68.2-19, @polkadot/app-explorer@workspace:packages/page-explorer":
-  version: 0.0.0-use.local
-  resolution: "@polkadot/app-explorer@workspace:packages/page-explorer"
-  dependencies:
-    "@babel/runtime": ^7.12.5
-    "@polkadot/react-components": ^0.68.2-19
-  languageName: unknown
-  linkType: soft
-
-"@polkadot/app-extrinsics@workspace:packages/page-extrinsics":
-  version: 0.0.0-use.local
-  resolution: "@polkadot/app-extrinsics@workspace:packages/page-extrinsics"
-  dependencies:
-    "@babel/runtime": ^7.12.5
-    "@polkadot/react-components": ^0.68.2-19
-    "@polkadot/react-params": ^0.68.2-19
-    "@polkadot/react-signer": ^0.68.2-19
-  languageName: unknown
-  linkType: soft
-
-"@polkadot/app-generic-asset@workspace:packages/page-generic-asset":
-  version: 0.0.0-use.local
-  resolution: "@polkadot/app-generic-asset@workspace:packages/page-generic-asset"
-  dependencies:
-    "@babel/runtime": ^7.12.5
-    "@polkadot/react-components": ^0.68.2-19
-  languageName: unknown
-  linkType: soft
-
-"@polkadot/app-js@workspace:packages/page-js":
-  version: 0.0.0-use.local
-  resolution: "@polkadot/app-js@workspace:packages/page-js"
-  dependencies:
-    "@babel/runtime": ^7.12.5
-    "@polkadot/react-components": ^0.68.2-19
-  languageName: unknown
-  linkType: soft
-
-"@polkadot/app-mining@workspace:packages/page-mining":
-  version: 0.0.0-use.local
-  resolution: "@polkadot/app-mining@workspace:packages/page-mining"
-  dependencies:
-    "@babel/runtime": ^7.12.1
-    "@polkadot/apps-config": 0.68.2-19
-    "@polkadot/react-components": 0.68.2-19
-    "@polkadot/react-query": 0.68.2-19
-    query-string: ^6.13.6
-  languageName: unknown
-  linkType: soft
-
-"@polkadot/app-parachains@workspace:packages/page-parachains":
-  version: 0.0.0-use.local
-  resolution: "@polkadot/app-parachains@workspace:packages/page-parachains"
-  dependencies:
-    "@babel/runtime": ^7.12.5
-    "@polkadot/react-components": ^0.68.2-19
-    "@polkadot/react-query": ^0.68.2-19
-  languageName: unknown
-  linkType: soft
-
-"@polkadot/app-poll@workspace:packages/page-poll":
-  version: 0.0.0-use.local
-  resolution: "@polkadot/app-poll@workspace:packages/page-poll"
-  dependencies:
-    "@babel/runtime": ^7.12.5
-    "@polkadot/react-components": ^0.68.2-19
-  languageName: unknown
-  linkType: soft
-
-"@polkadot/app-rpc@workspace:packages/page-rpc":
-  version: 0.0.0-use.local
-  resolution: "@polkadot/app-rpc@workspace:packages/page-rpc"
-  dependencies:
-    "@babel/runtime": ^7.12.5
-    "@polkadot/react-components": ^0.68.2-19
   languageName: unknown
   linkType: soft
 
@@ -2258,18 +2108,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@polkadot/app-settings@workspace:packages/page-settings":
-  version: 0.0.0-use.local
-  resolution: "@polkadot/app-settings@workspace:packages/page-settings"
-  dependencies:
-    "@babel/runtime": ^7.12.5
-    "@polkadot/apps-config": ^0.68.2-19
-    "@polkadot/react-components": ^0.68.2-19
-    "@polkadot/react-query": ^0.68.2-19
-    query-string: ^6.13.7
-  languageName: unknown
-  linkType: soft
-
 "@polkadot/app-signing@workspace:packages/page-signing":
   version: 0.0.0-use.local
   resolution: "@polkadot/app-signing@workspace:packages/page-signing"
@@ -2279,101 +2117,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@polkadot/app-society@workspace:packages/page-society":
-  version: 0.0.0-use.local
-  resolution: "@polkadot/app-society@workspace:packages/page-society"
-  dependencies:
-    "@babel/runtime": ^7.12.5
-    "@polkadot/react-components": ^0.68.2-19
-  languageName: unknown
-  linkType: soft
-
-"@polkadot/app-staking@workspace:packages/page-staking":
-  version: 0.0.0-use.local
-  resolution: "@polkadot/app-staking@workspace:packages/page-staking"
-  dependencies:
-    "@babel/runtime": ^7.12.5
-    "@polkadot/app-explorer": ^0.68.2-19
-    "@polkadot/react-components": ^0.68.2-19
-    "@polkadot/react-query": ^0.68.2-19
-  languageName: unknown
-  linkType: soft
-
-"@polkadot/app-storage-chainx@workspace:packages/page-storage-chainx":
-  version: 0.0.0-use.local
-  resolution: "@polkadot/app-storage-chainx@workspace:packages/page-storage-chainx"
-  dependencies:
-    "@babel/runtime": ^7.12.5
-    "@polkadot/react-components": ^0.68.2-19
-    "@polkadot/react-components-chainx": ^0.68.2-19
-    "@polkadot/react-params": ^0.68.2-19
-  languageName: unknown
-  linkType: soft
-
-"@polkadot/app-storage@workspace:packages/page-storage":
-  version: 0.0.0-use.local
-  resolution: "@polkadot/app-storage@workspace:packages/page-storage"
-  dependencies:
-    "@babel/runtime": ^7.12.5
-    "@polkadot/react-components": ^0.68.2-19
-    "@polkadot/react-params": ^0.68.2-19
-  languageName: unknown
-  linkType: soft
-
-"@polkadot/app-sudo@workspace:packages/page-sudo":
-  version: 0.0.0-use.local
-  resolution: "@polkadot/app-sudo@workspace:packages/page-sudo"
-  dependencies:
-    "@babel/runtime": ^7.12.5
-    "@polkadot/react-components": ^0.68.2-19
-  languageName: unknown
-  linkType: soft
-
-"@polkadot/app-tech-comm@workspace:packages/page-tech-comm":
-  version: 0.0.0-use.local
-  resolution: "@polkadot/app-tech-comm@workspace:packages/page-tech-comm"
-  dependencies:
-    "@babel/runtime": ^7.12.5
-    "@polkadot/react-components": ^0.68.2-19
-    "@polkadot/react-query": ^0.68.2-19
-  languageName: unknown
-  linkType: soft
-
-"@polkadot/app-trade@workspace:packages/page-trade":
-  version: 0.0.0-use.local
-  resolution: "@polkadot/app-trade@workspace:packages/page-trade"
-  dependencies:
-    "@babel/runtime": ^7.12.1
-    "@polkadot/apps-config": ^0.68.2-19
-    "@polkadot/react-components": ^0.68.2-19
-    "@polkadot/react-query": ^0.68.2-19
-    query-string: ^6.13.6
-  languageName: unknown
-  linkType: soft
-
-"@polkadot/app-treasury@workspace:packages/page-treasury":
-  version: 0.0.0-use.local
-  resolution: "@polkadot/app-treasury@workspace:packages/page-treasury"
-  dependencies:
-    "@babel/runtime": ^7.12.5
-    "@polkadot/react-components": ^0.68.2-19
-    "@polkadot/react-query": ^0.68.2-19
-  languageName: unknown
-  linkType: soft
-
-"@polkadot/app-trust@workspace:packages/page-trust":
-  version: 0.0.0-use.local
-  resolution: "@polkadot/app-trust@workspace:packages/page-trust"
-  dependencies:
-    "@babel/runtime": ^7.12.1
-    "@polkadot/apps-config": 0.68.2-19
-    "@polkadot/react-components": 0.68.2-19
-    "@polkadot/react-query": 0.68.2-19
-    query-string: ^6.13.6
-  languageName: unknown
-  linkType: soft
-
-"@polkadot/apps-config@0.68.2-19, @polkadot/apps-config@^0.68.2-19, @polkadot/apps-config@workspace:packages/apps-config":
+"@polkadot/apps-config@^0.68.2-19, @polkadot/apps-config@workspace:packages/apps-config":
   version: 0.0.0-use.local
   resolution: "@polkadot/apps-config@workspace:packages/apps-config"
   dependencies:
@@ -2665,7 +2409,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@polkadot/react-components@0.68.2-19, @polkadot/react-components@^0.68.2-19, @polkadot/react-components@workspace:packages/react-components":
+"@polkadot/react-components@^0.68.2-19, @polkadot/react-components@workspace:packages/react-components":
   version: 0.0.0-use.local
   resolution: "@polkadot/react-components@workspace:packages/react-components"
   dependencies:
@@ -2785,7 +2529,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@polkadot/react-query@0.68.2-19, @polkadot/react-query@^0.68.2-19, @polkadot/react-query@workspace:packages/react-query":
+"@polkadot/react-query@^0.68.2-19, @polkadot/react-query@workspace:packages/react-query":
   version: 0.0.0-use.local
   resolution: "@polkadot/react-query@workspace:packages/react-query"
   dependencies:
@@ -5205,15 +4949,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bip66@npm:^1.1.5":
-  version: 1.1.5
-  resolution: "bip66@npm:1.1.5"
-  dependencies:
-    safe-buffer: ^5.0.1
-  checksum: cf83531dc486619df484225bf5e01dfe1341941dc3b7bf6d296b1a76244a9dcc2af36886a8039eafe0e27d72daaeccfce1686eee72b2119b99b90985bc55cf10
-  languageName: node
-  linkType: hard
-
 "bl@npm:^4.0.3":
   version: 4.0.3
   resolution: "bl@npm:4.0.3"
@@ -5350,7 +5085,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"browserify-aes@npm:^1.0.0, browserify-aes@npm:^1.0.4, browserify-aes@npm:^1.0.6":
+"browserify-aes@npm:^1.0.0, browserify-aes@npm:^1.0.4":
   version: 1.2.0
   resolution: "browserify-aes@npm:1.2.0"
   dependencies:
@@ -7668,17 +7403,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"drbg.js@npm:^1.0.1":
-  version: 1.0.1
-  resolution: "drbg.js@npm:1.0.1"
-  dependencies:
-    browserify-aes: ^1.0.6
-    create-hash: ^1.1.2
-    create-hmac: ^1.1.4
-  checksum: 57de7be981a8dddede102443bca1a8ed72edb943a2c72fdc297216ea1ed91c57f3336f250e273fa7dbcf6b95f3699fed3a90ebd8e6ba7c2ab1ae9e81f6c9d80f
-  languageName: node
-  linkType: hard
-
 "duplexer3@npm:^0.1.4":
   version: 0.1.4
   resolution: "duplexer3@npm:0.1.4"
@@ -7861,7 +7585,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"elliptic@npm:^6.4.0, elliptic@npm:^6.5.2, elliptic@npm:^6.5.3":
+"elliptic@npm:^6.4.0, elliptic@npm:^6.5.3":
   version: 6.5.3
   resolution: "elliptic@npm:6.5.3"
   dependencies:
@@ -15356,7 +15080,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"query-string@npm:^6.13.6, query-string@npm:^6.13.7":
+"query-string@npm:^6.13.7":
   version: 6.13.7
   resolution: "query-string@npm:6.13.7"
   dependencies:
@@ -16630,23 +16354,6 @@ fsevents@^1.2.7:
   version: 2.12.0
   resolution: "sdp@npm:2.12.0"
   checksum: 674e4342b211edb9f98cd17dcaa2aa2a71e7c1f9854b801499dabe3bf849194d10d242a8abe28a2291a6516a68973d46199105ef703372c5cd9844995626517f
-  languageName: node
-  linkType: hard
-
-"secp256k1@npm:^3.8.0":
-  version: 3.8.0
-  resolution: "secp256k1@npm:3.8.0"
-  dependencies:
-    bindings: ^1.5.0
-    bip66: ^1.1.5
-    bn.js: ^4.11.8
-    create-hash: ^1.2.0
-    drbg.js: ^1.0.1
-    elliptic: ^6.5.2
-    nan: ^2.14.0
-    node-gyp: latest
-    safe-buffer: ^5.1.2
-  checksum: 8c3c8fa6c0db00fd295f5cba4efe84beaacc563f2f63a4b82519141658bbde8893988976035eb4aed67e612cad87952598c16ed6e83a64331b1f10916647ebe1
   languageName: node
   linkType: hard
 

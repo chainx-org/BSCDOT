@@ -16,6 +16,8 @@ import Content from './Content';
 import Menu from './Menu';
 import WarmUp from './WarmUp';
 import NavBar from './NavBar/index'
+import SideBar from './SideBar';
+import Contents from './Contents';
 
 export const PORTAL_ID = 'portals';
 
@@ -33,10 +35,12 @@ function Apps ({ className = '' }: Props): React.ReactElement<Props> {
       <GlobalStyle uiHighlight={uiHighlight} />
       <div className={`apps--Wrapper theme--${theme} ${className}`}>
         {/*<Menu />*/}
-        <NavBar/>
+        {/* <NavBar/> */}
+        <SideBar />
         <AccountSidebar>
           <Signer>
-            <Content />
+            {/* <Content /> */}
+            <Contents />
           </Signer>
           <ConnectingOverlay />
           <div id={PORTAL_ID} />
@@ -51,6 +55,6 @@ export default React.memo(styled(Apps)(({ theme }: ThemeProps) => `
   background: ${theme.bgPage};
   box-sizing: border-box;
   display: flex;
-  flex-direction: column;
+  // flex-direction: column;
   min-height: 100vh;
 `));

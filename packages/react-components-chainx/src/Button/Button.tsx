@@ -25,7 +25,8 @@ function Button({ children, className = '', icon, isBasic, isBusy, isCircular, i
       onMouseLeave={onMouseLeave}
       tabIndex={tabIndex}
     >
-      {icon ?<Icon icon={icon} color={color} />:''}
+      {/* {icon ?<Icon icon={icon} color={color} />:''} */}
+      {icon ?<img src={icon} alt={icon} />:''}
       {label}
       {children}
       <Spinner
@@ -39,24 +40,25 @@ function Button({ children, className = '', icon, isBasic, isBusy, isCircular, i
 const ICON_PADDING = 0.5;
 
 export default React.memo(styled(Button)(({ theme }: ThemeProps) => `
-  background: transparent;
-  border: none;
-  color: #F6C94A;
+  
+  color: #fff;
   cursor: pointer;
   line-height: 1;
   margin: 0;
   position: relative;
   vertical-align: middle;
   text-align: center;
-  border: 1px solid #F6C94A;
+  background: transparent;
+  border: none;
 
-  &:hover{
-    background: transparent;
-    color: #F6C94A !important;
-    box-shadow: 0 0 1px #e1b15b;
-  }
+  // &:hover{
+  //   background: transparent;
+  //   color: #F6C94A !important;
+  //   box-shadow: 0 0 1px #e1b15b;
+  // }
+
   &:not(.hasLabel) {
-    padding: 0.7em;
+    padding: 0 0.7em;
 
     .ui--Icon {
       padding: 0.6rem;
@@ -72,39 +74,31 @@ export default React.memo(styled(Button)(({ theme }: ThemeProps) => `
     outline:0;
   }
 
-  &.hasLabel {
-    padding: 0.7rem 1.1rem 0.7rem 1.1rem;
-
-    .ui--Icon {
-      margin-right: 0.425rem !important;
-    }
-  }
-
   &.isBasic {
-    background: ${theme.bgTable};
+    border: 1px solid #fff;
   }
 
   &.isCircular {
     border-radius: 10rem;
   }
 
-  &.isDisabled, &.isReadOnly {
-    background: rgba(237, 237, 238);
-    box-shadow: none;
-    cursor: not-allowed;
-  }
+  // &.isDisabled, &.isReadOnly {
+  //   background: rgba(237, 237, 238);
+  //   box-shadow: none;
+  //   cursor: not-allowed;
+  // }
 
-  &.primaryBtn.isDisabled:hover{
-    background: rgba(237, 237, 238) !important;
-    box-shadow: none;
-    cursor: not-allowed;
-  }
+  // &.primaryBtn.isDisabled:hover{
+  //   background: rgba(237, 237, 238) !important;
+  //   box-shadow: none;
+  //   cursor: not-allowed;
+  // }
 
-  &.isDisabled, &.isReadOnly:hover{
-    background: rgba(237, 237, 238) !important;
-    box-shadow: none;
-    cursor: not-allowed;
-  }
+  // &.isDisabled, &.isReadOnly:hover{
+  //   background: rgba(237, 237, 238) !important;
+  //   box-shadow: none;
+  //   cursor: not-allowed;
+  // }
 
   &.isBusy {
     cursor: wait;
