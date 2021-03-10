@@ -24,6 +24,9 @@ import Endpoints from '@polkadot/react-components-chainx/Endpoints';
 import Pdotcard from '@polkadot/react-components-chainx/PdotCards/Pdotcard';
 import Card from '@polkadot/react-components-chainx/Card/Card';
 import AccountCard from '@polkadot/react-components-chainx/AccountCard/AccountCard';
+import { Records } from '@polkadot/react-components-chainx/Records';
+
+
 
 
 interface Props {
@@ -69,7 +72,10 @@ function Contents ({ className }: Props): React.ReactElement<Props> {
               iconNode={Lsamurai} 
             /> */}
           </div>
-          <div><Pdotcard noData={true} title='发行 PDOT' isBasic noDataMsg='请先登录 Polkadot 和 PlatON 账户' /></div>
+          <div>
+            {/* <Pdotcard noData={true} title='发行 PDOT' isBasic noDataMsg='请先登录 Polkadot 和 PlatON 账户' /> */}
+            <Pdotcard title='发行 PDOT' isBasic />
+          </div>
         </div>
         <div className="right">
           <Endpoints 
@@ -80,7 +86,7 @@ function Contents ({ className }: Props): React.ReactElement<Props> {
             btnlabel='切换网络' 
           />
           <div className=''>
-            <Pdotcard title='发行记录' isBasic />
+            <Records title='发行记录' />
           </div>
         </div>
       </div>

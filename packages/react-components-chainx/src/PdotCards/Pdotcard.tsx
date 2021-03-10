@@ -6,7 +6,9 @@
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
 import TransferRecords from '../Records/TransferRecords';
+import RedeemRecords from '../Records/RedeemRecords'
 import PdotnoData from './Nodata'
+import TransferCard from './TransferCard';
 
 interface PdotcardProps {
     children?: React.ReactNode;
@@ -26,7 +28,7 @@ function Pdotcard({ children, className = '', title, noData, isBasic, noDataMsg 
       <p className={`${className} ${isBasic ? ' isBasic' : ''}  `}>{title}</p>
       <div className='pdotCon'>
         {
-          noData ? <PdotnoData noDataMsg={noDataMsg} /> : <TransferRecords />
+          noData ? <PdotnoData noDataMsg={noDataMsg} /> : <TransferCard />
         }
       </div>
     </div>
@@ -50,7 +52,17 @@ export default React.memo(styled(Pdotcard)`
     border-bottom: 1px solid #EFEFEF;
   }
   .pdotCon {
-    max-height: 324px;
+    // max-height: 324px;
+    // min-height: 324px;
+    height: 324px;
     overflow-y: auto;
+    &::-webkit-scrollbar {    
+      width: 5px;
+      background: transparent;
+    }
+    &::-webkit-scrollbar-thumb { 
+      background: #6F7C7C;
+      border-radius: 2.5px;
+    }
   }
 `);

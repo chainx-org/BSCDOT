@@ -29,15 +29,18 @@ export default function ({ transfer }: any) {
       onClick={() => setOpen(!open)}
       ref={wrapper}>
       <header>
-        <span className='times'>{moment(new Date(transfer.indexer.blockTime)).format('YYYY/MM/DD hh:mm:ss')}</span>
-        <span className='inout'>{transfer.data[1] === currentAccount? t('In') : t('Out')}</span>
+        <span className='txNum'>交易号 </span>
+        {/* <span>{moment(new Date(transfer.indexer.blockTime)).format('YYYY/MM/DD')}</span> */}
+        {/* <span>{toPrecision(transfer.data[2], 8)}</span> */}
+        <span>{transfer.data[1] === currentAccount? <span className='pending'>进行中</span> : <span className='reslove'>已完成</span>}</span>
       </header>
       <div className='account'>
-        <span className='amount'>{toPrecision(transfer.data[2], 4)} PDOT</span>
+        <span><AccountAdd address={transfer.data[1]} /></span>
         {
-          false ? <img src={Arrow} alt='Arrow' className='arrow' />: ''
+          true ? <img src={Arrow} alt='Arrow' className='arrow' />: ''
         }
-        <span className='address'><AccountAdd address={transfer.data[1]} /></span>
+        {/* <span>{transfer.data[1] === currentAccount? t('In') : t('Out')}</span> */}
+        <span><AccountAdd address={transfer.data[1]} /></span>
       </div>
       {isApiReady && api.rpc.system.properties() && open ? (
         <Detail className='detail'>
@@ -45,10 +48,10 @@ export default function ({ transfer }: any) {
             <Label>交易哈希</Label>
             <Hash hash={transfer.extrinsicHash} />
           </div>
-          {/* <div className='affirm'>
+          <div className='affirm'>
             <Label>多签确认哈希</Label>
             <Address address={transfer.data[1]} />
-          </div> */}
+          </div>
         </Detail>
       ) : null}
     </div>

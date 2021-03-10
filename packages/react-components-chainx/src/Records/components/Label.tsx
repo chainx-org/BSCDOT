@@ -2,11 +2,10 @@
 import styled from 'styled-components';
 
 const Label = styled.span`
-  opacity: 0.32;
-  font-size: 13px;
-  color: #000000;
+  font-size: 12px;
+  color: #6F7C7C;
   letter-spacing: 0.2px;
-  line-height: 18px;
+  line-height: 16px;
 `;
 
 export default Label;

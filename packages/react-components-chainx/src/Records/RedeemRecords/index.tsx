@@ -22,27 +22,29 @@ const Wrapper = styled.div`
       display: flex;
       justify-content: space-between;
       align-items: center;
-      color: #6F7C7C;
     }
     header {
-      margin-bottom: 8px;
-      .times {
+      margin-bottom: 10px;
+      .txNum {
         font-size: 11px;
+        color: #6F7C7C;
       }
-      .inout {
+      .pending, .reslove {
         font-size: 14px;
+        text-align: right;
+      }
+      .pending {
         color: #51ABAD;
       }
-    }
-    .account {
-      .amount {
-        font-size: 14px;
-        font-weight: 500;
-        color: #000;
+      .reslove {
+        color: #444C5E;
       }
-      .address {
-        font-size: 12px;
-        line-height: 16px;
+    }
+
+    .account {
+      .arrow {
+        width: 15px;
+        height: 10px;
       }
     }
   }

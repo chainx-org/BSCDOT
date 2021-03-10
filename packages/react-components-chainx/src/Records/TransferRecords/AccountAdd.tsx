@@ -5,7 +5,7 @@
 import link from '../components/link.svg';
 import linkHighlight from '../components/link-highlight.svg';
 import React, {useEffect, useState} from 'react';
-import LinkWrapper from '../components/LinkWrapper';
+import {LinkWrapper} from '../components/LinkWrapper';
 import {useApi} from '@polkadot/react-hooks';
 
 export default function ({ address = '', length = 5, mainnet = null }) {
@@ -33,16 +33,16 @@ export default function ({ address = '', length = 5, mainnet = null }) {
   }, [])
 
   return (
-    <LinkWrapper href={url} target='_blank'>
+    <LinkWrapper>
       <span title={address}>{result}</span>
-      <img alt='link'
+      {/* <img alt='link'
         className='link'
         src={link} />
       <img
         alt='link-highlight'
         className='link-highlight'
         src={linkHighlight}
-      />
+      /> */}
     </LinkWrapper>
   );
 }

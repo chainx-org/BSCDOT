@@ -10,6 +10,7 @@ import { BitLengthOption } from '@polkadot/react-components/constants';
 import { BN_TEN, formatBalance, isBn } from '@polkadot/util';
 import { Input } from '@polkadot/react-components';
 import { KEYS_PRE } from '@polkadot/react-components/Input';
+// import Input from './Input';
 
 
 interface Props {
@@ -27,6 +28,7 @@ interface Props {
   onChange?: (value?: BN) => void;
   onEnter?: () => void;
   onEscape?: () => void;
+  placeholder?: string;
   value?: any;
   withEllipsis?: boolean;
   withLabel?: boolean;
@@ -46,13 +48,13 @@ function getRegex(isDecimal: boolean): RegExp {
 
   return new RegExp(
     isDecimal
-      ? `^(0|[1-9]\\d*)(\\${decimal}\\d{0,7})?$`
+      ? `^(0|[1-9]\\d*)(\\${decimal}\\d{0,4})?$`
       : '^(0|[1-9]\\d*)$'
   );
 }
 
 
-function InputDex ({ autoFocus, children, className = '', precision, tokenName, isDisabled, isError, isDecimal, isFull, isWarning, isZeroable, maxValue,  maxLength, onChange, onEnter, onEscape, onKeyPress, onKeyDown, onKeyUp, value, withEllipsis, withLabel, withMax }: Props): React.ReactElement<Props> {
+function InputDex ({ autoFocus, children, className = '', precision, tokenName, isDisabled, isError, isDecimal, isFull, isWarning, isZeroable, maxValue,  maxLength, onChange, onEnter, onEscape, onKeyPress, onKeyDown, onKeyUp, placeholder, value, withEllipsis, withLabel, withMax }: Props): React.ReactElement<Props> {
   const [isPreKeyDown, setIsPreKeyDown] = useState(false);
   const _onKeyUp = useCallback(
     (event: React.KeyboardEvent<Element>): void => {
@@ -105,7 +107,7 @@ function InputDex ({ autoFocus, children, className = '', precision, tokenName, 
         withEllipsis={withEllipsis}
         withLabel={withLabel}
         withMax={withMax}
-
+        placeholder={placeholder}
         >
           <span className="flagtitle">{tokenName}</span>
         {children}
@@ -114,7 +116,7 @@ function InputDex ({ autoFocus, children, className = '', precision, tokenName, 
 }
 
 export default React.memo(styled(InputDex)`
-    
+ 
   &&:not(.isSmall) .labelExtra {
     right: 6.5rem;
   }
@@ -125,7 +127,7 @@ export default React.memo(styled(InputDex)`
     display: none;
   }
   &.ui--Labelled {
-    width: 216px;
+    width: 278px;
     color: rgba(0, 0, 0, 0.87);
     border: 1px solid #DCE0E2;
     cursor: text;
@@ -144,15 +146,15 @@ export default React.memo(styled(InputDex)`
       width: 100%;
       .ui--Input {
         margin: 0 !important;
-        padding-left: 8px;
+        padding-left: 16px;
         display: flex;
         align-items: center;
         input {
-          padding: 11px 0 !important;
+          padding: 15px 0 !important;
           border: 0;
         }
         .flagtitle {
-          padding: 0 8px;
+          padding: 0 16px 0 8px;
           color: rgba(0, 0, 0, 0.72);
         }
       }   

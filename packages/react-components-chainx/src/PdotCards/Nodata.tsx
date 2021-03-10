@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
 import NoData from './icons/nodata.svg'
-
+import Logout from './icons/logout.svg'
 
 interface dataProps {
     children?: React.ReactNode;
@@ -15,7 +15,7 @@ function PdotnoData({ children, className = '', noDataMsg, isBasic }: dataProps)
 
     return (
       <div className={`nodata ${className}`}>
-        <img src={NoData}/>
+        <img src={Logout}/>
         <p>{noDataMsg}</p>
       </div>
     );
