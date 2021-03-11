@@ -10,15 +10,10 @@ import { getSystemChainColor } from '@polkadot/apps-config';
 import GlobalStyle from '@polkadot/react-components-chainx/styles';
 import { useApi } from '@polkadot/react-hooks';
 import Signer from '@polkadot/react-signer';
-
 import ConnectingOverlay from './overlays/Connecting';
-import Content from './Content';
-import Menu from './Menu';
 import WarmUp from './WarmUp';
-import NavBar from './NavBar/index'
 import SideBar from './SideBar';
 import Contents from './Contents';
-
 export const PORTAL_ID = 'portals';
 
 function Apps ({ className = '' }: Props): React.ReactElement<Props> {
@@ -34,12 +29,10 @@ function Apps ({ className = '' }: Props): React.ReactElement<Props> {
     <>
       <GlobalStyle uiHighlight={uiHighlight} />
       <div className={`apps--Wrapper theme--${theme} ${className}`}>
-        {/*<Menu />*/}
-        {/* <NavBar/> */}
+
         <SideBar />
         <AccountSidebar>
           <Signer>
-            {/* <Content /> */}
             <Contents />
           </Signer>
           <ConnectingOverlay />

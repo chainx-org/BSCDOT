@@ -42,7 +42,7 @@ export default React.memo(styled(Pdotcard)`
   background: #fff;
   border-radius: 10px;
   border: none;
- 
+
   .isBasic {
     font-size: 20px;
     color: #444C5E;
@@ -56,11 +56,11 @@ export default React.memo(styled(Pdotcard)`
     // min-height: 324px;
     height: 324px;
     overflow-y: auto;
-    &::-webkit-scrollbar {    
+    &::-webkit-scrollbar {
       width: 5px;
       background: transparent;
     }
-    &::-webkit-scrollbar-thumb { 
+    &::-webkit-scrollbar-thumb {
       background: #6F7C7C;
       border-radius: 2.5px;
     }

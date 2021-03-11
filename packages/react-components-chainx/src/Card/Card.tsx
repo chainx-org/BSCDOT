@@ -4,8 +4,6 @@
 
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
-import Icon from '@polkadot/react-components/Icon';
-
 import Button from '../Button/Button';
 
 interface CardProps {
@@ -70,10 +68,10 @@ export default React.memo(styled(Card)`
     background-image: linear-gradient(135deg, #C33379 0%, #ED449D 100%);
     margin-right: 20px;
   }
-  
+
   &.grennCard {
     background-image: linear-gradient(135deg, #428A8B 0%, #58BBBD 100%);
   }
 
- 
+
 `);
