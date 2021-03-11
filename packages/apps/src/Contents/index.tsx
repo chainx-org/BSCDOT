@@ -16,17 +16,13 @@ import styled from 'styled-components';
 import polkadot from './icons/logo_polkadot.svg'
 import Lsamurai from './icons/logo_samurai.svg'
 import Network from './icons/network.svg'
-
 import PolkadotAcc from './icons/polkadot_account.svg'
 import PlantonAcc from './icons/planton_account.svg'
-
 import Endpoints from '@polkadot/react-components-chainx/Endpoints';
 import Pdotcard from '@polkadot/react-components-chainx/PdotCards/Pdotcard';
 import Card from '@polkadot/react-components-chainx/Card/Card';
 import AccountCard from '@polkadot/react-components-chainx/AccountCard/AccountCard';
 import { Records } from '@polkadot/react-components-chainx/Records';
-
-
 
 
 interface Props {
@@ -37,15 +33,13 @@ interface Props {
 function Contents ({ className }: Props): React.ReactElement<Props> {
 //   const { t } = useTranslation();
 
-
-
   return (
     <div className={className}>
-      <div className='wrapper'>
+      <div className='contentWrapper'>
         <h2>欢迎来到 Platdot！</h2>
         <div className='cardListWrapper'>
           <div className='left'>
-            <div className='cardlist'>
+            <div className='cardList'>
               <Card
                 isBasic
                 className='pinkCard'
@@ -104,7 +98,7 @@ export default React.memo(styled(Contents)`
   //  position: relative;
   width: 100%;
 
-  .wrapper {
+  .contentWrapper {
     width: fit-content;
     margin: 0 auto;
   }
@@ -123,7 +117,7 @@ export default React.memo(styled(Contents)`
     .left {
       margin-right: 20px;
 
-      .cardlist {
+      .cardList {
         display: flex;
         padding: 20px 0;
       }
