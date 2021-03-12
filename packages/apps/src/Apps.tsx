@@ -5,7 +5,7 @@ import type { BareProps as Props, ThemeDef, ThemeProps } from '@polkadot/react-c
 
 import React, { useContext, useMemo } from 'react';
 import styled, { ThemeContext } from 'styled-components';
-import AccountSidebar from '@polkadot/app-accounts-chainx/Sidebar';
+// import AccountSidebar from '@polkadot/app-accounts-chainx/Sidebar';
 import { getSystemChainColor } from '@polkadot/apps-config';
 import GlobalStyle from '@polkadot/react-components-chainx/styles';
 import { useApi } from '@polkadot/react-hooks';
@@ -31,13 +31,13 @@ function Apps ({ className = '' }: Props): React.ReactElement<Props> {
       <div className={`apps--Wrapper theme--${theme} ${className}`}>
 
         <SideBar />
-        <AccountSidebar>
+        {/*<AccountSidebar>*/}
           <Signer>
             <Contents />
           </Signer>
           <ConnectingOverlay />
           <div id={PORTAL_ID} />
-        </AccountSidebar>
+        {/*</AccountSidebar>*/}
       </div>
       <WarmUp />
     </>
