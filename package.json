@@ -88,6 +88,7 @@
     "electron-builder": "^22.9.1",
     "electron-builder-notarize": "^1.2.0",
     "i18next-scanner": "^2.11.0",
+    "lerna": "^4.0.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-is": "^17.0.1",
@@ -105,6 +106,7 @@
   "dependencies": {
     "bignumber.js": "^9.0.1",
     "klinecharts": "^5.7.0",
-    "uniqid": "^5.2.0"
+    "uniqid": "^5.2.0",
+    "web3": "PlatONnetwork/client-sdk-js"
   }
 }
