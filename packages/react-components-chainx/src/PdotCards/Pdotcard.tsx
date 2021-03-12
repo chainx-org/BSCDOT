@@ -9,6 +9,7 @@ import TransferRecords from '../Records/TransferRecords';
 import RedeemRecords from '../Records/RedeemRecords'
 import PdotnoData from './Nodata'
 import TransferCard from './TransferCard';
+import { AccountMessage } from "@polkadot/react-components-chainx/AccountMessage/AccountMessage";
 
 interface PdotcardProps {
     children?: React.ReactNode;
@@ -20,7 +21,7 @@ interface PdotcardProps {
 }
 
 
-function Pdotcard({ children, className = '', title, noData, isBasic, noDataMsg }: PdotcardProps): React.ReactElement<PdotcardProps> {
+function Pdotcard({ children, className = '', title="发行 PDOT", noData, isBasic, noDataMsg }: PdotcardProps): React.ReactElement<PdotcardProps> {
 
 
   return (
@@ -30,6 +31,8 @@ function Pdotcard({ children, className = '', title, noData, isBasic, noDataMsg 
         {
           noData ? <PdotnoData noDataMsg={noDataMsg} /> : <TransferCard />
         }
+      {/* <AccountMessage /> */}
+
       </div>
     </div>
   );
