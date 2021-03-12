@@ -12,8 +12,7 @@ import { useApi } from '@polkadot/react-hooks';
 import Signer from '@polkadot/react-signer';
 import ConnectingOverlay from './overlays/Connecting';
 import WarmUp from './WarmUp';
-import SideBar from './SideBar';
-import Contents from './Contents';
+import Contents from '@polkadot/pages';
 export const PORTAL_ID = 'portals';
 
 function Apps ({ className = '' }: Props): React.ReactElement<Props> {
@@ -30,7 +29,7 @@ function Apps ({ className = '' }: Props): React.ReactElement<Props> {
       <GlobalStyle uiHighlight={uiHighlight} />
       <div className={`apps--Wrapper theme--${theme} ${className}`}>
 
-        <SideBar />
+        {/*<SideBar />*/}
         {/*<AccountSidebar>*/}
           <Signer>
             <Contents />

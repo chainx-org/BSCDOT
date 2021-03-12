@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import {NodeItem} from '@polkadot/apps/SideBar/index';
+import { NodeItem } from './index';
 
 interface Props{
   node: NodeItem;

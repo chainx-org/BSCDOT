@@ -12,7 +12,7 @@ import Logo from './icons/logo.svg';
 import Publish from './icons/publish.svg'
 import Redeem from './icons/redeem.svg'
 import Transfer from './icons/transfer.svg'
-import SideItem from '@polkadot/apps/SideBar/SideItem';
+import SideItem from './SideItem';
 
 interface Props {
   className?: string;
