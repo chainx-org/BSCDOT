@@ -3,7 +3,6 @@
 
 // import type { Route } from '@polkadot/apps-routing/types';
 
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import React, { Suspense, useContext, useMemo } from "react";
 // import { useLocation } from 'react-router-dom';
 import styled from "styled-components";
@@ -64,9 +63,10 @@ function Contents({ className }: Props): React.ReactElement<Props> {
           <div>
             {/* <Pdotcard noData={true} title='发行 PDOT' isBasic noDataMsg='请先登录 Polkadot 和 PlatON 账户' /> */}
             {/* <Pdotcard title="发行 PDOT" isBasic /> */}
-            <Route exact path="/" />
+
+            {/* <Route exact path="/" />
             <Route exact path="/redeem" />
-            <Route exact path="/transfer" component={Pdotcard} />
+            <Route exact path="/transfer" component={Pdotcard} /> */}
           </div>
         </div>
 
@@ -80,9 +80,7 @@ function Contents({ className }: Props): React.ReactElement<Props> {
           />
           <div className="">
             {/* <Records title="发行记录" /> */}
-            <Route exact path="/" component={Records} />
-            <Route exact path="/redeem" />
-            <Route exact path="/transfer" />
+            
           </div>
         </div>
       </div>

@@ -5,20 +5,14 @@ import type { BareProps as Props, ThemeDef, ThemeProps } from '@polkadot/react-c
 
 import React, { useContext, useMemo } from 'react';
 import styled, { ThemeContext } from 'styled-components';
-import AccountSidebar from '@polkadot/app-accounts-chainx/Sidebar';
+// import AccountSidebar from '@polkadot/app-accounts-chainx/Sidebar';
 import { getSystemChainColor } from '@polkadot/apps-config';
 import GlobalStyle from '@polkadot/react-components-chainx/styles';
 import { useApi } from '@polkadot/react-hooks';
 import Signer from '@polkadot/react-signer';
-
 import ConnectingOverlay from './overlays/Connecting';
-import Content from './Content';
-import Menu from './Menu';
 import WarmUp from './WarmUp';
-import NavBar from './NavBar/index'
-import SideBar from './SideBar';
-import Contents from './Contents';
-
+import Contents from '@polkadot/pages';
 export const PORTAL_ID = 'portals';
 
 function Apps ({ className = '' }: Props): React.ReactElement<Props> {
@@ -34,17 +28,15 @@ function Apps ({ className = '' }: Props): React.ReactElement<Props> {
     <>
       <GlobalStyle uiHighlight={uiHighlight} />
       <div className={`apps--Wrapper theme--${theme} ${className}`}>
-        {/*<Menu />*/}
-        {/* <NavBar/> */}
-        <SideBar />
-        <AccountSidebar>
+
+        {/*<SideBar />*/}
+        {/*<AccountSidebar>*/}
           <Signer>
-            {/* <Content /> */}
             <Contents />
           </Signer>
           <ConnectingOverlay />
           <div id={PORTAL_ID} />
-        </AccountSidebar>
+        {/*</AccountSidebar>*/}
       </div>
       <WarmUp />
     </>

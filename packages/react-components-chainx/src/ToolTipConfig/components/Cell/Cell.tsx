@@ -8,6 +8,11 @@ const Cells = React.memo(styled.section`
   background: rgba(255, 255, 255, 0.96);
   width: 100%;
   border: 1px solid #efefef;
+  .isBasic {
+    width: 100%;
+    border: 1px solid #efefef;
+  }
+
   .left {
     width: 32px;
     height: 32px;
@@ -58,14 +63,22 @@ interface CellProps {
   content?: string;
   isSelected?: boolean;
   setValue?: any;
+  className?: string;
 }
 
-export function Cell({ iconUrl, title, content, isSelected, setValue }: CellProps): React.ReactElement<CellProps> {
+export function Cell({
+  className = "",
+  iconUrl,
+  title,
+  content,
+  isSelected,
+  setValue
+}: CellProps): React.ReactElement<CellProps> {
   let handleOnClick = () => {
     setValue(title);
   };
   return (
-    <Cells>
+    <Cells className={`${className} isBasic  `}>
       {iconUrl ? (
         <div className="left">
           <img src={iconUrl} />
