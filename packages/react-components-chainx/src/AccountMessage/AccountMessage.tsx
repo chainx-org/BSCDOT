@@ -84,7 +84,7 @@ export function AccountMessage({ iconUrl, content }: AccountMessageProps): React
         
         {
           list.map((item:any) =>
-            <Cell>
+            <Cell key = {item.content}>
             <img src={item.iconUrl} />
             <div className="content">{item.content}</div>
           </Cell>)

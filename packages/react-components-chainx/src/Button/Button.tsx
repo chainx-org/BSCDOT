@@ -150,7 +150,12 @@ export default React.memo(styled(Button)(({ theme }: ThemeProps) => `
   &.isConfirm {
     width: 212px;
     height: 52px;
+    margin: 0 auto;
     background: #51ABAD;
 border-radius: 10px;
+font-family: PingFangSC-Semibold;
+font-size: 16px;
+color: #FFFFFF;
+text-align: center;
   }
 `));

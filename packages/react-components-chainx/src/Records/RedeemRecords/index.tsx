@@ -61,7 +61,8 @@ export default function (): React.ReactElement {
   const [loading, setLoading] = useState(true);
   const mounted = useIsMounted();
   const { currentAccount } = useContext(AccountContext);
-  const transfers = useTransfer(currentAccount);
+  // const transfers = useTransfer(currentAccount);
+  const transfers = [];
 
   useEffect(() => {
     setLoading(true);

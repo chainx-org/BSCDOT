@@ -1,46 +1,54 @@
 // Copyright 2017-2020 @polkadot/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-
-
-import React, { useCallback } from 'react';
-import styled from 'styled-components';
-import TransferRecords from '../Records/TransferRecords';
-import RedeemRecords from '../Records/RedeemRecords'
-import PdotnoData from './Nodata'
-import TransferCard from './TransferCard';
-
-import { AccountMessage } from "@polkadot/react-components-chainx/AccountMessage/AccountMessage";
+import React, { useCallback } from "react";
+import styled from "styled-components";
+import TransferRecords from "../Records/TransferRecords";
+import RedeemRecords from "../Records/RedeemRecords";
+import PdotnoData from "./Nodata";
+import PublishCard from "./PublishCard";
+import RedeemCard from "./RedeemCard";
+import TransferCard from "./TransferCard";
+import { Route } from "react-router-dom";
 
 interface PdotcardProps {
-    children?: React.ReactNode;
-    className?: string;
-    title?: string;
-    isBasic?: boolean;
-    noData?: boolean;
-    noDataMsg?: string;
+  children?: React.ReactNode;
+  className?: string;
+  title?: string;
+  isBasic?: boolean;
+  noData?: boolean;
+  noDataMsg?: string;
+  component?: string;
 }
 
-
-function Pdotcard({ children, className = '', title="发行 PDOT", noData, isBasic, noDataMsg }: PdotcardProps): React.ReactElement<PdotcardProps> {
-
-
+function Pdotcard({
+  component,
+  children,
+  className = "",
+  title = "发行 PDOT",
+  noData,
+  isBasic,
+  noDataMsg
+}: PdotcardProps): React.ReactElement<PdotcardProps> {
   return (
     <div className={`ui-card ${className}`}>
-      <p className={`${className} ${isBasic ? ' isBasic' : ''}  `}>{title}</p>
-      <div className='pdotCon'>
-        {
-          noData ? <PdotnoData noDataMsg={noDataMsg} /> : <TransferCard />
-        }
-      {/* <AccountMessage /> */}
-
+      <p className={`${className} ${isBasic ? " isBasic" : ""}  `}>{title}</p>
+      <div className="pdotCon">
+        {noData ? (
+          <PdotnoData noDataMsg={noDataMsg} />
+        ) : component === "PublishCard" ? (
+          <PublishCard />
+        ) : component === "RedeemCard" ? (
+          <RedeemCard />
+        ) : component === "TransferCard" ? (
+          <TransferCard />
+        ) : null}
       </div>
     </div>
   );
 }
 
 export default React.memo(styled(Pdotcard)`
-
   display: flex;
   flex-direction: column;
   background: #fff;
@@ -49,11 +57,11 @@ export default React.memo(styled(Pdotcard)`
 
   .isBasic {
     font-size: 20px;
-    color: #444C5E;
+    color: #444c5e;
     padding: 15px 20px;
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
-    border-bottom: 1px solid #EFEFEF;
+    border-bottom: 1px solid #efefef;
   }
   .pdotCon {
     // max-height: 324px;
@@ -65,7 +73,7 @@ export default React.memo(styled(Pdotcard)`
       background: transparent;
     }
     &::-webkit-scrollbar-thumb {
-      background: #6F7C7C;
+      background: #6f7c7c;
       border-radius: 2.5px;
     }
   }

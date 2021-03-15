@@ -71,11 +71,14 @@ function Contents({ className }: Props): React.ReactElement<Props> {
             <div>
               {/* <Pdotcard noData={true} title='发行 PDOT' isBasic noDataMsg='请先登录 Polkadot 和 PlatON 账户' /> */}
 
-              <Route exact path="/"></Route>
+              <Route exact path="/">
+              <Pdotcard title="发行 PDOT" component="PublishCard" isBasic />
+              </Route>
               <Route exact path="/redeem">
+              <Pdotcard title="赎回 PDOT" component="RedeemCard" isBasic />
               </Route>
               <Route exact path="/transfer">
-                <Pdotcard title="PDOT 转账" isBasic />
+                <Pdotcard title="PDOT 转账" component="TransferCard" isBasic />
               </Route>
             </div>
           </div>
@@ -100,7 +103,6 @@ function Contents({ className }: Props): React.ReactElement<Props> {
               </Route>
             </div>
             {/* <ToolTipConfig /> */}
-            {/* <Button className="isConfirm">123</Button> */}
           </div>
           
         </div>
