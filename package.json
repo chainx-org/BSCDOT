@@ -105,8 +105,9 @@
   },
   "dependencies": {
     "bignumber.js": "^9.0.1",
+    "ethers": "^5.0.32",
     "klinecharts": "^5.7.0",
     "uniqid": "^5.2.0",
-    "web3": "PlatONnetwork/client-sdk-js"
+    "web3": "github:PlatONnetwork/client-sdk-js#alaya-dev"
   }
 }
