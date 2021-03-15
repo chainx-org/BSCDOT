@@ -1,19 +1,20 @@
 // Copyright 2017-2020 @polkadot/apps authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import React  from 'react';
+import React, { useEffect, useState } from "react";
 
 // import { useTranslation } from '../translate';
 
-import styled from 'styled-components';
+// import { Link } from "react-router-dom";
+// import { Router, Route, Link } from 'react-router'
+import styled from "styled-components";
 
 
-import Logo from './icons/logo.svg';
-import Publish from './icons/publish.svg'
-import Redeem from './icons/redeem.svg'
-import Transfer from './icons/transfer.svg'
+import Logo from "./icons/logo.svg";
+import Publish from "./icons/publish.svg";
+import Redeem from "./icons/redeem.svg";
+import Transfer from "./icons/transfer.svg";
 import SideItem from './SideItem';
-
 interface Props {
   className?: string;
 }
@@ -35,7 +36,7 @@ const Wrapper = styled.div`
   //   display: none;
   // }
   .wrappers {
-    margin:0 56px 0 52px;
+    margin: 0 56px 0 52px;
     .navLists {
       padding-top: 30px;
       .navItem {
@@ -46,7 +47,7 @@ const Wrapper = styled.div`
           padding: 15px 0;
           span {
             padding-left: 16px;
-            color: #6F7C7C;
+            color: #6f7c7c;
           }
         }
 
@@ -63,9 +64,9 @@ const Wrapper = styled.div`
       }
     }
   }
-`
+`;
 
-function Sidebars ({ className = '' }: Props): React.ReactElement<Props> {
+function Sidebars({ className = "" }: Props): React.ReactElement<Props> {
   // const { t } = useTranslation();
 
   const nodeList: NodeItem[] = ([
@@ -77,11 +78,9 @@ function Sidebars ({ className = '' }: Props): React.ReactElement<Props> {
 
 
   return (
-    <Wrapper
-      className=""
-    >
+    <Wrapper className="">
       <div className="wrappers">
-        <img src={Logo} alt='logo' />
+        <img src={Logo} alt="logo" />
         <ul className="navLists">
           {
             nodeList.map((node: NodeItem, index: number) =>
@@ -94,4 +93,4 @@ function Sidebars ({ className = '' }: Props): React.ReactElement<Props> {
   );
 }
 
-export default Sidebars
+export default Sidebars;

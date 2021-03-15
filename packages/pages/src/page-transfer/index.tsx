@@ -1,49 +1,50 @@
 // Copyright 2017-2020 @polkadot/apps authors & contributors
 // SPDX-License-Identifier: Apache-2.0
-
+import { ToolTipConfig } from '@polkadot/react-components-chainx/ToolTipConfig/ToolTipConfig';
+import Button from '@polkadot/react-components-chainx/Button';
 // import type { Route } from '@polkadot/apps-routing/types';
+import { Route } from "react-router-dom";
 
-import React from 'react';
+import React from "react";
 // import { useLocation } from 'react-router-dom';
-import styled from 'styled-components';
+import styled from "styled-components";
 // import createRoutes from '@polkadot/apps-routing';
 // import { ErrorBoundary, Spinner, StatusContext } from '@polkadot/react-components';
 // import { useApi } from '@polkadot/react-hooks';
 
 // import { findMissingApis } from '../endpoint';
 // import { useTranslation } from '../translate';
+import Lpolkadot from "./icons/logo_polkadot.svg";
+import Lsamurai from "./icons/logo_samurai.svg";
+import Network from "./icons/network.svg";
 
-import polkadot from './icons/logo_polkadot.svg'
-import Lsamurai from './icons/logo_samurai.svg'
-import Network from './icons/network.svg'
-import PolkadotAcc from './icons/polkadot_account.svg'
-import PlantonAcc from './icons/planton_account.svg'
-import Endpoints from '@polkadot/react-components-chainx/Endpoints';
-import Pdotcard from '@polkadot/react-components-chainx/PdotCards/Pdotcard';
-import Card from '@polkadot/react-components-chainx/Card/Card';
-import AccountCard from '@polkadot/react-components-chainx/AccountCard/AccountCard';
-import { Records } from '@polkadot/react-components-chainx/Records';
-
+import polkadot from "./icons/logo_polkadot.svg";
+import PolkadotAcc from "./icons/polkadot_account.svg";
+import PlantonAcc from "./icons/planton_account.svg";
+import Endpoints from "@polkadot/react-components-chainx/Endpoints";
+import Pdotcard from "@polkadot/react-components-chainx/PdotCards/Pdotcard";
+import Card from "@polkadot/react-components-chainx/Card/Card";
+import AccountCard from "@polkadot/react-components-chainx/AccountCard/AccountCard";
+import { Records } from "@polkadot/react-components-chainx/Records";
 
 interface Props {
   className?: string;
 }
 
-
-function Contents ({ className }: Props): React.ReactElement<Props> {
-//   const { t } = useTranslation();
+function Contents({ className }: Props): React.ReactElement<Props> {
+  //   const { t } = useTranslation();
 
   return (
     <div className={className}>
-      <div className='contentWrapper'>
+      <div className="contentWrapper">
         <h2>欢迎来到 Platdot！</h2>
-        <div className='cardListWrapper'>
-          <div className='left'>
-            <div className='cardList'>
+        <div className="cardListWrapper">
+          <div className="left">
+            <div className="cardList">
               <Card
                 isBasic
-                className='pinkCard'
-                label='使用 Polkadot{.js} 插件登录 Polkadot 账户'
+                className="pinkCard"
+                label="使用 Polkadot{.js} 插件登录 Polkadot 账户"
                 iconNode={polkadot}
               />
               {/* <AccountCard
@@ -54,10 +55,10 @@ function Contents ({ className }: Props): React.ReactElement<Props> {
               iconNode={PolkadotAcc}
             /> */}
               <AccountCard
-                className='grennCard'
-                accountName='PlatON 账户'
-                accountAdress='atpPUMLYobYiBjPuRCnNd9xZcEAjzXYM5Vjweaa327YwD8FA'
-                accountAmount='99999.0000'
+                className="grennCard"
+                accountName="PlatON 账户"
+                accountAdress="atpPUMLYobYiBjPuRCnNd9xZcEAjzXYM5Vjweaa327YwD8FA"
+                accountAmount="99999.0000"
                 iconNode={PlantonAcc}
               />
               {/* <Card
@@ -69,24 +70,41 @@ function Contents ({ className }: Props): React.ReactElement<Props> {
             </div>
             <div>
               {/* <Pdotcard noData={true} title='发行 PDOT' isBasic noDataMsg='请先登录 Polkadot 和 PlatON 账户' /> */}
-              <Pdotcard title='发行 PDOT' isBasic />
+
+              <Route exact path="/"></Route>
+              <Route exact path="/redeem">
+              </Route>
+              <Route exact path="/transfer">
+                <Pdotcard title="PDOT 转账" isBasic />
+              </Route>
             </div>
           </div>
           <div className="right">
             <Endpoints
-              className='blueCard'
+              className="blueCard"
               iconNode={Network}
-              title='当前网络'
-              content='PlatON 网络'
-              btnlabel='切换网络'
+              title="当前网络"
+              content="PlatON 网络"
+              btnlabel="切换网络"
             />
-            <div className=''>
-              <Records title='发行记录' />
+            <div className="">
+              {/* <Records title="发行记录" /> */}
+              <Route exact path="/">
+                <Records title="发行记录" />
+              </Route>
+              <Route exact path="/redeem">
+              <Records title="赎回记录" />
+              </Route>
+              <Route exact path="/transfer">
+              <Records title="转账记录" />
+              </Route>
             </div>
+            {/* <ToolTipConfig /> */}
+            {/* <Button className="isConfirm">123</Button> */}
           </div>
+          
         </div>
       </div>
-
     </div>
   );
 }
@@ -103,16 +121,15 @@ export default React.memo(styled(Contents)`
     margin: 0 auto;
   }
 
-  h2 {
+  h2 {k
     font-size: 32px;
     font-weight: bold;
-    color: #444C5E;
+    color: #444c5e;
     line-height: 48px;
   }
   .cardListWrapper {
     display: inline-flex;
     width: 100%;
-
 
     .left {
       margin-right: 20px;
@@ -138,5 +155,4 @@ export default React.memo(styled(Contents)`
   //     min-height: 636px;
   //   }
   // }
-
 `);

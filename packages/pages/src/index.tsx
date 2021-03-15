@@ -6,7 +6,6 @@ function Contents(): React.ReactElement {
     <>
       <Sidebar/>
       <Content/>
-
     </>
   )
 }

@@ -50,6 +50,8 @@ export default React.memo(styled(Button)(({ theme }: ThemeProps) => `
   text-align: center;
   background: transparent;
   border: none;
+//   background: #51ABAD;
+// border-radius: 10px;
 
   // &:hover{
   //   background: transparent;
@@ -144,5 +146,11 @@ export default React.memo(styled(Button)(({ theme }: ThemeProps) => `
 
   &.isDisabled {
     color: #bcbbba;
+  }
+  &.isConfirm {
+    width: 212px;
+    height: 52px;
+    background: #51ABAD;
+border-radius: 10px;
   }
 `));
