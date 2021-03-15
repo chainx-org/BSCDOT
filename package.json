@@ -108,6 +108,6 @@
     "ethers": "^5.0.32",
     "klinecharts": "^5.7.0",
     "uniqid": "^5.2.0",
-    "web3": "github:PlatONnetwork/client-sdk-js#alaya-dev"
+    "web3": "git+https://github.com/PlatONnetwork/client-sdk-js#alaya-dev"
   }
 }
