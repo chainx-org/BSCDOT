@@ -1,13 +1,14 @@
 // Copyright 2017-2020 @polkadot/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import styled from 'styled-components';
 import Icon from '@polkadot/react-components/Icon';
 
 import SelectMore from './icons/selectMore.svg'
 
 import Button from '../Button/Button';
+import { ToolTipConfig } from '../ToolTipConfig/ToolTipConfig';
 
 interface AccountCardProps {
   children?: React.ReactNode;
@@ -22,7 +23,10 @@ interface AccountCardProps {
 
 function AccountCard({ children, className = '', isBasic, accountName, accountAdress, accountAmount, iconNode, onClick }: AccountCardProps): React.ReactElement<AccountCardProps> {
   
+  const [isAccountListOpen, setIsAccountListOpen] = useState<boolean>(false);
 
+  const _toggleAccountList = (): void => setIsAccountListOpen(!isAccountListOpen);
+  
   return (
     <div
       className={`ui-accountCard ${className} ${isBasic ? ' isBasic' : ''}  `}
@@ -31,10 +35,14 @@ function AccountCard({ children, className = '', isBasic, accountName, accountAd
       <div className={`ui-accountAmount  accountItem`} >
         <div className='accountName'>
           <span >{accountName}</span>
+          {isAccountListOpen && (
+            <ToolTipConfig />
+          )}    
           <Button
             className='ui--Account'
             // isBasic={true}
             icon={SelectMore}
+            onClick={_toggleAccountList}
           />
         </div>
         <div className='address'>{accountAdress}</div>
