@@ -91,7 +91,7 @@ function InputAutoLength({
         {children}
       </div>
 
-      <span contentEditable="false" className="flagtitle">
+      <span className="flagtitle">
         {tokenName}
       </span>
     </Wrapper>

@@ -55,8 +55,7 @@ const Cell = React.memo(styled.section`
 `);
 
 interface AccountMessageProps {
-  iconUrl?: string;
-  content?: string;
+  isReverse?: boolean;
 }
 const list: any = [
   {
@@ -69,7 +68,7 @@ const list: any = [
   }
 ];
 
-export function AccountMessage({ iconUrl, content }: AccountMessageProps): React.ReactElement<AccountMessageProps> {
+export function AccountMessage({ isReverse = false }: AccountMessageProps): React.ReactElement<AccountMessageProps> {
   return (
     <Messages>
       <div className="middle-icon">
@@ -81,14 +80,26 @@ export function AccountMessage({ iconUrl, content }: AccountMessageProps): React
         </svg>
       </div>
       <div className="cells">
-        
-        {
-          list.map((item:any) =>
-            <Cell key = {item.content}>
-            <img src={item.iconUrl} />
-            <div className="content">{item.content}</div>
-          </Cell>)
-        }
+        {isReverse ? (
+          <>
+            {list.reverse().map((item: any) => (
+              <Cell key={item.content}>
+                <img src={item.iconUrl} />
+                <div className="content">{item.content}</div>
+              </Cell>
+            ))}
+          </>
+        ) : (
+          <>
+          {list.map((item: any) => (
+              <Cell key={item.content}>
+                <img src={item.iconUrl} />
+                <div className="content">{item.content}</div>
+              </Cell>
+            ))}
+            
+          </>
+        )}
       </div>
     </Messages>
   );

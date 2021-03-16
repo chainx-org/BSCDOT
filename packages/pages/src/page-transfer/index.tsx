@@ -37,7 +37,7 @@ export default function TransferContent({ className }: Props): React.ReactElemen
 
   return (
     // <div className={className}>
-    <Wrapper className="contentWrapper `${className}`">
+    <Wrapper className={`contentWrapper ${className}`}>
       <Pdotcard className="left" title="PDOT 转账" component="TransferCard" isBasic />
       <Records className="right" title="转账记录" />
     </Wrapper>
@@ -48,8 +48,8 @@ export default function TransferContent({ className }: Props): React.ReactElemen
 const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 2.5rem 7rem 2.5rem 3rem;
-  width: 98%;
+  padding: 0rem 7rem 2.5rem 3rem;
+  width: 97.5%;
   padding-right: 50px;
   .left{
     width: 636px;
