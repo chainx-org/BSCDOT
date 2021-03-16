@@ -5,7 +5,7 @@ import Button from '@polkadot/react-components-chainx/Button';
 // import type { Route } from '@polkadot/apps-routing/types';
 import { Route } from "react-router-dom";
 
-import React from "react";
+import React, { useContext, useEffect } from "react";
 // import { useLocation } from 'react-router-dom';
 import styled from "styled-components";
 // import createRoutes from '@polkadot/apps-routing';
@@ -27,12 +27,26 @@ import Card from "@polkadot/react-components-chainx/Card/Card";
 import AccountCard from "@polkadot/react-components-chainx/AccountCard/AccountCard";
 import { Records } from "@polkadot/react-components-chainx/Records";
 
+import {DeriveBalancesAll} from '@polkadot/api-derive/types';
+import { useAccountInfo, useApi, useCall } from '@polkadot/react-hooks';
+import { api } from '@polkadot/react-api';
+import { web3AccountsSubscribe, web3Enable, web3FromAddress } from '@polkadot/extension-dapp';
+import { useAllAccounts } from '@polkadot/react-hooks-chainx/useAllAccounts';
+import { useLocalStorage } from '@polkadot/react-hooks-chainx';
+import { AccountContext } from '@polkadot/react-components-chainx/AccountProvider';
+
 interface Props {
   className?: string;
 }
 
 function Contents({ className }: Props): React.ReactElement<Props> {
   //   const { t } = useTranslation();
+  const { api, isApiReady } = useApi();
+  const { accountAddress, hasAccounts, allAccounts} = useAllAccounts()
+  console.log('all',accountAddress,allAccounts,hasAccounts)
+
+  // const allBalances = useCall<DeriveBalancesAll>(isApiReady && api.derive.balances.all, [currentAccount]);
+  // console.log('allBalances',JSON.stringify(allBalances) ) 
 
   return (
     <div className={className}>
@@ -41,19 +55,24 @@ function Contents({ className }: Props): React.ReactElement<Props> {
         <div className="cardListWrapper">
           <div className="left">
             <div className="cardList">
-              <Card
-                isBasic
-                className="pinkCard"
-                label="使用 Polkadot{.js} 插件登录 Polkadot 账户"
-                iconNode={polkadot}
-              />
-              {/* <AccountCard
-              className='pinkCard'
-              accountName='Merrile Burgett'
-              accountAdress='12BPUMLYobYiBjPuRCnNd9xZcEAjzXYM5Vjweaa327YwD8FA'
-              accountAmount='99999.0000'
-              iconNode={PolkadotAcc}
-            /> */}
+              <>
+                {
+                  hasAccounts ?  
+                  <AccountCard
+                    className='pinkCard'
+                    accountName='Merrile Burgett'
+                    accountAdress='12BPUMLYobYiBjPuRCnNd9xZcEAjzXYM5Vjweaa327YwD8FA'
+                    accountAmount='99999.0000'
+                    iconNode={PolkadotAcc}
+                  />:
+                  <Card
+                    isBasic
+                    className="pinkCard"
+                    label="使用 Polkadot{.js} 插件登录 Polkadot 账户"
+                    iconNode={polkadot}
+                  />
+                }
+              </>
               <AccountCard
                 className="grennCard"
                 accountName="PlatON 账户"
