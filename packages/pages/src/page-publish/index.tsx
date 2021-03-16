@@ -13,24 +13,32 @@ import styled from "styled-components";
 // import { useTranslation } from '../translate';
 import Pdotcard from "@polkadot/react-components-chainx/PdotCards/Pdotcard";
 import { Records } from "@polkadot/react-components-chainx/Records";
+import { ToolTipConfig } from "@polkadot/react-components-chainx/ToolTipConfig/ToolTipConfig";
 
 interface Props {
   className?: string;
 }
 
-function TransferContent({ className }: Props): React.ReactElement<Props> {
+export default function PublicContent({ className }: Props): React.ReactElement<Props> {
   //   const { t } = useTranslation();
-
   return (
     // <div className={className}>
-    <div className="contentWrapper `${className}`">
-      <Pdotcard className="left" title="PDOT 转账" component="TransferCard" isBasic />
-      <Records className="right" title="转账记录" />
-    </div>
+    <Wrapper className="contentWrapper `${className}`">
+      <Pdotcard className="left" title="发行 PDOT" component="PublishCard" isBasic />
+      <Records className="right" title="发行记录" />
+      {/* <ToolTipConfig /> */}
+    </Wrapper>
     // </div>
   );
 }
 
-export default React.memo(styled(TransferContent)`
-  
-`);
+const Wrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding: 2.5rem 7rem 2.5rem 3rem;
+  width: 98%;
+  padding-right: 50px;
+  .right{
+    width: 308px;
+  }
+`;

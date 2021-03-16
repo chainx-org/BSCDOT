@@ -13,6 +13,8 @@ import Signer from '@polkadot/react-signer';
 import ConnectingOverlay from './overlays/Connecting';
 import WarmUp from './WarmUp';
 import Contents from '@polkadot/pages';
+import Sidebars from '@polkadot/pages/components/SideBar';
+import Header from '@polkadot/pages/components/Header';
 export const PORTAL_ID = 'portals';
 
 function Apps ({ className = '' }: Props): React.ReactElement<Props> {
@@ -28,15 +30,15 @@ function Apps ({ className = '' }: Props): React.ReactElement<Props> {
     <>
       <GlobalStyle uiHighlight={uiHighlight} />
       <div className={`apps--Wrapper theme--${theme} ${className}`}>
-
-        {/*<SideBar />*/}
-        {/*<AccountSidebar>*/}
           <Signer>
+            <Sidebars />
+            <div className="main">
+            <Header />
             <Contents />
+            </div>
           </Signer>
           <ConnectingOverlay />
           <div id={PORTAL_ID} />
-        {/*</AccountSidebar>*/}
       </div>
       <WarmUp />
     </>
@@ -47,6 +49,11 @@ export default React.memo(styled(Apps)(({ theme }: ThemeProps) => `
   background: ${theme.bgPage};
   box-sizing: border-box;
   display: flex;
+  justify-content: space-between;
+  box-sizing: border-box;
   // flex-direction: column;
   min-height: 100vh;
+  .main{
+    display: block;
+  }
 `));

@@ -11,26 +11,35 @@ import styled from "styled-components";
 
 // import { findMissingApis } from '../endpoint';
 // import { useTranslation } from '../translate';
+import Lpolkadot from "./icons/logo_polkadot.svg";
+import Lsamurai from "./icons/logo_samurai.svg";
+import Network from "./icons/network.svg";
+
+import polkadot from "./icons/logo_polkadot.svg";
+import PolkadotAcc from "./icons/polkadot_account.svg";
+import PlantonAcc from "./icons/planton_account.svg";
+import Endpoints from "@polkadot/react-components-chainx/Endpoints";
 import Pdotcard from "@polkadot/react-components-chainx/PdotCards/Pdotcard";
+import Card from "@polkadot/react-components-chainx/Card/Card";
+import AccountCard from "@polkadot/react-components-chainx/AccountCard/AccountCard";
 import { Records } from "@polkadot/react-components-chainx/Records";
 
 interface Props {
   className?: string;
 }
 
-function TransferContent({ className }: Props): React.ReactElement<Props> {
+function RedeemContent({ className }: Props): React.ReactElement<Props> {
   //   const { t } = useTranslation();
-
   return (
     // <div className={className}>
-    <div className="contentWrapper `${className}`">
-      <Pdotcard className="left" title="PDOT 转账" component="TransferCard" isBasic />
-      <Records className="right" title="转账记录" />
-    </div>
+      <div className="contentWrapper `${className}`">
+        <Pdotcard className = "left" title="赎回 PDOT" component="RedeemCard" isBasic />
+        <Records className = "right" title="赎回记录" />
+      </div>
     // </div>
   );
 }
 
-export default React.memo(styled(TransferContent)`
+export default React.memo(styled(RedeemContent)`
   
 `);

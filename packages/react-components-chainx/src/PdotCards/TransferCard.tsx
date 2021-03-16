@@ -4,6 +4,7 @@ import React, { useCallback } from 'react';
 import styled from 'styled-components';
 import Input from '../Input';
 import InputDex from '../InputDex';
+import Button from "@polkadot/react-components-chainx/Button";
 
 interface PdotcardProps {
     children?: React.ReactNode;
@@ -24,7 +25,7 @@ function TransferCard({ children, className = '',title, amount, isBasic }: Pdotc
       <InputDex className='bgcolor' tokenName={'PDOT'}  placeholder='输入 PDOT 数量' />
       <p className={`addressTit  `}>接收地址</p>
       <Input className='bgcolor iptAddress' placeholder='输入 Platon 目标账户地址' />
-      
+      <Button className="isConfirm">确定转账</Button>
     </div>
   );
 }
