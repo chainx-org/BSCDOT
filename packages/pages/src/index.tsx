@@ -7,6 +7,11 @@ import {useApi} from '@polkadot/react-hooks';
 import { web3Accounts, web3Enable, web3FromAddress } from '@polkadot/extension-dapp';
 import { InjectedAccountWithMeta } from '@polkadot/extension-inject/types';
 
+import { HashRouter, Route } from "react-router-dom";
+import PublicContent from "./page-publish";
+import RedeemContent from "./page-redeem";
+import TransferContent from "./page-transfer";
+
 function Contents(): React.ReactElement {
   const { api, isApiReady } = useApi()
   const [active, setActive] = useState<InjectedAccountWithMeta | null>(null);
@@ -78,24 +83,30 @@ function Contents(): React.ReactElement {
 
   return (
     <>
-      {isApiReady && <TxButton
-        accountId={'12zvGUa4jtTMdVHoxfJ6zbY72PhrFw1peVs1tJ8MNNMepDxD'}
-        icon='plus'
-        label={'发行'}
-        params={ [[
-          api.tx.balances.transferKeepAlive('123mq9dK8GaErgAoMJqiBxx7cbLwiu4u7hzNmtVC3qEjjNRA', 1000),
-          api.tx.system.remark('atx1j4ncnc4ajm8ut0nvg2n34uedtz3kuecmsdf7qd')
-        ]]}
-        // isDisabled={withdrawalDisabled}
-        tx='utility.batch'
-        // onSuccess={() => {
-        //   setN(Math.random());
-        //   toggleWithDrawButton();
-        // }}
-      />}
+      {/*{isApiReady && <TxButton*/}
+      {/*  accountId={'12zvGUa4jtTMdVHoxfJ6zbY72PhrFw1peVs1tJ8MNNMepDxD'}*/}
+      {/*  icon='plus'*/}
+      {/*  label={'发行'}*/}
+      {/*  params={ [[*/}
+      {/*    api.tx.balances.transferKeepAlive('123mq9dK8GaErgAoMJqiBxx7cbLwiu4u7hzNmtVC3qEjjNRA', 1000),*/}
+      {/*    api.tx.system.remark('atx1j4ncnc4ajm8ut0nvg2n34uedtz3kuecmsdf7qd')*/}
+      {/*  ]]}*/}
+      {/*  // isDisabled={withdrawalDisabled}*/}
+      {/*  tx='utility.batch'*/}
+      {/*  // onSuccess={() => {*/}
+      {/*  //   setN(Math.random());*/}
+      {/*  //   toggleWithDrawButton();*/}
+      {/*  // }}*/}
+      {/*/>}*/}
       <Sidebar/>
       <Content/>
+    <HashRouter>
+      <Route path="/" exact component={PublicContent} />
+      <Route path="/redeem" component={RedeemContent} />
+      <Route path="/transfer" component={TransferContent} />
+    </HashRouter>
     </>
+
   );
 }
 

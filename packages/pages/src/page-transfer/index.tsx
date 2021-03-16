@@ -4,7 +4,8 @@ import {ToolTipConfig} from '@polkadot/react-components-chainx/ToolTipConfig/Too
 import Button from '@polkadot/react-components-chainx/Button';
 // import type { Route } from '@polkadot/apps-routing/types';
 import {Route} from 'react-router-dom';
-import React, { useContext, useEffect } from "react";
+
+import React, {useContext, useEffect} from 'react';
 // import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 // import createRoutes from '@polkadot/apps-routing';
@@ -27,22 +28,22 @@ import AccountCard from '@polkadot/react-components-chainx/AccountCard/AccountCa
 import {Records} from '@polkadot/react-components-chainx/Records';
 
 import {DeriveBalancesAll} from '@polkadot/api-derive/types';
-import { useAccountInfo, useApi, useCall } from '@polkadot/react-hooks';
-import { api } from '@polkadot/react-api';
-import { web3AccountsSubscribe, web3Enable, web3FromAddress } from '@polkadot/extension-dapp';
-import { useAllAccounts } from '@polkadot/react-hooks-chainx/useAllAccounts';
-import { useLocalStorage } from '@polkadot/react-hooks-chainx';
-import { AccountContext } from '@polkadot/react-components-chainx/AccountProvider';
+import {useAccountInfo, useApi, useCall} from '@polkadot/react-hooks';
+import {api} from '@polkadot/react-api';
+import {web3AccountsSubscribe, web3Enable, web3FromAddress} from '@polkadot/extension-dapp';
+import {useAllAccounts} from '@polkadot/react-hooks-chainx/useAllAccounts';
+import {useLocalStorage} from '@polkadot/react-hooks-chainx';
+import {AccountContext} from '@polkadot/react-components-chainx/AccountProvider';
 
 interface Props {
   className?: string;
 }
 
-function Contents({className}: Props): React.ReactElement<Props> {
+
+function TransferContent({className}: Props): React.ReactElement<Props> {
   //   const { t } = useTranslation();
-  const { api, isApiReady } = useApi();
-  const { accountAddress, hasAccounts, allAccounts} = useAllAccounts()
-  console.log('all',accountAddress,allAccounts,hasAccounts)
+  // const { api, isApiReady } = useApi();
+  const {accountAddress, hasAccounts, allAccounts} = useAllAccounts();
 
   // const allBalances = useCall<DeriveBalancesAll>(isApiReady && api.derive.balances.all, [currentAccount]);
   // console.log('allBalances',JSON.stringify(allBalances) )
@@ -57,19 +58,19 @@ function Contents({className}: Props): React.ReactElement<Props> {
               <>
                 {
                   hasAccounts ?
-                  <AccountCard
-                    className='pinkCard'
-                    accountName='Merrile Burgett'
-                    accountAdress='12BPUMLYobYiBjPuRCnNd9xZcEAjzXYM5Vjweaa327YwD8FA'
-                    accountAmount='99999.0000'
-                    iconNode={PolkadotAcc}
-                  />:
-                  <Card
-                    isBasic
-                    className="pinkCard"
-                    label="使用 Polkadot{.js} 插件登录 Polkadot 账户"
-                    iconNode={polkadot}
-                  />
+                    <AccountCard
+                      className='pinkCard'
+                      accountName='Merrile Burgett'
+                      accountAdress='12BPUMLYobYiBjPuRCnNd9xZcEAjzXYM5Vjweaa327YwD8FA'
+                      accountAmount='99999.0000'
+                      iconNode={PolkadotAcc}
+                    /> :
+                    <Card
+                      isBasic
+                      className="pinkCard"
+                      label="使用 Polkadot{.js} 插件登录 Polkadot 账户"
+                      iconNode={polkadot}
+                    />
                 }
               </>
               <AccountCard
@@ -78,10 +79,11 @@ function Contents({className}: Props): React.ReactElement<Props> {
                 accountAdress="atpPUMLYobYiBjPuRCnNd9xZcEAjzXYM5Vjweaa327YwD8FA"
                 accountAmount="99999.0000"
                 iconNode={PlantonAcc}
+              />
               <Card
                 isBasic
-                className="pinkCard"
-                label="使用 Polkadot{.js} 插件登录 Polkadot 账户"
+                className='pinkCard'
+                label='使用 Polkadot{.js} 插件登录 Polkadot 账户'
                 iconNode={polkadot}
               />
               {/* <AccountCard
@@ -139,16 +141,21 @@ function Contents({className}: Props): React.ReactElement<Props> {
                 <Records title="转账记录"/>
               </Route>
             </div>
-             <ToolTipConfig />
+            <ToolTipConfig/>
           </div>
 
         </div>
       </div>
+      <div className={className}>
+        <div className="contentWrapper `${className}`">
+          <Pdotcard className="left" title="PDOT 转账" component="TransferCard" isBasic/>
+          <Records className="right" title="转账记录"/>
+        </div>
+      </div>
     </div>
-  );
-}
+  )}
 
-export default React.memo(styled(Contents)`
+export default React.memo(styled(TransferContent)`
   flex-grow: 1;
   overflow: hidden auto;
   padding: 2.5rem 3rem;
@@ -193,5 +200,7 @@ export default React.memo(styled(Contents)`
   //     margin-left: 20px;
   //     min-height: 636px;
   //   }
-  // }
+  }
+
+
 `);

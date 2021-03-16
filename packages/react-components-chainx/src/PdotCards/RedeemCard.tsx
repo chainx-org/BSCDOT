@@ -21,8 +21,8 @@ function RedeemCard({
 }: PdotcardProps): React.ReactElement<PdotcardProps> {
   return (
     <div className={`ui-Redeems ${className}`} key={title}>
-      <p className={`redeemTit  `}>赎回数量</p>
-      <InputAutoLength className="h1" placeholder='0' tokenName={'PDOT'} />
+      <p className={`redeemTit`}>赎回数量</p>
+      <InputAutoLength placeholder="0" tokenName="DOT" />
       <p className={`tip `}>手续费： 0.5 PDOT</p>
       <AccountMessage />
       <span className="warn isShow">PDOT 余额不足</span>
@@ -68,11 +68,7 @@ export default React.memo(styled(RedeemCard)`
     display: block !important;
   }
   .h1 {
-    margin: 16px auto;
-    font-family: PingFangSC-Semibold;
-    font-size: 32px;
-    color: #444c5e;
-    line-height: 44px;
+    
   }
   .isConfirm {
     margin-top: 36px;
