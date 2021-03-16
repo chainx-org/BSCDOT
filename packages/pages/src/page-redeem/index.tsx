@@ -28,18 +28,28 @@ interface Props {
   className?: string;
 }
 
-function RedeemContent({ className }: Props): React.ReactElement<Props> {
+export default function RedeemContent({ className }: Props): React.ReactElement<Props> {
   //   const { t } = useTranslation();
   return (
     // <div className={className}>
-      <div className="contentWrapper `${className}`">
+      <Wrapper className="contentWrapper `${className}`">
         <Pdotcard className = "left" title="赎回 PDOT" component="RedeemCard" isBasic />
         <Records className = "right" title="赎回记录" />
-      </div>
+      </Wrapper>
     // </div>
   );
 }
 
-export default React.memo(styled(RedeemContent)`
-  
-`);
+const Wrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding: 2.5rem 7rem 2.5rem 3rem;
+  width: 98%;
+  padding-right: 50px;
+  .left{
+    width: 636px;
+  }
+  .right{
+    width: 308px;
+  }
+`;

@@ -26,7 +26,7 @@ interface Props {
   className?: string;
 }
 
-function TransferContent({ className }: Props): React.ReactElement<Props> {
+export default function TransferContent({ className }: Props): React.ReactElement<Props> {
   //   const { t } = useTranslation();
   // const { api, isApiReady } = useApi();
   const { accountAddress, hasAccounts, allAccounts} = useAllAccounts()
@@ -37,14 +37,21 @@ function TransferContent({ className }: Props): React.ReactElement<Props> {
 
   return (
     // <div className={className}>
-    <div className="contentWrapper `${className}`">
+    <Wrapper className="contentWrapper `${className}`">
       <Pdotcard className="left" title="PDOT 转账" component="TransferCard" isBasic />
       <Records className="right" title="转账记录" />
-    </div>
+    </Wrapper>
     // </div>
   );
 }
 
-export default React.memo(styled(TransferContent)`
-  
-`);
+const Wrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding: 2.5rem 7rem 2.5rem 3rem;
+  width: 98%;
+  padding-right: 50px;
+  .right{
+    width: 308px;
+  }
+`;
