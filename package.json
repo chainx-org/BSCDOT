@@ -105,6 +105,7 @@
   },
   "dependencies": {
     "bignumber.js": "^9.0.1",
+    "ethereumjs-tx": "^2.1.2",
     "ethers": "^5.0.32",
     "klinecharts": "^5.7.0",
     "uniqid": "^5.2.0",
