@@ -1,18 +1,8 @@
 const Ethers = require('ethers');
-
-const blankFunctionSig = '0x00000000';
-const blankFunctionDepositerOffset = 0;
-
-const toHex = (covertThis, padding) => {
-  return Ethers.utils.hexZeroPad(Ethers.utils.hexlify(covertThis), padding);
-};
-
-const createERCDepositData = (tokenAmountOrID, lenRecipientAddress, recipientAddress) => {
-  return '0x' +
-    toHex(tokenAmountOrID, 32).substr(2) +      // Token amount or ID to deposit (32 bytes)
-    toHex(lenRecipientAddress, 32).substr(2) + // len(recipientAddress)          (32 bytes)
-    recipientAddress.substr(2);               // recipientAddress               (?? bytes)
-};
+const Web3 = require('web3');
+const Tx = require('ethereumjs-tx');
+const Common = require('ethereumjs-common');
+const web3 = new Web3('http://127.0.0.1:6789');
 
 const bridge_abi = [
   {
@@ -1619,6 +1609,63 @@ const erc20miner_abi = [
   }
 ];
 
+const blankFunctionSig = '0x00000000';
+const blankFunctionDepositerOffset = 0;
+const ADMIN_ROLE = "0x0000000000000000000000000000000000000000000000000000000000000000";
+const RELAYER_ROLE = "0xe2b7fb3b832174769106daebcfd6d1970523240dda11281102db9363b83b0dc4";
+const MINTER_ROLE = "0x9f2df0fed2c77648de5860a4cc508cd0818c85b8b8a1ab4ceeef8d981c8956a6";
+const PAUSER_ROLE = "0x65d7a28e3265b37a6474929f336521b332c1681b933f6cb9f3376673440d862a";
+
+const adminAddress = "atx18hqda4eajphkfarxaa2rutc5dwdwx9z5xzkega";
+const ghjieAddress = "atx1j4ncnc4ajm8ut0nvg2n34uedtz3kuecmsdf7qd";
+const rjmanAddress = "atx1sy2tvmghdv47hwz89yu9wz2y29nd0frr0578e3";
+
+const bridgeAddress = "atx1762m2ryuvnnrk3d9q6gfy6whk29n59xu34typ5";
+const handlerAddress = "atx1t3zvgf73mmhzax24epgv02vqznzw24a5m78cnz";
+const erc20Address = "atx1lfhrcc6xectcfe850kf83rcntlw0ha7wck9qjz";
+const resourceID = "0x0000000000000000000000000000000000000000000000000000000000000000";
+const erc20_minter_contract = new web3.platon.Contract(erc20miner_abi);
+erc20_minter_contract.options.address = erc20Address;
+erc20_minter_contract.options.from = adminAddress;
+
+const bridge_contract = new web3.platon.Contract(bridge_abi);
+bridge_contract.options.address = bridgeAddress;
+bridge_contract.options.from = adminAddress;
+
+
+const toHex = (covertThis, padding) => {
+  return Ethers.utils.hexZeroPad(Ethers.utils.hexlify(covertThis), padding);
+};
+
+const createERCDepositData = (tokenAmountOrID, lenRecipientAddress, recipientAddress) => {
+  return '0x' +
+    toHex(tokenAmountOrID, 32).substr(2) +      // Token amount or ID to deposit (32 bytes)
+    toHex(lenRecipientAddress, 32).substr(2) + // len(recipientAddress)          (32 bytes)
+    recipientAddress.substr(2);               // recipientAddress               (?? bytes)
+};
+
+
+const depositTransactionParameters = {
+  nonce: '0x00', // ignored by MetaMask
+  gasPrice: '0x09184e72a000', // customizable by user during MetaMask confirmation.
+  gas: '0x2710', // customizable by user during MetaMask confirmation.
+  to: bridgeAddress,
+  from: alaya.selectedAddress, // must match user's active address.
+  value: '0x00', // Only required to send ether to the recipient from the initiating external account.
+  data: bridge_contract.methods.deposit(1, resourceID, createERCDepositData(100000, 20 ,'0x1cbd2d43530a44705ad088af313e18f80b53ef16b36177cd4b77b846f2a5f07c')).encodeABI(),
+  chainId: '0x3', // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
+};
+
+const transferTransactionParameters = {
+  nonce: '0x00', // ignored by MetaMask
+  gasPrice: '0x09184e72a000', // customizable by user during MetaMask confirmation.
+  gas: '0x2710', // customizable by user during MetaMask confirmation.
+  to: erc20Address, // Required except during contract publications.
+  from: alaya.selectedAddress, // must match user's active address.
+  value: '0x00', // Only required to send ether to the recipient from the initiating external account.
+  data: erc20_minter_contract.methods.transfer(erc20Address, 100).encodeABI(),
+  chainId: '0x3', // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
+};
 
 
 module.exports = {
@@ -1627,5 +1674,7 @@ module.exports = {
   toHex,
   createERCDepositData,
   bridge_abi,
-  erc20miner_abi
+  erc20miner_abi,
+  depositTransactionParameters,
+  transferTransactionParameters
 };

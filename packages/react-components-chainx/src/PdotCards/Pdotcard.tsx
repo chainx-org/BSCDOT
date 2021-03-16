@@ -25,7 +25,7 @@ function Pdotcard({
   component,
   children,
   className = "",
-  title = "发行 PDOT",
+  title,
   noData,
   isBasic,
   noDataMsg
