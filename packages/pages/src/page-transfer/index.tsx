@@ -51,6 +51,9 @@ const Wrapper = styled.div`
   padding: 2.5rem 7rem 2.5rem 3rem;
   width: 98%;
   padding-right: 50px;
+  .left{
+    width: 636px;
+  }
   .right{
     width: 308px;
   }
