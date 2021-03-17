@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
+import { useLocalStorage } from "@polkadot/react-hooks-chainx";
+import { AccountContext } from "@polkadot/react-components-chainx/AccountProvider";
 
 const Cells = React.memo(styled.section`
   display: flex;
@@ -60,9 +62,10 @@ const Cells = React.memo(styled.section`
 interface CellProps {
   iconUrl?: string;
   title?: string;
-  content?: string;
+  account?: string;
+  accountName?: string;
   isSelected?: boolean;
-  setValue?: any;
+  setValues?: any;
   className?: string;
 }
 
@@ -70,12 +73,26 @@ export function Cell({
   className = "",
   iconUrl,
   title,
-  content,
+  account,
+  accountName,
   isSelected,
-  setValue
+  setValues
 }: CellProps): React.ReactElement<CellProps> {
+  
+  let [, setValue] = useLocalStorage<string>('currentAccount');
+  const { changeAccount } = useContext(AccountContext);
+
   let handleOnClick = () => {
-    setValue(title);
+    if(iconUrl) {
+      setValues(title);
+      console.log(title)
+    }
+    if(account) {
+      setValues(account);
+      setValue(account)
+      changeAccount(account)
+      console.log(account)
+    }
   };
   return (
     <Cells className={`${className} isBasic  `}>
@@ -84,11 +101,11 @@ export function Cell({
           <img src={iconUrl} />
         </div>
       ) : null}
-      {content ? (
+      {account ? (
         <div className="whole">
           <>
-            <h3>{title}</h3>
-            <div>{content}</div>
+            <h3>{accountName}</h3>
+            <div>{account}</div>
           </>
         </div>
       ) : (
