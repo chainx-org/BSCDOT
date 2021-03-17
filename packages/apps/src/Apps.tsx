@@ -13,8 +13,6 @@ import ConnectingOverlay from './overlays/Connecting';
 import WarmUp from './WarmUp';
 import Contents from '@polkadot/pages';
 import Sidebars from '@polkadot/pages/components/SideBar';
-
-
 export const PORTAL_ID = 'portals';
 
 function Apps({className = ''}: Props): React.ReactElement<Props> {
@@ -39,7 +37,7 @@ function Apps({className = ''}: Props): React.ReactElement<Props> {
         <div id={PORTAL_ID}/>
       </div>
       <WarmUp/>
-      {/* <ToolTipConfig /> */}
+
     </>
   );
 }

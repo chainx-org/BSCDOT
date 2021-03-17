@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 // import { useLocation } from 'react-router-dom';
 import styled from "styled-components";
 // import createRoutes from '@polkadot/apps-routing';
@@ -21,24 +21,48 @@ import AccountCard from "@polkadot/react-components-chainx/AccountCard/AccountCa
 import { Records } from "@polkadot/react-components-chainx/Records";
 import { useAllAccounts } from "@polkadot/react-hooks-chainx/useAllAccounts";
 import { AccountContext } from "@polkadot/react-components-chainx/AccountProvider";
-import { useApi, useCall } from "@polkadot/react-hooks";
+import { useAccountInfo, useApi, useCall } from "@polkadot/react-hooks";
 import {DeriveBalancesAll} from '@polkadot/api-derive/types';
-
+import type { DeriveAccountFlags, DeriveAccountInfo } from '@polkadot/api-derive/types';
+import type { AccountInfo } from '@polkadot/types/interfaces';
+import BN from "bn.js";
 
 interface Props {
   className?: string;
 }
 
+interface PcxFreeInfo {
+  feeFrozen?: number,
+  free?: number,
+  miscFrozen?: number,
+  reserved?: number,
+}
+
 function Header({ className }: Props): React.ReactElement<Props> {
     //   const { t } = useTranslation();
   const { api, isApiReady } = useApi();
-  const { accountAddress, hasAccounts, allAccounts} = useAllAccounts()
-  console.log('all',accountAddress,allAccounts,hasAccounts)
+  const [accountMsg, setAccountMsg] = useState<object>()
+  const [usableBalance, setUsableBalance] = useState<number>(0)
+  const { hasAccounts, allAccounts} = useAllAccounts()
+
   const { currentAccount } = useContext(AccountContext);
-  
-  // const allBalances = useCall<DeriveBalancesAll>(isApiReady && api.query.system.account, [currentAccount]);
-  // const { data: balance } = allBalances
-  // console.log('allBalances',JSON.stringify(balance) ) 
+  // const [balanced, setBalaced] = useState<PcxFreeInfo>();
+
+  useEffect(() => {
+    const accountMsgs = allAccounts?.find(item => item.account === currentAccount)
+    const findName = accountMsgs?.accountName
+    setAccountMsg(findName)
+    async function balances() {
+      const { data: balance } = await api.query.system.account(currentAccount);
+      const allBalance = JSON.parse(JSON.stringify(balance))
+      const bgFree = new BN(allBalance.free)
+      setUsableBalance(bgFree.sub(new BN(allBalance.miscFrozen)).toNumber())
+      // setBalaced(allBalance)
+    }
+    
+    balances()
+  }, [currentAccount,isApiReady])
+    
 
   return (
     <div className={className}>
@@ -46,23 +70,29 @@ function Header({ className }: Props): React.ReactElement<Props> {
       <div className="cardListWrapper">
         {
           hasAccounts?
-           <AccountCard
-            className="pinkCard"
-            accountName="Merrile Burgett"
-            accountAdress={currentAccount}
-            accountAmount='999999.0000'
-            iconNode={PlantonAcc}
-            allAccounts={allAccounts}
-          /> :
-          <Card isBasic className="pinkCard" label="使用 Polkadot{.js} 插件登录 Polkadot 账户" iconNode={polkadot} />
+            <AccountCard
+              className="pinkCard"
+              accountName={accountMsg}
+              accountAdress={currentAccount}
+              accountAmount={usableBalance}
+              iconNode={PlantonAcc}
+              allAccounts={allAccounts}
+              unit='DOT'
+            /> :
+            <Card isBasic className="pinkCard" label="使用 Polkadot{.js} 插件登录 Polkadot 账户" iconNode={polkadot} />
         }
-        <AccountCard
-          className="grennCard"
-          accountName="PlatON 账户"
-          accountAdress="atpPUMLYobYiBjPuRCnNd9xZcEAjzXYM5Vjweaa327YwD8FA"
-          accountAmount="99999.0000"
-          iconNode={PlantonAcc}
-        />
+        {
+          hasAccounts?
+            <AccountCard
+              className="grennCard"
+              accountName="PlatON 账户"
+              accountAdress="atpPUMLYobYiBjPuRCnNd9xZcEAjzXYM5Vjweaa327YwD8FA"
+              accountAmount="99999.0000"
+              iconNode={PlantonAcc}
+              unit='PDOT'
+            /> :
+            <Card isBasic className='grennCard' label='使用 Samurai 插件登录 PlatON 账户' iconNode={Lsamurai} />
+        }
         <Endpoints className="blueCard" iconNode={Network} title="当前网络" content="PlatON 网络" btnlabel="切换网络" />
       </div>
     </div>

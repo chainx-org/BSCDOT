@@ -9,7 +9,7 @@ const Cells = React.memo(styled.section`
   padding: 20px;
   background: rgba(255, 255, 255, 0.96);
   width: 100%;
-  border: 1px solid #efefef;
+  border-bottom: 1px solid #efefef;
   .isBasic {
     width: 100%;
     border: 1px solid #efefef;

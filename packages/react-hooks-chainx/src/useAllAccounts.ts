@@ -34,6 +34,7 @@ export function useAllAccounts(): useAllAccountsData {
       }
 
       const allAccounts = await web3Accounts();
+
       if (mountedRef.current) {
         const accountAddress = allAccounts.map((accounts) => { return accounts.address;});
         const addressAndName = allAccounts.map((accounts) => {
