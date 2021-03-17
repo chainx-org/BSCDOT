@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import POLKADOT from "./assets/little_polkadot_js.svg";
 import PLATON from "./assets/little_platon_js.svg";
@@ -57,7 +57,7 @@ const Cell = React.memo(styled.section`
 interface AccountMessageProps {
   isReverse?: boolean;
 }
-const list: any = [
+let list: any = [
   {
     iconUrl: POLKADOT,
     content: "12BPUMLYobYiBjPuRCnNd9xZcEAjzXYM5Vjweaa327YwD8FA"
@@ -68,7 +68,15 @@ const list: any = [
   }
 ];
 
-export function AccountMessage({ isReverse = false }: AccountMessageProps): React.ReactElement<AccountMessageProps> {
+export function AccountMessage({ isReverse }: AccountMessageProps): React.ReactElement<AccountMessageProps> {
+  console.log(isReverse)
+  useEffect (() => {
+    if (isReverse) {
+      list = list.reverse()
+    } 
+  })
+  
+
   return (
     <Messages>
       <div className="middle-icon">
@@ -80,7 +88,7 @@ export function AccountMessage({ isReverse = false }: AccountMessageProps): Reac
         </svg>
       </div>
       <div className="cells">
-        {isReverse ? (
+        {isReverse ? 
           <>
             {list.reverse().map((item: any) => (
               <Cell key={item.content}>
@@ -89,7 +97,7 @@ export function AccountMessage({ isReverse = false }: AccountMessageProps): Reac
               </Cell>
             ))}
           </>
-        ) : (
+         : 
           <>
           {list.map((item: any) => (
               <Cell key={item.content}>
@@ -99,7 +107,7 @@ export function AccountMessage({ isReverse = false }: AccountMessageProps): Reac
             ))}
             
           </>
-        )}
+        }
       </div>
     </Messages>
   );
