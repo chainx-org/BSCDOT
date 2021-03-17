@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {transferTransactionParameters, depositTransactionParameters, bridge_contract} from './contract';
 import { TxButton } from '@polkadot/react-components';
 import {useApi} from '@polkadot/react-hooks';
@@ -10,10 +10,10 @@ import Header from "./components/Header";
 import PublicContent from "./page-publish";
 import RedeemContent from "./page-redeem";
 import TransferContent from "./page-transfer";
+import {AllAccountsContext} from '@polkadot/react-components-chainx/AllAccountsProvider';
 
 function Contents(): React.ReactElement {
   const { api, isApiReady } = useApi()
-  const [active, setActive] = useState<InjectedAccountWithMeta | null>(null);
   useEffect(() => {
     async function ccc() {
       // alaya.request({ method: "platon_requestAccounts" }).then(result => console.log((result)))
@@ -60,46 +60,55 @@ function Contents(): React.ReactElement {
       //     .on('receipt', console.log);
     }
 
-    ccc();
+    // ccc();
 
     // erc20_minter_contract.methods.balanceOf(adminAddress).call()
     //   .then(console.log);
   }, []);
 
+  const [active, setActive] = useState<InjectedAccountWithMeta | null>(null);
 
+  const {accountAddress, hasAccounts, allAccounts} = useContext(AllAccountsContext)
   useEffect(() => {
-    if(isApiReady){
-      async function ccc(){
 
-        const injector = await web3FromAddress('12zvGUa4jtTMdVHoxfJ6zbY72PhrFw1peVs1tJ8MNNMepDxD');
+    async function ccc(){
 
-        api.setSigner(injector.signer);
+      if(hasAccounts){
+        try{
+          const injector = await web3FromAddress(accountAddress[0]);
+
+          api.setSigner(injector.signer);
+          setActive(allAccounts[0]);
+
+        }catch (err){
+          console.log(err)
+        }
+
       }
-      ccc()
+
     }
+    ccc()
 
-  }, [isApiReady, api])
-
+  }, [accountAddress])
+  console.log(active)
   return (
     <>
-      {/*{isApiReady && <TxButton*/}
-      {/*  accountId={'12zvGUa4jtTMdVHoxfJ6zbY72PhrFw1peVs1tJ8MNNMepDxD'}*/}
-      {/*  icon='plus'*/}
-      {/*  label={'发行'}*/}
-      {/*  params={ [[*/}
-      {/*    api.tx.balances.transferKeepAlive('123mq9dK8GaErgAoMJqiBxx7cbLwiu4u7hzNmtVC3qEjjNRA', 1000),*/}
-      {/*    api.tx.system.remark('atx1j4ncnc4ajm8ut0nvg2n34uedtz3kuecmsdf7qd')*/}
-      {/*  ]]}*/}
-      {/*  // isDisabled={withdrawalDisabled}*/}
-      {/*  tx='utility.batch'*/}
-      {/*  // onSuccess={() => {*/}
-      {/*  //   setN(Math.random());*/}
-      {/*  //   toggleWithDrawButton();*/}
-      {/*  // }}*/}
-      {/*/>}*/}
-      {/*<Sidebar/>*/}
+      {isApiReady && <TxButton
+        accountId={accountAddress[0]}
+        icon='plus'
+        label={'发行'}
+        params={ [[
+          api.tx.balances.transferKeepAlive('123mq9dK8GaErgAoMJqiBxx7cbLwiu4u7hzNmtVC3qEjjNRA', 1000),
+          api.tx.system.remark('atx1j4ncnc4ajm8ut0nvg2n34uedtz3kuecmsdf7qd')
+        ]]}
+        // isDisabled={withdrawalDisabled}
+        tx='utility.batch'
+        // onSuccess={() => {
+        //   setN(Math.random());
+        //   toggleWithDrawButton();
+        // }}
+      />}
     <main className='accounts--App'>
-      {/* <Sidebars /> */}
       <Header />
       <HashRouter>
       <Route path="/" exact component={PublicContent} />
