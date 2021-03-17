@@ -17,11 +17,12 @@ interface AccountCardProps {
   accountName?: string;
   accountAdress?: string;
   accountAmount?: number;
+  allAccounts?: object;
   iconNode?: any;
   onClick?: () => void | Promise<void>;
 }
 
-function AccountCard({ children, className = '', isBasic, accountName, accountAdress, accountAmount, iconNode, onClick }: AccountCardProps): React.ReactElement<AccountCardProps> {
+function AccountCard({ children, className = '', isBasic, accountName, accountAdress, accountAmount, iconNode, onClick, allAccounts }: AccountCardProps): React.ReactElement<AccountCardProps> {
   
   const [isAccountListOpen, setIsAccountListOpen] = useState<boolean>(false);
 
@@ -36,7 +37,7 @@ function AccountCard({ children, className = '', isBasic, accountName, accountAd
         <div className='accountName'>
           <span >{accountName}</span>
           {isAccountListOpen && (
-            <ToolTipConfig />
+            <ToolTipConfig list={allAccounts} />
           )}    
           <Button
             className='ui--Account'
@@ -48,7 +49,7 @@ function AccountCard({ children, className = '', isBasic, accountName, accountAd
         <div className='address'>{accountAdress}</div>
       </div>
       <div className='balance'>可用余额</div>
-      <div className='amounts'>{accountAmount} PDOT</div>
+      <div className='amounts'>{accountAmount ? accountAmount : 0.0000} PDOT</div>
       {children}
     </div>
   );

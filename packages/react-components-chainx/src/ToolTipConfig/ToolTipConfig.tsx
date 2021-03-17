@@ -8,6 +8,7 @@ const Wrapper = React.memo(styled.section`
   position: absolute;
   z-index: 999;
   top: 30px;
+  left: 50%;
   max-height: 500px !important;
   overflow: auto;
   background: rgba(255, 255, 255, 0.96);
@@ -18,12 +19,12 @@ const Wrapper = React.memo(styled.section`
 `);
 const lists: any = [
   {
-    title: "Platon 网络",
+    title: "Alaya 网络",
     iconUrl: ALAYA
   },
   {
-    title: "Gabriel Soares",
-    content: "12BPUMLYobYiBjPuRCnNd9xZcEAjzXYM5Vjweaa327YwD8FA"
+    title: "Platon 网络",
+    iconUrl: PLATON
   }
 ];
 interface ToolTipConfigProps {
@@ -31,18 +32,20 @@ interface ToolTipConfigProps {
 }
 
 export function ToolTipConfig({list=lists}: ToolTipConfigProps): React.ReactElement<ToolTipConfigProps> {
-  const [value, setValue] = useState(false);
+  const [value, setValues] = useState(false);
+  console.log('list',list)
   return (
     <Wrapper>
       {list.map(function(item: any) {
         return (
           <Cell
-            key={item.title}
-            isSelected={value == item.title}
-            setValue={setValue}
+            key={item.account || item.title}
+            isSelected={value == item.account || value == item.title}
+            setValues={setValues}
             iconUrl={item.iconUrl}
             title={item.title}
-            content={item.content}
+            accountName={item.accountName}
+            account={item.account}
           />
         );
       })}

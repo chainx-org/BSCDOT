@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 // import { useLocation } from 'react-router-dom';
 import styled from "styled-components";
 // import createRoutes from '@polkadot/apps-routing';
@@ -19,19 +19,43 @@ import Pdotcard from "@polkadot/react-components-chainx/PdotCards/Pdotcard";
 import Card from "@polkadot/react-components-chainx/Card/Card";
 import AccountCard from "@polkadot/react-components-chainx/AccountCard/AccountCard";
 import { Records } from "@polkadot/react-components-chainx/Records";
+import { useAllAccounts } from "@polkadot/react-hooks-chainx/useAllAccounts";
+import { AccountContext } from "@polkadot/react-components-chainx/AccountProvider";
+import { useApi, useCall } from "@polkadot/react-hooks";
+import {DeriveBalancesAll} from '@polkadot/api-derive/types';
+
 
 interface Props {
   className?: string;
 }
 
 function Header({ className }: Props): React.ReactElement<Props> {
-  //   const { t } = useTranslation();
+    //   const { t } = useTranslation();
+  const { api, isApiReady } = useApi();
+  const { accountAddress, hasAccounts, allAccounts} = useAllAccounts()
+  console.log('all',accountAddress,allAccounts,hasAccounts)
+  const { currentAccount } = useContext(AccountContext);
+  
+  // const allBalances = useCall<DeriveBalancesAll>(isApiReady && api.query.system.account, [currentAccount]);
+  // const { data: balance } = allBalances
+  // console.log('allBalances',JSON.stringify(balance) ) 
 
   return (
     <div className={className}>
       <h2>欢迎来到 Platdot！</h2>
       <div className="cardListWrapper">
-        <Card isBasic className="pinkCard" label="使用 Polkadot{.js} 插件登录 Polkadot 账户" iconNode={polkadot} />
+        {
+          hasAccounts?
+           <AccountCard
+            className="pinkCard"
+            accountName="Merrile Burgett"
+            accountAdress={currentAccount}
+            accountAmount='999999.0000'
+            iconNode={PlantonAcc}
+            allAccounts={allAccounts}
+          /> :
+          <Card isBasic className="pinkCard" label="使用 Polkadot{.js} 插件登录 Polkadot 账户" iconNode={polkadot} />
+        }
         <AccountCard
           className="grennCard"
           accountName="PlatON 账户"

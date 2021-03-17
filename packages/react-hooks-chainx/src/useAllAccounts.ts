@@ -1,9 +1,11 @@
 // Copyright 2017-2020 @polkadot/react-hooks authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useIsMountedRef } from './useIsMountedRef';
 import { web3AccountsSubscribe, web3Enable } from '@polkadot/extension-dapp';
+import useLocalStorage from './useLocalStorage';
+import { AccountContext } from '@polkadot/react-components-chainx/AccountProvider';
 
 interface useAllAccounts {
   accountAddress: string[];
@@ -15,7 +17,8 @@ interface useAllAccounts {
 export function useAllAccounts (): useAllAccounts {
   const mountedRef = useIsMountedRef();
   const [state, setState] = useState<useAllAccounts>({ accountAddress: [], allAccounts: [], hasAccounts: false });
-  
+  let [storedValue, setValue] = useLocalStorage<string>('currentAccount');
+  const { changeAccount } = useContext(AccountContext);
 
   useEffect(()=> {
     async function alladdress() {
@@ -36,13 +39,24 @@ export function useAllAccounts (): useAllAccounts {
         });
         const hasAccounts = accountAddress.length !== 0;
         // const isAccount = (address: string): boolean => allAccounts.includes(address);
+        if (storedValue === 'undefined' || storedValue === null || storedValue === undefined) {
+          const defaultAccount = accountAddress.length > 0 ? accountAddress[0] : ''
+          setValue(defaultAccount)
+          changeAccount(defaultAccount)
+        }
 
         setState({ accountAddress, allAccounts, hasAccounts });
       }
+      
 
     });
   }
   alladdress()
+ 
+
+
+   
+
   
   }, [mountedRef]);
 
