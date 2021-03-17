@@ -15,12 +15,10 @@ interface Props {
 export default function PublicContent({ className }: Props): React.ReactElement<Props> {
   //   const { t } = useTranslation();
   return (
-    // <div className={className}>
     <Wrapper className={`contentWrapper ${className}`}>
       <PdotCard className="left" title="发行 PDOT" component="PublishCard" isBasic />
       <Records className="right" title="发行记录" />
     </Wrapper>
-    // </div>
   );
 }
 
@@ -28,7 +26,7 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 0rem 7rem 2.5rem 3rem;
-  width: 97.2%;
+  width: 97.1%;
   padding-right: 50px;
   .left {
     width: 636px;
