@@ -9,7 +9,7 @@ import { AccountContext } from '@polkadot/react-components-chainx/AccountProvide
 
 interface useAllAccounts {
   accountAddress: string[];
-  allAccounts: object;
+  allAccounts: object[];
   hasAccounts: boolean;
   // isAccount: (address: string) => boolean;
 }
@@ -27,7 +27,7 @@ export function useAllAccounts (): useAllAccounts {
         return;
       }
       const subscription = await web3AccountsSubscribe(( injectedAccounts ) => { 
-      console.log('injectedAccounts',injectedAccounts)
+     
       if (mountedRef.current) {
         const accountAddress = injectedAccounts.map(( accounts ) => { return accounts.address});
         const allAccounts = injectedAccounts.map(( accounts ) => { 
@@ -47,7 +47,6 @@ export function useAllAccounts (): useAllAccounts {
 
         setState({ accountAddress, allAccounts, hasAccounts });
       }
-      
 
     });
   }

@@ -19,6 +19,7 @@ interface AccountCardProps {
   accountAmount?: number;
   allAccounts?: object;
   iconNode?: any;
+  unit?: string;
   onClick?: () => void | Promise<void>;
 }
 
@@ -31,7 +32,8 @@ function AccountCard({
   accountAmount,
   iconNode,
   onClick,
-  allAccounts
+  allAccounts,
+  unit
 }: AccountCardProps): React.ReactElement<AccountCardProps> {
   const [isAccountListOpen, setIsAccountListOpen] = useState<boolean>(false);
 
@@ -42,8 +44,7 @@ function AccountCard({
       <img className={`ui-accountContent   `} src={iconNode} alt={iconNode} />
       <div className={`ui-accountAmount  accountItem`}>
         <div className="accountName">
-          <span>{accountName}</span>
-
+          <span>{ accountName ? accountName: '-' }</span>
           <Button
             className="ui--Account"
             // isBasic={true}
@@ -54,7 +55,7 @@ function AccountCard({
         <div className="address">{accountAdress}</div>
       </div>
       <div className="balance">可用余额</div>
-      <div className="amounts">{accountAmount ? accountAmount : 0.0} PDOT</div>
+      <div className="amounts">{accountAmount ? accountAmount : 0.0000} {unit}</div>
       {children}{" "}
       {isAccountListOpen && (
         <ToolTipConfig
