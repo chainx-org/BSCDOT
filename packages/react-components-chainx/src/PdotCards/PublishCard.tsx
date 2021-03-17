@@ -23,9 +23,9 @@ function PublishCard({
     <div className={`ui-Redeems ${className}`} key={title}>
       <p className={`redeemTit  `}>发行数量</p>
       
-      <InputAutoLength placeholder="0" tokenName="PDOT" />
+      <InputAutoLength placeholder="0" tokenName="DOT" />
       <p className={`tip `}>手续费： 0.5 PDOT</p>
-      <AccountMessage />
+      <AccountMessage isReverse={false} />
       <Button className="isConfirm">确定发行</Button>
     </div>
   );

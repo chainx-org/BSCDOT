@@ -60,6 +60,8 @@ export default React.memo(styled(TransferCard)`
     color: #3F3F3F;
   }
 
- 
+  .isConfirm {
+    margin-top: 20px;
+  }
 
 `);
