@@ -1,20 +1,14 @@
 // Copyright 2017-2020 @polkadot/apps authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import React, { useEffect, useState } from "react";
-
-// import { useTranslation } from '../translate';
-
-// import { Link } from "react-router-dom";
-// import { Router, Route, Link } from 'react-router'
+import React from "react";
 import styled from "styled-components";
-
-
 import Logo from "./icons/logo.svg";
 import Publish from "./icons/publish.svg";
 import Redeem from "./icons/redeem.svg";
 import Transfer from "./icons/transfer.svg";
 import SideItem from './SideItem';
+
 interface Props {
   className?: string;
 }
@@ -31,10 +25,7 @@ const Wrapper = styled.div`
   font-size: 16px;
   background: #fff;
   box-shadow: 6px 0 20px 0 rgba(0,0,0,0.3);
-  // overflow-y: auto;
-  // &::-webkit-scrollbar {
-  //   display: none;
-  // }
+
   .wrappers {
     margin: 0 56px 0 52px;
     .navLists {
