@@ -22,26 +22,25 @@ export const AllAccountsProvider: FC = ({children}) => {
   const { api, isApiReady } = useApi();
   const [isLoading, setLoading] = useState<boolean>(false)
   const { accountAddress, addressAndName, hasAccounts, allAccounts } = useAllAccounts()
-
   // const allBalances = useCall<DeriveBalancesAll>(isApiReady && api.derive.balances.all, [accountAddress]);
 
   useEffect(() => {
     async function ccc() {
 
-      if (hasAccounts && isApiReady) {
+      if(allAccounts.length > 0){
         try {
-
+          console.log('allAccounts21312', allAccounts)
           const injector = await web3FromAddress(allAccounts[0].address);
+          console.log(3)
+
           api.setSigner(injector.signer);
           api.tx.balances
-            .transfer('5C5555yEXUcmEJ5kkcCMvdZjUo7NGJiQJMS7vZXEeoMhj3VQ', 123456)
+            .transfer(allAccounts[1].address, 123456)
             .signAndSend(allAccounts[0].address, { signer: injector.signer }, (status) => { console.log('status',status)});
         } catch (err) {
           console.log(err);
         }
-
       }
-
     }
 
     ccc();

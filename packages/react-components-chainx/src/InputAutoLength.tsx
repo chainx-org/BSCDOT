@@ -26,7 +26,7 @@ const Wrapper = styled.div`
       border: 0px;
       outline: none;
     }
-    
+
     line-height: 44px;
     display: inline-block;
     height: 22px;
@@ -42,6 +42,7 @@ interface InputAutoLengthProps {
   children?: any;
   tokenName?: string | undefined;
   placeholder?: any;
+  onBlur?: (event: React.FocusEvent) => void;
 }
 
 function getRegex(isDecimal: boolean): RegExp {
@@ -54,7 +55,8 @@ function InputAutoLength({
   className,
   children,
   tokenName,
-  placeholder
+  placeholder,
+  onBlur
 }: InputAutoLengthProps): React.ReactElement<InputAutoLengthProps> {
   const [isPreKeyDown, setIsPreKeyDown] = useState(false);
   const _onKeyUp = useCallback((event: React.KeyboardEvent<Element>): void => {
@@ -87,6 +89,7 @@ function InputAutoLength({
         onKeyDown={_onKeyDown}
         onKeyUp={_onKeyUp}
         placeholder={placeholder}
+        onBlur={onBlur}
       >
         {children}
       </div>
