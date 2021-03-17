@@ -22,7 +22,7 @@ function RedeemCard({
   return (
     <div className={`ui-Redeems ${className}`} key={title}>
       <p className={`redeemTit`}>赎回数量</p>
-      <InputAutoLength placeholder="0" tokenName="DOT" />
+      <InputAutoLength placeholder="0" tokenName="PDOT" />
       <p className={`tip `}>手续费： 0.5 PDOT</p>
       <AccountMessage isReverse={true} />
       <span className="warn isShow">PDOT 余额不足</span>

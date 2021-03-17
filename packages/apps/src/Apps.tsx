@@ -34,7 +34,7 @@ function Apps ({ className = '' }: Props): React.ReactElement<Props> {
           <Signer>
             <Sidebars />
             <div className="main">
-            <Header />
+            {/* <Header /> */}
             <Contents />
             </div>
           </Signer>
@@ -51,11 +51,11 @@ export default React.memo(styled(Apps)(({ theme }: ThemeProps) => `
   background: ${theme.bgPage};
   box-sizing: border-box;
   display: flex;
-  justify-content: space-between;
+  // justify-content: space-between;
   box-sizing: border-box;
   // flex-direction: column;
   min-height: 100vh;
-  .main{
-    display: block;
-  }
+  // .main{
+  //   display: block;
+  // }
 `));

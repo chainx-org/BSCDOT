@@ -1,6 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import Sidebar from './components/SideBar';
-import Content from './page-transfer';
 import {transferTransactionParameters, depositTransactionParameters, bridge_contract} from './contract';
 import { TxButton } from '@polkadot/react-components';
 import {useApi} from '@polkadot/react-hooks';
@@ -8,6 +6,7 @@ import { web3Accounts, web3Enable, web3FromAddress } from '@polkadot/extension-d
 import { InjectedAccountWithMeta } from '@polkadot/extension-inject/types';
 
 import { HashRouter, Route } from "react-router-dom";
+import Header from "./components/Header";
 import PublicContent from "./page-publish";
 import RedeemContent from "./page-redeem";
 import TransferContent from "./page-transfer";
@@ -99,13 +98,19 @@ function Contents(): React.ReactElement {
       {/*  // }}*/}
       {/*/>}*/}
       {/*<Sidebar/>*/}
-    <HashRouter>
+    <main className='accounts--App'>
+      {/* <Sidebars /> */}
+      <Header />
+      <HashRouter>
       <Route path="/" exact component={PublicContent} />
       <Route path="/redeem" component={RedeemContent} />
       <Route path="/transfer" component={TransferContent} />
     </HashRouter>
-    </>
 
+
+
+    </main>
+    </>
   );
 }
 
