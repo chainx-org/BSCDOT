@@ -22,12 +22,11 @@ interface Props {
 export default function RedeemContent({ className }: Props): React.ReactElement<Props> {
   //   const { t } = useTranslation();
   return (
-    // <div className={className}>
+
     <Wrapper className={`contentWrapper ${className}`}>
-        <Pdotcard className = "left" title="赎回 PDOT" component="RedeemCard" isBasic />
+        <PdotCard className = "left" title="赎回 PDOT" component="RedeemCard" isBasic />
         <Records className = "right" title="赎回记录" />
       </Wrapper>
-    // </div>
   );
 }
 
