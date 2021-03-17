@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Cell } from "./components/Cell/Cell";
-import ALAYA from "./components/assets/alaya.svg";
-import PLATON from "./components/assets/platon.svg";
+import ALAYA from "./assets/alaya.svg";
+import PLATON from "./assets/platon.svg";
+import CLOSE from "./assets/icon-close.png";
 
 const Wrapper = React.memo(styled.section`
   position: absolute;
@@ -16,6 +17,16 @@ const Wrapper = React.memo(styled.section`
   box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.12);
   border-radius: 10px;
   width: 312px;
+  .header{
+    height: 44px; 
+    // display:flex;
+    img{
+      width: 16px;
+      height: 16px;
+      margin: 20px 20px 8px;
+      // align-self: center;
+    }
+  }
 `);
 const lists: any = [
   {
@@ -29,13 +40,23 @@ const lists: any = [
 ];
 interface ToolTipConfigProps {
   list?: any;
+  isAccountListOpen?: any;
+  setIsAccountListOpen?: any;  
+  // 
 }
 
-export function ToolTipConfig({list=lists}: ToolTipConfigProps): React.ReactElement<ToolTipConfigProps> {
+export function ToolTipConfig({list=lists,isAccountListOpen,setIsAccountListOpen}: ToolTipConfigProps): React.ReactElement<ToolTipConfigProps> {
   const [value, setValues] = useState(false);
-  console.log('list',list)
+  // const [isAccountListOpen, setIsAccountListOpen] = useState<boolean>(true);
+  const _toggleAccountList = (): void => setIsAccountListOpen(false);
+
   return (
+    <div>
+    {isAccountListOpen &&
     <Wrapper>
+      <div className="header">
+        <img src={CLOSE} onClick={_toggleAccountList} />
+      </div>
       {list.map(function(item: any) {
         return (
           <Cell
@@ -49,6 +70,7 @@ export function ToolTipConfig({list=lists}: ToolTipConfigProps): React.ReactElem
           />
         );
       })}
-    </Wrapper>
+    </Wrapper>}
+    </div>
   );
 }
