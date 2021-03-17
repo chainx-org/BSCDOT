@@ -11,17 +11,8 @@ import styled from "styled-components";
 
 // import { findMissingApis } from '../endpoint';
 // import { useTranslation } from '../translate';
-import Lpolkadot from "./icons/logo_polkadot.svg";
-import Lsamurai from "./icons/logo_samurai.svg";
-import Network from "./icons/network.svg";
 
-import polkadot from "./icons/logo_polkadot.svg";
-import PolkadotAcc from "./icons/polkadot_account.svg";
-import PlantonAcc from "./icons/planton_account.svg";
-import Endpoints from "@polkadot/react-components-chainx/Endpoints";
-import Pdotcard from "@polkadot/react-components-chainx/PdotCards/Pdotcard";
-import Card from "@polkadot/react-components-chainx/Card/Card";
-import AccountCard from "@polkadot/react-components-chainx/AccountCard/AccountCard";
+import PdotCard from "@polkadot/react-components-chainx/PdotCards/PdotCard";
 import { Records } from "@polkadot/react-components-chainx/Records";
 
 interface Props {

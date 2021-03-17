@@ -15,7 +15,7 @@ import polkadot from "./icons/logo_polkadot.svg";
 import PolkadotAcc from "./icons/polkadot_account.svg";
 import PlantonAcc from "./icons/planton_account.svg";
 import Endpoints from "@polkadot/react-components-chainx/Endpoints";
-import Pdotcard from "@polkadot/react-components-chainx/PdotCards/Pdotcard";
+import Pdotcard from "@polkadot/react-components-chainx/PdotCards/PdotCard";
 import Card from "@polkadot/react-components-chainx/Card/Card";
 import AccountCard from "@polkadot/react-components-chainx/AccountCard/AccountCard";
 import { Records } from "@polkadot/react-components-chainx/Records";
@@ -69,5 +69,5 @@ export default React.memo(styled(Header)`
     }
   }
 
-  
+
 `);

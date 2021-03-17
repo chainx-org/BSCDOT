@@ -98,8 +98,7 @@ function Contents(): React.ReactElement {
       {/*  //   toggleWithDrawButton();*/}
       {/*  // }}*/}
       {/*/>}*/}
-      <Sidebar/>
-      <Content/>
+      {/*<Sidebar/>*/}
     <HashRouter>
       <Route path="/" exact component={PublicContent} />
       <Route path="/redeem" component={RedeemContent} />

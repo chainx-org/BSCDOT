@@ -11,7 +11,7 @@ import styled from "styled-components";
 
 // import { findMissingApis } from '../endpoint';
 // import { useTranslation } from '../translate';
-import Pdotcard from "@polkadot/react-components-chainx/PdotCards/Pdotcard";
+import Pdotcard from "@polkadot/react-components-chainx/PdotCards/PdotCard";
 import { Records } from "@polkadot/react-components-chainx/Records";
 
 interface Props {

@@ -1671,7 +1671,7 @@ const transferTransactionParameters = {
 };
 
 
-module.exports = {
+export {
   blankFunctionSig,
   blankFunctionDepositerOffset,
   toHex,
