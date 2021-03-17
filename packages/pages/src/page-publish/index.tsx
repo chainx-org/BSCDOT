@@ -3,15 +3,9 @@
 // import type { Route } from '@polkadot/apps-routing/types';
 
 import React from "react";
-// import { useLocation } from 'react-router-dom';
 import styled from "styled-components";
-// import createRoutes from '@polkadot/apps-routing';
-// import { ErrorBoundary, Spinner, StatusContext } from '@polkadot/react-components';
-// import { useApi } from '@polkadot/react-hooks';
-
-// import { findMissingApis } from '../endpoint';
 // import { useTranslation } from '../translate';
-import Pdotcard from "@polkadot/react-components-chainx/PdotCards/PdotCard";
+import PdotCard from "@polkadot/react-components-chainx/PdotCards/PdotCard";
 import { Records } from "@polkadot/react-components-chainx/Records";
 
 interface Props {
@@ -23,7 +17,7 @@ export default function PublicContent({ className }: Props): React.ReactElement<
   return (
     // <div className={className}>
     <Wrapper className={`contentWrapper ${className}`}>
-      <Pdotcard className="left" title="发行 PDOT" component="PublishCard" isBasic />
+      <PdotCard className="left" title="发行 PDOT" component="PublishCard" isBasic />
       <Records className="right" title="发行记录" />
     </Wrapper>
     // </div>
@@ -34,7 +28,7 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 0rem 7rem 2.5rem 3rem;
-  width: 97.5%;
+  width: 97.2%;
   padding-right: 50px;
   .left {
     width: 636px;
