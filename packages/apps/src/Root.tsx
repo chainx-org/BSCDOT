@@ -11,11 +11,10 @@ import { Api } from '@polkadot/react-api';
 import Queue from '@polkadot/react-components/Status/Queue';
 import { BlockAuthors, Events } from '@polkadot/react-query';
 import settings from '@polkadot/ui-settings';
-import { AccountProvider } from '@polkadot/react-components-chainx/AccountProvider';
-
 import Apps from './Apps';
 import WindowDimensions from './WindowDimensions';
 import { darkTheme, lightTheme } from './themes';
+import { AllAccountsProvider } from '@polkadot/react-components-chainx/AllAccountsProvider';
 
 interface Props {
   store?: KeyringStore;
@@ -37,7 +36,7 @@ function Root({ store }: Props): React.ReactElement<Props> {
   return (
     <Suspense fallback='...'>
       <ThemeProvider theme={theme}>
-        <AccountProvider>
+        <AllAccountsProvider>
           <Queue>
             <Api
               store={store}
@@ -54,7 +53,7 @@ function Root({ store }: Props): React.ReactElement<Props> {
               </BlockAuthors>
             </Api>
           </Queue>
-        </AccountProvider>
+        </AllAccountsProvider>
       </ThemeProvider>
 
     </Suspense>

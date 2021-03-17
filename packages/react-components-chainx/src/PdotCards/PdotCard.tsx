@@ -1,17 +1,16 @@
 // Copyright 2017-2020 @polkadot/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import React, { useCallback } from "react";
+import React  from "react";
 import styled from "styled-components";
 import TransferRecords from "../Records/TransferRecords";
 import RedeemRecords from "../Records/RedeemRecords";
-import PdotnoData from "./Nodata";
+import PdotNoData from "./Nodata";
 import PublishCard from "./PublishCard";
 import RedeemCard from "./RedeemCard";
 import TransferCard from "./TransferCard";
-import { Route } from "react-router-dom";
 
-interface PdotcardProps {
+interface PdotCardProps {
   children?: React.ReactNode;
   className?: string;
   title?: string;
@@ -29,13 +28,13 @@ function PdotCard({
   noData,
   isBasic,
   noDataMsg
-}: PdotcardProps): React.ReactElement<PdotcardProps> {
+}: PdotCardProps): React.ReactElement<PdotCardProps> {
   return (
     <div className={`ui-card ${className}`}>
       <p className={`${className} ${isBasic ? " isBasic" : ""}  `}>{title}</p>
       <div className="pdotCon">
         {noData ? (
-          <PdotnoData noDataMsg={noDataMsg} />
+          <PdotNoData noDataMsg={noDataMsg} />
         ) : component === "PublishCard" ? (
           <PublishCard />
         ) : component === "RedeemCard" ? (
