@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-// import { Cell } from "./components/Cell/Cell";
-import ALAYA from "./assets/alaya.svg";
-import PLATON from "./assets/platon.svg";
+import { Cell } from "./components/Cell/Cell";
+import ALAYA from "./components/assets/alaya.svg";
+import PLATON from "./components/assets/platon.svg";
 
 const Wrapper = React.memo(styled.section`
-  //   overflow: hidden;
+  position: absolute;
+  z-index: 999;
+  top: 30px;
   max-height: 500px !important;
   overflow: auto;
   background: rgba(255, 255, 255, 0.96);
@@ -14,63 +16,7 @@ const Wrapper = React.memo(styled.section`
   border-radius: 10px;
   width: 312px;
 `);
-
-const Cells = React.memo(styled.section`
-  display: flex;
-  align-items: center;
-  padding: 20px;
-  background: rgba(255, 255, 255, 0.96);
-  width: 100%;
-  border: 1px solid #efefef;
-  .isBasic {
-    width: 100%;
-    border: 1px solid #efefef;
-  }
-
-  .left {
-    width: 32px;
-    height: 32px;
-    border-radios: 16px;
-    img {
-      width: 32px;
-      height: 32px;
-    }
-  }
-  .whole {
-    flex: 1;
-    h3 {
-      font-family: PingFangSC-Semibold;
-      font-size: 16px;
-      color: #444c5e;
-      line-height: 24px;
-    }
-    div {
-      font-family: PingFangSC-Regular;
-      font-size: 12px;
-      color: #6f7c7c;
-      line-height: 16px;
-      white-space: normal;
-      word-break: break-all;
-    }
-  }
-  .title {
-    flex: 1;
-    padding-left: 20px;
-    font-family: PingFangSC-Semibold;
-    font-size: 16px;
-    color: #3f3f3f;
-    line-height: 32px;
-  }
-  .right {
-    width: 24px;
-    height: 24px;
-    border-radius: 12px;
-    margin-left: 20px;
-    background: #d9d9d9;
-    cursor: pointer;
-  }
-`);
-const list: any = [
+const lists: any = [
   {
     title: "Platon 网络",
     iconUrl: ALAYA
@@ -82,61 +28,24 @@ const list: any = [
 ];
 interface ToolTipConfigProps {
   list?: any;
-  className?: string;
 }
 
-export function ToolTipConfig({
-  className = "",
-  list
-}: // setValue
-ToolTipConfigProps): React.ReactElement<ToolTipConfigProps> {
-  const [value, setValue] = useState();
-  let handleOnClick = () => {
-    // setValue();
-  };
-  
-
+export function ToolTipConfig({list=lists}: ToolTipConfigProps): React.ReactElement<ToolTipConfigProps> {
+  const [value, setValue] = useState(false);
   return (
     <Wrapper>
-
-      {
-      list.map((item: any) => 
-        <Cells key={item.title} setValue={setValue} isSelected={value === item.value} title={item.title} className={`${className} isBasic  `}>
-
-          {item.iconUrl ? (
-            <div className="left">
-              <img src={item.iconUrl} />
-            </div>
-          ) : null}
-
-          {item.content ? (
-            <div className="whole">
-              <>
-                <h3>{item.title}</h3>
-                <div>{item.content}</div>
-              </>
-            </div>
-          ) : (
-            <div className="title">{item.title}</div>
-          )}
-
-          <div className="right" onClick={handleOnClick}>
-
-            {isSelected ? (
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                <path
-                  fill="#51ABAD"
-                  fill-rule="evenodd"
-                  d="M280,20 C286.627417,20 292,25.372583 292,32 C292,38.627417 286.627417,44 280,44 C273.372583,44 268,38.627417 268,32 C268,25.372583 273.372583,20 280,20 Z M285.113301,27.8843721 C284.460622,27.4870256 283.600475,27.6438775 283.133515,28.2682769 L283.133515,28.2682769 L278.67184,34.2327881 L276.074801,32.1505567 L275.957812,32.0655297 C275.318958,31.6463175 274.453994,31.7739631 273.966166,32.3821979 C273.447848,33.0284473 273.551557,33.9725155 274.197807,34.4908331 L274.197807,34.4908331 L278.005643,37.5448684 L278.11866,37.6272917 C278.77376,38.0602338 279.665538,37.9147007 280.145377,37.2730797 L280.145377,37.2730797 L285.535987,30.0649758 L285.617005,29.9451764 C286.014352,29.2924971 285.8575,28.4323499 285.2331,27.9653902 L285.2331,27.9653902 Z"
-                  transform="translate(-268 -20)"
-                />
-              </svg>
-            ) : null}
-
-          </div>
-        </Cells>
-      
-      )}
+      {list.map(function(item: any) {
+        return (
+          <Cell
+            key={item.title}
+            isSelected={value == item.title}
+            setValue={setValue}
+            iconUrl={item.iconUrl}
+            title={item.title}
+            content={item.content}
+          />
+        );
+      })}
     </Wrapper>
   );
 }

@@ -15,6 +15,7 @@ import WarmUp from './WarmUp';
 import Contents from '@polkadot/pages';
 import Sidebars from '@polkadot/pages/components/SideBar';
 import Header from '@polkadot/pages/components/Header';
+import { ToolTipConfig } from '@polkadot/react-components-chainx/ToolTipConfig/ToolTipConfig';
 export const PORTAL_ID = 'portals';
 
 function Apps ({ className = '' }: Props): React.ReactElement<Props> {
@@ -41,6 +42,7 @@ function Apps ({ className = '' }: Props): React.ReactElement<Props> {
           <div id={PORTAL_ID} />
       </div>
       <WarmUp />
+      {/* <ToolTipConfig /> */}
     </>
   );
 }
