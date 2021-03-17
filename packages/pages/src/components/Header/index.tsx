@@ -1,41 +1,21 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, {useContext, useEffect, useState} from 'react';
 // import { useLocation } from 'react-router-dom';
 import styled from "styled-components";
-// import createRoutes from '@polkadot/apps-routing';
-// import { ErrorBoundary, Spinner, StatusContext } from '@polkadot/react-components';
-// import { useApi } from '@polkadot/react-hooks';
-
-// import { findMissingApis } from '../endpoint';
-// import { useTranslation } from '../translate';
-import Lpolkadot from "./icons/logo_polkadot.svg";
-import Lsamurai from "./icons/logo_samurai.svg";
 import Network from "./icons/network.svg";
-
 import polkadot from "./icons/logo_polkadot.svg";
-import PolkadotAcc from "./icons/polkadot_account.svg";
+import samurai from './icons/logo_samurai.svg'
 import PlantonAcc from "./icons/planton_account.svg";
 import Endpoints from "@polkadot/react-components-chainx/Endpoints";
-import Pdotcard from "@polkadot/react-components-chainx/PdotCards/PdotCard";
 import Card from "@polkadot/react-components-chainx/Card/Card";
 import AccountCard from "@polkadot/react-components-chainx/AccountCard/AccountCard";
-import { Records } from "@polkadot/react-components-chainx/Records";
 import { useAllAccounts } from "@polkadot/react-hooks-chainx/useAllAccounts";
 import { AccountContext } from "@polkadot/react-components-chainx/AccountProvider";
-import { useAccountInfo, useApi, useCall } from "@polkadot/react-hooks";
-import {DeriveBalancesAll} from '@polkadot/api-derive/types';
-import type { DeriveAccountFlags, DeriveAccountInfo } from '@polkadot/api-derive/types';
-import type { AccountInfo } from '@polkadot/types/interfaces';
-import BN from "bn.js";
+import { useApi } from "@polkadot/react-hooks";
+import BN from 'bn.js';
+import {erc20_minter_contract} from '@polkadot/pages/contract';
 
 interface Props {
   className?: string;
-}
-
-interface PcxFreeInfo {
-  feeFrozen?: number,
-  free?: number,
-  miscFrozen?: number,
-  reserved?: number,
 }
 
 function Header({ className }: Props): React.ReactElement<Props> {
@@ -46,7 +26,7 @@ function Header({ className }: Props): React.ReactElement<Props> {
   const { hasAccounts, allAccounts} = useAllAccounts()
 
   const { currentAccount } = useContext(AccountContext);
-  // const [balanced, setBalaced] = useState<PcxFreeInfo>();
+  const [pdot, setPdot] = useState<number>(0)
 
   useEffect(() => {
     const accountMsgs = allAccounts?.find(item => item.account === currentAccount)
@@ -59,11 +39,24 @@ function Header({ className }: Props): React.ReactElement<Props> {
       setUsableBalance(bgFree.sub(new BN(allBalance.miscFrozen)).toNumber())
       // setBalaced(allBalance)
     }
-    
+
     balances()
   }, [currentAccount,isApiReady])
-    
 
+  useEffect(() => {
+    erc20_minter_contract.methods.balanceOf(alaya.selectedAddress).call()
+      .then(setPdot)
+  }, [alaya.selectedAddress])
+
+  const [platonAccount, setPlatonAccount] = useState<string[]>()
+
+  const openSamurai = () => {
+    alaya.request({ method: "platon_requestAccounts" })
+      .then((platonAccounts: string[]) => setPlatonAccount(platonAccounts))
+  }
+
+  console.log('platonAccount', platonAccount)
+  console.log('alaya.selectedAccount', alaya.selectedAccount)
   return (
     <div className={className}>
       <h2>欢迎来到 Platdot！</h2>
@@ -81,19 +74,19 @@ function Header({ className }: Props): React.ReactElement<Props> {
             /> :
             <Card isBasic className="pinkCard" label="使用 Polkadot{.js} 插件登录 Polkadot 账户" iconNode={polkadot} />
         }
-        {
-          hasAccounts?
-            <AccountCard
-              className="grennCard"
-              accountName="PlatON 账户"
-              accountAdress="atpPUMLYobYiBjPuRCnNd9xZcEAjzXYM5Vjweaa327YwD8FA"
-              accountAmount="99999.0000"
-              iconNode={PlantonAcc}
-              unit='PDOT'
-            /> :
-            <Card isBasic className='grennCard' label='使用 Samurai 插件登录 PlatON 账户' iconNode={Lsamurai} />
+        { platonAccount?
+        <AccountCard
+          className="grennCard"
+          accountName="PlatON 账户"
+          accountAdress={alaya.selectedAddress}
+          accountAmount= {pdot? pdot: 0}
+          iconNode={PlantonAcc}
+          allAccounts={platonAccount}
+          unit='PDOT
+        />:
+          <Card isBasic className="grennCard" label="使用 Samurai 插件登录 Platon 账户" iconNode={samurai} onClick={openSamurai} />
         }
-        <Endpoints className="blueCard" iconNode={Network} title="当前网络" content="PlatON 网络" btnlabel="切换网络" />
+        <Endpoints className="blueCard" iconNode={Network} title="当前网络" content="PlatON 网络" btnLabel="切换网络" />
       </div>
     </div>
   );
@@ -110,7 +103,7 @@ export default React.memo(styled(Header)`
     font-weight: bold;
     color: #444c5e;
     line-height: 48px;
-    
+
   }
   .cardListWrapper {
     display: inline-flex;

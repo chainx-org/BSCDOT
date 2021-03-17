@@ -18,7 +18,7 @@ const Wrapper = React.memo(styled.section`
   border-radius: 10px;
   width: 312px;
   .header{
-    height: 44px; 
+    height: 44px;
     // display:flex;
     img{
       width: 16px;
@@ -28,7 +28,7 @@ const Wrapper = React.memo(styled.section`
     }
   }
 `);
-const lists: any = [
+const list: any = [
   {
     title: "Alaya 网络",
     iconUrl: ALAYA
@@ -41,11 +41,10 @@ const lists: any = [
 interface ToolTipConfigProps {
   list?: any;
   isAccountListOpen?: any;
-  setIsAccountListOpen?: any;  
-  // 
+  setIsAccountListOpen?: any;
 }
 
-export function ToolTipConfig({list=lists,isAccountListOpen,setIsAccountListOpen}: ToolTipConfigProps): React.ReactElement<ToolTipConfigProps> {
+export function ToolTipConfig({list, isAccountListOpen, setIsAccountListOpen}: ToolTipConfigProps): React.ReactElement<ToolTipConfigProps> {
   const [value, setValues] = useState(false);
   // const [isAccountListOpen, setIsAccountListOpen] = useState<boolean>(true);
   const _toggleAccountList = (): void => setIsAccountListOpen(false);

@@ -1,29 +1,24 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, { useEffect } from 'react';
 import {transferTransactionParameters, depositTransactionParameters, bridge_contract} from './contract';
-import { TxButton } from '@polkadot/react-components';
 import {useApi} from '@polkadot/react-hooks';
-import { web3Accounts, web3Enable, web3FromAddress } from '@polkadot/extension-dapp';
-import { InjectedAccountWithMeta } from '@polkadot/extension-inject/types';
 
-import { HashRouter, Route } from "react-router-dom";
-import Header from "./components/Header";
-import PublicContent from "./page-publish";
-import RedeemContent from "./page-redeem";
-import TransferContent from "./page-transfer";
-import {AllAccountsContext} from '@polkadot/react-components-chainx/AllAccountsProvider';
+import {HashRouter, Route} from 'react-router-dom';
+import Header from './components/Header';
+import PublicContent from './page-publish';
+import RedeemContent from './page-redeem';
+import TransferContent from './page-transfer';
 
 function Contents(): React.ReactElement {
-  const { api, isApiReady } = useApi()
   useEffect(() => {
     async function ccc() {
-      // alaya.request({ method: "platon_requestAccounts" }).then(result => console.log((result)))
-      // console.log(alaya.selectedAddress)
+      alaya.request({ method: "platon_requestAccounts" }).then(result => console.log('result:', result, 'alaya.selectedAddress', alaya.selectedAddress))
+      console.log(alaya.selectedAddress)
 // console.log(bridge_contract.methods.deposit)
 
-      alaya.request({
-        method: 'platon_sendTransaction',
-        params: [depositTransactionParameters]
-      }).then(result => console.log((result)));
+      // alaya.request({
+      //   method: 'platon_sendTransaction',
+      //   params: [depositTransactionParameters]
+      // }).then(result => console.log((result)));
 // bridge_contract.methods.deposit(1, resourceID, createERCDepositData(10, 20 ,ghjieAddress)).send({from: adminAddress, value: 0, gasPrice: 1, gas: 2000000})
 //   .on('transactionHash', function(hash){
 //     console.log('1hash: ',hash);
@@ -66,59 +61,20 @@ function Contents(): React.ReactElement {
     //   .then(console.log);
   }, []);
 
-  const [active, setActive] = useState<InjectedAccountWithMeta | null>(null);
 
-  const {accountAddress, hasAccounts, allAccounts} = useContext(AllAccountsContext)
-  useEffect(() => {
-
-    async function ccc(){
-
-      if(hasAccounts){
-        try{
-          const injector = await web3FromAddress(accountAddress[0]);
-
-          api.setSigner(injector.signer);
-          setActive(allAccounts[0]);
-
-        }catch (err){
-          console.log(err)
-        }
-
-      }
-
-    }
-    ccc()
-
-  }, [accountAddress])
-  console.log(active)
   return (
     <>
-      {isApiReady && <TxButton
-        accountId={accountAddress[0]}
-        icon='plus'
-        label={'发行'}
-        params={ [[
-          api.tx.balances.transferKeepAlive('123mq9dK8GaErgAoMJqiBxx7cbLwiu4u7hzNmtVC3qEjjNRA', 1000),
-          api.tx.system.remark('atx1j4ncnc4ajm8ut0nvg2n34uedtz3kuecmsdf7qd')
-        ]]}
-        // isDisabled={withdrawalDisabled}
-        tx='utility.batch'
-        // onSuccess={() => {
-        //   setN(Math.random());
-        //   toggleWithDrawButton();
-        // }}
-      />}
-    <main className='accounts--App'>
-      <Header />
-      <HashRouter>
-      <Route path="/" exact component={PublicContent} />
-      <Route path="/redeem" component={RedeemContent} />
-      <Route path="/transfer" component={TransferContent} />
-    </HashRouter>
+      <main className='accounts--App'>
+        <Header/>
+        <HashRouter>
+          <Route path="/redeem" component={RedeemContent}/>
+          <Route path="/transfer" component={TransferContent}/>
+          <Route path="/" exact component={PublicContent}/>
+
+        </HashRouter>
 
 
-
-    </main>
+      </main>
     </>
   );
 }

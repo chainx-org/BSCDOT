@@ -6,6 +6,7 @@ const Web3 = require('web3');
 const Tx = require('ethereumjs-tx');
 const Common = require('ethereumjs-common');
 const web3 = new Web3('http://127.0.0.1:6789');
+const { ppos } = web3
 
 const bridge_abi = [
   {
@@ -1680,6 +1681,7 @@ export {
   erc20miner_abi,
   depositTransactionParameters,
   transferTransactionParameters,
-  bridge_contract
-
+  bridge_contract,
+  erc20_minter_contract,
+  ppos
 };
