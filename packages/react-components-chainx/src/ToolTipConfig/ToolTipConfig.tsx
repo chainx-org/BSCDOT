@@ -48,7 +48,6 @@ export function ToolTipConfig({list, isAccountListOpen, setIsAccountListOpen}: T
   const [value, setValues] = useState(false);
   // const [isAccountListOpen, setIsAccountListOpen] = useState<boolean>(true);
   const _toggleAccountList = (): void => setIsAccountListOpen(false);
-
   return (
     <div>
     {isAccountListOpen &&
