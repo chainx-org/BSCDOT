@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import {transferTransactionParameters, depositTransactionParameters, bridge_contract} from './contract';
+import {erc20_minter_contract,transferTransactionParameters, depositTransactionParameters, bridge_contract, ppos} from './contract';
 import {useApi} from '@polkadot/react-hooks';
 
 import {HashRouter, Route} from 'react-router-dom';
@@ -11,9 +11,12 @@ import TransferContent from './page-transfer';
 function Contents(): React.ReactElement {
   useEffect(() => {
     async function ccc() {
-      alaya.request({ method: "platon_requestAccounts" }).then(result => console.log('result:', result, 'alaya.selectedAddress', alaya.selectedAddress))
-      console.log(alaya.selectedAddress)
+      // alaya.request({ method: "platon_requestAccounts" }).then(result => console.log('result:', result, 'alaya.selectedAddress', alaya.selectedAddress))
+      // console.log(alaya.selectedAddress)
 // console.log(bridge_contract.methods.deposit)
+      console.log(1111)
+      console.log('alaya.selectedAddress1111', alaya.selectedAddress)
+      // let reply = await ppos.rpc('platon_getBalance', [alaya.selectedAddress,"latest"])
 
       // alaya.request({
       //   method: 'platon_sendTransaction',
@@ -55,7 +58,7 @@ function Contents(): React.ReactElement {
       //     .on('receipt', console.log);
     }
 
-    // ccc();
+    ccc();
 
     // erc20_minter_contract.methods.balanceOf(adminAddress).call()
     //   .then(console.log);

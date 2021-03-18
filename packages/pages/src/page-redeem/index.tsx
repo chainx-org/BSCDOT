@@ -1,6 +1,5 @@
 // Copyright 2017-2020 @polkadot/apps authors & contributors
 // SPDX-License-Identifier: Apache-2.0
-// import type { Route } from '@polkadot/apps-routing/types';
 
 import React from "react";
 import styled from "styled-components";
@@ -15,10 +14,11 @@ interface Props {
 
 export default function RedeemContent({ className }: Props): React.ReactElement<Props> {
   //   const { t } = useTranslation();
+
   return (
 
     <Wrapper className={`contentWrapper ${className}`}>
-        <PdotCard className = "left" title="赎回 PDOT" component="RedeemCard" isBasic />
+        <PdotCard className = "left" title="赎回 PDOT" component="RedeemCard" isBasic/>
         <Records className = "right" title="赎回记录" />
       </Wrapper>
   );

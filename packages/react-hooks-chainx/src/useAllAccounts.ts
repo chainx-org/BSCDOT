@@ -7,6 +7,7 @@ import { web3Enable, web3Accounts } from '@polkadot/extension-dapp';
 import { useLocalStorage } from '.';
 import { AccountContext } from '@polkadot/react-components-chainx/AccountProvider';
 import {InjectedAccountWithMeta} from '@polkadot/extension-inject/types';
+import {useApi} from '@polkadot/react-hooks';
 
 interface useAllAccountsData {
   accountAddress: string[];
@@ -17,6 +18,7 @@ interface useAllAccountsData {
 
 export function useAllAccounts(): useAllAccountsData {
   const mountedRef = useIsMountedRef();
+  const {isApiReady} = useApi()
   const [state, setState] = useState<useAllAccountsData>({
     accountAddress: [],
     allAccounts: [],
@@ -28,13 +30,12 @@ export function useAllAccounts(): useAllAccountsData {
 
   useEffect(() => {
     async function getAddresses() {
-      const extensions = await web3Enable('platdot');
+      const extensions = await web3Enable('plat');
       if (extensions.length === 0) {
         return;
       }
 
       const allAccounts = await web3Accounts();
-
       if (mountedRef.current) {
         const accountAddress = allAccounts.map((accounts) => { return accounts.address;});
         const addressAndName = allAccounts.map((accounts) => {
@@ -59,10 +60,11 @@ export function useAllAccounts(): useAllAccountsData {
 
 
     }
+    if(isApiReady){
+      getAddresses();
+    }
 
-    getAddresses();
-
-  }, [mountedRef]);
+  }, [isApiReady]);
 
 
   return state;
