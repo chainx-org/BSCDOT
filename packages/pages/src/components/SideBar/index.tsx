@@ -58,7 +58,7 @@ const Wrapper = styled.div`
           }
         }
       }
-      .statusRisk > a.selected {
+      .statusRisk > a {
         background: #51abad;
         border-radius: 0 10px 10px 0;
         margin: 25px -26px 25px -52px;
