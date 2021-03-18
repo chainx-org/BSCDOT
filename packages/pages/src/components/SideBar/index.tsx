@@ -1,7 +1,7 @@
 // Copyright 2017-2020 @polkadot/apps authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 // import { useTranslation } from '../translate';
 
@@ -20,12 +20,13 @@ import Redeem_ACTIVE from "./icons/redeem_active.svg";
 import Transfer_ACTIVE from "./icons/transfer_active.svg";
 
 import SideItem from "./SideItem";
+import { useLocalStorage } from "@polkadot/react-hooks-chainx";
 interface Props {
   className?: string;
 }
 
 export interface NodeItem {
-  index: number;
+  index: number | undefined;
   nodeName: string;
   link: string;
   icon: React.ReactElement;
@@ -58,7 +59,8 @@ const Wrapper = styled.div`
           }
         }
       }
-      .statusRisk > a {
+      // .statusRisk > a.selected {
+        .statusRisk > a {
         background: #51abad;
         border-radius: 0 10px 10px 0;
         margin: 25px -26px 25px -52px;
@@ -100,8 +102,10 @@ function Sidebars({ className = "" }: Props): React.ReactElement<Props> {
       icon_after: <img src={Transfer_ACTIVE} alt="transfer" />
     }
   ];
-  const [recordType, setRecordType] = useState(0);
-  function statusNode(node: NodeItem, index: number) {
+  // const [recordType, setRecordType] = useState(0);
+  let [recordType, setRecordType] = useLocalStorage('recordType','0');
+  function statusNode(node: NodeItem, index: string|undefined) {
+    // setRecordType(`'${index}'`);
     setRecordType(index);
   }
   return (

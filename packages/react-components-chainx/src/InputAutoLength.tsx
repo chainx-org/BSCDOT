@@ -52,11 +52,12 @@ interface InputAutoLengthProps {
   children?: any;
   tokenName?: string | undefined;
   placeholder?: any;
+  isDecimal?: boolean;
 }
 
 function getRegex(isDecimal: boolean): RegExp {
   const decimal = ".";
-
+console.log(isDecimal)
   return new RegExp(isDecimal ? `^(0|[1-9]\\d*)(\\${decimal}\\d{0,4})?$` : "^(0|[1-9]\\d*)$");
 }
 
@@ -64,7 +65,8 @@ function InputAutoLength({
   className,
   children,
   tokenName,
-  placeholder
+  placeholder,
+  isDecimal
 }: InputAutoLengthProps): React.ReactElement<InputAutoLengthProps> {
   const [isPreKeyDown, setIsPreKeyDown] = useState(false);
   const _onKeyUp = useCallback((event: React.KeyboardEvent<Element>): void => {
@@ -84,9 +86,10 @@ function InputAutoLength({
 
       if (!getRegex(true).test(newValue)) {
         event.preventDefault();
+        console.log(isDecimal)
       }
     }
-  }, []);
+  }, [isDecimal]);
 
   return (
     <Wrapper className={className}>
@@ -100,7 +103,6 @@ function InputAutoLength({
       >
         {children}
       </div>
-
       <span className="flagtitle">
         {tokenName}
       </span>
