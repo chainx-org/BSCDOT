@@ -100,7 +100,8 @@ async function retrieve(api: ApiPromise, injectedPromise: Promise<InjectedExtens
         return [];
       })
   ]);
-
+  console.log('injectedAccounts',injectedAccounts)
+  
   // HACK Horrible hack to try and give some window to the DOT denomination
   const properties = api.genesisHash.eq(POLKADOT_GENESIS)
     ? bestHeader.number.toBn().gte(POLKADOT_DENOM_BLOCK)

@@ -59,8 +59,8 @@ function AccountCard({
       {children}{" "}
       {isAccountListOpen && (
         <ToolTipConfig
-          isAccountListOpen={isAccountListOpen}
-          setIsAccountListOpen={setIsAccountListOpen}
+          isOpen={isAccountListOpen}
+          setIsOpen={setIsAccountListOpen}
           list={allAccounts}
         />
       )}

@@ -21,7 +21,7 @@ import AccountCard from "@polkadot/react-components-chainx/AccountCard/AccountCa
 import { Records } from "@polkadot/react-components-chainx/Records";
 import { useAllAccounts } from "@polkadot/react-hooks-chainx/useAllAccounts";
 import { AccountContext } from "@polkadot/react-components-chainx/AccountProvider";
-import { useAccountInfo, useApi, useCall } from "@polkadot/react-hooks";
+import { useAccountInfo, useAccounts, useApi, useCall } from "@polkadot/react-hooks";
 import {DeriveBalancesAll} from '@polkadot/api-derive/types';
 import type { DeriveAccountFlags, DeriveAccountInfo } from '@polkadot/api-derive/types';
 import type { AccountInfo } from '@polkadot/types/interfaces';
@@ -39,7 +39,7 @@ interface PcxFreeInfo {
 }
 
 function Header({ className }: Props): React.ReactElement<Props> {
-    //   const { t } = useTranslation();
+  //   const { t } = useTranslation();
   const { api, isApiReady } = useApi();
   const [accountMsg, setAccountMsg] = useState<object>()
   const [usableBalance, setUsableBalance] = useState<number>(0)
@@ -58,6 +58,7 @@ function Header({ className }: Props): React.ReactElement<Props> {
       const bgFree = new BN(allBalance.free)
       setUsableBalance(bgFree.sub(new BN(allBalance.miscFrozen)).toNumber())
       // setBalaced(allBalance)
+      console.log(allBalance)
     }
     
     balances()
@@ -81,6 +82,7 @@ function Header({ className }: Props): React.ReactElement<Props> {
             /> :
             <Card isBasic className="pinkCard" label="使用 Polkadot{.js} 插件登录 Polkadot 账户" iconNode={polkadot} />
         }
+        {/* <Card isBasic className="pinkCard" label="使用 Polkadot{.js} 插件登录 Polkadot 账户" iconNode={polkadot} /> */}
         {
           hasAccounts?
             <AccountCard
