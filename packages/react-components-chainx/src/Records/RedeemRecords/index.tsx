@@ -63,7 +63,6 @@ export default function (): React.ReactElement {
   // const { currentAccount } = useContext(AccountContext);
 
   const { RedreemRecords } = useTokenTransferList();
-  console.log('transfers',RedreemRecords)
 
   useEffect(() => {
     setLoading(true);

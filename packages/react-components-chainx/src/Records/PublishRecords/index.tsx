@@ -64,7 +64,6 @@ export default function (): React.ReactElement {
   // const { currentAccount } = useContext(AccountContext);
 
   const { PublishRecords } = useTokenTransferList();
-  console.log('transfers',PublishRecords)
 
   useEffect(() => {
     setLoading(true);
