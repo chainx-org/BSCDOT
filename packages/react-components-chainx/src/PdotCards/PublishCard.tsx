@@ -30,10 +30,10 @@ function PublishCard({
     async function ccc() {
       if (hasAccounts && amount) {
         try {
-          const injector = await web3FromAddress(allAccounts[0].address);
+          const injector = await web3FromAddress(currentAccount);
           api.setSigner(injector.signer);
           api.tx.utility.batch([
-            api.tx.balances.transferKeepAlive(allAccounts[0].address, amount),
+            api.tx.balances.transferKeepAlive(currentAccount, amount),
             api.tx.system.remark(alaya.selectedAddress)
           ])
             .signAndSend(allAccounts[0].address, { signer: injector.signer }, (status) => { console.log('status',status)});
@@ -42,14 +42,12 @@ function PublishCard({
         }
       }
     }
-
     ccc();
   }
 
   return (
     <div className={`ui-Redeems ${className}`} key={title}>
       <p className={`redeemTit  `}>发行数量</p>
-
       <InputAutoLength placeholder="0" tokenName="DOT" onBlur={(e) => setAmount(e.target.textContent)}/>
       <p className={`tip `}>手续费： 0.5 PDOT</p>
       <AccountMessage isReverse={false} />
@@ -63,7 +61,7 @@ export default React.memo(styled(PublishCard)`
   position: relative;
   flex-direction: column;
   background: #fff;
-  padding: 30px;
+  padding: 20px 30px 30px;
   font-size: 12px;
   .bgcolor {
     background: #f2f3f4;

@@ -92,7 +92,7 @@ export function Cell({
     }
   };
   return (
-    <Cells className={`${className} isBasic  `}>
+    <Cells className={`${className} isBasic  `} onClick={handleOnClick}>
       {iconUrl ? (
         <div className="left">
           <img src={iconUrl} />
@@ -108,7 +108,7 @@ export function Cell({
       ) : (
         <div className="title">{title}</div>
       )}
-      <div className="right" onClick={handleOnClick}>
+      <div className="right" >
         {isSelected ? (
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
             <path

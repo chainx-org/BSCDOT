@@ -1,6 +1,13 @@
 import React, {useContext, useEffect, useState} from 'react';
 // import { useLocation } from 'react-router-dom';
+
 import styled from 'styled-components';
+// import createRoutes from '@polkadot/apps-routing';
+// import { ErrorBoundary, Spinner, StatusContext } from '@polkadot/react-components';
+// import { useApi } from '@polkadot/react-hooks';
+
+// import { findMissingApis } from '../endpoint';
+// import { useTranslation } from '../translate';
 import Network from './icons/network.svg';
 import polkadot from './icons/logo_polkadot.svg';
 import samurai from './icons/logo_samurai.svg';
@@ -17,6 +24,7 @@ import {erc20_minter_contract} from '@polkadot/pages/contract';
 interface Props {
   className?: string;
 }
+
 
 function Header({className}: Props): React.ReactElement<Props> {
   //   const { t } = useTranslation();
@@ -39,6 +47,7 @@ function Header({className}: Props): React.ReactElement<Props> {
       const bgFree = new BN(allBalance.free);
       setUsableBalance(bgFree.sub(new BN(allBalance.miscFrozen)).toNumber());
       // setBalaced(allBalance)
+      console.log(allBalance);
     }
 
     balances();
@@ -84,10 +93,12 @@ function Header({className}: Props): React.ReactElement<Props> {
             iconNode={PlantonAcc}
             allAccounts={platonAccount}
             unit='PDOT'
-          />:
-          <Card isBasic className="grennCard" label="使用 Samurai 插件登录 Platon 账户" iconNode={samurai} onClick={openSamurai} />
+          /> :
+          <Card isBasic className="grennCard" label="使用 Samurai 插件登录 Platon 账户" iconNode={samurai}
+                onClick={openSamurai}/>
+
         }
-        <Endpoints className="blueCard" iconNode={Network} title="当前网络" content="PlatON 网络" btnLabel="切换网络" />
+        <Endpoints className="blueCard" iconNode={Network} title="当前网络" content="PlatON 网络" btnLabel="切换网络"/>
       </div>
     </div>
   );
@@ -104,18 +115,15 @@ export default React.memo(styled(Header)`
     font-weight: bold;
     color: #444c5e;
     line-height: 48px;
-
   }
+
   .cardListWrapper {
     display: inline-flex;
     width: 100%;
-
-      margin-right: 20px;
-
-        padding: 20px 0;
-      }
-    }
+    margin-right: 20px;
+    padding: 20px 0;
   }
+
 
 
 `);

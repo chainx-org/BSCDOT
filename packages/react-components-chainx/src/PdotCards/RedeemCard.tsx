@@ -51,7 +51,7 @@ export default React.memo(styled(RedeemCard)`
   position: relative;
   flex-direction: column;
   background: #fff;
-  padding: 30px;
+  padding: 20px 30px 30px;
   font-size: 12px;
   border: 0 solid transparent;
   .input {

@@ -2,10 +2,10 @@
 // SPDX-License-Identifier: Apache-2.0
 
 
-import React, { useCallback } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Button from './Button';
-// import Icon from '@polkadot/react-components/Icon';
+import { ToolTipConfig } from './ToolTipConfig/ToolTipConfig';
 
 interface EndpointProps {
     children?: React.ReactNode;
@@ -18,12 +18,11 @@ interface EndpointProps {
 }
 
 
-function Endpoints({ children, className = '', content, title, iconNode, btnLabel, onClick }: EndpointProps): React.ReactElement<EndpointProps> {
-  const _onClick = useCallback(
-    () => onClick && onClick(),
-    [onClick]
-  );
+function Endpoints({ children, className = '', content, title, iconNode, btnlabel, onClick }: EndpointProps): React.ReactElement<EndpointProps> {
 
+  const [isEndpoints, setIsEndpoints] = useState<boolean>(false);
+
+  const _toggleEndpoints = (): void => setIsEndpoints(true);
   return (
     <div className={`isBasic ${className}`} >
       <div className='leftIcon'>
@@ -35,10 +34,16 @@ function Endpoints({ children, className = '', content, title, iconNode, btnLabe
         <Button
           className='ui-tabEndpoint'
           isBasic
-          label={btnLabel}
-          onClick={_onClick}
+          label={btnlabel}
+          onClick={_toggleEndpoints}
         />
       </div>
+      {isEndpoints && (
+        <ToolTipConfig
+          isOpen={isEndpoints}
+          setIsOpen={setIsEndpoints}
+        />
+      )}
       {children}
     </div>
   );
