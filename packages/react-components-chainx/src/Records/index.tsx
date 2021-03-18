@@ -1,6 +1,9 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
 import TransferRecords from './TransferRecords';
+import RedeemRecords from './RedeemRecords';
+import PublishRecords from './PublishRecords';
+
 
 const Wrapper = styled.section`
     display: flex;
@@ -46,7 +49,9 @@ export function Records({ children, className = '', title }: RecordsProps): Reac
     <Wrapper>
       <p className={`${className} isBasic  `}>{title}</p>
       <div className='pdotCon'>
-        <TransferRecords />
+        {
+          title === '转账记录'? <TransferRecords /> : title === '发行记录'? <PublishRecords />: <RedeemRecords />
+        }
       </div>
       {children}
     </Wrapper>
