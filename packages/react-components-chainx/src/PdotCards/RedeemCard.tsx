@@ -39,7 +39,7 @@ function RedeemCard({
       <p className={`redeemTit`}>赎回数量</p>
       <InputAutoLength placeholder="0" tokenName="PDOT" onBlur={(e) => setAmount(e.target.textContent)}/>
       <p className={`tip `}>手续费： 0.5 PDOT</p>
-      <AccountMessage isReverse={true} />
+      <AccountMessage isReverse={true} polkadotAddress={currentAccount} platonAddress={alaya.selectedAddress}/>
       <span className="warn isShow">PDOT 余额不足</span>
       <Button className="isConfirm" onClick={redeem}>确定赎回</Button>
     </div>

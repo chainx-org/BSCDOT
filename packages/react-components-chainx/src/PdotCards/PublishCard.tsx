@@ -47,10 +47,10 @@ function PublishCard({
 
   return (
     <div className={`ui-Redeems ${className}`} key={title}>
-      <p className={`redeemTit  `}>发行数量</p>
+      <p className={'redeemTit'}>发行数量</p>
       <InputAutoLength placeholder="0" tokenName="DOT" onBlur={(e) => setAmount(e.target.textContent)}/>
       <p className={`tip `}>手续费： 0.5 PDOT</p>
-      <AccountMessage isReverse={false} />
+      <AccountMessage isReverse={false} polkadotAddress={currentAccount} platonAddress={alaya.selectedAddress}/>
       <Button className="isConfirm" onClick={publish}>确定发行</Button>
     </div>
   );
@@ -63,7 +63,7 @@ export default React.memo(styled(PublishCard)`
   background: #fff;
   padding: 20px 30px 30px;
   font-size: 12px;
-  .bgcolor {
+  .bgColor {
     background: #f2f3f4;
     border-radius: 4px;
     margin-bottom: 16px;
