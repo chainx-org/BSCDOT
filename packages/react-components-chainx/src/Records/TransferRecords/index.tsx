@@ -7,8 +7,8 @@ import { useIsMounted } from '../hooks';
 // import useTransfer from '../../../useTransfer';
 import { useTranslation } from '@polkadot/react-components/translate';
 import { AccountContext } from '@polkadot/react-components-chainx/AccountProvider';
-import useTransferList from '@polkadot/app-accounts-chainx/useTransferList';
-// import useTransfer from '@polkadot/app-accounts-chainx/useTransfer';
+import useTokenTransferList from '@polkadot/app-accounts-chainx/useTransferList';
+
 
 const Wrapper = styled.div`
 
@@ -60,9 +60,7 @@ export default function (): React.ReactElement {
   const [loading, setLoading] = useState(true);
   const mounted = useIsMounted();
   // const { currentAccount } = useContext(AccountContext);
-  const transfers = useTransferList();
-  console.log('transfers',transfers)
-  // const transfers = [];
+  const { Transfers } = useTokenTransferList();
 
   useEffect(() => {
     setLoading(true);
@@ -74,7 +72,7 @@ export default function (): React.ReactElement {
     }
   });
 
-  const transfersElement = transfers?.map((transfer, index) => {
+  const transfersElement = Transfers?.map((transfer: any, index: number) => {
     return <Line key={index} transfer={transfer} />;
   });
 
@@ -88,7 +86,7 @@ export default function (): React.ReactElement {
 
   return (
     <Wrapper>
-      {(transfers || []).length > 0 ? (
+      {(Transfers || []).length > 0 ? (
         transfersElement
       ) : (
           <div className='empty'>

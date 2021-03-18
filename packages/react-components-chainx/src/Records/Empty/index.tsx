@@ -4,14 +4,12 @@ import NoData from './nodata.svg'
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
-
   min-height: 324px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   background: #fff;
-  // vertical-align: middle;
   border-radius: 10px;
   border: none;
   &.nodata {
@@ -20,10 +18,6 @@ const Wrapper = styled.div`
     letter-spacing: 0;
     text-align: center;
   }
-
-  // img {
-  //   width: 56px;
-  // }
 `;
 
 type Props = {
