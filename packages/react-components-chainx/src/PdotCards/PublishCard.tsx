@@ -35,7 +35,7 @@ export default React.memo(styled(PublishCard)`
   position: relative;
   flex-direction: column;
   background: #fff;
-  padding: 30px;
+  padding: 20px 30px 30px;
   font-size: 12px;
   .bgcolor {
     background: #f2f3f4;
