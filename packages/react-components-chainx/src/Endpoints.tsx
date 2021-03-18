@@ -18,7 +18,7 @@ interface EndpointProps {
 }
 
 
-function Endpoints({ children, className = '', content, title, iconNode, btnlabel, onClick }: EndpointProps): React.ReactElement<EndpointProps> {
+function Endpoints({ children, className = '', content, title, iconNode, btnLabel, onClick }: EndpointProps): React.ReactElement<EndpointProps> {
 
   const [isEndpoints, setIsEndpoints] = useState<boolean>(false);
 
@@ -34,7 +34,7 @@ function Endpoints({ children, className = '', content, title, iconNode, btnlabe
         <Button
           className='ui-tabEndpoint'
           isBasic
-          label={btnlabel}
+          label={btnLabel}
           onClick={_toggleEndpoints}
         />
       </div>

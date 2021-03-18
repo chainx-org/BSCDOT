@@ -100,11 +100,11 @@ export default React.memo(styled(Contents)`
     color: #444c5e;
     line-height: 48px;
   }
-  .cardLiists {
+  .cardLists {
     display: inline-flex;
     .left {
       margin-right: 20px;
-      .cardlist {
+      .cardList {
         display: flex;
         padding: 20px 0;
       }

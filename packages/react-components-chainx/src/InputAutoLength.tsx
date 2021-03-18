@@ -31,7 +31,7 @@ const Wrapper = styled.div`
     &:focus {
       border: 0px;
       outline: none;
-      white-space: no-wrap;
+      white-space: nowrap;
     }
 
     line-height: 44px;
@@ -39,7 +39,7 @@ const Wrapper = styled.div`
     // height: 22px;
     min-width: 30px;
   }
-  .flagtitle{
+  .flagTitle{
     position: relative;
     bottom: 11px;
     padding-left: 10px;
