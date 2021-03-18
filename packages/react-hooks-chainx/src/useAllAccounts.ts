@@ -3,7 +3,7 @@
 
 import { useEffect, useState, useContext } from 'react';
 import { useIsMountedRef } from './useIsMountedRef';
-import { web3Enable, web3Accounts } from '@polkadot/extension-dapp';
+import { web3Enable, web3Accounts ,web3AccountsSubscribe} from '@polkadot/extension-dapp';
 import { useLocalStorage } from '.';
 import { AccountContext } from '@polkadot/react-components-chainx/AccountProvider';
 import {InjectedAccountWithMeta} from '@polkadot/extension-inject/types';
@@ -35,27 +35,24 @@ export function useAllAccounts(): useAllAccountsData {
         return;
       }
 
-      const allAccounts = await web3Accounts();
       if (mountedRef.current) {
-        const accountAddress = allAccounts.map((accounts) => { return accounts.address;});
-        const addressAndName = allAccounts.map((accounts) => {
-          return ({
-            address: accounts.address,
-            accountName: accounts.meta.name
+
+        const allAccounts = await web3AccountsSubscribe((allAccounts) => {
+          const accountAddress = allAccounts.map((accounts) => { return accounts.address;});
+          const addressAndName = allAccounts.map((accounts) => {
+            return ({
+              account: accounts.address,
+              accountName: accounts.meta.name
+            });
+
           });
+          const hasAccounts = accountAddress.length !== 0;
+
+
+          setState({accountAddress, addressAndName, hasAccounts, allAccounts});
 
         });
 
-        const hasAccounts = accountAddress.length !== 0;
-        // const isAccount = (address: string): boolean => allAccounts.includes(address);
-        // if (storedValue === 'undefined' || storedValue === null || storedValue === undefined) {
-        //   const defaultAccount = accountAddress.length > 0 ? accountAddress[0] : ''
-        //   setValue(defaultAccount)
-        //   changeAccount(defaultAccount)
-        //
-        // }
-
-        setState({accountAddress, addressAndName, hasAccounts, allAccounts});
       }
 
 
@@ -65,6 +62,15 @@ export function useAllAccounts(): useAllAccountsData {
     }
 
   }, [isApiReady]);
+
+  useEffect(() => {
+    if (!storedValue) {
+      const defaultAccount = state.accountAddress.length > 0 ? state.accountAddress[0] : ''
+      setValue(defaultAccount)
+      changeAccount(defaultAccount)
+
+    }
+  }, [state])
 
 
   return state;

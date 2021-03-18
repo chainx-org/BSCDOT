@@ -1719,5 +1719,6 @@ export {
   createTransferTransactionParameters,
   bridgeAddress,
   erc20Address,
-  addressToPublicKey
+  addressToPublicKey,
+  web3
 };
