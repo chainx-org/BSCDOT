@@ -78,20 +78,17 @@ export function Cell({
   isSelected,
   setValues
 }: CellProps): React.ReactElement<CellProps> {
-  
-  let [, setValue] = useLocalStorage<string>('currentAccount');
+  let [, setValue] = useLocalStorage<string>("currentAccount");
   const { changeAccount } = useContext(AccountContext);
 
   let handleOnClick = () => {
-    if(iconUrl) {
+    if (iconUrl) {
       setValues(title);
-      console.log(title)
     }
-    if(account) {
+    if (account) {
       setValues(account);
-      setValue(account)
-      changeAccount(account)
-      console.log(account)
+      setValue(account);
+      changeAccount(account);
     }
   };
   return (
