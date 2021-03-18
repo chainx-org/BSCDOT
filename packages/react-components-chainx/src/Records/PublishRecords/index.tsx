@@ -7,8 +7,7 @@ import { useIsMounted } from '../hooks';
 // import useTransfer from '../../../useTransfer';
 import { useTranslation } from '@polkadot/react-components/translate';
 import { AccountContext } from '@polkadot/react-components-chainx/AccountProvider';
-import useTransferList from '@polkadot/app-accounts-chainx/useTransferList';
-// import useTransfer from '@polkadot/app-accounts-chainx/useTransfer';
+import useTransfer from '@polkadot/app-accounts-chainx/useTransfer';
 
 const Wrapper = styled.div`
 
@@ -23,27 +22,29 @@ const Wrapper = styled.div`
       display: flex;
       justify-content: space-between;
       align-items: center;
-      color: #6F7C7C;
     }
     header {
-      margin-bottom: 8px;
-      .times {
+      margin-bottom: 10px;
+      .txNum {
         font-size: 11px;
+        color: #6F7C7C;
       }
-      .inout {
+      .pending, .reslove {
         font-size: 14px;
+        text-align: right;
+      }
+      .pending {
         color: #51ABAD;
       }
-    }
-    .account {
-      .amount {
-        font-size: 14px;
-        font-weight: 500;
-        color: #000;
+      .reslove {
+        color: #444C5E;
       }
-      .address {
-        font-size: 12px;
-        line-height: 16px;
+    }
+
+    .account {
+      .arrow {
+        width: 15px;
+        height: 10px;
       }
     }
   }
@@ -56,13 +57,12 @@ const LoadingWrapper = styled.div`
 `;
 
 export default function (): React.ReactElement {
-  // const { t } = useTranslation();
+  const { t } = useTranslation();
   const [loading, setLoading] = useState(true);
   const mounted = useIsMounted();
-  // const { currentAccount } = useContext(AccountContext);
-  const transfers = useTransferList();
-  console.log('transfers',transfers)
-  // const transfers = [];
+  const { currentAccount } = useContext(AccountContext);
+  // const transfers = useTransfer(currentAccount);
+  const transfers = [];
 
   useEffect(() => {
     setLoading(true);
