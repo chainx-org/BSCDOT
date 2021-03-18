@@ -6,7 +6,7 @@ import styled from "styled-components";
 import { KEYS_PRE } from "@polkadot/react-components/Input";
 
 const Wrapper = styled.div`
-
+dislpay: flex !important;
   margin: 16px auto;
   font-family: PingFangSC-Semibold;
   font-size: 32px;
@@ -16,7 +16,13 @@ const Wrapper = styled.div`
   outline: none;
   .auto {
     height: 44px !important;
+    max-width: 300px;
+    overflow: hidden;
+    white-space: nowrap;
+    padding-left: 9px;
     &:empty:before {
+      
+      overflow: visible;
       color: #8E8E8E;
       content: attr(placeholder);
       position: relative;
@@ -25,13 +31,17 @@ const Wrapper = styled.div`
     &:focus {
       border: 0px;
       outline: none;
+      white-space: no-wrap;
     }
-    
     line-height: 44px;
     display: inline-block;
-    height: 22px;
-    min-width: 20px;
-    // max-width: 100px;
+    // height: 22px;
+    min-width: 30px;
+  }
+  .flagtitle{
+    position: relative;
+    bottom: 11px;
+    padding-left: 10px;
   }
 `;
 

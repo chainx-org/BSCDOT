@@ -10,8 +10,6 @@ interface Props {
 }
 
 function SideItem({ node, id, recordType, statusNode }: Props): React.ReactElement<Props> {
-  
-  
   return (
     <li className={`navItem ${recordType === id ? "statusRisk" : ""}`} onClick={() => statusNode(node, id)}>
       <NavLink to={node.link} exact activeClassName="selected">

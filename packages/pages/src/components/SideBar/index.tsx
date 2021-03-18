@@ -63,7 +63,6 @@ const Wrapper = styled.div`
         border-radius: 0 10px 10px 0;
         margin: 25px -26px 25px -52px;
         padding-left: 52px;
-
         span {
           color: #ffffff;
         }
