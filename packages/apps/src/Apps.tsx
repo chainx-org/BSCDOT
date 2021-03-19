@@ -3,7 +3,7 @@
 
 import type {BareProps as Props, ThemeDef, ThemeProps} from '@polkadot/react-components/types';
 
-import React, {useContext, useEffect, useMemo} from 'react';
+import React, {useContext, useMemo} from 'react';
 import styled, {ThemeContext} from 'styled-components';
 import {getSystemChainColor} from '@polkadot/apps-config';
 import GlobalStyle from '@polkadot/react-components-chainx/styles';
@@ -33,7 +33,7 @@ function Apps({className = ''}: Props): React.ReactElement<Props> {
             <Contents/>
           </div>
         </Signer>
-        <ConnectingOverlay/>
+        {/*<ConnectingOverlay/>*/}
         <div id={PORTAL_ID}/>
       </div>
       <WarmUp/>
@@ -50,7 +50,9 @@ export default React.memo(styled(Apps)(({theme}: ThemeProps) => `
   box-sizing: border-box;
   // flex-direction: column;
   min-height: 100vh;
-  // .main{
-  //   display: block;
-  // }
+
+  .main{
+    width: fit-content;
+    margin: 0 auto;
+  }
 `));

@@ -25,7 +25,7 @@ function PublishCard({
   const [amount, setAmount] = useState<number>()
   const {api} = useApi()
   const { currentAccount } = useContext(AccountContext)
-  const {hasAccounts, allAccounts} = useAllAccounts()
+  const {hasAccounts} = useAllAccounts()
   const {platonAccount} = useContext(PlatonAccountsContext)
 
   const publish = () => {

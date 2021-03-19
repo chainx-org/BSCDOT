@@ -29,7 +29,7 @@ function RedeemCard({
       try{
         alaya.request({
           method: 'platon_sendTransaction',
-          params: [createDepositTransactionParameters(alaya.selectedAddress, currentAccount, parseInt(amount))]
+          params: [createDepositTransactionParameters(platonAccount, currentAccount, parseInt(amount))]
         }).then((result: any) => console.log((result)));
       }catch(err){
         console.log(err)
