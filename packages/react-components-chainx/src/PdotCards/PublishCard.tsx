@@ -8,6 +8,7 @@ import {AccountContext} from '@polkadot/react-components-chainx/AccountProvider'
 import {useApi} from '@polkadot/react-hooks';
 import {useAllAccounts} from '@polkadot/react-hooks-chainx/useAllAccounts';
 import {PlatonAccountsContext} from '@polkadot/react-components-chainx/PlatonAccountsProvider';
+import {ApiContext} from '@polkadot/react-api';
 
 interface PdotCardProps {
   children?: React.ReactNode;
@@ -27,6 +28,7 @@ function PublishCard({
   const { currentAccount } = useContext(AccountContext)
   const {hasAccounts} = useAllAccounts()
   const {platonAccount} = useContext(PlatonAccountsContext)
+  const {formatProperties} = useContext(ApiContext)
 
   const publish = () => {
     async function ccc() {
@@ -50,7 +52,7 @@ function PublishCard({
   return (
     <div className={`ui-Redeems ${className}`} key={title}>
       <p className={'redeemTit'}>发行数量</p>
-      <InputAutoLength placeholder="0" tokenName="DOT" onBlur={(e) => setAmount(e.target.textContent)}/>
+      <InputAutoLength placeholder="0" tokenName={formatProperties.tokenSymbol[0]} onBlur={(e) => setAmount(e.target.textContent)}/>
       <p className={`tip `}>手续费： 0.5 PDOT</p>
       <AccountMessage isReverse={false} polkadotAddress={currentAccount} platonAddress={platonAccount}/>
       <Button className="isConfirm" onClick={publish}>确定发行</Button>

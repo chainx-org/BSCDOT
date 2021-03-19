@@ -62,7 +62,7 @@ function createLiveNetworks(t: TFunction): LinkOption[] {
       info: 'Kusama',
       text: t('Kusama Node'),
       textBy: t('rpc.hosted.by', 'hosted by Kusama', { ns: 'apps-config', replace: { host: 'Kusama' } }),
-      value: 'wss://kusama-rpc.polkadot.io'
+      value: 'wss://westend-rpc.polkadot.io'
     },
     // {
     //   dnslink: 'ChainX',

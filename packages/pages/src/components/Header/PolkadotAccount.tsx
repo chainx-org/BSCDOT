@@ -7,6 +7,7 @@ import {useAllAccounts} from '@polkadot/react-hooks-chainx/useAllAccounts';
 import {AccountContext} from '@polkadot/react-components-chainx/AccountProvider';
 import BN from "bn.js";
 import {useApi} from '@polkadot/react-hooks';
+import {ApiContext} from '@polkadot/react-api';
 
 function PolkadotAccount() {
   const {api, isApiReady} = useApi();
@@ -14,6 +15,8 @@ function PolkadotAccount() {
   const [usableBalance, setUsableBalance] = useState<number>(0);
   const {hasAccounts, allAccounts, addressAndName} = useAllAccounts();
   const {currentAccount} = useContext(AccountContext);
+  const {formatProperties} = useContext(ApiContext)
+
 
   useEffect(() => {
     const currentAccountInfo = allAccounts?.find(item => item.address === currentAccount);
@@ -44,7 +47,7 @@ function PolkadotAccount() {
             accountAmount={usableBalance}
             iconNode={polkadotAccount}
             allAccounts={addressAndName}
-            unit='DOT'
+            unit={formatProperties.tokenSymbol[0]}
           /> :
           <Card isBasic className="pinkCard" label="使用 Polkadot{.js} 插件登录 Polkadot 账户" iconNode={polkadot}/>
       }

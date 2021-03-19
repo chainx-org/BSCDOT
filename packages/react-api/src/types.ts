@@ -14,6 +14,12 @@ export interface BareProps {
   className?: string;
 }
 
+export interface nodeUnitInfo {
+  ss58Format: number;
+  tokenDecimals: number[];
+  tokenSymbol: string[];
+}
+
 export interface ApiState {
   apiDefaultTx: SubmittableExtrinsicFunction;
   apiDefaultTxSudo: SubmittableExtrinsicFunction;
@@ -25,6 +31,7 @@ export interface ApiState {
   systemChain: string;
   systemName: string;
   systemVersion: string;
+  formatProperties: nodeUnitInfo;
 }
 
 export interface ApiProps extends ApiState {

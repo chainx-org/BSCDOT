@@ -1,13 +1,13 @@
 // Copyright 2017-2020 @polkadot/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import React, { useState } from "react";
-import styled from "styled-components";
+import React, {useState} from 'react';
+import styled from 'styled-components';
 
-import SelectMore from "./icons/selectMore.svg";
+import SelectMore from './icons/selectMore.svg';
 
-import Button from "../Button/Button";
-import { ToolTipConfig } from "../ToolTipConfig/ToolTipConfig";
+import Button from '../Button/Button';
+import {ToolTipConfig} from '../ToolTipConfig/ToolTipConfig';
 import {InjectedAccountWithMeta} from '@polkadot/extension-inject/types';
 
 interface AccountCardProps {
@@ -24,46 +24,46 @@ interface AccountCardProps {
 }
 
 function AccountCard({
-  children,
-  className = "",
-  isBasic,
-  accountName,
-  accountAddress,
-  accountAmount,
-  iconNode,
-  onClick,
-  allAccounts,
-  unit
-}: AccountCardProps): React.ReactElement<AccountCardProps> {
+                       children,
+                       className = '',
+                       isBasic,
+                       accountName,
+                       accountAddress,
+                       accountAmount,
+                       iconNode,
+                       onClick,
+                       allAccounts,
+                       unit
+                     }: AccountCardProps): React.ReactElement<AccountCardProps> {
   const [isAccountListOpen, setIsAccountListOpen] = useState<boolean>(false);
 
   const _toggleAccountList = (): void => setIsAccountListOpen(true);
 
   return (
-    <div className={`ui-accountCard ${className} ${isBasic ? " isBasic" : ""}  `}>
-      <img className={`ui-accountContent`} src={iconNode} alt={iconNode} />
+    <div className={`ui-accountCard ${className} ${isBasic ? ' isBasic' : ''}  `}>
+      <img className={`ui-accountContent`} src={iconNode} alt={iconNode}/>
       <div className={`ui-accountAmount accountItem`}>
         <div className="accountName">
-          <span>{ accountName ? accountName: '-' }</span>
-          <Button
+          <span>{accountName ? accountName : '-'}</span>
+          {allAccounts ? <Button
             className="ui--Account"
             // isBasic={true}
             icon={SelectMore}
             onClick={_toggleAccountList}
-          />
+          />: null}
         </div>
         <div className="address">{accountAddress}</div>
       </div>
       <div className="balance">可用余额</div>
       <div className="amounts">{accountAmount ? accountAmount : 0.0000} {unit}</div>
-      {children}{" "}
-      {isAccountListOpen && (
+      {children}{' '}
+      {(isAccountListOpen && (
         <ToolTipConfig
           isOpen={isAccountListOpen}
           setIsOpen={setIsAccountListOpen}
           list={allAccounts}
-        />
-      )}
+        />))
+      }
     </div>
   );
 }
