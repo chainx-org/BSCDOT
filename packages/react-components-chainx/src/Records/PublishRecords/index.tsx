@@ -7,6 +7,7 @@ import { useIsMounted } from '../hooks';
 // import useTransfer from '../../../useTransfer';
 import { useTranslation } from '@polkadot/react-components/translate';
 import { AccountContext } from '@polkadot/react-components-chainx/AccountProvider';
+import useTransfer from '@polkadot/app-accounts-chainx/useTransfer';
 import useTokenTransferList from '@polkadot/app-accounts-chainx/useTransferList';
 
 const Wrapper = styled.div`
@@ -62,7 +63,7 @@ export default function (): React.ReactElement {
   const mounted = useIsMounted();
   // const { currentAccount } = useContext(AccountContext);
 
-  const { RedreemRecords } = useTokenTransferList();
+  const { PublishRecords } = useTokenTransferList();
 
   useEffect(() => {
     setLoading(true);
@@ -74,8 +75,8 @@ export default function (): React.ReactElement {
     }
   });
 
-  const RedreemElement = RedreemRecords?.map((redreem: any, index: number) => {
-    return <Line key={index} transfer={redreem} />;
+  const publishElement = PublishRecords?.map((publish: any, index: number) => {
+    return <Line key={index} transfer={publish} />;
   });
 
   if (loading) {
@@ -88,8 +89,8 @@ export default function (): React.ReactElement {
 
   return (
     <Wrapper>
-      {(RedreemRecords || []).length > 0 ? (
-        RedreemElement
+      {(PublishRecords || []).length > 0 ? (
+        publishElement
       ) : (
           <div className='empty'>
             <Empty text='暂无数据' />

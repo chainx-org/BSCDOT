@@ -1,7 +1,6 @@
 
 import React, {useRef, useState} from 'react';
 import Hash from '../components/Hash';
-// import Address from './Address';
 import AccountAdd from '../components/AccountAdd'
 import { Detail, Label } from '../components/Detail';
 import { useTranslation } from '@polkadot/react-components/translate';
@@ -13,6 +12,7 @@ export default function ({ transfer }: any) {
   // const { t } = useTranslation();
   const {api, isApiReady} = useApi()
   const [open, setOpen] = useState(false);
+  
   const wrapper = useRef(null);
 
   useOutsideClick(wrapper, () => {
@@ -26,7 +26,7 @@ export default function ({ transfer }: any) {
       <header>
         <span className='txNum'>交易号 {transfer.seq}</span>
         <span>
-        {/* {transfer.data[1] === currentAccount? <span className='pending'>进行中</span> : <span className='reslove'>已完成</span>} */}
+          {/* {transfer.data[1] === currentAccount? <span className='pending'>进行中</span> : <span className='reslove'>已完成</span>} */}
         </span>
       </header>
       <div className='account'>
@@ -42,10 +42,6 @@ export default function ({ transfer }: any) {
             <Label>交易哈希</Label>
             <Hash hash={transfer.txHash} />
           </div>
-          {/* <div className='affirm'>
-            <Label>多签确认哈希</Label>
-            <Address address={transfer.txHash} />
-          </div> */}
         </Detail>
       ) : null}
     </div>

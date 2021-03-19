@@ -1,7 +1,3 @@
-// import { useSelector } from 'react-redux'
-// import { networkSelector } from '../reducers/settingsSlice'
-// import { mainNetExplorer, testNetExplorer } from '../services/api'
-// import { getChainx } from '../services/chainx'
 import link from '../components/link.svg';
 import linkHighlight from '../components/link-highlight.svg';
 import React, {useEffect, useState} from 'react';
