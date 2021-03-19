@@ -1,6 +1,6 @@
 // Copyright 2017-2020 @polkadot/apps authors & contributors
 // SPDX-License-Identifier: Apache-2.0
-import React, { useEffect } from "react";
+import React  from "react";
 import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import Logo from "./icons/logo.svg";
@@ -12,7 +12,6 @@ import Redeem_ACTIVE from "./icons/redeem_active.svg";
 import Transfer_ACTIVE from "./icons/transfer_active.svg";
 
 import SideItem from "./SideItem";
-import { useLocalStorage } from "@polkadot/react-hooks-chainx";
 interface Props {
   className?: string;
 }
@@ -70,9 +69,6 @@ function Sidebars({ className = "" }: Props): React.ReactElement<Props> {
   // const { t } = useTranslation();
 
   const nodeList: NodeItem[] = [
-    // {nodeName: '发行', link: '/',  icon: <img src={Publish} alt='publish' />},
-    // {nodeName: '赎回', link: '/redeem',   icon: <img src={Redeem} alt='redeem' />},
-    // {nodeName: '转账', link: '/transfer', icon: <img src={Transfer} alt='transfer' />}
     {
       index: 0,
       nodeName: "发行",
@@ -96,19 +92,7 @@ function Sidebars({ className = "" }: Props): React.ReactElement<Props> {
     }
   ];
 
-  // const [recordType, setRecordType] = useState(0);
-  // let [recordType, setRecordType] = useLocalStorage('recordType','0');
-  // function statusNode(node: NodeItem, index: string|undefined) {
-  //   // setRecordType(`'${index}'`);
-  //   setRecordType(index);
-  // }
-
-  let [, setPathname] = useLocalStorage("recordType", "/");
   const { pathname } = useLocation();
-
-  useEffect(() => {
-    setPathname(`‘/'+${pathname}'`);
-  }, [pathname]);
 
   return (
     <Wrapper className="">
@@ -116,7 +100,6 @@ function Sidebars({ className = "" }: Props): React.ReactElement<Props> {
         <img src={Logo} alt="logo" />
         <ul className="navLists">
           {nodeList.map((node: NodeItem, index: number) => (
-            // <SideItem node={node} key={index} id={index} recordType={recordType} />
             <SideItem node={node} key={index} id={index} pathname={pathname} />
           ))}
         </ul>
