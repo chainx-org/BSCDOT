@@ -63,10 +63,9 @@ export default React.memo(styled(PdotCard)`
     border-bottom: 1px solid #efefef;
   }
   .pdotCon {
-    // max-height: 324px;
-    // min-height: 324px;
     height: 324px;
     overflow-y: auto;
+    border-radius: 10px;
     &::-webkit-scrollbar {
       width: 5px;
       background: transparent;

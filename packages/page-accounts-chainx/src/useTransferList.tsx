@@ -2,6 +2,7 @@ import {useEffect, useState} from 'react';
 import axios from 'axios';
 
 interface Transfer {
+  id: number,
   seq: number,
   txHash: string,
   blockNumber: number,

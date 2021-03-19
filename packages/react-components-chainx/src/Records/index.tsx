@@ -1,56 +1,65 @@
 import React from 'react';
 import styled from 'styled-components';
-import TransferRecords from './TransferRecords';
-import RedeemRecords from './RedeemRecords';
-import PublishRecords from './PublishRecords';
-
+import { TransferRecords } from './TransferRecords';
+import { RedeemRecords }  from './RedeemRecords';
+import { PublishRedeem } from './PublishRecords';
+import useTokenTransferList from '@polkadot/app-accounts-chainx/useTransferList';
+import { AccountContext } from '@polkadot/react-components-chainx/AccountProvider';
 
 const Wrapper = styled.section`
-    display: flex;
-    flex-direction: column;
-    background: #fff;
-    border-radius: 10px;
-    border: none;
-
-    .isBasic {
-      font-size: 20px;
-      color: #444C5E;
-      padding: 15px 20px;
-      border-bottom-left-radius: 0;
-      border-bottom-right-radius: 0;
-      border-bottom: 1px solid #EFEFEF;
-    }
-    .pdotCon {
-      max-height: 324px;
-      overflow-y: auto;
-      &::-webkit-scrollbar {
-        width: 5px;
-        background: transparent;
-      }
-      &::-webkit-scrollbar-thumb {
-        background: #6F7C7C;
-        border-radius: 2.5px;
-      }
-    }
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border-radius: 10px;
+  border: none;
+  .isBasic {
+    font-size: 20px;
+    color: #444C5E;
+    padding: 15px 20px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom: 1px solid #EFEFEF;
+  }
+  // .pdotCon {
+  //   &::-webkit-scrollbar {    
+  //       width: 5px;
+  //       background: transparent;
+  //   }
+  //   &::-webkit-scrollbar-thumb { 
+  //       background: #6F7C7C;
+  //       border-radius: 2.5px;
+  //   }
+  // }
 `;
 
 
 interface RecordsProps {
-    children?: React.ReactNode;
-    className?: string;
-    title?: string;
+  children?: React.ReactNode;
+  className?: string;
+  title?: string;
 }
 
 
 export function Records({ children, className = '', title }: RecordsProps): React.ReactElement<RecordsProps> {
 
+  // const { currentAccount } = useContext(AccountContext);
 
+  const allrecord = useTokenTransferList();
+  const publishRecord = allrecord?.PublishRecords
+  const publishlen = allrecord?.PublishRecords.length
+  const transfersRecord = allrecord?.Transfers
+  const transferslen = allrecord?.Transfers.length
+  const redreemRecord = allrecord?.RedreemRecords
+  const redreemlen = allrecord?.RedreemRecords.length
+  
   return (
     <Wrapper>
       <p className={`${className} isBasic  `}>{title}</p>
       <div className='pdotCon'>
         {
-          title === '转账记录'? <TransferRecords /> : title === '发行记录'? <PublishRecords />: title === '赎回记录'? <RedeemRecords /> : null
+          title === '转账记录'? <TransferRecords record={transfersRecord} recordlen={transferslen} /> :
+          title === '发行记录'? <PublishRedeem record={publishRecord} recordlen={publishlen} />: 
+          title === '赎回记录'? <PublishRedeem record={redreemRecord} recordlen={redreemlen} /> : null
         }
       </div>
       {children}

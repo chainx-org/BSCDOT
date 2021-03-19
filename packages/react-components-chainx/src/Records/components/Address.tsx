@@ -1,7 +1,7 @@
 import link from '../components/link.svg';
 import linkHighlight from '../components/link-highlight.svg';
 import React, {useEffect, useState} from 'react';
-import { LinkWrap } from '../components/LinkWrapper';
+import { LinkWrap } from './Detail';
 import {useApi} from '@polkadot/react-hooks';
 
 export default function ({ address = '', length = 5, mainnet = null }) {

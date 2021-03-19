@@ -8,7 +8,7 @@ import useOutsideClick from '@polkadot/app-accounts-chainx/Myview/useOutsideClic
 import {useApi} from '@polkadot/react-hooks';
 import Arrow from '../components/arrow.svg'
 
-export default function ({ transfer }: any) {
+export default function ({ transfer, num }: any) {
   // const { t } = useTranslation();
   const {api, isApiReady} = useApi()
   const [open, setOpen] = useState(false);
@@ -24,7 +24,7 @@ export default function ({ transfer }: any) {
       onClick={() => setOpen(!open)}
       ref={wrapper}>
       <header>
-        <span className='txNum'>交易号 {transfer.seq}</span>
+        <span className='txNum'>交易号 <span className='txNums'>{transfer.seq}</span> </span>
         <span>
           {/* {transfer.data[1] === currentAccount? <span className='pending'>进行中</span> : <span className='reslove'>已完成</span>} */}
         </span>
@@ -37,7 +37,7 @@ export default function ({ transfer }: any) {
         <span><AccountAdd address={transfer.transferTo} /></span>
       </div>
       {isApiReady && api.rpc.system.properties() && open ? (
-        <Detail className='detail'>
+         <Detail className={`detail  lineDetail${num}`}>
           <div className='hashVal'>
             <Label>交易哈希</Label>
             <Hash hash={transfer.txHash} />

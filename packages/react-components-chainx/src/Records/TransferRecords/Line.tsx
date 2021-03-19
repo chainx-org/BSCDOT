@@ -10,7 +10,7 @@ import useOutsideClick from '@polkadot/app-accounts-chainx/Myview/useOutsideClic
 import {useApi} from '@polkadot/react-hooks';
 import Arrow from '../components/arrow.svg'
 
-export default function ({ transfer }: any) {
+export default function ({ transfer, num }: any) {
   const { t } = useTranslation();
   const {api, isApiReady} = useApi()
   const [open, setOpen] = useState(false);
@@ -19,12 +19,13 @@ export default function ({ transfer }: any) {
   useOutsideClick(wrapper, () => {
     setOpen(false);
   });
+
   return (
     <div className='line'
       onClick={() => setOpen(!open)}
       ref={wrapper}>
       <header>
-        <span className='times'>{moment(new Date(transfer.blockTimestamp)).format('YYYY/MM/DD hh:mm:ss')}</span>
+        <span className='txNum'>{moment(new Date(transfer.blockTimestamp)).format('YYYY/MM/DD hh:mm:ss')}</span>
         <span className='inout'>{transfer.type === 'OUT' ? t('Out'): t('In')}</span>
       </header>
       <div className='account'>
@@ -35,7 +36,7 @@ export default function ({ transfer }: any) {
         <span className='address'><AccountAdd address={transfer.transferTo} /></span>
       </div>
       {isApiReady && api.rpc.system.properties() && open ? (
-        <Detail className='detail'>
+        <Detail className={`detail  lineDetail${num}`}>
           <div className='hashVal'>
             <Label>交易哈希</Label>
             <Hash hash={transfer.txHash} />
