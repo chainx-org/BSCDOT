@@ -1,34 +1,31 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import AccountCard from '@polkadot/react-components-chainx/AccountCard/AccountCard';
 import PlantonAcc from '@polkadot/pages/components/Header/icons/planton_account.svg';
 import Card from '@polkadot/react-components-chainx/Card/Card';
 import samurai from '@polkadot/pages/components/Header/icons/logo_samurai.svg';
 import {erc20_minter_contract} from '@polkadot/pages/contract';
+import {PlatonAccountsContext} from '@polkadot/react-components-chainx/PlatonAccountsProvider';
 
 function PlatonAccount() {
   const [pdot, setPdot] = useState<number>(0);
-  const [platonAccount, setPlatonAccount] = useState<string>('');
-  // const [platonAccountList, setPlatonAccountList] = useState<string[]>([])
-
+  const {platonAccount, setPlatonAccount} = useContext(PlatonAccountsContext)
 
   useEffect(() => {
-    setPlatonAccount(alaya.selectedAddress);
+    alaya.request({method: 'platon_requestAccounts'})
+      .then((platonAccounts: string[]) => setPlatonAccount(platonAccounts[0]));
+  }, [])
 
-    if (alaya.selectedAddress) {
-      erc20_minter_contract.methods.balanceOf(alaya.selectedAddress).call()
+  useEffect(() => {
+    if (platonAccount) {
+      erc20_minter_contract.methods.balanceOf(platonAccount).call()
         .then(setPdot);
     }
-
-
-  }, [alaya.selectedAddress]);
-  console.log(alaya.selectedAddress);
-
+  }, [platonAccount]);
 
   const openSamurai = () => {
     alaya.request({method: 'platon_requestAccounts'})
-      .then((platonAccounts: string[]) => setPlatonAccount(platonAccounts));
+      .then((platonAccounts: string[]) => setPlatonAccount(platonAccounts[0]));
   };
-
 
   return (
     <>
@@ -44,7 +41,6 @@ function PlatonAccount() {
         /> :
         <Card isBasic className="grennCard" label="使用 Samurai 插件登录 Platon 账户" iconNode={samurai}
               onClick={openSamurai}/>
-
       }
     </>
   );

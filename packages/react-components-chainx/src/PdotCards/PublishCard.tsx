@@ -7,6 +7,7 @@ import {web3FromAddress} from '@polkadot/extension-dapp';
 import {AccountContext} from '@polkadot/react-components-chainx/AccountProvider';
 import {useApi} from '@polkadot/react-hooks';
 import {useAllAccounts} from '@polkadot/react-hooks-chainx/useAllAccounts';
+import {PlatonAccountsContext} from '@polkadot/react-components-chainx/PlatonAccountsProvider';
 
 interface PdotCardProps {
   children?: React.ReactNode;
@@ -25,18 +26,19 @@ function PublishCard({
   const {api} = useApi()
   const { currentAccount } = useContext(AccountContext)
   const {hasAccounts, allAccounts} = useAllAccounts()
+  const {platonAccount} = useContext(PlatonAccountsContext)
 
   const publish = () => {
     async function ccc() {
-      if (hasAccounts && amount) {
+      if (hasAccounts && amount && platonAccount) {
         try {
           const injector = await web3FromAddress(currentAccount);
           api.setSigner(injector.signer);
           api.tx.utility.batch([
             api.tx.balances.transferKeepAlive(currentAccount, amount),
-            api.tx.system.remark(alaya.selectedAddress)
+            api.tx.system.remark(platonAccount)
           ])
-            .signAndSend(allAccounts[0].address, { signer: injector.signer }, (status) => { console.log('status',status)});
+            .signAndSend(currentAccount, { signer: injector.signer }, (status) => { console.log('status',status)});
         } catch (err) {
           console.log(err);
         }
@@ -50,7 +52,7 @@ function PublishCard({
       <p className={'redeemTit'}>发行数量</p>
       <InputAutoLength placeholder="0" tokenName="DOT" onBlur={(e) => setAmount(e.target.textContent)}/>
       <p className={`tip `}>手续费： 0.5 PDOT</p>
-      <AccountMessage isReverse={false} polkadotAddress={currentAccount} platonAddress={alaya.selectedAddress}/>
+      <AccountMessage isReverse={false} polkadotAddress={currentAccount} platonAddress={platonAccount}/>
       <Button className="isConfirm" onClick={publish}>确定发行</Button>
     </div>
   );

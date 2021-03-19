@@ -1,11 +1,12 @@
 // Copyright 2017-2020 @polkadot/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
-import React, { useState } from 'react';
+import React, {useContext, useState} from 'react';
 import styled from 'styled-components';
 import Input from '../Input';
 import InputDex from '../InputDex';
 import Button from "@polkadot/react-components-chainx/Button";
 import {createTransferTransactionParameters} from '@polkadot/pages/contract';
+import {PlatonAccountsContext} from '@polkadot/react-components-chainx/PlatonAccountsProvider';
 
 interface PdotCardProps {
     children?: React.ReactNode;
@@ -18,14 +19,14 @@ interface PdotCardProps {
 function TransferCard({ children, className = '',title, isBasic }: PdotCardProps): React.ReactElement<PdotCardProps> {
   const [amount, setAmount] = useState<string>('')
   const [targetAddress, setTargetAddress] = useState<string>('')
+  const {platonAccount} = useContext(PlatonAccountsContext)
 
   const confirmTransfer = () => {
-    if(alaya.selectedAddress && amount && targetAddress){
-      console.log(amount, targetAddress)
+    if(platonAccount && amount && targetAddress){
       try{
         alaya.request({
           method: 'platon_sendTransaction',
-          params: [createTransferTransactionParameters(alaya.selectedAddress, parseInt(amount), targetAddress)]
+          params: [createTransferTransactionParameters(platonAccount, parseInt(amount), targetAddress)]
         }).then((result: any) => console.log((result)));
       }catch(err){
         console.log(err)

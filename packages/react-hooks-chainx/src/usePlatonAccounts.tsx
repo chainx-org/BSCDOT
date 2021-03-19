@@ -7,16 +7,17 @@ interface PlatonAccountsList{
 }
 
 function usePlatonAccounts(): PlatonAccountsList{
-  const [state, setState] = useState({
+  const [state, setState] = useState<PlatonAccountsList>({
     platonAccounts: [],
     platonSelectedAccount: '',
     hasPlatonAccount: false
   })
 
+
   useEffect(() => {
     alaya.request({ method: "platon_requestAccounts" })
       .then((platonAccounts: string[]) => setState({
-        platonAccounts,
+        platonAccounts: platonAccounts,
         platonSelectedAccount: alaya.selectedAddress,
         hasPlatonAccount: platonAccounts.length !== 0
       }))

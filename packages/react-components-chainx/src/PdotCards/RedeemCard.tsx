@@ -5,6 +5,7 @@ import Button from "@polkadot/react-components-chainx/Button";
 import InputAutoLength from "../InputAutoLength";
 import {createDepositTransactionParameters} from '@polkadot/pages/contract';
 import {AccountContext} from '@polkadot/react-components-chainx/AccountProvider';
+import {PlatonAccountsContext} from '@polkadot/react-components-chainx/PlatonAccountsProvider';
 
 interface PdotCardProps {
   children?: React.ReactNode;
@@ -21,8 +22,10 @@ function RedeemCard({
 }: PdotCardProps): React.ReactElement<PdotCardProps> {
   const [amount, setAmount] = useState<string>('')
   const {currentAccount} = useContext(AccountContext)
+  const {platonAccount} = useContext(PlatonAccountsContext)
+
   const redeem = () => {
-    if(alaya.selectedAddress && amount){
+    if(platonAccount && amount){
       try{
         alaya.request({
           method: 'platon_sendTransaction',
@@ -39,7 +42,7 @@ function RedeemCard({
       <p className={`redeemTit`}>赎回数量</p>
       <InputAutoLength placeholder="0" tokenName="PDOT" onBlur={(e) => setAmount(e.target.textContent)}/>
       <p className={`tip `}>手续费： 0.5 PDOT</p>
-      <AccountMessage isReverse={true} polkadotAddress={currentAccount} platonAddress={alaya.selectedAddress}/>
+      <AccountMessage isReverse={true} polkadotAddress={currentAccount} platonAddress={platonAccount}/>
       <span className="warn isShow">PDOT 余额不足</span>
       <Button className="isConfirm" onClick={redeem}>确定赎回</Button>
     </div>

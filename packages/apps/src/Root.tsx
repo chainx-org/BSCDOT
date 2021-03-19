@@ -16,6 +16,7 @@ import WindowDimensions from './WindowDimensions';
 import {darkTheme, lightTheme} from './themes';
 import {AllAccountsProvider} from '@polkadot/react-components-chainx/AllAccountsProvider';
 import {AccountProvider} from '@polkadot/react-components-chainx/AccountProvider';
+import {PlatonAccountsProvider} from '@polkadot/react-components-chainx/PlatonAccountsProvider';
 
 interface Props {
   store?: KeyringStore;
@@ -44,15 +45,17 @@ function Root({store}: Props): React.ReactElement<Props> {
           >
             <AccountProvider>
               <AllAccountsProvider>
-                <BlockAuthors>
-                  <Events>
-                    <HashRouter>
-                      <WindowDimensions>
-                        <Apps/>
-                      </WindowDimensions>
-                    </HashRouter>
-                  </Events>
-                </BlockAuthors>
+                <PlatonAccountsProvider>
+                  <BlockAuthors>
+                    <Events>
+                      <HashRouter>
+                        <WindowDimensions>
+                          <Apps/>
+                        </WindowDimensions>
+                      </HashRouter>
+                    </Events>
+                  </BlockAuthors>
+                </PlatonAccountsProvider>
               </AllAccountsProvider>
             </AccountProvider>
           </Api>
