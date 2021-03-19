@@ -1,23 +1,23 @@
 // Copyright 2017-2020 @polkadot/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import React, { useCallback, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import Icon from "@polkadot/react-components/Icon";
 
 import SelectMore from "./icons/selectMore.svg";
 
 import Button from "../Button/Button";
 import { ToolTipConfig } from "../ToolTipConfig/ToolTipConfig";
+import {InjectedAccountWithMeta} from '@polkadot/extension-inject/types';
 
 interface AccountCardProps {
   children?: React.ReactNode;
   className?: string;
   isBasic?: boolean;
   accountName?: string;
-  accountAdress?: string;
+  accountAddress?: string;
   accountAmount?: number;
-  allAccounts?: object;
+  allAccounts?: InjectedAccountWithMeta[];
   iconNode?: any;
   unit?: string;
   onClick?: () => void | Promise<void>;
@@ -28,7 +28,7 @@ function AccountCard({
   className = "",
   isBasic,
   accountName,
-  accountAdress,
+  accountAddress,
   accountAmount,
   iconNode,
   onClick,
@@ -41,8 +41,8 @@ function AccountCard({
 
   return (
     <div className={`ui-accountCard ${className} ${isBasic ? " isBasic" : ""}  `}>
-      <img className={`ui-accountContent   `} src={iconNode} alt={iconNode} />
-      <div className={`ui-accountAmount  accountItem`}>
+      <img className={`ui-accountContent`} src={iconNode} alt={iconNode} />
+      <div className={`ui-accountAmount accountItem`}>
         <div className="accountName">
           <span>{ accountName ? accountName: '-' }</span>
           <Button
@@ -52,7 +52,7 @@ function AccountCard({
             onClick={_toggleAccountList}
           />
         </div>
-        <div className="address">{accountAdress}</div>
+        <div className="address">{accountAddress}</div>
       </div>
       <div className="balance">可用余额</div>
       <div className="amounts">{accountAmount ? accountAmount : 0.0000} {unit}</div>

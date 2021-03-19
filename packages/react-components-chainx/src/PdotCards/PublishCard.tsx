@@ -1,14 +1,18 @@
-import React, { useCallback } from "react";
+import React, { useContext, useState} from 'react';
 import styled from "styled-components";
 import { AccountMessage } from "../AccountMessage/AccountMessage";
 import Button from "@polkadot/react-components-chainx/Button";
 import InputAutoLength from "../InputAutoLength";
+import {web3FromAddress} from '@polkadot/extension-dapp';
+import {AccountContext} from '@polkadot/react-components-chainx/AccountProvider';
+import {useApi} from '@polkadot/react-hooks';
+import {useAllAccounts} from '@polkadot/react-hooks-chainx/useAllAccounts';
+import {PlatonAccountsContext} from '@polkadot/react-components-chainx/PlatonAccountsProvider';
 
-interface PdotcardProps {
+interface PdotCardProps {
   children?: React.ReactNode;
   className?: string;
   title?: string;
-  amount?: number;
   isBasic?: boolean;
 }
 
@@ -16,16 +20,40 @@ function PublishCard({
   children,
   className = "",
   title,
-  amount,
   isBasic
-}: PdotcardProps): React.ReactElement<PdotcardProps> {
+}: PdotCardProps): React.ReactElement<PdotCardProps> {
+  const [amount, setAmount] = useState<number>()
+  const {api} = useApi()
+  const { currentAccount } = useContext(AccountContext)
+  const {hasAccounts, allAccounts} = useAllAccounts()
+  const {platonAccount} = useContext(PlatonAccountsContext)
+
+  const publish = () => {
+    async function ccc() {
+      if (hasAccounts && amount && platonAccount) {
+        try {
+          const injector = await web3FromAddress(currentAccount);
+          api.setSigner(injector.signer);
+          api.tx.utility.batch([
+            api.tx.balances.transferKeepAlive(currentAccount, amount),
+            api.tx.system.remark(platonAccount)
+          ])
+            .signAndSend(currentAccount, { signer: injector.signer }, (status) => { console.log('status',status)});
+        } catch (err) {
+          console.log(err);
+        }
+      }
+    }
+    ccc();
+  }
+
   return (
     <div className={`ui-Redeems ${className}`} key={title}>
-      <p className={`redeemTit  `}>发行数量</p>
-      <InputAutoLength placeholder="0" tokenName="DOT" isDecimal={true} />
+      <p className={'redeemTit'}>发行数量</p>
+      <InputAutoLength placeholder="0" tokenName="DOT" onBlur={(e) => setAmount(e.target.textContent)}/>
       <p className={`tip `}>手续费： 0.5 PDOT</p>
-      <AccountMessage isReverse={false} />
-      <Button className="isConfirm">确定发行</Button>
+      <AccountMessage isReverse={false} polkadotAddress={currentAccount} platonAddress={platonAccount}/>
+      <Button className="isConfirm" onClick={publish}>确定发行</Button>
     </div>
   );
 }
@@ -37,7 +65,7 @@ export default React.memo(styled(PublishCard)`
   background: #fff;
   padding: 20px 30px 30px;
   font-size: 12px;
-  .bgcolor {
+  .bgColor {
     background: #f2f3f4;
     border-radius: 4px;
     margin-bottom: 16px;

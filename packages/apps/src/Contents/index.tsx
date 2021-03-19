@@ -20,7 +20,7 @@ import PolkadotAcc from "./icons/polkadot_account.svg";
 import PlantonAcc from "./icons/planton_account.svg";
 
 import Endpoints from "@polkadot/react-components-chainx/Endpoints";
-import Pdotcard from "@polkadot/react-components-chainx/PdotCards/Pdotcard";
+import Pdotcard from "@polkadot/react-components-chainx/PdotCards/PdotCard";
 import Card from "@polkadot/react-components-chainx/Card/Card";
 import AccountCard from "@polkadot/react-components-chainx/AccountCard/AccountCard";
 import { Records } from "@polkadot/react-components-chainx/Records";
@@ -39,10 +39,10 @@ function Contents({ className }: Props): React.ReactElement<Props> {
         <div className="left">
           <div className="cardlist">
             <Card isBasic className="pinkCard" label="使用 Polkadot{.js} 插件登录 Polkadot 账户" iconNode={Lpolkadot} />
-            {/* <AccountCard 
-              className='pinkCard' 
-              accountName='Merrile Burgett' 
-              accountAdress='12BPUMLYobYiBjPuRCnNd9xZcEAjzXYM5Vjweaa327YwD8FA'  
+            {/* <AccountCard
+              className='pinkCard'
+              accountName='Merrile Burgett'
+              accountAdress='12BPUMLYobYiBjPuRCnNd9xZcEAjzXYM5Vjweaa327YwD8FA'
               accountAmount='99999.0000'
               iconNode={PolkadotAcc}
             /> */}
@@ -53,11 +53,11 @@ function Contents({ className }: Props): React.ReactElement<Props> {
               accountAmount="99999.0000"
               iconNode={PlantonAcc}
             />
-            {/* <Card 
-              isBasic 
-              className='grennCard'  
-              label='使用 Samurai 插件登录 PlatON 账户' 
-              iconNode={Lsamurai} 
+            {/* <Card
+              isBasic
+              className='grennCard'
+              label='使用 Samurai 插件登录 PlatON 账户'
+              iconNode={Lsamurai}
             /> */}
           </div>
           <div>
@@ -80,7 +80,7 @@ function Contents({ className }: Props): React.ReactElement<Props> {
           />
           <div className="">
             {/* <Records title="发行记录" /> */}
-            
+
           </div>
         </div>
       </div>
@@ -100,11 +100,11 @@ export default React.memo(styled(Contents)`
     color: #444c5e;
     line-height: 48px;
   }
-  .cardLiists {
+  .cardLists {
     display: inline-flex;
     .left {
       margin-right: 20px;
-      .cardlist {
+      .cardList {
         display: flex;
         padding: 20px 0;
       }

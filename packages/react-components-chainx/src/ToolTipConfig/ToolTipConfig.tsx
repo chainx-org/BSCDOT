@@ -1,9 +1,10 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import { Cell } from "./components/Cell/Cell";
-import ALAYA from "./assets/alaya.svg";
-import PLATON from "./assets/platon.svg";
-import CLOSE from "./assets/icon-close.png";
+import React, {useContext, useState} from 'react';
+import styled from 'styled-components';
+import {Cell} from './components/Cell/Cell';
+import ALAYA from './assets/alaya.svg';
+import PLATON from './assets/platon.svg';
+import CLOSE from './assets/icon-close.png';
+import {AccountContext} from '@polkadot/react-components-chainx/AccountProvider';
 
 const Wrapper = React.memo(styled.section`
   position: absolute;
@@ -17,60 +18,63 @@ const Wrapper = React.memo(styled.section`
   box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.12);
   border-radius: 10px;
   width: 312px;
+
   .header{
-    height: 44px; 
-    // display:flex;
+    height: 44px;
+
     img{
       width: 16px;
       height: 16px;
       margin: 20px 20px 8px;
-      // align-self: center;
     }
   }
 `);
+
 const lists: any = [
   {
-    title: "Alaya 网络",
+    title: 'Alaya 网络',
     iconUrl: ALAYA
   },
   {
-    title: "Platon 网络",
+    title: 'Platon 网络',
     iconUrl: PLATON
   }
 ];
+
 interface ToolTipConfigProps {
   list?: any;
   isOpen?: any;
-  setIsOpen?: any;  
-  // 
+  setIsOpen?: any;
+  //
 }
 
-export function ToolTipConfig({list=lists,isOpen,setIsOpen}: ToolTipConfigProps): React.ReactElement<ToolTipConfigProps> {
-  const [value, setValues] = useState(false);
+export function ToolTipConfig({list = lists, isOpen, setIsOpen}: ToolTipConfigProps): React.ReactElement<ToolTipConfigProps> {
+  const [value, setValues] = useState('');
+  const {currentAccount} = useContext(AccountContext)
   // const [isAccountListOpen, setIsAccountListOpen] = useState<boolean>(true);
   const _toggle = (): void => setIsOpen(false);
 
   return (
     <div>
-    {isOpen &&
-    <Wrapper>
-      <div className="header">
-        <img src={CLOSE} onClick={_toggle} />
-      </div>
-      {list.map(function(item: any) {
-        return (
-          <Cell
-            key={item.account || item.title}
-            isSelected={value == item.account || value == item.title}
-            setValues={setValues}
-            iconUrl={item.iconUrl}
-            title={item.title}
-            accountName={item.accountName}
-            account={item.account}
-          />
-        );
-      })}
-    </Wrapper>}
+      {isOpen &&
+      <Wrapper>
+        <div className="header">
+          <img src={CLOSE} onClick={_toggle}/>
+        </div>
+        {list.map(function (item: any) {
+          return (
+            <Cell
+              key={Math.random()}
+              isSelected={currentAccount === item.account || value === item.title}
+              setValues={setValues}
+              iconUrl={item.iconUrl}
+              title={item.title}
+              accountName={item.accountName}
+              account={item.account}
+            />
+          );
+        })}
+      </Wrapper>}
     </div>
   );
 }

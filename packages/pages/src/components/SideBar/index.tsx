@@ -1,20 +1,12 @@
 // Copyright 2017-2020 @polkadot/apps authors & contributors
 // SPDX-License-Identifier: Apache-2.0
-
-import React, { useEffect, useRef, useState } from "react";
-
-// import { useTranslation } from '../translate';
-
-// import { Link } from "react-router-dom";
-// import { Router, Route, Link } from 'react-router'
+import React, { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import styled from "styled-components";
-
 import Logo from "./icons/logo.svg";
-
 import Publish from "./icons/publish.svg";
 import Redeem from "./icons/redeem.svg";
 import Transfer from "./icons/transfer.svg";
-
 import Publish_ACTIVE from "./icons/publish_active.svg";
 import Redeem_ACTIVE from "./icons/redeem_active.svg";
 import Transfer_ACTIVE from "./icons/transfer_active.svg";
@@ -39,10 +31,11 @@ const Wrapper = styled.div`
   font-size: 16px;
   background: #fff;
   box-shadow: 6px 0 20px 0 rgba(0, 0, 0, 0.3);
-  // overflow-y: auto;
-  // &::-webkit-scrollbar {
-  //   display: none;
-  // }
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
   .wrappers {
     margin: 0 56px 0 52px;
     .navLists {
@@ -59,8 +52,8 @@ const Wrapper = styled.div`
           }
         }
       }
-      // .statusRisk > a.selected {
-        .statusRisk > a {
+
+      .statusRisk > a {
         background: #51abad;
         border-radius: 0 10px 10px 0;
         margin: 25px -26px 25px -52px;
@@ -102,19 +95,29 @@ function Sidebars({ className = "" }: Props): React.ReactElement<Props> {
       icon_after: <img src={Transfer_ACTIVE} alt="transfer" />
     }
   ];
+
   // const [recordType, setRecordType] = useState(0);
-  let [recordType, setRecordType] = useLocalStorage('recordType','0');
-  function statusNode(node: NodeItem, index: string|undefined) {
-    // setRecordType(`'${index}'`);
-    setRecordType(index);
-  }
+  // let [recordType, setRecordType] = useLocalStorage('recordType','0');
+  // function statusNode(node: NodeItem, index: string|undefined) {
+  //   // setRecordType(`'${index}'`);
+  //   setRecordType(index);
+  // }
+
+  let [, setPathname] = useLocalStorage("recordType", "/");
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    setPathname(`‘/'+${pathname}'`);
+  }, [pathname]);
+
   return (
     <Wrapper className="">
       <div className="wrappers">
         <img src={Logo} alt="logo" />
         <ul className="navLists">
           {nodeList.map((node: NodeItem, index: number) => (
-            <SideItem node={node} key={index} id={index} recordType={recordType} statusNode={statusNode} />
+            // <SideItem node={node} key={index} id={index} recordType={recordType} />
+            <SideItem node={node} key={index} id={index} pathname={pathname} />
           ))}
         </ul>
       </div>

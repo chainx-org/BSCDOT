@@ -2,11 +2,10 @@
 // SPDX-License-Identifier: Apache-2.0
 
 
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Button from './Button';
 import { ToolTipConfig } from './ToolTipConfig/ToolTipConfig';
-// import Icon from '@polkadot/react-components/Icon';
 
 interface EndpointProps {
     children?: React.ReactNode;
@@ -14,12 +13,12 @@ interface EndpointProps {
     title?: string;
     content?: string;
     iconNode?: any;
-    btnlabel?: string;
+    btnLabel?: string;
     onClick?: () => void | Promise<void>;
 }
 
 
-function Endpoints({ children, className = '', content, title, iconNode, btnlabel, onClick }: EndpointProps): React.ReactElement<EndpointProps> {
+function Endpoints({ children, className = '', content, title, iconNode, btnLabel, onClick }: EndpointProps): React.ReactElement<EndpointProps> {
 
   const [isEndpoints, setIsEndpoints] = useState<boolean>(false);
 
@@ -35,7 +34,7 @@ function Endpoints({ children, className = '', content, title, iconNode, btnlabe
         <Button
           className='ui-tabEndpoint'
           isBasic
-          label={btnlabel}
+          label={btnLabel}
           onClick={_toggleEndpoints}
         />
       </div>
@@ -81,11 +80,11 @@ export default React.memo(styled(Endpoints)`
       width: 88px;
       height: 36px;
     }
-  
+
   }
 
   &.blueCard {
     background-image: linear-gradient(-45deg, #45B2EA 0%, #2394CE 100%);
   }
- 
+
 `);

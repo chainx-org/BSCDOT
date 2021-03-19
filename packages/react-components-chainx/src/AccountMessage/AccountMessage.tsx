@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React  from "react";
 import styled from "styled-components";
 import POLKADOT from "./assets/little_polkadot_js.svg";
 import PLATON from "./assets/little_platon_js.svg";
@@ -56,26 +56,28 @@ const Cell = React.memo(styled.section`
 
 interface AccountMessageProps {
   isReverse?: boolean;
+  polkadotAddress: string;
+  platonAddress: string;
 }
-let list: any = [
-  {
-    iconUrl: POLKADOT,
-    content: "12BPUMLYobYiBjPuRCnNd9xZcEAjzXYM5Vjweaa327YwD8FA"
-  },
-  {
-    iconUrl: PLATON,
-    content: "atpPUMLYobYiBjPuRCnNd9xZcEAjzXYM5Vjweaa327YwD8FA"
-  }
-];
 
-export function AccountMessage({ isReverse }: AccountMessageProps): React.ReactElement<AccountMessageProps> {
-  console.log(isReverse)
-  useEffect (() => {
-    if (isReverse) {
-      list = list.reverse()
-    } 
-  })
-  
+interface addressInfo{
+  iconUrl: unknown;
+  content: string;
+}
+
+export function AccountMessage({ isReverse, polkadotAddress, platonAddress }: AccountMessageProps): React.ReactElement<AccountMessageProps> {
+
+  const transactionAddresses: addressInfo[] = [
+    {
+      iconUrl: POLKADOT,
+      content: polkadotAddress
+    },
+    {
+      iconUrl: PLATON,
+      content: platonAddress
+    }
+  ];
+
 
   return (
     <Messages>
@@ -88,24 +90,24 @@ export function AccountMessage({ isReverse }: AccountMessageProps): React.ReactE
         </svg>
       </div>
       <div className="cells">
-        {isReverse ? 
+        {isReverse ?
           <>
-            {list.reverse().map((item: any) => (
+            {transactionAddresses.reverse().map((item: any) => (
               <Cell key={item.content}>
                 <img src={item.iconUrl} />
                 <div className="content">{item.content}</div>
               </Cell>
             ))}
           </>
-         : 
+         :
           <>
-          {list.map((item: any) => (
+          {transactionAddresses.map((item: any) => (
               <Cell key={item.content}>
                 <img src={item.iconUrl} />
                 <div className="content">{item.content}</div>
               </Cell>
             ))}
-            
+
           </>
         }
       </div>
