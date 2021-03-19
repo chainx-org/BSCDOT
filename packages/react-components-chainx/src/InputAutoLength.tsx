@@ -21,15 +21,14 @@ const Wrapper = styled.div`
     white-space: nowrap;
     padding-left: 9px;
     &:empty:before {
-
       overflow: visible;
-      color: #8E8E8E;
+      color: #8e8e8e;
       content: attr(placeholder);
       position: relative;
-      right:9px;
+      right: 9px;
     }
     &:focus {
-      border: 0px;
+      border: 0;
       outline: none;
       white-space: nowrap;
     }
@@ -59,9 +58,9 @@ interface InputAutoLengthProps {
 
 function getRegex(isDecimal: boolean): RegExp {
   const decimal = ".";
-console.log(isDecimal)
   return new RegExp(isDecimal ? `^(0|[1-9]\\d*)(\\${decimal}\\d{0,4})?$` : "^(0|[1-9]\\d*)$");
 }
+var value = "";
 
 function InputAutoLength({
   className,
@@ -72,27 +71,35 @@ function InputAutoLength({
   isDecimal
 }: InputAutoLengthProps): React.ReactElement<InputAutoLengthProps> {
   const [isPreKeyDown, setIsPreKeyDown] = useState(false);
+
   const _onKeyUp = useCallback((event: React.KeyboardEvent<Element>): void => {
+    if (event.key === "Backspace") {
+      value = value.substr(0,value.length-1)
+    }
     if (KEYS_PRE.includes(event.key)) {
       setIsPreKeyDown(false);
     }
   }, []);
-  const _onKeyDown = useCallback((event: React.KeyboardEvent<Element>): void => {
-    if (KEYS_PRE.includes(event.key)) {
+  const _onKeyDown = useCallback(
+    (event: React.KeyboardEvent<Element>): void => {
+
+      if (KEYS_PRE.includes(event.key)) {
       setIsPreKeyDown(true);
-      return;
-    }
 
-    if (event.key.length === 1 && !isPreKeyDown) {
-      const { selectionEnd: j, selectionStart: i, innerHTML } = event.target as HTMLInputElement;
-      const newValue = `${innerHTML.substring(0, i || 0)}${event.key}${innerHTML.substring(j || 0)}`;
-
-      if (!getRegex(true).test(newValue)) {
-        event.preventDefault();
-        console.log(isDecimal)
+        return;
       }
-    }
-  }, [isDecimal]);
+
+      if (event.key.length === 1 && !isPreKeyDown) {
+        const newValue = `${event.key}`;
+        value = value.concat(newValue);
+        console.log(newValue, value);
+        if (!getRegex(true).test(value)) {
+          event.preventDefault();
+        }
+      }
+    },
+    [isDecimal]
+  );
 
   return (
     <Wrapper className={className}>
@@ -107,9 +114,7 @@ function InputAutoLength({
       >
         {children}
       </div>
-      <span className="flagtitle">
-        {tokenName}
-      </span>
+      <span className="flagtitle">{tokenName}</span>
     </Wrapper>
   );
 }

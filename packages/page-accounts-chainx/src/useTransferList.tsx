@@ -1,32 +1,51 @@
 import {useEffect, useState} from 'react';
 import axios from 'axios';
-import {useApi} from '@polkadot/react-hooks';
 
 interface Transfer {
-  id: number,
-  sendName: string,
-  receiveName: string,
-  hashAdd: string,
-  price: number,
-  createdAt: number
+  seq: number,
+  txHash: string,
+  blockNumber: number,
+  txFrom: string,
+  contract: number,
+  transferTo: string,
+  transferValue: number,
+  symbol: string,
+  type: string,
+  blockTimestamp: number,
+  decimal: number,
+  fromType: number,
+  toType: number,
+  systemTimestamp: number,
+  value: string
 }
 
-export default function useTransferList(currentAccount = ''): Transfer[] {
-  const [state, setState] = useState<Transfer[]>([]);
-  let transferTimeId: any = '';
+interface PublishRecord  extends Transfer{}
+interface RedreemRecord  extends Transfer{}
+
+interface AllRecords {
+  PublishRecords: PublishRecord[];
+  RedreemRecords: RedreemRecord[];
+  Transfers: Transfer[];
+}
+
+export default function useTokenTransferList(currentAccount = ''): AllRecords[] {
+  const [state, setState] = useState<AllRecords>({PublishRecords: [], RedreemRecords: [], Transfers: []});
+  // let transferTimeId: any = '';
 
   async function fetchTransfers(currentAccount: string) {
-    let res: any;
-    // res = await axios.get(`https://api-v2.chainx.org/accounts/${currentAccount}/transfers?page=0&page_size=20`);
-    res = await axios.post('https://scan.alaya.network/browser-server/token/tokenTransferList',{address:`${currentAccount}`})
-    .then(res=>{ console.log(res) })
-    .catch(err=>{ console.log(err) })
-    setState(res);
+    // let res: any;
+    const res = await axios.post('http://39.106.4.1:53311/alaya-api/token/tokenTransferList',{address:`${currentAccount}`});
+    const records = res.data.data
+    setState({
+      PublishRecords: records.filter((publish: PublishRecord) => publish.txFrom === 'atp1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqdruy9j'),
+      RedreemRecords: records.filter((redreem: RedreemRecord) => redreem.transferTo === 'atp1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqdruy9j'),
+      Transfers: records.filter((transfer: Transfer) => transfer.txFrom !== 'atp1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqdruy9j' && transfer.transferTo !== 'atp1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqdruy9j')
+    });
   }
-  fetchTransfers('atp18hqda4eajphkfarxaa2rutc5dwdwx9z5vy2nmh')
-  // useEffect((): void => {
-  //   fetchTransfers(currentAccount);
-  // }, []);
+
+  useEffect((): void => {
+    fetchTransfers('atp18hqda4eajphkfarxaa2rutc5dwdwx9z5vy2nmh');
+  }, []);
 
   // useEffect(() => {
   //   if(transferTimeId){
@@ -41,5 +60,5 @@ export default function useTransferList(currentAccount = ''): Transfer[] {
   //   return () => window.clearInterval(transferTimeId);
   // }, [currentAccount]);
 
-  return state;
+  return state
 }
