@@ -15,9 +15,12 @@ export const PlatonAccountsProvider: FC = ({children}) => {
   const {platonAccounts, platonSelectedAccount, hasPlatonAccount} = usePlatonAccounts();
   const [platonAccount, setPlatonAccount] = useState<string>('');
 
-  alaya.on('accountsChanged', function (accounts: string[]) {
-    setPlatonAccount(accounts[0]);
-  })
+  if(typeof window.alaya !== 'undefined'){
+    alaya.on('accountsChanged', function (accounts: string[]) {
+      setPlatonAccount(accounts[0]);
+    })
+  }
+
 
   return (
     <PlatonAccountsContext.Provider value={{

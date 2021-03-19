@@ -1,6 +1,5 @@
-import React, { useCallback } from 'react';
+import React  from 'react';
 import styled from 'styled-components';
-import NoData from './icons/nodata.svg'
 import Logout from './icons/logout.svg'
 
 interface dataProps {
@@ -10,8 +9,7 @@ interface dataProps {
     noDataMsg?: boolean;
 }
 
-
-function PdotnoData({ children, className = '', noDataMsg, isBasic }: dataProps): React.ReactElement<dataProps> {
+function NoData({ children, className = '', noDataMsg, isBasic }: dataProps): React.ReactElement<dataProps> {
 
     return (
       <div className={`nodata ${className}`}>
@@ -22,8 +20,9 @@ function PdotnoData({ children, className = '', noDataMsg, isBasic }: dataProps)
 }
 
 
-export default React.memo(styled(PdotnoData)`
+export default React.memo(styled(NoData)`
   min-height: 324px;
+  min-width: 636px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -38,5 +37,5 @@ export default React.memo(styled(PdotnoData)`
     letter-spacing: 0;
     text-align: center;
   }
-  
+
 `);

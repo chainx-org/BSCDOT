@@ -58,19 +58,19 @@ function createLiveNetworks(t: TFunction): LinkOption[] {
   return [
 // polkadot test relays
     {
-      dnslink: 'ChainX',
-      info: 'ChainX',
-      text: t('Chinese Node'),
-      textBy: t('rpc.hosted.by', 'hosted by ChainX', { ns: 'apps-config', replace: { host: 'ChainX' } }),
-      value: 'wss://mainnet.spiderx.pro/ws'
+      dnslink: 'Kusama',
+      info: 'Kusama',
+      text: t('Kusama Node'),
+      textBy: t('rpc.hosted.by', 'hosted by Kusama', { ns: 'apps-config', replace: { host: 'Kusama' } }),
+      value: 'wss://kusama-rpc.polkadot.io'
     },
-    {
-      dnslink: 'ChainX',
-      info: 'ChainX',
-      text: t('Overseas Node'),
-      textBy: t('rpc.hosted.by', 'hosted by ChainX', { ns: 'apps-config', replace: { host: 'ChainX' } }),
-      value: 'wss://mainnet.chainx.org/ws'
-    }
+    // {
+    //   dnslink: 'ChainX',
+    //   info: 'ChainX',
+    //   text: t('Overseas Node'),
+    //   textBy: t('rpc.hosted.by', 'hosted by ChainX', { ns: 'apps-config', replace: { host: 'ChainX' } }),
+    //   value: 'wss://mainnet.chainx.org/ws'
+    // }
   ];
 }
 

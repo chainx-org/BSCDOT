@@ -123,7 +123,7 @@ async function loadOnReady(api: ApiPromise, injectedPromise: Promise<InjectedExt
   const { injectedAccounts, properties, systemChain, systemChainType, systemName, systemVersion } = await retrieve(api, injectedPromise);
   const ss58Format = Number(JSON.stringify(properties.ss58Format))
   const tokenSymbol = properties.tokenSymbol.unwrapOr(undefined)?.toString();
-  const tokenDecimals = properties.tokenDecimals.unwrapOr(DEFAULT_DECIMALS).toNumber();
+  const tokenDecimals = properties.tokenDecimals.unwrapOr(DEFAULT_DECIMALS);
   const isEthereum = ethereumNetworks.includes(api.runtimeVersion.specName.toString());
   const isDevelopment = !isEthereum && (systemChainType.isDevelopment || systemChainType.isLocal || isTestChain(systemChain));
 

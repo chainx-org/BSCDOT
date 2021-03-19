@@ -11,8 +11,10 @@ function PlatonAccount() {
   const {platonAccount, setPlatonAccount} = useContext(PlatonAccountsContext)
 
   useEffect(() => {
-    alaya.request({method: 'platon_requestAccounts'})
-      .then((platonAccounts: string[]) => setPlatonAccount(platonAccounts[0]));
+    if(typeof window.alaya !== 'undefined'){
+      alaya.request({method: 'platon_requestAccounts'})
+        .then((platonAccounts: string[]) => setPlatonAccount(platonAccounts[0]));
+    }
   }, [])
 
   useEffect(() => {
@@ -23,8 +25,12 @@ function PlatonAccount() {
   }, [platonAccount]);
 
   const openSamurai = () => {
-    alaya.request({method: 'platon_requestAccounts'})
-      .then((platonAccounts: string[]) => setPlatonAccount(platonAccounts[0]));
+    if(typeof window.alaya !== 'undefined'){
+      alaya.request({method: 'platon_requestAccounts'})
+        .then((platonAccounts: string[]) => setPlatonAccount(platonAccounts[0]));
+    }else{
+      window.location.href = 'https://github.com/AlayaNetwork/Samurai/releases/download/v8.0.11/samurai-chrome-8.0.11.zip'
+    }
   };
 
   return (

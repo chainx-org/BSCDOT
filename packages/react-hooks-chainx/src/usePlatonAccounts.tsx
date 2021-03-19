@@ -15,12 +15,14 @@ function usePlatonAccounts(): PlatonAccountsList{
 
 
   useEffect(() => {
-    alaya.request({ method: "platon_requestAccounts" })
-      .then((platonAccounts: string[]) => setState({
-        platonAccounts: platonAccounts,
-        platonSelectedAccount: alaya.selectedAddress,
-        hasPlatonAccount: platonAccounts.length !== 0
-      }))
+    if(typeof window.alaya !== 'undefined'){
+      alaya.request({ method: "platon_requestAccounts" })
+        .then((platonAccounts: string[]) => setState({
+          platonAccounts: platonAccounts,
+          platonSelectedAccount: alaya.selectedAddress,
+          hasPlatonAccount: platonAccounts.length !== 0
+        }))
+    }
 
   },[])
 

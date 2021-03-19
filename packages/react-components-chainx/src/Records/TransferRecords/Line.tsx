@@ -19,7 +19,6 @@ export default function ({ transfer }: any) {
   useOutsideClick(wrapper, () => {
     setOpen(false);
   });
-  console.log('transfer:',transfer)
   return (
     <div className='line'
       onClick={() => setOpen(!open)}
