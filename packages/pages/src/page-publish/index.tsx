@@ -33,9 +33,6 @@ export default function PublicContent({ className }: Props): React.ReactElement<
 const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 0rem 7rem 2.5rem 3rem;
-  width: 97.1%;
-  padding-right: 50px;
   .left {
     width: 636px;
   }

@@ -75,7 +75,6 @@ function InputDex ({ autoFocus, children, className = '', precision, tokenName, 
       if (event.key.length === 1 && !isPreKeyDown) {
         const { selectionEnd: j, selectionStart: i, value } = event.target as HTMLInputElement;
         const newValue = `${value.substring(0, i || 0)}${event.key}${value.substring(j || 0)}`;
-        console.log(newValue)
         if (!getRegex(true).test(newValue)) {
           event.preventDefault();
         }

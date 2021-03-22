@@ -29,8 +29,7 @@ const Wrapper = styled.div`
   width: 256px;
   font-size: 16px;
   background: #fff;
-  box-shadow: 6px 0 20px 0 rgba(0, 0, 0, 0.3);
-
+  // box-shadow: 6px 0 20px 0 rgba(0, 0, 0, 0.1);
   &::-webkit-scrollbar {
     display: none;
   }

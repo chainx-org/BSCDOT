@@ -29,7 +29,7 @@ function Header({className}: Props): React.ReactElement<Props> {
 export default React.memo(styled(Header)`
   flex-grow: 1;
   overflow: hidden auto;
-  padding: 2.5rem 3rem 1rem 3rem;
+  padding: 2.5rem 0rem 1rem 0rem;
   width: 100%;
 
   h2 {
@@ -42,7 +42,6 @@ export default React.memo(styled(Header)`
   .cardListWrapper {
     display: inline-flex;
     width: 100%;
-    margin-right: 20px;
     padding: 20px 0;
   }
 
