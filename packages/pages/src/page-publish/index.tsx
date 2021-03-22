@@ -4,8 +4,7 @@
 
 import React, {useContext} from 'react';
 import styled from "styled-components";
-// import { useTranslation } from '../translate';
-import PdotCard from "@polkadot/react-components-chainx/PdotCards/PdotCard";
+import {PdotCard} from '@polkadot/react-components-chainx';
 import { Records } from "@polkadot/react-components-chainx/Records";
 import {PlatonAccountsContext} from '@polkadot/react-components-chainx/PlatonAccountsProvider';
 import {AllAccountsContext} from '@polkadot/react-components-chainx/AllAccountsProvider';
