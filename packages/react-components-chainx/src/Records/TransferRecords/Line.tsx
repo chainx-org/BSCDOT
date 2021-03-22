@@ -10,7 +10,7 @@ import useOutsideClick from '@polkadot/app-accounts-chainx/Myview/useOutsideClic
 import {useApi} from '@polkadot/react-hooks';
 import Arrow from '../components/arrow.svg'
 
-export default function ({ transfer, num }: any) {
+export default function ({ transfer, num, arrows }: any) {
   const { t } = useTranslation();
   const {api, isApiReady} = useApi()
   const [open, setOpen] = useState(false);
@@ -31,11 +31,11 @@ export default function ({ transfer, num }: any) {
       <div className='account'>
         <span className='amount'>{transfer.transferValue} {transfer.symbol}</span>
         {
-          false ? <img src={Arrow} alt='Arrow' className='arrow' />: ''
+          arrows ? <img src={Arrow} alt='Arrow' className='arrow' />: ''
         }
         <span className='address'><AccountAdd address={transfer.transferTo} /></span>
       </div>
-      {isApiReady && api.rpc.system.properties() && open ? (
+      {isApiReady && open ? (
         <Detail className={`detail  lineDetail${num}`}>
           <div className='hashVal'>
             <Label>交易哈希</Label>

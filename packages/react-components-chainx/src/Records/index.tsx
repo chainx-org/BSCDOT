@@ -57,9 +57,9 @@ export function Records({ children, className = '', title }: RecordsProps): Reac
       <p className={`${className} isBasic  `}>{title}</p>
       <div className='pdotCon'>
         {
-          title === '转账记录'? <TransferRecords record={transfersRecord} recordlen={transferslen} /> :
-          title === '发行记录'? <PublishRedeem record={publishRecord} recordlen={publishlen} />: 
-          title === '赎回记录'? <PublishRedeem record={redreemRecord} recordlen={redreemlen} /> : null
+          title === '转账记录'? <TransferRecords record={transfersRecord} recordlen={transferslen} arrows={false} /> :
+          title === '发行记录'? <PublishRedeem record={publishRecord} recordlen={publishlen} arrows={true} />: 
+          title === '赎回记录'? <PublishRedeem record={redreemRecord} recordlen={redreemlen} arrows={true} /> : null
         }
       </div>
       {children}

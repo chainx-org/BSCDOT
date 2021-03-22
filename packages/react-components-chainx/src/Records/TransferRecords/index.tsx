@@ -11,9 +11,10 @@ interface RecordsProps {
   className?: string;
   recordlen?: number;
   record?: any;
+  arrows?: boolean;
 }
 
-export function TransferRecords({ children, className = '', record, recordlen }: RecordsProps): React.ReactElement<RecordsProps> {
+export function TransferRecords({ children, className = '', record, recordlen, arrows }: RecordsProps): React.ReactElement<RecordsProps> {
   // const { t } = useTranslation();
   const [loading, setLoading] = useState(true);
   const mounted = useIsMounted();
@@ -29,7 +30,7 @@ export function TransferRecords({ children, className = '', record, recordlen }:
   });
 
   const transfersElement = record?.map((transfer: any, index: number) => {
-    return <Line key={index} transfer={transfer} num={index} />;
+    return <Line key={index} transfer={transfer} num={index} arrows={arrows} />;
   });
 
   if (loading) {

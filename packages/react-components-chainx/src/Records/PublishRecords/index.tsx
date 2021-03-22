@@ -12,9 +12,10 @@ interface RecordsProps {
   className?: string;
   recordlen?: number;
   record?: any;
+  arrows?: boolean;
 }
 
-export function PublishRedeem({ children, className = '', record, recordlen }: RecordsProps): React.ReactElement<RecordsProps> {
+export function PublishRedeem({ children, className = '', record, recordlen, arrows }: RecordsProps): React.ReactElement<RecordsProps> {
 
   // const { t } = useTranslation();
   const [loading, setLoading] = useState(true);
@@ -32,7 +33,7 @@ export function PublishRedeem({ children, className = '', record, recordlen }: R
   });
 
   const publishElement = record?.map((publish: any, index: number) => {
-    return <Line key={index} transfer={publish} num={index} />;
+    return <Line key={index} transfer={publish} num={index} arrows={arrows} />;
   });
 
   if (loading) {
