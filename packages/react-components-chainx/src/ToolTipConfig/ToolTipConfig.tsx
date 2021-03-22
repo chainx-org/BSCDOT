@@ -4,7 +4,8 @@ import {Cell} from './components/Cell/Cell';
 import ALAYA from './assets/alaya.svg';
 import PLATON from './assets/platon.svg';
 import CLOSE from './assets/icon-close.png';
-import {AccountContext} from '@polkadot/react-components-chainx/AccountProvider';
+import { PolkadotAccountsContext } from '../PolkadotAccountsProvider';
+
 
 const Wrapper = React.memo(styled.section`
   position: absolute;
@@ -50,7 +51,7 @@ interface ToolTipConfigProps {
 
 export function ToolTipConfig({list = lists, isOpen, setIsOpen}: ToolTipConfigProps): React.ReactElement<ToolTipConfigProps> {
   const [value, setValues] = useState('');
-  const {currentAccount} = useContext(AccountContext)
+  const {currentAccount} = useContext(PolkadotAccountsContext)
   // const [isAccountListOpen, setIsAccountListOpen] = useState<boolean>(true);
   const _toggle = (): void => setIsOpen(false);
 

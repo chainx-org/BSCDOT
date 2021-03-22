@@ -1,10 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { TransferRecords } from './TransferRecords';
-import { RedeemRecords }  from './RedeemRecords';
 import { PublishRedeem } from './PublishRecords';
 import useTokenTransferList from '@polkadot/app-accounts-chainx/useTransferList';
-import { AccountContext } from '@polkadot/react-components-chainx/AccountProvider';
+import { AllAccountsContext } from '@polkadot/react-components-chainx/AccountProvider';
 
 const Wrapper = styled.section`
   display: flex;
@@ -42,7 +41,7 @@ interface RecordsProps {
 
 export function Records({ children, className = '', title }: RecordsProps): React.ReactElement<RecordsProps> {
 
-  // const { currentAccount } = useContext(AccountContext);
+  // const { currentAccount } = useContext(AllAccountsContext);
 
   const allrecord = useTokenTransferList();
   const publishRecord = allrecord?.PublishRecords

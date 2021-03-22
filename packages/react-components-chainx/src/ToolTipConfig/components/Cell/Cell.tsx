@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
 import { useLocalStorage } from "@polkadot/react-hooks-chainx";
-import { AccountContext } from "@polkadot/react-components-chainx/AccountProvider";
+import { PolkadotAccountsContext } from "@polkadot/react-components-chainx/PolkadotAccountsProvider";
 
 const Cells = React.memo(styled.section`
   display: flex;
@@ -79,7 +79,7 @@ export function Cell({
   setValues
 }: CellProps): React.ReactElement<CellProps> {
   let [, setValue] = useLocalStorage<string>("currentAccount");
-  const { changeAccount } = useContext(AccountContext);
+  const { changeAccount } = useContext(PolkadotAccountsContext);
 
   let handleOnClick = () => {
     if (iconUrl) {

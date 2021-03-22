@@ -55,7 +55,7 @@ function AccountCard({
         <div className="address">{accountAddress}</div>
       </div>
       <div className="balance">可用余额</div>
-      <div className="amounts">{accountAmount ? accountAmount : 0.0000} {unit}</div>
+      <div className="amounts">{accountAmount} {unit}</div>
       {children}{' '}
       {(isAccountListOpen && (
         <ToolTipConfig
