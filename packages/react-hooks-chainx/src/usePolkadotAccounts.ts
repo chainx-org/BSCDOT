@@ -1,7 +1,7 @@
 // Copyright 2017-2020 @polkadot/react-hooks authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useState } from 'react';
 import { useIsMountedRef } from './useIsMountedRef';
 import { web3Enable, web3Accounts ,web3AccountsSubscribe} from '@polkadot/extension-dapp';
 import {InjectedAccountWithMeta} from '@polkadot/extension-inject/types';

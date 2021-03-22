@@ -3,10 +3,6 @@ import { InjectedAccountWithMeta } from '@polkadot/extension-inject/types';
 import { useLocalStorage } from '@polkadot/react-hooks-chainx';
 import { usePolkadotAccounts } from '@polkadot/react-hooks-chainx/usePolkadotAccounts';
 
-export interface AccountContextData {
-  currentAccount: string,
-  changeAccount: (account: string) => void;
-}
 
 export interface PolkadotAccountsData {
   accountAddress: string[],
@@ -15,7 +11,8 @@ export interface PolkadotAccountsData {
   isLoading: boolean;
   setLoading: React.Dispatch<boolean>,
   currentAccount: string,
-  addressAndName: object[]
+  addressAndName: object[],
+  changeAccount: (account: string) => void;
 }
 
 export const PolkadotAccountsContext = createContext<PolkadotAccountsData>({} as PolkadotAccountsData);
@@ -24,19 +21,20 @@ export const PolkadotAccountsProvider: FC = ({children}) => {
 
   const [isLoading, setLoading] = useState<boolean>(false)
   const { accountAddress, addressAndName, hasAccounts, allAccounts } = usePolkadotAccounts()
-  
-  const [storedValue, setValue] = useLocalStorage<string>('currentAccount', '');
+  const [storedValue, setValue] = useLocalStorage<string>('currentAccount');
   const [currentAccount, setAccount] = useState<string>(storedValue);
 
   function changeAccount(account: string) {
     setAccount(account);
   }
-  
-  if (!storedValue) {
-    const defaultAccount = accountAddress.length > 0 ? accountAddress[0] : ''
-    setValue(defaultAccount)
-    changeAccount(defaultAccount)
-  }
+
+  useEffect(() => {
+    if (!storedValue) {
+      const defaultAccount = accountAddress.length > 0 ? accountAddress[0] : ''
+      setValue(defaultAccount)
+      changeAccount(defaultAccount)
+    }
+  }, [accountAddress])
 
   return (
     <PolkadotAccountsContext.Provider value={{
@@ -46,9 +44,8 @@ export const PolkadotAccountsProvider: FC = ({children}) => {
       allAccounts,
       isLoading,
       setLoading,
-      changeAccount,
       currentAccount,
-     
+      changeAccount,
     }}>
       {children}
     </PolkadotAccountsContext.Provider>

@@ -18,7 +18,6 @@ function PolkadotAccount() {
   const {currentAccount} = useContext(PolkadotAccountsContext);
   const {formatProperties} = useContext(ApiContext)
 
-
   useEffect(() => {
     const currentAccountInfo = allAccounts?.find(item => item.address === currentAccount);
     const findName = currentAccountInfo?.meta.name;
