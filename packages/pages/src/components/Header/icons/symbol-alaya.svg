@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="56px" height="57px" viewBox="0 0 56 57" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>symbol-alaya</title>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="001备份-2" transform="translate(-634.000000, -117.000000)">
+            <g id="symbol-alaya" transform="translate(634.000000, 117.000000)">
+                <rect id="矩形" fill="#D8D8D8" opacity="0" x="0" y="0.5" width="56" height="56"></rect>
+                <g id="logo" transform="translate(6.000000, 3.000000)" fill="#FFFFFF" fill-rule="nonzero">
+                    <g id="编组-3">
+                        <g id="Clip-6" transform="translate(0.000000, 8.554113)">
+                            <polygon id="path-5" points="0 41.9344768 9.15033158 41.9344768 26.1810471 8.98140322 21.3255345 0.130179007"></polygon>
+                        </g>
+                        <g id="Clip-8" transform="translate(16.186567, 21.056277)">
+                            <path d="M0.120517961,23.1438837 L6.16642681,23.1438837 C8.02869704,23.1438837 9.73282298,22.1071939 10.5753014,20.462528 L10.5753014,20.462528 L11.5193755,18.6158357 L17.4531456,29.4323123 L28.0708657,29.4323123 L11.9382186,0.0284544219 L0.120517961,23.1438837 Z" id="path-7"></path>
+                        </g>
+                        <g id="Clip-12" transform="translate(10.208955, 0.000000)">
+                            <path d="M3.0454635,0.257038337 C1.61737151,0.257038337 0.459562737,1.40280332 0.459562737,2.81698841 L0.459562737,2.81698841 L0.459562737,5.51351975 L21.9240725,5.51351975 L21.9240725,2.81698841 C21.9240725,1.40280332 20.7662639,0.257038337 19.3381718,0.257038337 L19.3381718,0.257038337 L3.0454635,0.257038337 Z" id="path-11"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
