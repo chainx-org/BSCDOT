@@ -43,6 +43,7 @@ function PlatonAccount() {
           accountAmount={pdot ? pdot : 0}
           iconNode={PlantonAcc}
           unit='PDOT'
+          accountType = 'platon'
         /> :
         <Card isBasic className="grennCard" label="使用 Samurai 插件登录 Platon 账户" iconNode={samurai}
               onClick={openSamurai}/>

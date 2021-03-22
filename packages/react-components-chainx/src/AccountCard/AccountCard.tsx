@@ -9,6 +9,8 @@ import SelectMore from './icons/selectMore.svg';
 import Button from '../Button/Button';
 import {ToolTipConfig} from '../ToolTipConfig/ToolTipConfig';
 import {InjectedAccountWithMeta} from '@polkadot/extension-inject/types';
+import {toPrecision} from '@polkadot/app-accounts-chainx/Myview/toPrecision';
+import BigNumber from 'bignumber.js';
 
 interface AccountCardProps {
   children?: React.ReactNode;
@@ -16,27 +18,21 @@ interface AccountCardProps {
   isBasic?: boolean;
   accountName?: string;
   accountAddress?: string;
-  accountAmount?: number;
+  accountAmount: number;
   allAccounts?: InjectedAccountWithMeta[];
   iconNode?: any;
   unit?: string;
   onClick?: () => void | Promise<void>;
+  accountType: 'polkadot' | 'platon';
 }
 
-function AccountCard({
-                       children,
-                       className = '',
-                       isBasic,
-                       accountName,
-                       accountAddress,
-                       accountAmount,
-                       iconNode,
-                       onClick,
-                       allAccounts,
-                       unit
-                     }: AccountCardProps): React.ReactElement<AccountCardProps> {
-  const [isAccountListOpen, setIsAccountListOpen] = useState<boolean>(false);
+const formatAccountAmount = (amount: number, precision: number): string => {
+  const formatAmount = new BigNumber(toPrecision(amount, precision))
+  return formatAmount.toFixed(4)
+}
 
+function AccountCard({ children, className = '', isBasic, accountName, accountAddress, accountAmount, iconNode, onClick, allAccounts, unit, accountType}: AccountCardProps): React.ReactElement<AccountCardProps> {
+  const [isAccountListOpen, setIsAccountListOpen] = useState<boolean>(false);
   const _toggleAccountList = (): void => setIsAccountListOpen(true);
 
   return (
@@ -50,12 +46,12 @@ function AccountCard({
             // isBasic={true}
             icon={SelectMore}
             onClick={_toggleAccountList}
-          />: null}
+          /> : null}
         </div>
         <div className="address">{accountAddress}</div>
       </div>
       <div className="balance">可用余额</div>
-      <div className="amounts">{accountAmount ? accountAmount : 0.0000} {unit}</div>
+      <div className="amounts">{accountType === 'polkadot' ? formatAccountAmount(accountAmount, 12): formatAccountAmount(accountAmount, 18)} {unit}</div>
       {children}{' '}
       {(isAccountListOpen && (
         <ToolTipConfig
@@ -70,6 +66,7 @@ function AccountCard({
 
 export default React.memo(styled(AccountCard)`
   min-width: 308px;
+  max-width: 308px;
   height: 152px;
   font-size: 12px;
   color: #ffffff;

@@ -1,11 +1,14 @@
 import React, {useContext, useState} from 'react';
-import styled from "styled-components";
-import { AccountMessage } from "../AccountMessage/AccountMessage";
-import Button from "@polkadot/react-components-chainx/Button";
-import InputAutoLength from "../InputAutoLength";
+import styled from 'styled-components';
+import {AccountMessage} from '../AccountMessage/AccountMessage';
+import Button from '@polkadot/react-components-chainx/Button';
+import InputAutoLength from '../InputAutoLength';
 import {createDepositTransactionParameters} from '@polkadot/pages/contract';
 import {AccountContext} from '@polkadot/react-components-chainx/AccountProvider';
 import {PlatonAccountsContext} from '@polkadot/react-components-chainx/PlatonAccountsProvider';
+import {creatStatusInfo} from '@polkadot/pages/helper/helper';
+import {ActionStatus} from '@polkadot/react-components/Status/types';
+import {StatusContext} from '@polkadot/react-components';
 
 interface PdotCardProps {
   children?: React.ReactNode;
@@ -14,28 +17,34 @@ interface PdotCardProps {
   isBasic?: boolean;
 }
 
-function RedeemCard({
-  children,
-  className = "",
-  title,
-  isBasic
-}: PdotCardProps): React.ReactElement<PdotCardProps> {
-  const [amount, setAmount] = useState<string>('')
-  const {currentAccount} = useContext(AccountContext)
-  const {platonAccount} = useContext(PlatonAccountsContext)
+function RedeemCard({children, className = '', title, isBasic}: PdotCardProps): React.ReactElement<PdotCardProps> {
+  const [amount, setAmount] = useState<string>('');
+  const {currentAccount} = useContext(AccountContext);
+  const {platonAccount} = useContext(PlatonAccountsContext);
+  const {queueAction} = useContext(StatusContext);
+  const status = {action: 'redeem'} as ActionStatus;
 
   const redeem = () => {
-    if(platonAccount && amount){
-      try{
+    if (platonAccount && amount) {
+      try {
         alaya.request({
           method: 'platon_sendTransaction',
           params: [createDepositTransactionParameters(platonAccount, currentAccount, parseInt(amount))]
-        }).then((result: any) => console.log((result)));
-      }catch(err){
-        console.log(err)
+        })
+          .then(result => {
+            creatStatusInfo(status, 'success', `赎回成功，交易哈希: ${result}`);
+            queueAction(status as ActionStatus);
+          })
+          .catch(error => {
+            creatStatusInfo(status, 'error', error.message);
+            queueAction(status as ActionStatus);
+          });
+
+      } catch (err) {
+        console.log(err);
       }
     }
-  }
+  };
 
   return (
     <div className={`ui-Redeems ${className}`} key={title}>

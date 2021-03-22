@@ -17,7 +17,6 @@ function PolkadotAccount() {
   const {currentAccount} = useContext(AccountContext);
   const {formatProperties} = useContext(ApiContext)
 
-
   useEffect(() => {
     const currentAccountInfo = allAccounts?.find(item => item.address === currentAccount);
     const findName = currentAccountInfo?.meta.name;
@@ -44,10 +43,11 @@ function PolkadotAccount() {
             className="pinkCard"
             accountName={accountName}
             accountAddress={currentAccount}
-            accountAmount={usableBalance}
+            accountAmount={usableBalance? usableBalance : 0}
             iconNode={polkadotAccount}
             allAccounts={addressAndName}
             unit={formatProperties.tokenSymbol[0]}
+            accountType= 'polkadot'
           /> :
           <Card isBasic className="pinkCard" label="使用 Polkadot{.js} 插件登录 Polkadot 账户" iconNode={polkadot}/>
       }

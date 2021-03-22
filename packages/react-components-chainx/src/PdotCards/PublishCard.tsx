@@ -42,7 +42,7 @@ function PublishCard({children, className = "", title, isBasic}: PdotCardProps):
           ])
             .signAndSend(currentAccount, { signer: injector.signer }, (status) => {console.log('status',status)})
             .then(result => {
-              creatStatusInfo(status, 'success', '转账成功', currentAccount)
+              creatStatusInfo(status, 'success', '发行成功', currentAccount)
               queueAction(status as ActionStatus)
             })
             .catch(error => {
