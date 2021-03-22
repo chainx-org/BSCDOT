@@ -18,15 +18,7 @@ interface PdotCardProps {
   component?: string;
 }
 
-function PdotCard({
-  component,
-  children,
-  className = "",
-  title,
-  noData,
-  isBasic,
-  noDataMsg
-}: PdotCardProps): React.ReactElement<PdotCardProps> {
+function PdotCard({component, children, className = "", title, noData, isBasic, noDataMsg}: PdotCardProps): React.ReactElement<PdotCardProps> {
   return (
     <div className={`ui-card ${className}`}>
       <p className={`${className} ${isBasic ? " isBasic" : ""}  `}>{title}</p>
