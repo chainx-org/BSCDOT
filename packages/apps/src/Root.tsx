@@ -18,6 +18,7 @@ import {AllAccountsProvider} from '@polkadot/react-components-chainx/AllAccounts
 import {AccountProvider} from '@polkadot/react-components-chainx/AccountProvider';
 import {PlatonAccountsProvider} from '@polkadot/react-components-chainx/PlatonAccountsProvider';
 
+
 interface Props {
   store?: KeyringStore;
 }
