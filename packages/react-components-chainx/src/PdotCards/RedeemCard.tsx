@@ -8,6 +8,7 @@ import {PlatonAccountsContext} from '@polkadot/react-components-chainx/PlatonAcc
 import {creatStatusInfo} from '@polkadot/pages/helper/helper';
 import {ActionStatus} from '@polkadot/react-components/Status/types';
 import {StatusContext} from '@polkadot/react-components';
+import {AccountContext} from '@polkadot/react-components-chainx/AccountProvider';
 
 
 interface PdotCardProps {

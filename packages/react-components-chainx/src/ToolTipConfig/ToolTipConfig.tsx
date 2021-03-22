@@ -1,4 +1,5 @@
-import React, {useContext, useState} from 'react';
+import React, { useContext, useState} from 'react';
+import ReactDOM from 'react-dom';
 import styled from 'styled-components';
 import {Cell} from './components/Cell/Cell';
 import ALAYA from './assets/alaya.svg';
@@ -6,15 +7,15 @@ import PLATON from './assets/platon.svg';
 import CLOSE from './assets/icon-close.png';
 import { PolkadotAccountsContext } from '../PolkadotAccountsProvider';
 
-
 const Wrapper = React.memo(styled.section`
-  position: absolute;
+  position: fixed;
+  left: 50%;
+  top: 5%;
+  transform: translate(-50%);
   z-index: 999;
-  top: 30px;
-  left: 35%;
   max-height: 500px !important;
   overflow: auto;
-  background: rgba(255, 255, 255, 0.96);
+  background: rgba(255, 255, 255);
   border: 1px solid #efefef;
   box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.12);
   border-radius: 10px;
@@ -46,36 +47,36 @@ interface ToolTipConfigProps {
   list?: any;
   isOpen?: any;
   setIsOpen?: any;
-  //
 }
 
 export function ToolTipConfig({list = lists, isOpen, setIsOpen}: ToolTipConfigProps): React.ReactElement<ToolTipConfigProps> {
   const [value, setValues] = useState('');
   const {currentAccount} = useContext(PolkadotAccountsContext)
-  // const [isAccountListOpen, setIsAccountListOpen] = useState<boolean>(true);
   const _toggle = (): void => setIsOpen(false);
 
+  const component =  <>
+    {isOpen &&
+    <Wrapper>
+      <div className="header">
+        <img src={CLOSE} onClick={_toggle}/>
+      </div>
+      {list.map(function (item: any) {
+        return (
+          <Cell
+            key={Math.random()}
+            isSelected={currentAccount === item.account || value === item.title}
+            setValues={setValues}
+            iconUrl={item.iconUrl}
+            title={item.title}
+            accountName={item.accountName}
+            account={item.account}
+          />
+        );
+      })}
+    </Wrapper>}
+  </>
+
   return (
-    <div>
-      {isOpen &&
-      <Wrapper>
-        <div className="header">
-          <img src={CLOSE} onClick={_toggle}/>
-        </div>
-        {list.map(function (item: any) {
-          return (
-            <Cell
-              key={Math.random()}
-              isSelected={currentAccount === item.account || value === item.title}
-              setValues={setValues}
-              iconUrl={item.iconUrl}
-              title={item.title}
-              accountName={item.accountName}
-              account={item.account}
-            />
-          );
-        })}
-      </Wrapper>}
-    </div>
+    ReactDOM.createPortal(component, document.body)
   );
 }

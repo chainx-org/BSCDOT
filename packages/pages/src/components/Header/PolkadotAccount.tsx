@@ -6,17 +6,18 @@ import polkadot from '@polkadot/pages/components/Header/icons/logo_polkadot.svg'
 import BN from "bn.js";
 import {useApi} from '@polkadot/react-hooks';
 import {ApiContext} from '@polkadot/react-api';
-import { PolkadotAccountsContext } from '@polkadot/react-components-chainx/PolkadotAccountsProvider';
+import { PolkadotAccountsContext, PolkadotAccountsData} from '@polkadot/react-components-chainx/PolkadotAccountsProvider';
 import { usePolkadotAccounts } from '@polkadot/react-hooks-chainx/usePolkadotAccounts';
+import {ApiProps} from '@polkadot/react-api/types';
 
 
-function PolkadotAccount() {
+function PolkadotAccount(): React.ReactElement {
   const {api, isApiReady} = useApi();
   const [accountName, setAccountName] = useState<string | undefined>('');
   const [usableBalance, setUsableBalance] = useState<number>(0);
   const {hasAccounts, allAccounts, addressAndName} = usePolkadotAccounts();
-  const {currentAccount} = useContext(PolkadotAccountsContext);
-  const {formatProperties} = useContext(ApiContext)
+  const {currentAccount} = useContext<PolkadotAccountsData>(PolkadotAccountsContext);
+  const {formatProperties} = useContext<ApiProps>(ApiContext)
 
   useEffect(() => {
     const currentAccountInfo = allAccounts?.find(item => item.address === currentAccount);
@@ -29,7 +30,6 @@ function PolkadotAccount() {
         const allBalance = JSON.parse(JSON.stringify(balance));
         const bgFree = new BN(allBalance.free);
         setUsableBalance(bgFree.sub(new BN(allBalance.miscFrozen)).toNumber());
-        // setBalaced(allBalance)
       }
     }
 
