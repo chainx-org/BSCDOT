@@ -110,7 +110,7 @@ export default React.memo(styled(AccountCard)`
     margin-right: 20px;
   }
 
-  &.grennCard {
+  &.greenCard {
     background-image: linear-gradient(135deg, #428a8b 0%, #58bbbd 100%);
   }
 `);

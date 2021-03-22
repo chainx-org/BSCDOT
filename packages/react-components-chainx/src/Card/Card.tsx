@@ -69,7 +69,7 @@ export default React.memo(styled(Card)`
     margin-right: 20px;
   }
 
-  &.grennCard {
+  &.greenCard {
     background-image: linear-gradient(135deg, #428A8B 0%, #58BBBD 100%);
   }
 

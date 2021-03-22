@@ -1,11 +1,11 @@
 // Copyright 2017-2020 @polkadot/apps authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 import React, {useContext} from 'react';
-import styled from 'styled-components';
 import {PdotCard} from '@polkadot/react-components-chainx';
 import {Records} from '@polkadot/react-components-chainx/Records';
 import {PlatonAccountsContext} from '@polkadot/react-components-chainx/PlatonAccountsProvider';
-import {AllAccountsContext} from '@polkadot/react-components-chainx/AllAccountsProvider';
+import { PolkadotAccountsContext } from '@polkadot/react-components-chainx/PolkadotAccountsProvider';
+import styled from 'styled-components';
 
 interface Props {
   className?: string;
@@ -15,7 +15,7 @@ interface Props {
 export default function TransferContent({className}: Props): React.ReactElement<Props> {
   //   const { t } = useTranslation();
   const {hasPlatonAccount} = useContext(PlatonAccountsContext);
-  const {hasAccounts} = useContext(AllAccountsContext);
+  const {hasAccounts} = useContext(PolkadotAccountsContext);
 
   return (
     <Wrapper className={`contentWrapper ${className}`}>

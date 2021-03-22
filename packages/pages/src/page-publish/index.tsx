@@ -6,8 +6,9 @@ import React, {useContext} from 'react';
 import styled from "styled-components";
 import {PdotCard} from '@polkadot/react-components-chainx';
 import { Records } from "@polkadot/react-components-chainx/Records";
-import {PlatonAccountsContext} from '@polkadot/react-components-chainx/PlatonAccountsProvider';
-import {AllAccountsContext} from '@polkadot/react-components-chainx/AllAccountsProvider';
+import { PolkadotAccountsContext } from '@polkadot/react-components-chainx/PolkadotAccountsProvider';
+import { PlatonAccountsContext } from '@polkadot/react-components-chainx/PlatonAccountsProvider';
+
 
 interface Props {
   className?: string;
@@ -16,7 +17,7 @@ interface Props {
 export default function PublicContent({ className }: Props): React.ReactElement<Props> {
   //   const { t } = useTranslation();
   const {hasPlatonAccount} = useContext(PlatonAccountsContext)
-  const {hasAccounts} = useContext(AllAccountsContext)
+  const {hasAccounts} = useContext(PolkadotAccountsContext)
 
   return (
     <Wrapper className={`contentWrapper ${className}`}>

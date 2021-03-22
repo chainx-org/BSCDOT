@@ -4,11 +4,11 @@ import {AccountMessage} from '../AccountMessage/AccountMessage';
 import Button from '@polkadot/react-components-chainx/Button';
 import InputAutoLength from '../InputAutoLength';
 import {createDepositTransactionParameters} from '@polkadot/pages/contract';
-import {AccountContext} from '@polkadot/react-components-chainx/AccountProvider';
 import {PlatonAccountsContext} from '@polkadot/react-components-chainx/PlatonAccountsProvider';
 import {creatStatusInfo} from '@polkadot/pages/helper/helper';
 import {ActionStatus} from '@polkadot/react-components/Status/types';
 import {StatusContext} from '@polkadot/react-components';
+
 
 interface PdotCardProps {
   children?: React.ReactNode;
@@ -23,6 +23,7 @@ function RedeemCard({children, className = '', title, isBasic}: PdotCardProps): 
   const {platonAccount} = useContext(PlatonAccountsContext);
   const {queueAction} = useContext(StatusContext);
   const status = {action: 'redeem'} as ActionStatus;
+
 
   const redeem = () => {
     if (platonAccount && amount) {

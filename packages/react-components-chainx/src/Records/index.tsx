@@ -1,10 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { TransferRecords } from './TransferRecords';
-import { RedeemRecords }  from './RedeemRecords';
 import { PublishRedeem } from './PublishRecords';
 import useTokenTransferList from '@polkadot/app-accounts-chainx/useTransferList';
-import { AccountContext } from '@polkadot/react-components-chainx/AccountProvider';
+import { AllAccountsContext } from '@polkadot/react-components-chainx/AccountProvider';
 
 const Wrapper = styled.section`
   display: flex;
@@ -42,7 +41,7 @@ interface RecordsProps {
 
 export function Records({ children, className = '', title }: RecordsProps): React.ReactElement<RecordsProps> {
 
-  // const { currentAccount } = useContext(AccountContext);
+  // const { currentAccount } = useContext(AllAccountsContext);
 
   const allrecord = useTokenTransferList();
   const publishRecord = allrecord?.PublishRecords
@@ -57,9 +56,9 @@ export function Records({ children, className = '', title }: RecordsProps): Reac
       <p className={`${className} isBasic  `}>{title}</p>
       <div className='pdotCon'>
         {
-          title === '转账记录'? <TransferRecords record={transfersRecord} recordlen={transferslen} /> :
-          title === '发行记录'? <PublishRedeem record={publishRecord} recordlen={publishlen} />: 
-          title === '赎回记录'? <PublishRedeem record={redreemRecord} recordlen={redreemlen} /> : null
+          title === '转账记录'? <TransferRecords record={transfersRecord} recordlen={transferslen} arrows={false} /> :
+          title === '发行记录'? <PublishRedeem record={publishRecord} recordlen={publishlen} arrows={true} />: 
+          title === '赎回记录'? <PublishRedeem record={redreemRecord} recordlen={redreemlen} arrows={true} /> : null
         }
       </div>
       {children}
