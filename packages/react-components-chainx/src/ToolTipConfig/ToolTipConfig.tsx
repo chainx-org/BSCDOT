@@ -46,7 +46,6 @@ interface ToolTipConfigProps {
   list?: any;
   isOpen?: any;
   setIsOpen?: any;
-  //
 }
 
 export function ToolTipConfig({list = lists, isOpen, setIsOpen}: ToolTipConfigProps): React.ReactElement<ToolTipConfigProps> {

@@ -58,7 +58,7 @@ export default React.memo(styled(Endpoints)`
   border-radius: 10px;
   border: none;
   padding: 20px 0 0 22px;
-  margin: 0 20px;
+  margin: 0 0 0 20px;
 
   &.isBasic {
     display: flex;

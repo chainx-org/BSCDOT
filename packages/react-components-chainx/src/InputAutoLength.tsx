@@ -92,7 +92,6 @@ function InputAutoLength({
       if (event.key.length === 1 && !isPreKeyDown) {
         const newValue = `${event.key}`;
         value = value.concat(newValue);
-        console.log(newValue, value);
         if (!getRegex(true).test(value)) {
           event.preventDefault();
         }
