@@ -5,10 +5,10 @@ import Button from "@polkadot/react-components-chainx/Button";
 import InputAutoLength from "../InputAutoLength";
 import {web3FromAddress} from '@polkadot/extension-dapp';
 import {useApi} from '@polkadot/react-hooks';
-import {useAllAccounts} from '@polkadot/react-hooks-chainx/useAllAccounts';
 import {PlatonAccountsContext} from '@polkadot/react-components-chainx/PlatonAccountsProvider';
 import {ApiContext} from '@polkadot/react-api';
 import { PolkadotAccountsContext } from '../PolkadotAccountsProvider';
+import { usePolkadotAccounts } from '@polkadot/react-hooks-chainx/usePolkadotAccounts';
 
 interface PdotCardProps {
   children?: React.ReactNode;
@@ -26,7 +26,7 @@ function PublishCard({
   const [amount, setAmount] = useState<number>()
   const {api} = useApi()
   const { currentAccount } = useContext(PolkadotAccountsContext)
-  const {hasAccounts} = useAllAccounts()
+  const {hasAccounts} = usePolkadotAccounts()
   const {platonAccount} = useContext(PlatonAccountsContext)
   const {formatProperties} = useContext(ApiContext)
 

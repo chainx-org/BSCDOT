@@ -1,7 +1,7 @@
-import React, {createContext, FC, useState} from 'react';
-import { useAllAccounts } from '@polkadot/react-hooks-chainx/useAllAccounts';
+import React, {createContext, FC, useEffect, useState} from 'react';
 import { InjectedAccountWithMeta } from '@polkadot/extension-inject/types';
 import { useLocalStorage } from '@polkadot/react-hooks-chainx';
+import { usePolkadotAccounts } from '@polkadot/react-hooks-chainx/usePolkadotAccounts';
 
 export interface AccountContextData {
   currentAccount: string,
@@ -23,15 +23,20 @@ export const PolkadotAccountsContext = createContext<PolkadotAccountsData>({} as
 export const PolkadotAccountsProvider: FC = ({children}) => {
 
   const [isLoading, setLoading] = useState<boolean>(false)
-  const { accountAddress, addressAndName, hasAccounts, allAccounts } = useAllAccounts()
+  const { accountAddress, addressAndName, hasAccounts, allAccounts } = usePolkadotAccounts()
   
-  const [storedValue] = useLocalStorage<string>('currentAccount', '');
+  const [storedValue, setValue] = useLocalStorage<string>('currentAccount', '');
   const [currentAccount, setAccount] = useState<string>(storedValue);
-  
+
   function changeAccount(account: string) {
     setAccount(account);
   }
-
+  
+  if (!storedValue) {
+    const defaultAccount = accountAddress.length > 0 ? accountAddress[0] : ''
+    setValue(defaultAccount)
+    changeAccount(defaultAccount)
+  }
 
   return (
     <PolkadotAccountsContext.Provider value={{
