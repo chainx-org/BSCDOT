@@ -1,4 +1,4 @@
-import React, { useContext, useState} from 'react';
+import React, {useContext, useState} from 'react';
 import styled from "styled-components";
 import { AccountMessage } from "../AccountMessage/AccountMessage";
 import Button from "@polkadot/react-components-chainx/Button";
@@ -9,6 +9,9 @@ import {useApi} from '@polkadot/react-hooks';
 import {useAllAccounts} from '@polkadot/react-hooks-chainx/useAllAccounts';
 import {PlatonAccountsContext} from '@polkadot/react-components-chainx/PlatonAccountsProvider';
 import {ApiContext} from '@polkadot/react-api';
+import {StatusContext} from '@polkadot/react-components';
+import {ActionStatus} from '@polkadot/react-components/Status/types';
+import {creatStatusInfo} from '@polkadot/pages/helper/helper';
 
 interface PdotCardProps {
   children?: React.ReactNode;
@@ -17,18 +20,15 @@ interface PdotCardProps {
   isBasic?: boolean;
 }
 
-function PublishCard({
-  children,
-  className = "",
-  title,
-  isBasic
-}: PdotCardProps): React.ReactElement<PdotCardProps> {
+function PublishCard({children, className = "", title, isBasic}: PdotCardProps): React.ReactElement<PdotCardProps> {
   const [amount, setAmount] = useState<number>()
   const {api} = useApi()
   const { currentAccount } = useContext(AccountContext)
   const {hasAccounts} = useAllAccounts()
   const {platonAccount} = useContext(PlatonAccountsContext)
   const {formatProperties} = useContext(ApiContext)
+  const {queueAction} = useContext(StatusContext);
+  const status = { action: 'publish' } as ActionStatus;
 
   const publish = () => {
     async function ccc() {
@@ -40,7 +40,15 @@ function PublishCard({
             api.tx.balances.transferKeepAlive(currentAccount, amount),
             api.tx.system.remark(platonAccount)
           ])
-            .signAndSend(currentAccount, { signer: injector.signer }, (status) => { console.log('status',status)});
+            .signAndSend(currentAccount, { signer: injector.signer }, (status) => {console.log('status',status)})
+            .then(result => {
+              creatStatusInfo(status, 'success', '转账成功', currentAccount)
+              queueAction(status as ActionStatus)
+            })
+            .catch(error => {
+              creatStatusInfo(status, 'error', (error as Error).message)
+              queueAction(status as ActionStatus)
+            })
         } catch (err) {
           console.log(err);
         }

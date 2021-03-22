@@ -3,8 +3,6 @@
 
 import React  from "react";
 import styled from "styled-components";
-import TransferRecords from "../Records/TransferRecords";
-import RedeemRecords from "../Records/RedeemRecords";
 import PdotNoData from "./Nodata";
 import PublishCard from "./PublishCard";
 import RedeemCard from "./RedeemCard";
