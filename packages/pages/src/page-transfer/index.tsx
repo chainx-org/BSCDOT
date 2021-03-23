@@ -3,10 +3,11 @@
 import React, {useContext} from 'react';
 import styled from 'styled-components';
 // import { useTranslation } from '../translate';
-import PdotCard from '@polkadot/react-components-chainx/PdotCards';
 import {Records} from '@polkadot/react-components-chainx/Records';
 import {PlatonAccountsContext} from '@polkadot/react-components-chainx/PlatonAccountsProvider';
 import { PolkadotAccountsContext } from '@polkadot/react-components-chainx/PolkadotAccountsProvider';
+import TransferCard from '@polkadot/react-components-chainx/PdotCards/TransferCard';
+import PdotNodata from '@polkadot/react-components-chainx/PdotCards/PdotNodata';
 
 interface Props {
   className?: string;
@@ -21,8 +22,8 @@ export default function TransferContent({className}: Props): React.ReactElement<
   return (
     <Wrapper className={`contentWrapper ${className}`}>
       {hasPlatonAccount && hasAccounts ?
-        <PdotCard className="left" title="PDOT 转账" component="TransferCard" isBasic/>
-        : <PdotCard noData={true} title='PDOT 转账' isBasic noDataMsg='请先登录 Polkadot 和 PlatON 账户'/>
+        <TransferCard className="left" title="PDOT 转账" />
+        : <PdotNodata title='PDOT 转账' noDataMsg='请先登录 Polkadot 和 PlatON 账户'/>
       }
       <Records className="right" title="转账记录"/>
     </Wrapper>

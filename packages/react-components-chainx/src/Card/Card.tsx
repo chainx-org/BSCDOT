@@ -27,7 +27,6 @@ function Card({ children, className = '', isBasic, label, iconNode, onClick }: C
     >
       <Button
         className='ui--AccountStatus'
-        // isBasic={true}
         icon={iconNode}
         onClick={_onClick}
       />

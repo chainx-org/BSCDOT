@@ -1,7 +1,7 @@
 // Copyright 2017-2020 @polkadot/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 import React, {useContext, useState} from 'react';
-import styled from 'styled-components';
+import { Wrapper, Title, Content, TransfersCard, AmountAndAddress } from './components/index'
 import Input from '../Input';
 import InputDex from '../InputDex';
 import Button from "@polkadot/react-components-chainx/Button";
@@ -9,14 +9,13 @@ import {createTransferTransactionParameters} from '@polkadot/pages/contract';
 import {PlatonAccountsContext} from '@polkadot/react-components-chainx/PlatonAccountsProvider';
 
 interface PdotCardProps {
-    children?: React.ReactNode;
-    className?: string;
-    title?: string;
-    isBasic?: boolean;
+  children?: React.ReactNode;
+  className?: string;
+  title?: string;
 }
 
 
-function TransferCard({ children, className = '',title, isBasic }: PdotCardProps): React.ReactElement<PdotCardProps> {
+export default function TransferCard({ children, className = '',title }: PdotCardProps): React.ReactElement<PdotCardProps> {
   const [amount, setAmount] = useState<string>('')
   const [targetAddress, setTargetAddress] = useState<string>('')
   const {platonAccount} = useContext(PlatonAccountsContext)
@@ -35,48 +34,18 @@ function TransferCard({ children, className = '',title, isBasic }: PdotCardProps
   }
 
   return (
-    <div className={`ui-Transfers ${className}`}>
-      <p className={`amountTit  `}>转账数量</p>
-      <InputDex className='bgcolor' tokenName={'PDOT'}  placeholder='输入 PDOT 数量' onChange={setAmount}/>
-      <p className={`addressTit  `}>接收地址</p>
-      <Input className='bgcolor iptAddress' placeholder='输入 Platon 目标账户地址' onChange={setTargetAddress}/>
-      <Button className="isConfirm" onClick={confirmTransfer}>确定转账</Button>
-    </div>
+    <Wrapper className={`ui-card ${className} `}>
+      <Title className={`ui-card-title  `}>{title}</Title>
+      <Content className="pdotCon">
+        <TransfersCard className={`ui-Transfers `}>
+          <AmountAndAddress className='amountTit'>转账数量</AmountAndAddress>
+          <InputDex className='bgcolor' tokenName={'PDOT'}  placeholder='输入 PDOT 数量' onChange={setAmount}/>
+          <AmountAndAddress className='addressTit'>接收地址</AmountAndAddress>
+          <Input className='bgcolor iptAddress' placeholder='输入 Platon 目标账户地址' onChange={setTargetAddress}/>
+          <Button className="isConfirm" onClick={confirmTransfer}>确定转账</Button>
+        </TransfersCard>
+      </Content>
+    </Wrapper>
   );
 }
 
-export default React.memo(styled(TransferCard)`
-
-  display: flex;
-  flex-direction: column;
-  background: #fff;
-  padding: 30px;
-  font-size: 12px;
-  .bgcolor {
-    background: #F2F3F4;
-    border-radius: 4px;
-    margin-bottom: 16px;
-    input {
-      background: #F2F3F4;
-      padding: 15px;
-      &:focus {
-        background: #F2F3F4;
-        border: 1px solid #DCE0E2;
-      }
-    }
-  }
-  .amountTit, .addressTit {
-    margin-bottom: 12px;
-  }
-  .amountTit {
-    color: #444C5E;
-  }
-  .addressTit {
-    color: #3F3F3F;
-  }
-
-  .isConfirm {
-    margin-top: 20px;
-  }
-
-`);
