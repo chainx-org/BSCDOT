@@ -1,5 +1,4 @@
 import React from 'react';
-
 import {HashRouter, Route} from 'react-router-dom';
 import Header from './components/Header';
 import PublicContent from './page-publish';

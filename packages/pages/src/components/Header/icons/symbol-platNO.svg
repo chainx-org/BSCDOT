@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="56px" height="57px" viewBox="0 0 56 57" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>symbol-platNO</title>
+    <defs>
+        <polygon id="path-1" points="0 50 49.9302707 50 49.9302707 0.0515449822 0 0.0515449822"></polygon>
+        <polygon id="path-3" points="0 50 49.9302707 50 49.9302707 0.0515449822 0 0.0515449822"></polygon>
+    </defs>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="001备份-2" transform="translate(-634.000000, -117.000000)">
+            <g id="symbol-platNO" transform="translate(634.000000, 117.500000)">
+                <rect id="矩形" fill="#D8D8D8" opacity="0" x="0" y="0" width="56" height="56"></rect>
+                <g id="logo" transform="translate(3.000000, 3.500000)">
+                    <polygon id="Fill-1" fill="#FFFFFF" fill-rule="nonzero" points="19 31 32 31 32 18 19 18"></polygon>
+                    <g id="编组">
+                        <path d="M13,43 L37.7931843,43 C40.6645341,43 43,40.6645341 43,37.7931843 L43,13 L37.293406,13 L37.293406,37.293406 L13,37.293406 L13,43 Z" id="Fill-2" fill="#FFFFFF" fill-rule="nonzero"></path>
+                        <path d="M37,12.7073634 L37,7 L12.2058656,7 C9.3354659,7 7,9.33634205 7,12.2066508 L7,37 L12.706594,37 L12.706594,12.7073634 L37,12.7073634 Z" id="Fill-4" fill="#FFFFFF" fill-rule="nonzero"></path>
+                        <g id="Fill-6-Clipped">
+                            <mask id="mask-2" fill="white">
+                                <use xlink:href="#path-1"></use>
+                            </mask>
+                            <g id="path-1"></g>
+                            <polygon id="Fill-6" fill="#FFFFFF" fill-rule="nonzero" mask="url(#mask-2)" points="43.0776593 6.90415641 49.9302707 6.90415641 49.9302707 0.0515449822 43.0776593 0.0515449822"></polygon>
+                        </g>
+                        <g id="Fill-8-Clipped">
+                            <mask id="mask-4" fill="white">
+                                <use xlink:href="#path-3"></use>
+                            </mask>
+                            <g id="path-1"></g>
+                            <polygon id="Fill-8" fill="#FFFFFF" fill-rule="nonzero" mask="url(#mask-4)" points="0 50 6.85261143 50 6.85261143 43.1473886 0 43.1473886"></polygon>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

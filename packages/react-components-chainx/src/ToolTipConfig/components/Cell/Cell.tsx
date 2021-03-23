@@ -31,6 +31,7 @@ const Cells = React.memo(styled.section`
       font-size: 16px;
       color: #444c5e;
       line-height: 24px;
+      font-weight: 550;
     }
     div {
       font-family: PingFangSC-Regular;
@@ -69,19 +70,11 @@ interface CellProps {
   className?: string;
 }
 
-export function Cell({
-  className = "",
-  iconUrl,
-  title,
-  account,
-  accountName,
-  isSelected,
-  setValues
-}: CellProps): React.ReactElement<CellProps> {
-  let [, setValue] = useLocalStorage<string>("currentAccount");
+export function Cell({className = "", iconUrl, title, account, accountName, isSelected, setValues}: CellProps): React.ReactElement<CellProps> {
+  const [, setValue] = useLocalStorage<string>("currentAccount");
   const { changeAccount } = useContext(PolkadotAccountsContext);
 
-  let handleOnClick = () => {
+  const handleOnClick = () => {
     if (iconUrl) {
       setValues(title);
     }

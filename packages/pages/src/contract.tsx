@@ -1624,9 +1624,9 @@ const adminAddress = 'atp18hqda4eajphkfarxaa2rutc5dwdwx9z5vy2nmh';
 const ghjieAddress = 'atx1j4ncnc4ajm8ut0nvg2n34uedtz3kuecmsdf7qd';
 const rjmanAddress = 'atx1sy2tvmghdv47hwz89yu9wz2y29nd0frr0578e3';
 
-const bridgeAddress = 'atp1ugd2pewannp76f36fk3nt3gt886e4u9d5qrz5x';
-const handlerAddress = 'atx1t3zvgf73mmhzax24epgv02vqznzw24a5m78cnz';
-const erc20Address = 'atx1lfhrcc6xectcfe850kf83rcntlw0ha7wck9qjz';
+const bridgeAddress = 'atp1ed4mz9wawr7dnnznjx4uuu4uwdquc0wwn9uu96';
+const handlerAddress = 'atp13kpqglnd5xl699smjulk64v048ku7d50c8jt5p';
+const erc20Address = 'atp1uc38t2lghef8ccz4aw8r8d5hmnvs7qyvsv42lk';
 const resourceID = '0x0000000000000000000000000000000000000000000000000000000000000000';
 const erc20_minter_contract = new web3.platon.Contract(erc20miner_abi);
 erc20_minter_contract.options.address = erc20Address;
@@ -1655,13 +1655,11 @@ const addressToPublicKey = (address: string): string => {
 const createDepositTransactionParameters = (from: string, to: string, amount: number) => {
   return {
     nonce: '0x00', // ignored by MetaMask
-    gasPrice: '0x09184e72a000', // customizable by user during MetaMask confirmation.
-    gas: '0x2710', // customizable by user during MetaMask confirmation.
     to: bridgeAddress,
     from, // must match user's active address.
     value: '0x00', // Only required to send ether to the recipient from the initiating external account.
     data: bridge_contract.methods.deposit(1, resourceID, createERCDepositData(amount, 66, bytesToHex(toUtf8Bytes(addressToPublicKey(to))))).encodeABI(),
-    chainId: '0x3', // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
+    // chainId: '222', // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
   };
 };
 
@@ -1676,16 +1674,14 @@ const createDepositTransactionParameters = (from: string, to: string, amount: nu
 //   chainId: '0x3', // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
 // };
 
-const createTransferTransactionParameters = (from: string, amount: number, to: string) => {
+const createTransferTransactionParameters = (from: string, amount: string, to: string) => {
   return {
     nonce: '0x00', // ignored by MetaMask
-    gasPrice: '0x09184e72a000', // customizable by user during MetaMask confirmation.
-    gas: '0x2710', // customizable by user during MetaMask confirmation.
     to: erc20Address, // Required except during contract publications.
     from, // must match user's active address.
     value: '0x00', // Only required to send ether to the recipient from the initiating external account.
-    data: erc20_minter_contract.methods.transfer(to, amount).encodeABI(),
-    chainId: '0x3', // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
+    data: erc20_minter_contract.methods.transfer(to, (parseInt(amount) * 1e18).toString()).encodeABI(),
+    // chainId: '0x3', // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
   }
 }
 

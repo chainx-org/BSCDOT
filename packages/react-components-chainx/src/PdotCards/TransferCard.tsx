@@ -7,6 +7,9 @@ import InputDex from '../InputDex';
 import Button from "@polkadot/react-components-chainx/Button";
 import {createTransferTransactionParameters} from '@polkadot/pages/contract';
 import {PlatonAccountsContext} from '@polkadot/react-components-chainx/PlatonAccountsProvider';
+import {creatStatusInfo} from '@polkadot/pages/helper/helper';
+import {ActionStatus} from '@polkadot/react-components/Status/types';
+import {StatusContext} from '@polkadot/react-components';
 
 interface PdotCardProps {
   children?: React.ReactNode;
@@ -19,14 +22,25 @@ export default function TransferCard({ children, className = '',title }: PdotCar
   const [amount, setAmount] = useState<string>('')
   const [targetAddress, setTargetAddress] = useState<string>('')
   const {platonAccount} = useContext(PlatonAccountsContext)
+  const status = { action: 'transfer' } as ActionStatus;
+  const {queueAction} = useContext(StatusContext);
 
   const confirmTransfer = () => {
     if(platonAccount && amount && targetAddress){
       try{
         alaya.request({
           method: 'platon_sendTransaction',
-          params: [createTransferTransactionParameters(platonAccount, parseInt(amount), targetAddress)]
-        }).then((result: any) => console.log((result)));
+          params: [createTransferTransactionParameters(platonAccount, amount, targetAddress)]
+        })
+        .then(result => {
+          creatStatusInfo(status, 'success', `转账成功，交易哈希: ${result}`);
+          queueAction(status as ActionStatus);
+        })
+        .catch(error => {
+          creatStatusInfo(status, 'error', error.message);
+          queueAction(status as ActionStatus);
+        });
+
       }catch(err){
         console.log(err)
       }

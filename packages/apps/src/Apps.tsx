@@ -13,6 +13,7 @@ import ConnectingOverlay from './overlays/Connecting';
 import WarmUp from './WarmUp';
 import Contents from '@polkadot/pages';
 import Sidebars from '@polkadot/pages/components/SideBar';
+import Status from './Content/Status';
 export const PORTAL_ID = 'portals';
 
 function Apps({className = ''}: Props): React.ReactElement<Props> {
@@ -32,6 +33,7 @@ function Apps({className = ''}: Props): React.ReactElement<Props> {
           <div className="main">
             <Contents/>
           </div>
+          <Status/>
         </Signer>
         {/*<ConnectingOverlay/>*/}
         <div id={PORTAL_ID}/>

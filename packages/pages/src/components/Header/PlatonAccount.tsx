@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react';
 import AccountCard from '@polkadot/react-components-chainx/AccountCard/AccountCard';
-import PlantonAcc from '@polkadot/pages/components/Header/icons/planton_account.svg';
+import PlantonAcc from '@polkadot/pages/components/Header/icons/symbol-platNO.svg';
 import Card from '@polkadot/react-components-chainx/Card/Card';
 import samurai from '@polkadot/pages/components/Header/icons/logo_samurai.svg';
 import {erc20_minter_contract} from '@polkadot/pages/contract';
@@ -43,6 +43,7 @@ function PlatonAccount() {
           accountAmount={pdot ? pdot : 0}
           iconNode={PlantonAcc}
           unit='PDOT'
+          accountType = 'platon'
         /> :
         <Card isBasic className="greenCard" label="使用 Samurai 插件登录 Platon 账户" iconNode={samurai}
               onClick={openSamurai}/>
