@@ -3,10 +3,12 @@
 
 import React, {useContext} from 'react';
 import styled from "styled-components";
-import PdotCard from "@polkadot/react-components-chainx/PdotCards";
+// import { useTranslation } from '../translate';
 import { Records } from "@polkadot/react-components-chainx/Records";
 import {PlatonAccountsContext} from '@polkadot/react-components-chainx/PlatonAccountsProvider';
 import { PolkadotAccountsContext } from '@polkadot/react-components-chainx/PolkadotAccountsProvider';
+import PdotNodata from '@polkadot/react-components-chainx/PdotCards/PdotNodata';
+import PublishAndRedeemCard from '@polkadot/react-components-chainx/PdotCards/PublishAndRedeemCard';
 
 interface Props {
   className?: string;
@@ -20,8 +22,8 @@ export default function RedeemContent({ className }: Props): React.ReactElement<
 
     <Wrapper className={`contentWrapper ${className}`}>
       { hasPlatonAccount && hasAccounts?
-         <PdotCard className = "left" title="赎回 PDOT" component="RedeemCard" isBasic/>
-        : <PdotCard noData={true} title='赎回 PDOT' isBasic noDataMsg='请先登录 Polkadot 和 PlatON 账户'/>
+         <PublishAndRedeemCard className = "left" title="赎回" unit='PDOT' isReverse={true}  />
+        : <PdotNodata title='赎回 PDOT' noDataMsg='请先登录 Polkadot 和 PlatON 账户'/>
       }
         <Records className = "right" title="赎回记录" />
       </Wrapper>

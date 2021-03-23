@@ -19,16 +19,6 @@ const Wrapper = styled.section`
     border-bottom-right-radius: 0;
     border-bottom: 1px solid #EFEFEF;
   }
-  // .pdotCon {
-  //   &::-webkit-scrollbar {    
-  //       width: 5px;
-  //       background: transparent;
-  //   }
-  //   &::-webkit-scrollbar-thumb { 
-  //       background: #6F7C7C;
-  //       border-radius: 2.5px;
-  //   }
-  // }
 `;
 
 
