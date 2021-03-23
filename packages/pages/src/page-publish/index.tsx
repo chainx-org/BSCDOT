@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 // import type { Route } from '@polkadot/apps-routing/types';
 
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import styled from "styled-components";
 // import { useTranslation } from '../translate';
 import { Records } from "@polkadot/react-components-chainx/Records";
@@ -10,7 +10,11 @@ import { PolkadotAccountsContext } from '@polkadot/react-components-chainx/Polka
 import { PlatonAccountsContext } from '@polkadot/react-components-chainx/PlatonAccountsProvider';
 import PdotNodata from '@polkadot/react-components-chainx/PdotCards/PdotNodata';
 import PublishAndRedeemCard from '@polkadot/react-components-chainx/PdotCards/PublishAndRedeemCard';
-
+import {web3FromAddress} from '@polkadot/extension-dapp';
+import { useApi } from '@polkadot/react-hooks';
+import {StatusContext} from '@polkadot/react-components';
+import {ActionStatus} from '@polkadot/react-components/Status/types';
+import {creatStatusInfo} from '@polkadot/pages/helper/helper';
 
 interface Props {
   className?: string;
@@ -20,11 +24,44 @@ export default function PublicContent({ className }: Props): React.ReactElement<
   //   const { t } = useTranslation();
   const {hasPlatonAccount} = useContext(PlatonAccountsContext)
   const {hasAccounts} = useContext(PolkadotAccountsContext)
+  const [amount, setAmount] = useState<string>('')
+  const {currentAccount} = useContext(PolkadotAccountsContext)
+  const {platonAccount} = useContext(PlatonAccountsContext)
+  const {api} = useApi()
+  const {queueAction} = useContext(StatusContext);
+  const status = { action: 'publish' } as ActionStatus;
+
+  const publish = () => {
+    async function ccc() {
+      if (hasAccounts && amount && platonAccount) {
+        try {
+          const injector = await web3FromAddress(currentAccount);
+          api.setSigner(injector.signer);
+          api.tx.utility.batch([
+            api.tx.balances.transferKeepAlive(currentAccount, amount),
+            api.tx.system.remark(platonAccount)
+          ])
+            .signAndSend(currentAccount, { signer: injector.signer }, (status) => {console.log('status',status)})
+            .then(result => {
+              creatStatusInfo(status, 'success', '发行成功', currentAccount)
+              queueAction(status as ActionStatus)
+            })
+            .catch(error => {
+              creatStatusInfo(status, 'error', (error as Error).message)
+              queueAction(status as ActionStatus)
+            })
+        } catch (err) {
+          console.log(err);
+        }
+      }
+    }
+    ccc();
+  }
 
   return (
     <Wrapper className={`contentWrapper ${className}`}>
       { hasPlatonAccount && hasAccounts?
-        <PublishAndRedeemCard className="left" title="发行" unit='PDOT' isReverse={false} />
+        <PublishAndRedeemCard className="left" title="发行" unit='PDOT' isReverse={false} onClick={publish} setAmount={setAmount} />
         : <PdotNodata title='发行 PDOT' noDataMsg='请先登录 Polkadot 和 PlatON 账户'/>
       }
       <Records className="right" title="发行记录" />
