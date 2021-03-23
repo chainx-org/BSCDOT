@@ -5,6 +5,7 @@ import {u8aToHex} from '@polkadot/util';
 
 const Ethers = require('ethers');
 const Web3 = require('web3');
+const netWorkInfo = JSON.parse(JSON.stringify(window.localStorage.getItem('netWork')))
 const web3 = new Web3('http://127.0.0.1:6789');
 const {ppos} = web3;
 
@@ -1659,7 +1660,7 @@ const createDepositTransactionParameters = (from: string, to: string, amount: st
     to: bridgeAddress,
     from, // must match user's active address.
     value: '0', // Only required to send ether to the recipient from the initiating external account.
-    data: bridge_contract.methods.deposit(1, resourceID, createERCDepositData(parseInt(amount) *1e18, 66, bytesToHex(toUtf8Bytes(addressToPublicKey(to))))).encodeABI(),
+    data: bridge_contract.methods.deposit(1, resourceID, createERCDepositData(parseInt(amount) *1e6, 66, bytesToHex(toUtf8Bytes(addressToPublicKey(to))))).encodeABI(),
     // chainId: '222', // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
   };
 };

@@ -4,28 +4,12 @@ import PlantonAccountLogo from '@polkadot/pages/components/Header/icons/symbol-p
 import AlayaAccountLogo from '@polkadot/pages/components/Header/icons/symbol-alaya.svg'
 import Card from '@polkadot/react-components-chainx/Card/Card';
 import samurai from '@polkadot/pages/components/Header/icons/logo_samurai.svg';
-import {erc20_minter_contract} from '@polkadot/pages/contract';
 import {PlatonAccountsContext} from '@polkadot/react-components-chainx/PlatonAccountsProvider';
 import {NetWorkContext} from '@polkadot/react-components-chainx/NetWorkProvider';
 
 function PlatonAccount() {
-  const [pdot, setPdot] = useState<number>(0);
-  const {platonAccount, setPlatonAccount} = useContext(PlatonAccountsContext)
+  const {platonAccount, setPlatonAccount, pdotAmount} = useContext(PlatonAccountsContext)
   const {netWork} = useContext(NetWorkContext)
-
-  useEffect(() => {
-    if(typeof window.alaya !== 'undefined'){
-      alaya.request({method: 'platon_requestAccounts'})
-        .then((platonAccounts: string[]) => setPlatonAccount(platonAccounts[0]));
-    }
-  }, [])
-
-  useEffect(() => {
-    if (platonAccount) {
-      erc20_minter_contract.methods.balanceOf(platonAccount).call()
-        .then(setPdot);
-    }
-  }, [platonAccount]);
 
   const openSamurai = () => {
     if(typeof window.alaya !== 'undefined'){
@@ -43,8 +27,8 @@ function PlatonAccount() {
           className="greenCard"
           accountName="PlatON 账户"
           accountAddress={platonAccount}
-          accountAmount={pdot ? pdot : 0}
-          iconNode={netWork.name.trim() === 'Alaya 网络' ?AlayaAccountLogo: PlantonAccountLogo}
+          accountAmount={pdotAmount ? pdotAmount : 0}
+          iconNode={netWork.name.trim() === 'Alaya 网络'? AlayaAccountLogo: PlantonAccountLogo}
           unit='PDOT'
           accountType = 'platon'
         /> :

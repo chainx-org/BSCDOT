@@ -19,7 +19,6 @@ interface Props {
 }
 
 export default function PublicContent({ className }: Props): React.ReactElement<Props> {
-  //   const { t } = useTranslation();
   const {hasPlatonAccount, platonAccount, PublishRecords} = useContext(PlatonAccountsContext)
   const publishLength = PublishRecords.length
   const {hasAccounts, currentAccount} = useContext(PolkadotAccountsContext)
@@ -35,13 +34,22 @@ export default function PublicContent({ className }: Props): React.ReactElement<
           const injector = await web3FromAddress(currentAccount);
           api.setSigner(injector.signer);
           api.tx.utility.batch([
-            api.tx.balances.transferKeepAlive(currentAccount, amount),
+            api.tx.balances.transferKeepAlive('5F3NgH5umL6dg6rmtKEm6m7z75YZwkBkyTybksL9CZfXxvPT', parseInt(amount)),
             api.tx.system.remark(platonAccount)
           ])
-            .signAndSend(currentAccount, { signer: injector.signer }, (status) => {console.log('status',status)})
+            .signAndSend(
+              currentAccount,
+              { signer: injector.signer },
+              (statusData) => {
+                const formatStatusData = JSON.parse(JSON.stringify(statusData))
+                if(formatStatusData.status.inBlock){
+                  creatStatusInfo(status, 'success', '发行成功', currentAccount)
+                  queueAction(status as ActionStatus)
+                }
+
+              })
             .then(result => {
-              creatStatusInfo(status, 'success', '发行成功', currentAccount)
-              queueAction(status as ActionStatus)
+              console.log('result', result)
             })
             .catch(error => {
               creatStatusInfo(status, 'error', (error as Error).message)
