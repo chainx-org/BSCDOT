@@ -1,9 +1,13 @@
-
 import React from 'react';
 import { LinkWrap } from './Detail';
 
+type Props = {
+  hash: string;
+  length?: number;
+  className?: string;
+}
 
-export default function ({ hash = '', length = 5 }) {
+export default function ({ hash, length = 5, className = '' }: Props): React.ReactElement<Props> {
 
   let result: string = hash
   if (hash.length > 2 * length) {
@@ -11,8 +15,8 @@ export default function ({ hash = '', length = 5 }) {
   }
 
   return (
-    <LinkWrap>
-      <span>{result}</span>
-    </LinkWrap>
+    <>
+      <LinkWrap className={`${className}`}>{result}</LinkWrap>
+    </>
   );
 }

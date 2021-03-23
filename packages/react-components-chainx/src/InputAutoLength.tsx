@@ -1,12 +1,12 @@
 // Copyright 2017-2020 @polkadot/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
 import { KEYS_PRE } from "@polkadot/react-components/Input";
 
 const Wrapper = styled.div`
-  display: flex !important;
+  dislpay: flex !important;
   margin: 16px auto;
   font-family: PingFangSC-Semibold;
   font-size: 32px;
@@ -28,17 +28,16 @@ const Wrapper = styled.div`
       right: 9px;
     }
     &:focus {
-      border: 0;
+      border: 0px;
       outline: none;
-      white-space: nowrap;
+      white-space: no-wrap;
     }
-
     line-height: 44px;
     display: inline-block;
     // height: 22px;
     min-width: 30px;
   }
-  .flagTitle{
+  .flagtitle {
     position: relative;
     bottom: 11px;
     padding-left: 10px;
@@ -52,12 +51,12 @@ interface InputAutoLengthProps {
   children?: any;
   tokenName?: string | undefined;
   placeholder?: any;
-  onBlur?: (event: React.FocusEvent) => void;
   isDecimal?: boolean;
 }
 
 function getRegex(isDecimal: boolean): RegExp {
   const decimal = ".";
+  console.log(isDecimal);
   return new RegExp(isDecimal ? `^(0|[1-9]\\d*)(\\${decimal}\\d{0,4})?$` : "^(0|[1-9]\\d*)$");
 }
 var value = "";
@@ -67,32 +66,26 @@ function InputAutoLength({
   children,
   tokenName,
   placeholder,
-  onBlur,
   isDecimal
 }: InputAutoLengthProps): React.ReactElement<InputAutoLengthProps> {
   const [isPreKeyDown, setIsPreKeyDown] = useState(false);
 
   const _onKeyUp = useCallback((event: React.KeyboardEvent<Element>): void => {
-    if (event.key === "Backspace") {
-      value = value.substr(0,value.length-1)
-    }
     if (KEYS_PRE.includes(event.key)) {
       setIsPreKeyDown(false);
     }
   }, []);
   const _onKeyDown = useCallback(
     (event: React.KeyboardEvent<Element>): void => {
-
       if (KEYS_PRE.includes(event.key)) {
-      setIsPreKeyDown(true);
-
+        setIsPreKeyDown(true);
         return;
       }
-
       if (event.key.length === 1 && !isPreKeyDown) {
-        const newValue = `${event.key}`;
-        value = value.concat(newValue);
+        value = event.target.innerText + event.key;
+        console.log(value);
         if (!getRegex(true).test(value)) {
+          console.log(getRegex(true).test(value));
           event.preventDefault();
         }
       }
@@ -109,7 +102,6 @@ function InputAutoLength({
         onKeyDown={_onKeyDown}
         onKeyUp={_onKeyUp}
         placeholder={placeholder}
-        onBlur={onBlur}
       >
         {children}
       </div>

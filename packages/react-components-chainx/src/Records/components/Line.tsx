@@ -1,7 +1,7 @@
 
 import React, {useRef, useState} from 'react';
 import Hash from './Hash';
-import { Detail, Label } from './Detail';
+import { Account, Detail, Header, Label, Line, Sequence } from './Detail';
 // import { useTranslation } from '@polkadot/react-components/translate';
 import useOutsideClick from '@polkadot/app-accounts-chainx/Myview/useOutsideClick';
 import {useApi} from '@polkadot/react-hooks';
@@ -19,30 +19,27 @@ export default function ({ records, num, arrows }: any) {
   });
 
   return (
-    <div className='line'
+    <Line className='publishandredeem'
       onClick={() => setOpen(!open)}
       ref={wrapper}>
-      <header>
-        <span className='txNum'>交易号 <span className='txNums'>{records.seq}</span> </span>
-        <span>
-          {/* {records.data[1] === currentAccount? <span className='pending'>进行中</span> : <span className='reslove'>已完成</span>} */}
-        </span>
-      </header>
-      <div className='account'>
-        <span><Hash hash={records.txFrom} /></span>
+      <Header>
+        <Sequence>交易号 <span className='txNums'>{records.seq}</span> </Sequence>
+      </Header>
+      <Account>
+        <Hash hash={records.txFrom} className='address' />
         {
           arrows ? <img src={Arrow} alt='Arrow' className='arrow' />: ''
         }
-        <span><Hash hash={records.transferTo} /></span>
-      </div>
+        <Hash hash={records.transferTo} className='address' />
+      </Account>
       {isApiReady && open ? (
          <Detail className={`detail  lineDetail${num}`}>
           <div className='hashVal'>
             <Label>交易哈希</Label>
-            <Hash hash={records.txHash} />
+            <Hash hash={records.txHash} className='hash' />
           </div>
         </Detail>
       ) : null}
-    </div>
+    </Line>
   );
 }

@@ -1,5 +1,6 @@
-import {useEffect, useState} from 'react';
+import {useEffect, useState, useContext} from 'react';
 import axios from 'axios';
+import { PlatonAccountsContext } from '@polkadot/react-components-chainx/PlatonAccountsProvider';
 
 export interface Transfer {
   id: number,
@@ -32,9 +33,8 @@ interface AllRecords {
 export default function useTokenTransferList(currentAccount = ''): AllRecords {
   const [state, setState] = useState<AllRecords>({PublishRecords: [], RedreemRecords: [], Transfers: []});
   // let transferTimeId: any = '';
-
+  const {platonAccount} = useContext(PlatonAccountsContext)
   async function fetchTransfers(currentAccount: string) {
-    // let res: any;
     const res = await axios.post('http://39.106.4.1:53311/alaya-api/token/tokenTransferList',{address:`${currentAccount}`});
     const records = res.data.data
     setState({
@@ -52,14 +52,14 @@ export default function useTokenTransferList(currentAccount = ''): AllRecords {
   //   if(transferTimeId){
   //     window.clearInterval(transferTimeId);
   //   }
-  //   fetchTransfers(currentAccount);
+  //   fetchTransfers(platonAccount);
   //   transferTimeId = setInterval(() => {
-  //     fetchTransfers(currentAccount);
+  //     fetchTransfers(platonAccount);
   //     window.clearInterval(transferTimeId)
   //   }, 5000);
 
   //   return () => window.clearInterval(transferTimeId);
-  // }, [currentAccount]);
+  // }, [platonAccount]);
 
   return state
 }

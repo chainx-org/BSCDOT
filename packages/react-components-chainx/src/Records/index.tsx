@@ -1,38 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
 import { useIsMounted } from '@polkadot/app-accounts-chainx/Myview/Records/hooks';
-import { LoadingWrapper, RecordDetail } from './components/Detail';
+import { LoadingWrapper, RecordDetail, Title, Wrapper } from './components/Detail';
 import MiniLoading from '@polkadot/app-accounts-chainx/Myview/Records/MiniLoading';
 import Line from './components/Line';
 import Lines from './components/Lines';
 import Empty from './Empty';
 
-const Wrapper = styled.section`
-  display: flex;
-  flex-direction: column;
-  background: #fff;
-  border-radius: 10px;
-  border: none;
-  .isBasic {
-    font-size: 20px;
-    color: #444C5E;
-    padding: 15px 20px;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-    border-bottom: 1px solid #EFEFEF;
-  }
-`;
-
 interface RecordsProps {
   children?: React.ReactNode;
   className?: string;
   title?: string;
-  recordlen?: number;
+  recordLength?: number;
   records?: any;
   arrows?: boolean;
 }
 
-export function Records({ children, className = '', title, records, recordlen, arrows }: RecordsProps): React.ReactElement<RecordsProps> {
+export function Records({ children, className = '', title, records, recordLength, arrows }: RecordsProps): React.ReactElement<RecordsProps> {
   const [loading, setLoading] = useState(true);
   const mounted = useIsMounted();
 
@@ -61,13 +44,11 @@ export function Records({ children, className = '', title, records, recordlen, a
   }
 
   return (
-    <Wrapper>
-      <p className={`${className} isBasic  `}>{title}</p>
-      <div className='pdotCon'>
-        <RecordDetail className={ recordlen === 1 ?  'normal' : 'overflow' }>
-          {(records || []).length > 0 ? ( RecordsElement ) : (<Empty text='暂无数据' />)}
-        </RecordDetail>
-      </div>
+    <Wrapper className={`ui-record ${className} `}>
+      <Title className='ui-record-title'>{title}</Title>
+      <RecordDetail className={ recordLength === 1 ?  'normal' : 'overflow' }>
+        {(records || []).length > 0 ? ( RecordsElement ) : (<Empty text='暂无数据' />)}
+      </RecordDetail>
     </Wrapper>
   );
 }

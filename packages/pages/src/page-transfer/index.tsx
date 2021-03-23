@@ -16,9 +16,9 @@ interface Props {
 
 export default function TransferContent({className}: Props): React.ReactElement<Props> {
   //   const { t } = useTranslation();
-  const {hasPlatonAccount} = useContext(PlatonAccountsContext);
-  const {hasAccounts,Transfers} = useContext(PolkadotAccountsContext);
-  const transferslen = Transfers.length
+  const {hasPlatonAccount,Transfers} = useContext(PlatonAccountsContext);
+  const {hasAccounts} = useContext(PolkadotAccountsContext);
+  const transferLength = Transfers.length
 
   return (
     <Wrapper className={`contentWrapper ${className}`}>
@@ -26,7 +26,7 @@ export default function TransferContent({className}: Props): React.ReactElement<
         <TransferCard className="left" title="PDOT 转账" />
         : <PdotNodata title='PDOT 转账' noDataMsg='请先登录 Polkadot 和 PlatON 账户'/>
       }
-      <Records className="right" title="转账记录" records={Transfers} recordlen={transferslen} arrows={false} />
+      <Records className="right" title="转账记录" records={Transfers} recordLength={transferLength} arrows={false} />
     </Wrapper>
   );
 }
