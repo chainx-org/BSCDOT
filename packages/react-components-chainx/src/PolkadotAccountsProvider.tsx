@@ -2,7 +2,8 @@ import React, {createContext, FC, useEffect, useState} from 'react';
 import { InjectedAccountWithMeta } from '@polkadot/extension-inject/types';
 import { useLocalStorage } from '@polkadot/react-hooks-chainx';
 import { usePolkadotAccounts } from '@polkadot/react-hooks-chainx/usePolkadotAccounts';
-import useTokenTransferList, { PublishRecord, RedreemRecord, Transfer } from '@polkadot/app-accounts-chainx/useTransferList';
+import useTokenTransferList, { PublishRecord, RedeemRecord, Transfer } from '@polkadot/app-accounts-chainx/useTransferList';
+import all from '@polkadot/react-components/InputRpc/rpcs';
 
 
 export interface PolkadotAccountsData {
@@ -15,7 +16,7 @@ export interface PolkadotAccountsData {
   addressAndName: object[],
   changeAccount: (account: string) => void,
   PublishRecords: PublishRecord[],
-  RedeemRecords: RedreemRecord[],
+  RedeemRecords: RedeemRecord[],
   Transfers: Transfer[],
 }
 
@@ -34,7 +35,7 @@ export const PolkadotAccountsProvider: FC = ({children}) => {
   }
 
   useEffect(() => {
-    if (!storedValue) {
+    if (!storedValue || !accountAddress.includes(currentAccount)) {
       const defaultAccount = accountAddress.length > 0 ? accountAddress[0] : ''
       setValue(defaultAccount)
       changeAccount(defaultAccount)
