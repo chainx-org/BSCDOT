@@ -1,7 +1,6 @@
-
 import styled from 'styled-components';
 
-export const Wrapper = styled.div`
+export const RecordDetail = styled.div`
   &.overflow {
     max-height: 324px;
     overflow-y: auto;

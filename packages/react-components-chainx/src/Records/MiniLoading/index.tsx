@@ -1,4 +1,3 @@
-
 import Loading from './loading.svg';
 import React from 'react';
 import styled from 'styled-components';
@@ -27,8 +26,7 @@ type Props = {
 export default function ({ className = '' }: Props): React.ReactElement<Props> {
   return (
     <Wrapper className={className}>
-      <img alt='loading'
-        src={Loading} />
+      <img alt='loading' src={Loading} />
     </Wrapper>
   );
 }

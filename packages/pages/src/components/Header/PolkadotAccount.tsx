@@ -7,7 +7,6 @@ import BN from "bn.js";
 import {useApi} from '@polkadot/react-hooks';
 import {ApiContext} from '@polkadot/react-api';
 import { PolkadotAccountsContext, PolkadotAccountsData} from '@polkadot/react-components-chainx/PolkadotAccountsProvider';
-import { usePolkadotAccounts } from '@polkadot/react-hooks-chainx/usePolkadotAccounts';
 import {ApiProps} from '@polkadot/react-api/types';
 
 
@@ -15,8 +14,7 @@ function PolkadotAccount(): React.ReactElement {
   const {api, isApiReady} = useApi();
   const [accountName, setAccountName] = useState<string | undefined>('');
   const [usableBalance, setUsableBalance] = useState<number>(0);
-  const {hasAccounts, allAccounts, addressAndName} = usePolkadotAccounts();
-  const {currentAccount} = useContext<PolkadotAccountsData>(PolkadotAccountsContext);
+  const {currentAccount, hasAccounts, allAccounts, addressAndName} = useContext<PolkadotAccountsData>(PolkadotAccountsContext);
   const {formatProperties} = useContext<ApiProps>(ApiContext)
 
   useEffect(() => {

@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react';
 import axios from 'axios';
 
-interface Transfer {
+export interface Transfer {
   id: number,
   seq: number,
   txHash: string,
@@ -20,16 +20,16 @@ interface Transfer {
   value: string
 }
 
-interface PublishRecord  extends Transfer{}
-interface RedreemRecord  extends Transfer{}
+export interface PublishRecord  extends Transfer{}
+export interface RedreemRecord  extends Transfer{}
 
 interface AllRecords {
-  PublishRecords: PublishRecord[];
-  RedreemRecords: RedreemRecord[];
-  Transfers: Transfer[];
+  PublishRecords: PublishRecord[],
+  RedreemRecords: RedreemRecord[],
+  Transfers: Transfer[],
 }
 
-export default function useTokenTransferList(currentAccount = ''): AllRecords[] {
+export default function useTokenTransferList(currentAccount = ''): AllRecords {
   const [state, setState] = useState<AllRecords>({PublishRecords: [], RedreemRecords: [], Transfers: []});
   // let transferTimeId: any = '';
 
