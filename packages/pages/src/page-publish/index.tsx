@@ -20,6 +20,8 @@ interface Props {
 
 export default function PublicContent({ className }: Props): React.ReactElement<Props> {
   //   const { t } = useTranslation();
+  const { PublishRecords } = useContext(PolkadotAccountsContext);
+  const publishlen = PublishRecords.length
   const {hasPlatonAccount} = useContext(PlatonAccountsContext)
   const {hasAccounts} = useContext(PolkadotAccountsContext)
   const [amount, setAmount] = useState<string>('')
@@ -62,7 +64,7 @@ export default function PublicContent({ className }: Props): React.ReactElement<
         <PublishAndRedeemCard className="left" title="发行" unit='PDOT' isReverse={false} onClick={publish} setAmount={setAmount} />
         : <PdotNodata title='发行 PDOT' noDataMsg='请先登录 Polkadot 和 PlatON 账户'/>
       }
-      <Records className="right" title="发行记录" />
+      <Records className="right" title="发行记录" records={PublishRecords} recordlen={publishlen} arrows={true} />
     </Wrapper>
   );
 }

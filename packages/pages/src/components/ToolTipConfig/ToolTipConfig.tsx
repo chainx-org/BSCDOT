@@ -27,6 +27,7 @@ const Wrapper = React.memo(styled.section`
       width: 16px;
       height: 16px;
       margin: 20px 20px 8px;
+      cursor: pointer;
     }
   }
 `);

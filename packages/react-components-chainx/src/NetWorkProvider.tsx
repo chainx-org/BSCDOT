@@ -4,7 +4,6 @@ export interface NetWorkProviderData {
   netWork: NetWorkInfo;
   setNetWork: React.Dispatch<NetWorkInfo>;
   localNet: NetWorkInfo;
-  setLocalNet: (netInfo: NetWorkInfo) => void;
 }
 
 export interface NetWorkInfo {

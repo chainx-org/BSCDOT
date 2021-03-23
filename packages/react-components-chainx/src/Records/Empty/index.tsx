@@ -1,4 +1,3 @@
-
 import React from 'react';
 import NoData from './nodata.svg'
 import styled from 'styled-components';

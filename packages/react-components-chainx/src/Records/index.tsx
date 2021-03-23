@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { TransferRecords } from './TransferRecords';
-import { PublishRedeem } from './PublishRecords';
-import useTokenTransferList from '@polkadot/app-accounts-chainx/useTransferList';
-import { AllAccountsContext } from '@polkadot/react-components-chainx/AccountProvider';
+import { useIsMounted } from '@polkadot/app-accounts-chainx/Myview/Records/hooks';
+import { LoadingWrapper, RecordDetail } from './components/Detail';
+import MiniLoading from '@polkadot/app-accounts-chainx/Myview/Records/MiniLoading';
+import Line from './components/Line';
+import Lines from './components/Lines';
+import Empty from './Empty';
 
 const Wrapper = styled.section`
   display: flex;
@@ -21,37 +23,51 @@ const Wrapper = styled.section`
   }
 `;
 
-
 interface RecordsProps {
   children?: React.ReactNode;
   className?: string;
   title?: string;
+  recordlen?: number;
+  records?: any;
+  arrows?: boolean;
 }
 
+export function Records({ children, className = '', title, records, recordlen, arrows }: RecordsProps): React.ReactElement<RecordsProps> {
+  const [loading, setLoading] = useState(true);
+  const mounted = useIsMounted();
 
-export function Records({ children, className = '', title }: RecordsProps): React.ReactElement<RecordsProps> {
+  useEffect(() => {
+    setLoading(true);
+  }, [mounted]);
 
-  // const { currentAccount } = useContext(AllAccountsContext);
+  useEffect(() => {
+    if (mounted.current) {
+      setLoading(false);
+    }
+  });
 
-  const allrecord = useTokenTransferList();
-  const publishRecord = allrecord?.PublishRecords
-  const publishlen = allrecord?.PublishRecords.length
-  const transfersRecord = allrecord?.Transfers
-  const transferslen = allrecord?.Transfers.length
-  const redreemRecord = allrecord?.RedreemRecords
-  const redreemlen = allrecord?.RedreemRecords.length
-  
+  const RecordsElement = arrows ? records?.map((record: any, index: number) => {
+    return <Line key={index} records={record} num={index} arrows={arrows} />;
+  }) : records?.map((record: any, index: number) => {
+    return <Lines key={index} records={record} num={index} arrows={arrows} />;
+  });
+
+  if (loading) {
+    return (
+      <LoadingWrapper>
+        <MiniLoading />
+      </LoadingWrapper>
+    );
+  }
+
   return (
     <Wrapper>
       <p className={`${className} isBasic  `}>{title}</p>
       <div className='pdotCon'>
-        {
-          title === '转账记录'? <TransferRecords record={transfersRecord} recordlen={transferslen} arrows={false} /> :
-          title === '发行记录'? <PublishRedeem record={publishRecord} recordlen={publishlen} arrows={true} />: 
-          title === '赎回记录'? <PublishRedeem record={redreemRecord} recordlen={redreemlen} arrows={true} /> : null
-        }
+        <RecordDetail className={ recordlen === 1 ?  'normal' : 'overflow' }>
+          {(records || []).length > 0 ? ( RecordsElement ) : (<Empty text='暂无数据' />)}
+        </RecordDetail>
       </div>
-      {children}
     </Wrapper>
   );
 }

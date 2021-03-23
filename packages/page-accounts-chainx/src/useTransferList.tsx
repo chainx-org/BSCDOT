@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react';
 import axios from 'axios';
 
-interface Transfer {
+export interface Transfer {
   id: number,
   seq: number,
   txHash: string,
@@ -20,17 +20,17 @@ interface Transfer {
   value: string
 }
 
-interface PublishRecord  extends Transfer{}
-interface RedreemRecord  extends Transfer{}
+export interface PublishRecord  extends Transfer{}
+export interface RedreemRecord  extends Transfer{}
 
 interface AllRecords {
-  PublishRecords: PublishRecord[];
-  RedreemRecords: RedreemRecord[];
-  Transfers: Transfer[];
+  PublishRecords: PublishRecord[],
+  RedeemRecords: RedreemRecord[],
+  Transfers: Transfer[],
 }
 
-export default function useTokenTransferList(currentAccount = ''): AllRecords[] {
-  const [state, setState] = useState<AllRecords>({PublishRecords: [], RedreemRecords: [], Transfers: []});
+export default function useTokenTransferList(currentAccount = ''): AllRecords {
+  const [state, setState] = useState<AllRecords>({PublishRecords: [], RedeemRecords: [], Transfers: []});
   // let transferTimeId: any = '';
 
   async function fetchTransfers(currentAccount: string) {
@@ -39,7 +39,7 @@ export default function useTokenTransferList(currentAccount = ''): AllRecords[] 
     const records = res.data.data
     setState({
       PublishRecords: records.filter((publish: PublishRecord) => publish.txFrom === 'atp1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqdruy9j'),
-      RedreemRecords: records.filter((redreem: RedreemRecord) => redreem.transferTo === 'atp1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqdruy9j'),
+      RedeemRecords: records.filter((redreem: RedreemRecord) => redreem.transferTo === 'atp1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqdruy9j'),
       Transfers: records.filter((transfer: Transfer) => transfer.txFrom !== 'atp1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqdruy9j' && transfer.transferTo !== 'atp1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqdruy9j')
     });
   }
