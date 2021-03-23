@@ -1,16 +1,17 @@
 // Copyright 2017-2020 @polkadot/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
-
 import React, {useState} from 'react';
 import styled from 'styled-components';
-
 import SelectMore from './icons/selectMore.svg';
-
 import Button from '../Button/Button';
-import {ToolTipConfig} from '../ToolTipConfig/ToolTipConfig';
-import {InjectedAccountWithMeta} from '@polkadot/extension-inject/types';
+import {ToolTipConfig} from '../../../pages/src/components/ToolTipConfig/ToolTipConfig';
 import {toPrecision} from '@polkadot/app-accounts-chainx/Myview/toPrecision';
 import BigNumber from 'bignumber.js';
+
+export interface AccountAndAddress{
+  account: string;
+  accountName: string;
+}
 
 interface AccountCardProps {
   children?: React.ReactNode;
@@ -19,7 +20,7 @@ interface AccountCardProps {
   accountName?: string;
   accountAddress?: string;
   accountAmount: number;
-  allAccounts?: InjectedAccountWithMeta[];
+  allAccounts?: AccountAndAddress[];
   iconNode?: any;
   unit?: string;
   onClick?: () => void | Promise<void>;
@@ -57,7 +58,8 @@ function AccountCard({ children, className = '', isBasic, accountName, accountAd
         <ToolTipConfig
           isOpen={isAccountListOpen}
           setIsOpen={setIsAccountListOpen}
-          list={allAccounts}
+          list={allAccounts!}
+          listType='accountList'
         />))
       }
     </div>

@@ -1,5 +1,5 @@
 import React  from 'react';
-import { Wrapper, Title, Content, Nodata } from './components/index'
+import { Wrapper, Title, Content, Nodata } from './components'
 import Logout from './icons/logout.svg'
 
 interface dataProps {

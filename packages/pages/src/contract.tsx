@@ -1652,13 +1652,14 @@ const addressToPublicKey = (address: string): string => {
   return u8aToHex(decodeAddress(address))
 };
 
-const createDepositTransactionParameters = (from: string, to: string, amount: number) => {
+
+const createDepositTransactionParameters = (from: string, to: string, amount: string) => {
   return {
     nonce: '0x00', // ignored by MetaMask
     to: bridgeAddress,
     from, // must match user's active address.
-    value: '0x00', // Only required to send ether to the recipient from the initiating external account.
-    data: bridge_contract.methods.deposit(1, resourceID, createERCDepositData(amount, 66, bytesToHex(toUtf8Bytes(addressToPublicKey(to))))).encodeABI(),
+    value: '0', // Only required to send ether to the recipient from the initiating external account.
+    data: bridge_contract.methods.deposit(1, resourceID, createERCDepositData(parseInt(amount) *1e18, 66, bytesToHex(toUtf8Bytes(addressToPublicKey(to))))).encodeABI(),
     // chainId: '222', // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
   };
 };

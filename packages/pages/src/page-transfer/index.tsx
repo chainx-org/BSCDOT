@@ -6,8 +6,8 @@ import styled from 'styled-components';
 import {Records} from '@polkadot/react-components-chainx/Records';
 import {PlatonAccountsContext} from '@polkadot/react-components-chainx/PlatonAccountsProvider';
 import { PolkadotAccountsContext } from '@polkadot/react-components-chainx/PolkadotAccountsProvider';
-import TransferCard from '@polkadot/react-components-chainx/PdotCards/TransferCard';
-import PdotNodata from '@polkadot/react-components-chainx/PdotCards/PdotNodata';
+import TransferCard from '../components/PdotCards/TransferCard';
+import PdotNodata from '../components/PdotCards/PdotNodata';
 
 interface Props {
   className?: string;

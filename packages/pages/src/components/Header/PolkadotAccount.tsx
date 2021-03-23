@@ -1,6 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react';
 import AccountCard from '@polkadot/react-components-chainx/AccountCard/AccountCard';
-import polkadotAccount from '@polkadot/pages/components/Header/icons/polkadot_account.svg';
+import PolkadotAccountLogo from '@polkadot/pages/components/Header/icons/polkadot_account.svg';
+import KusamaAccountLogo from '@polkadot/pages/components/Header/icons/symbol-Kusama.svg'
 import Card from '@polkadot/react-components-chainx/Card/Card';
 import polkadot from '@polkadot/pages/components/Header/icons/logo_polkadot.svg';
 import BN from "bn.js";
@@ -8,7 +9,7 @@ import {useApi} from '@polkadot/react-hooks';
 import {ApiContext} from '@polkadot/react-api';
 import { PolkadotAccountsContext, PolkadotAccountsData} from '@polkadot/react-components-chainx/PolkadotAccountsProvider';
 import {ApiProps} from '@polkadot/react-api/types';
-
+import {NetWorkContext} from '@polkadot/react-components-chainx/NetWorkProvider';
 
 function PolkadotAccount(): React.ReactElement {
   const {api, isApiReady} = useApi();
@@ -16,6 +17,7 @@ function PolkadotAccount(): React.ReactElement {
   const [usableBalance, setUsableBalance] = useState<number>(0);
   const {currentAccount, hasAccounts, allAccounts, addressAndName} = useContext<PolkadotAccountsData>(PolkadotAccountsContext);
   const {formatProperties} = useContext<ApiProps>(ApiContext)
+  const {netWork} = useContext(NetWorkContext)
 
   useEffect(() => {
     const currentAccountInfo = allAccounts?.find(item => item.address === currentAccount);
@@ -43,7 +45,7 @@ function PolkadotAccount(): React.ReactElement {
             accountName={accountName}
             accountAddress={currentAccount}
             accountAmount={usableBalance? usableBalance : 0}
-            iconNode={polkadotAccount}
+            iconNode={netWork.name.trim()=== 'Alaya 网络' ? KusamaAccountLogo: PolkadotAccountLogo}
             allAccounts={addressAndName}
             unit={formatProperties.tokenSymbol[0]}
             accountType= 'polkadot'

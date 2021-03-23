@@ -1,9 +1,9 @@
 // Copyright 2017-2020 @polkadot/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 import React, {useContext, useState} from 'react';
-import { Wrapper, Title, Content, TransfersCard, AmountAndAddress } from './components/index'
-import Input from '../Input';
-import InputDex from '../InputDex';
+import { Wrapper, Title, Content, TransfersCard, AmountAndAddress } from './components'
+import Input from '@polkadot/react-components-chainx/Input';
+import InputDex from '@polkadot/react-components-chainx/InputDex';
 import Button from "@polkadot/react-components-chainx/Button";
 import {createTransferTransactionParameters} from '@polkadot/pages/contract';
 import {PlatonAccountsContext} from '@polkadot/react-components-chainx/PlatonAccountsProvider';

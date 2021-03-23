@@ -1,6 +1,6 @@
 import React, {createContext, FC, useState} from 'react';
 import usePlatonAccounts from '@polkadot/react-hooks-chainx/usePlatonAccounts';
-import useTokenTransferList, { PublishRecord, RedreemRecord, Transfer } from '@polkadot/app-accounts-chainx/useTransferList';
+import useTokenTransferList, { PublishRecord, RedeemRecord, Transfer } from '@polkadot/app-accounts-chainx/useTransferList';
 
 export interface PlatonAccountsProviderData {
   platonAccounts: string[],
@@ -9,7 +9,7 @@ export interface PlatonAccountsProviderData {
   platonAccount: string,
   setPlatonAccount: React.Dispatch<string>,
   PublishRecords: PublishRecord[],
-  RedreemRecords: RedreemRecord[],
+  RedeemRecords: RedeemRecord[],
   Transfers: Transfer[],
 }
 
@@ -24,7 +24,7 @@ export const PlatonAccountsProvider: FC = ({children}) => {
       setPlatonAccount(accounts[0]);
     })
   }
-  const { PublishRecords,Transfers,RedreemRecords } = useTokenTransferList('atp18hqda4eajphkfarxaa2rutc5dwdwx9z5vy2nmh');
+  const { PublishRecords,Transfers, RedeemRecords } = useTokenTransferList(platonAccount);
 
   return (
     <PlatonAccountsContext.Provider value={{
@@ -34,7 +34,7 @@ export const PlatonAccountsProvider: FC = ({children}) => {
       platonAccount,
       setPlatonAccount,
       PublishRecords,
-      RedreemRecords,
+      RedeemRecords,
       Transfers,
     }}>
       {children}

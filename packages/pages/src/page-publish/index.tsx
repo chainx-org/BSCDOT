@@ -1,15 +1,13 @@
 // Copyright 2017-2020 @polkadot/apps authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 // import type { Route } from '@polkadot/apps-routing/types';
-
 import React, {useContext, useState} from 'react';
 import styled from "styled-components";
-// import { useTranslation } from '../translate';
 import { Records } from "@polkadot/react-components-chainx/Records";
 import { PolkadotAccountsContext } from '@polkadot/react-components-chainx/PolkadotAccountsProvider';
 import { PlatonAccountsContext } from '@polkadot/react-components-chainx/PlatonAccountsProvider';
-import PdotNodata from '@polkadot/react-components-chainx/PdotCards/PdotNodata';
-import PublishAndRedeemCard from '@polkadot/react-components-chainx/PdotCards/PublishAndRedeemCard';
+import PdotNodata from '../components/PdotCards/PdotNodata';
+import PublishAndRedeemCard from '../components/PdotCards/PublishAndRedeemCard';
 import {web3FromAddress} from '@polkadot/extension-dapp';
 import { useApi } from '@polkadot/react-hooks';
 import {StatusContext} from '@polkadot/react-components';

@@ -1,5 +1,5 @@
 import React from 'react';
-import {HashRouter, Route} from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import Header from './components/Header';
 import PublicContent from './page-publish';
 import RedeemContent from './page-redeem';
@@ -11,11 +11,11 @@ function Contents(): React.ReactElement {
     <>
       <main className='accounts--App'>
         <Header/>
-        <HashRouter>
-          <Route path="/redeem" component={RedeemContent}/>
-          <Route path="/transfer" component={TransferContent}/>
-          <Route path="/" exact component={PublicContent}/>
-        </HashRouter>
+        <Switch>
+          <Route path="/redeem" exact component={RedeemContent}/>
+          <Route path="/transfer" exact component={TransferContent}/>
+          <Route path="/"  component={PublicContent}/>
+        </Switch>
       </main>
     </>
   );

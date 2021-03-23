@@ -3,12 +3,11 @@
 
 import React, {useContext, useState} from 'react';
 import styled from "styled-components";
-// import { useTranslation } from '../translate';
 import { Records } from "@polkadot/react-components-chainx/Records";
 import {PlatonAccountsContext} from '@polkadot/react-components-chainx/PlatonAccountsProvider';
 import { PolkadotAccountsContext } from '@polkadot/react-components-chainx/PolkadotAccountsProvider';
-import PdotNodata from '@polkadot/react-components-chainx/PdotCards/PdotNodata';
-import PublishAndRedeemCard from '@polkadot/react-components-chainx/PdotCards/PublishAndRedeemCard';
+import PdotNodata from '../components/PdotCards/PdotNodata';
+import PublishAndRedeemCard from '../components/PdotCards/PublishAndRedeemCard';
 import {StatusContext} from '@polkadot/react-components';
 import {ActionStatus} from '@polkadot/react-components/Status/types';
 import {creatStatusInfo} from '@polkadot/pages/helper/helper';
@@ -21,8 +20,8 @@ interface Props {
 export default function RedeemContent({ className }: Props): React.ReactElement<Props> {
   //   const { t } = useTranslation();
   const {hasAccounts, currentAccount } = useContext(PolkadotAccountsContext);
-  const {platonAccount, hasPlatonAccount,RedreemRecords} = useContext(PlatonAccountsContext)
-  const redreemLength = RedreemRecords.length
+  const {platonAccount, hasPlatonAccount,RedeemRecords} = useContext(PlatonAccountsContext)
+  const redreemLength = RedeemRecords.length
   const [amount, setAmount] = useState<string>('')
   const {queueAction} = useContext(StatusContext);
   const status = {action: 'redeem'} as ActionStatus;
@@ -55,7 +54,7 @@ export default function RedeemContent({ className }: Props): React.ReactElement<
         <PublishAndRedeemCard className = "left" title="赎回" unit='PDOT' isReverse={true}  onClick={redeem} setAmount={setAmount} />
         : <PdotNodata title='赎回 PDOT' noDataMsg='请先登录 Polkadot 和 PlatON 账户'/>
       }
-        <Records className = "right" title="赎回记录" records={RedreemRecords} recordLength={redreemLength} arrows={true} />
+        <Records className = "right" title="赎回记录" records={RedeemRecords} recordLength={redreemLength} arrows={true} />
       </Wrapper>
   );
 }

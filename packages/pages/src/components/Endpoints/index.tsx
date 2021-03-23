@@ -1,11 +1,11 @@
 // Copyright 2017-2020 @polkadot/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
-
-
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import Button from './Button';
-import { ToolTipConfig } from './ToolTipConfig/ToolTipConfig';
+import Button from '@polkadot/react-components-chainx/Button';
+import { ToolTipConfig } from '../ToolTipConfig/ToolTipConfig';
+import ALAYA from '../ToolTipConfig/assets/alaya.svg';
+import PLATON from '../ToolTipConfig/assets/platon.svg';
 
 interface EndpointProps {
     children?: React.ReactNode;
@@ -17,11 +17,30 @@ interface EndpointProps {
     onClick?: () => void | Promise<void>;
 }
 
+export interface NetWorkInfo {
+  title: string;
+  iconUrl: unknown;
+  polkadotNetUrl: string;
+  platOnNetUrl: string;
+}
 
-function Endpoints({ children, className = '', content, title, iconNode, btnLabel, onClick }: EndpointProps): React.ReactElement<EndpointProps> {
+const netWorkList: NetWorkInfo[] = [
+  {
+    title: 'Alaya 网络',
+    iconUrl: ALAYA,
+    polkadotNetUrl: 'wss://westend-rpc.polkadot.io',
+    platOnNetUrl: 'http://127.0.0.1:6789'
+  },
+  {
+    title: 'Platon 网络',
+    iconUrl: PLATON,
+    polkadotNetUrl: 'wss://rpc.polkadot.io',
+    platOnNetUrl: ''
+  }
+];
 
+function Index({ children, className = '', content, title, iconNode, btnLabel, onClick }: EndpointProps): React.ReactElement<EndpointProps> {
   const [isEndpoints, setIsEndpoints] = useState<boolean>(false);
-
   const _toggleEndpoints = (): void => setIsEndpoints(true);
   return (
     <div className={`isBasic ${className}`} >
@@ -42,6 +61,8 @@ function Endpoints({ children, className = '', content, title, iconNode, btnLabe
         <ToolTipConfig
           isOpen={isEndpoints}
           setIsOpen={setIsEndpoints}
+          list={netWorkList}
+          listType='netWork'
         />
       )}
       {children}
@@ -49,7 +70,7 @@ function Endpoints({ children, className = '', content, title, iconNode, btnLabe
   );
 }
 
-export default React.memo(styled(Endpoints)`
+export default React.memo(styled(Index)`
 
   min-width: 308px;
   height: 152px;

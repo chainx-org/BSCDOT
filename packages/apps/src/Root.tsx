@@ -14,9 +14,9 @@ import settings from '@polkadot/ui-settings';
 import Apps from './Apps';
 import WindowDimensions from './WindowDimensions';
 import {darkTheme, lightTheme} from './themes';
-import {AccountProvider} from '@polkadot/react-components-chainx/AccountProvider';
 import {PlatonAccountsProvider} from '@polkadot/react-components-chainx/PlatonAccountsProvider';
 import { PolkadotAccountsProvider } from '@polkadot/react-components-chainx/PolkadotAccountsProvider';
+import {NetWorkProvider} from '@polkadot/react-components-chainx/NetWorkProvider';
 
 
 interface Props {
@@ -44,7 +44,7 @@ function Root({store}: Props): React.ReactElement<Props> {
             store={store}
             url={settings.apiUrl}
           >
-            <AccountProvider>
+            <NetWorkProvider>
               <PolkadotAccountsProvider>
                 <PlatonAccountsProvider>
                   <BlockAuthors>
@@ -58,7 +58,7 @@ function Root({store}: Props): React.ReactElement<Props> {
                   </BlockAuthors>
                 </PlatonAccountsProvider>
               </PolkadotAccountsProvider>
-            </AccountProvider>
+            </NetWorkProvider>
           </Api>
         </Queue>
       </ThemeProvider>

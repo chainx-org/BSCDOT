@@ -22,16 +22,16 @@ export interface Transfer {
 }
 
 export interface PublishRecord  extends Transfer{}
-export interface RedreemRecord  extends Transfer{}
+export interface RedeemRecord  extends Transfer{}
 
 interface AllRecords {
   PublishRecords: PublishRecord[],
-  RedreemRecords: RedreemRecord[],
+  RedeemRecords: RedeemRecord[],
   Transfers: Transfer[],
 }
 
 export default function useTokenTransferList(currentAccount = ''): AllRecords {
-  const [state, setState] = useState<AllRecords>({PublishRecords: [], RedreemRecords: [], Transfers: []});
+  const [state, setState] = useState<AllRecords>({PublishRecords: [], RedeemRecords: [], Transfers: []});
   // let transferTimeId: any = '';
   const {platonAccount} = useContext(PlatonAccountsContext)
   async function fetchTransfers(currentAccount: string) {
@@ -39,13 +39,13 @@ export default function useTokenTransferList(currentAccount = ''): AllRecords {
     const records = res.data.data
     setState({
       PublishRecords: records.filter((publish: PublishRecord) => publish.txFrom === 'atp1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqdruy9j'),
-      RedreemRecords: records.filter((redreem: RedreemRecord) => redreem.transferTo === 'atp1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqdruy9j'),
+      RedeemRecords: records.filter((redreem: RedeemRecord) => redreem.transferTo === 'atp1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqdruy9j'),
       Transfers: records.filter((transfer: Transfer) => transfer.txFrom !== 'atp1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqdruy9j' && transfer.transferTo !== 'atp1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqdruy9j')
     });
   }
 
   useEffect((): void => {
-    fetchTransfers('atp18hqda4eajphkfarxaa2rutc5dwdwx9z5vy2nmh');
+    fetchTransfers(platonAccount);
   }, []);
 
   // useEffect(() => {
