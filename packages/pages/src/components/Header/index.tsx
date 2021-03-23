@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import styled from 'styled-components';
 import Network from './icons/network.svg';
-import Endpoints from '@polkadot/react-components-chainx/Endpoints';
+import Endpoints from '@polkadot/pages/components/Endpoints';
 import PolkadotAccount from '@polkadot/pages/components/Header/PolkadotAccount';
 import PlatonAccount from '@polkadot/pages/components/Header/PlatonAccount';
 import {NetWorkContext} from '@polkadot/react-components-chainx/NetWorkProvider';

@@ -2,10 +2,10 @@
 // SPDX-License-Identifier: Apache-2.0
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import Button from './Button';
-import { ToolTipConfig } from './ToolTipConfig/ToolTipConfig';
-import ALAYA from '@polkadot/react-components-chainx/ToolTipConfig/assets/alaya.svg';
-import PLATON from '@polkadot/react-components-chainx/ToolTipConfig/assets/platon.svg';
+import Button from '@polkadot/react-components-chainx/Button';
+import { ToolTipConfig } from '../ToolTipConfig/ToolTipConfig';
+import ALAYA from '../ToolTipConfig/assets/alaya.svg';
+import PLATON from '../ToolTipConfig/assets/platon.svg';
 
 interface EndpointProps {
     children?: React.ReactNode;
@@ -39,10 +39,9 @@ const netWorkList: NetWorkInfo[] = [
   }
 ];
 
-function Endpoints({ children, className = '', content, title, iconNode, btnLabel, onClick }: EndpointProps): React.ReactElement<EndpointProps> {
+function Index({ children, className = '', content, title, iconNode, btnLabel, onClick }: EndpointProps): React.ReactElement<EndpointProps> {
   const [isEndpoints, setIsEndpoints] = useState<boolean>(false);
   const _toggleEndpoints = (): void => setIsEndpoints(true);
-
   return (
     <div className={`isBasic ${className}`} >
       <div className='leftIcon'>
@@ -71,7 +70,7 @@ function Endpoints({ children, className = '', content, title, iconNode, btnLabe
   );
 }
 
-export default React.memo(styled(Endpoints)`
+export default React.memo(styled(Index)`
 
   min-width: 308px;
   height: 152px;

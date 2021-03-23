@@ -1,10 +1,10 @@
 import React, {useContext} from 'react';
-import { Wrapper, Title, Content, PublishAndRedeem, AmountAndTip, RedeemWarn } from './components/index'
-import { AccountMessage } from "../AccountMessage/AccountMessage";
+import { Wrapper, Title, Content, PublishAndRedeem, AmountAndTip, RedeemWarn } from './components'
+import { AccountMessage } from "@polkadot/react-components-chainx/AccountMessage/AccountMessage";
 import Button from "@polkadot/react-components-chainx/Button";
-import InputAutoLength from "../InputAutoLength";
+import InputAutoLength from "@polkadot/react-components-chainx/InputAutoLength";
 import {PlatonAccountsContext} from '@polkadot/react-components-chainx/PlatonAccountsProvider';
-import { PolkadotAccountsContext } from '../PolkadotAccountsProvider';
+import { PolkadotAccountsContext } from '@polkadot/react-components-chainx/PolkadotAccountsProvider';
 import { ApiContext } from '@polkadot/react-api';
 
 interface PublishAndRedeemProps {

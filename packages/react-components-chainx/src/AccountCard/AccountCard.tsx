@@ -4,7 +4,7 @@ import React, {useState} from 'react';
 import styled from 'styled-components';
 import SelectMore from './icons/selectMore.svg';
 import Button from '../Button/Button';
-import {ToolTipConfig} from '../ToolTipConfig/ToolTipConfig';
+import {ToolTipConfig} from '../../../pages/src/components/ToolTipConfig/ToolTipConfig';
 import {toPrecision} from '@polkadot/app-accounts-chainx/Myview/toPrecision';
 import BigNumber from 'bignumber.js';
 

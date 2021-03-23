@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import styled from 'styled-components';
 import {Cell} from './components/Cell/Cell';
 import CLOSE from './assets/icon-close.png';
-import { PolkadotAccountsContext } from '../PolkadotAccountsProvider';
+import { PolkadotAccountsContext } from '@polkadot/react-components-chainx/PolkadotAccountsProvider';
 import {NetWorkContext} from '@polkadot/react-components-chainx/NetWorkProvider';
 
 const Wrapper = React.memo(styled.section`

@@ -3,12 +3,11 @@
 
 import React, {useContext, useState} from 'react';
 import styled from "styled-components";
-// import { useTranslation } from '../translate';
 import { Records } from "@polkadot/react-components-chainx/Records";
 import {PlatonAccountsContext} from '@polkadot/react-components-chainx/PlatonAccountsProvider';
 import { PolkadotAccountsContext } from '@polkadot/react-components-chainx/PolkadotAccountsProvider';
-import PdotNodata from '@polkadot/react-components-chainx/PdotCards/PdotNodata';
-import PublishAndRedeemCard from '@polkadot/react-components-chainx/PdotCards/PublishAndRedeemCard';
+import PdotNodata from '../components/PdotCards/PdotNodata';
+import PublishAndRedeemCard from '../components/PdotCards/PublishAndRedeemCard';
 import {StatusContext} from '@polkadot/react-components';
 import {ActionStatus} from '@polkadot/react-components/Status/types';
 import {creatStatusInfo} from '@polkadot/pages/helper/helper';
@@ -29,7 +28,7 @@ export default function RedeemContent({ className }: Props): React.ReactElement<
   const status = {action: 'redeem'} as ActionStatus;
 
   const redeem = () => {
-    
+
     if (platonAccount && amount) {
       try {
         alaya.request({
