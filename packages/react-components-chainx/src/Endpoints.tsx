@@ -1,11 +1,11 @@
 // Copyright 2017-2020 @polkadot/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
-
-
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import Button from './Button';
 import { ToolTipConfig } from './ToolTipConfig/ToolTipConfig';
+import ALAYA from '@polkadot/react-components-chainx/ToolTipConfig/assets/alaya.svg';
+import PLATON from '@polkadot/react-components-chainx/ToolTipConfig/assets/platon.svg';
 
 interface EndpointProps {
     children?: React.ReactNode;
@@ -17,12 +17,32 @@ interface EndpointProps {
     onClick?: () => void | Promise<void>;
 }
 
+export interface NetWorkInfo {
+  title: string;
+  iconUrl: unknown;
+  polkadotNetUrl: string;
+  platOnNetUrl: string;
+}
+
+const netWorkList: NetWorkInfo[] = [
+  {
+    title: 'Alaya 网络',
+    iconUrl: ALAYA,
+    polkadotNetUrl: 'wss://westend-rpc.polkadot.io',
+    platOnNetUrl: 'http://127.0.0.1:6789'
+  },
+  {
+    title: 'Platon 网络',
+    iconUrl: PLATON,
+    polkadotNetUrl: 'wss://rpc.polkadot.io',
+    platOnNetUrl: ''
+  }
+];
 
 function Endpoints({ children, className = '', content, title, iconNode, btnLabel, onClick }: EndpointProps): React.ReactElement<EndpointProps> {
-
   const [isEndpoints, setIsEndpoints] = useState<boolean>(false);
-
   const _toggleEndpoints = (): void => setIsEndpoints(true);
+
   return (
     <div className={`isBasic ${className}`} >
       <div className='leftIcon'>
@@ -42,6 +62,8 @@ function Endpoints({ children, className = '', content, title, iconNode, btnLabe
         <ToolTipConfig
           isOpen={isEndpoints}
           setIsOpen={setIsEndpoints}
+          list={netWorkList}
+          listType='netWork'
         />
       )}
       {children}

@@ -1,9 +1,13 @@
-import React, { useContext } from "react";
-import styled from "styled-components";
-import { useLocalStorage } from "@polkadot/react-hooks-chainx";
-import { PolkadotAccountsContext } from "@polkadot/react-components-chainx/PolkadotAccountsProvider";
+import React, {useCallback, useContext} from 'react';
+import styled from 'styled-components';
+import {useLocalStorage} from '@polkadot/react-hooks-chainx';
+import {PolkadotAccountsContext} from '@polkadot/react-components-chainx/PolkadotAccountsProvider';
+import uiSettings from '@polkadot/ui-settings';
+import {saveAndReload} from '@polkadot/apps/Endpoints/modals/util';
+import {NetWorkContext} from '@polkadot/react-components-chainx/NetWorkProvider';
 
 const Cells = React.memo(styled.section`
+  cursor: pointer;
   display: flex;
   align-items: center;
   padding: 20px;
@@ -62,33 +66,41 @@ const Cells = React.memo(styled.section`
 
 interface CellProps {
   iconUrl?: string;
-  title?: string;
+  title: string;
   account?: string;
   accountName?: string;
-  isSelected?: boolean;
-  setValues?: any;
+  isSelected: boolean;
   className?: string;
+  listType: 'netWork' | 'accountList';
+  item: any;
 }
 
-export function Cell({className = "", iconUrl, title, account, accountName, isSelected, setValues}: CellProps): React.ReactElement<CellProps> {
-  const [, setValue] = useLocalStorage<string>("currentAccount");
-  const { changeAccount } = useContext(PolkadotAccountsContext);
+export function Cell({className = '', iconUrl, title, account, accountName, isSelected, listType, item}: CellProps): React.ReactElement<CellProps> {
+  const [, setValue] = useLocalStorage<string>('currentAccount');
+  const {changeAccount} = useContext(PolkadotAccountsContext);
+  const {setNetWork} = useContext(NetWorkContext);
 
-  const handleOnClick = () => {
-    if (iconUrl) {
-      setValues(title);
+  const handleOnClick = useCallback(() => {
+      if (listType === 'netWork') {
+        setNetWork({
+          name: title,
+          polkadotNetUrl: item.polkadotNetUrl,
+          platonNetUrl: item.platOnNetUrl
+        });
+        saveAndReload({...uiSettings.get(), apiUrl: item.polkadotNetUrl});
+      } else if (listType === 'accountList' && account) {
+        setValue(account);
+        changeAccount(account);
+      }
     }
-    if (account) {
-      setValues(account);
-      setValue(account);
-      changeAccount(account);
-    }
-  };
+    , [account, listType, item]);
+
+
   return (
     <Cells className={`${className} isBasic  `} onClick={handleOnClick}>
       {iconUrl ? (
         <div className="left">
-          <img src={iconUrl} />
+          <img src={iconUrl}/>
         </div>
       ) : null}
       {account ? (
@@ -101,7 +113,7 @@ export function Cell({className = "", iconUrl, title, account, accountName, isSe
       ) : (
         <div className="title">{title}</div>
       )}
-      <div className="right" >
+      <div className="right">
         {isSelected ? (
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
             <path

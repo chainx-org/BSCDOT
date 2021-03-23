@@ -1,14 +1,17 @@
 import React, {useContext, useEffect, useState} from 'react';
 import AccountCard from '@polkadot/react-components-chainx/AccountCard/AccountCard';
-import PlantonAcc from '@polkadot/pages/components/Header/icons/symbol-platNO.svg';
+import PlantonAccountLogo from '@polkadot/pages/components/Header/icons/symbol-platNO.svg';
+import AlayaAccountLogo from '@polkadot/pages/components/Header/icons/symbol-alaya.svg'
 import Card from '@polkadot/react-components-chainx/Card/Card';
 import samurai from '@polkadot/pages/components/Header/icons/logo_samurai.svg';
 import {erc20_minter_contract} from '@polkadot/pages/contract';
 import {PlatonAccountsContext} from '@polkadot/react-components-chainx/PlatonAccountsProvider';
+import {NetWorkContext} from '@polkadot/react-components-chainx/NetWorkProvider';
 
 function PlatonAccount() {
   const [pdot, setPdot] = useState<number>(0);
   const {platonAccount, setPlatonAccount} = useContext(PlatonAccountsContext)
+  const {netWork} = useContext(NetWorkContext)
 
   useEffect(() => {
     if(typeof window.alaya !== 'undefined'){
@@ -41,7 +44,7 @@ function PlatonAccount() {
           accountName="PlatON 账户"
           accountAddress={platonAccount}
           accountAmount={pdot ? pdot : 0}
-          iconNode={PlantonAcc}
+          iconNode={netWork.name.trim() === 'Alaya 网络' ?AlayaAccountLogo: PlantonAccountLogo}
           unit='PDOT'
           accountType = 'platon'
         /> :

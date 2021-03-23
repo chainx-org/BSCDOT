@@ -1,11 +1,10 @@
-import React, { useContext, useState} from 'react';
+import React, { useContext } from 'react';
 import ReactDOM from 'react-dom';
 import styled from 'styled-components';
 import {Cell} from './components/Cell/Cell';
-import ALAYA from './assets/alaya.svg';
-import PLATON from './assets/platon.svg';
 import CLOSE from './assets/icon-close.png';
 import { PolkadotAccountsContext } from '../PolkadotAccountsProvider';
+import {NetWorkContext} from '@polkadot/react-components-chainx/NetWorkProvider';
 
 const Wrapper = React.memo(styled.section`
   position: fixed;
@@ -32,26 +31,17 @@ const Wrapper = React.memo(styled.section`
   }
 `);
 
-const lists: any = [
-  {
-    title: 'Alaya 网络',
-    iconUrl: ALAYA
-  },
-  {
-    title: 'Platon 网络',
-    iconUrl: PLATON
-  }
-];
 
 interface ToolTipConfigProps {
-  list?: any;
-  isOpen?: any;
-  setIsOpen?: any;
+  list: object[];
+  isOpen: boolean;
+  setIsOpen: React.Dispatch<boolean>;
+  listType: 'netWork' | 'accountList'
 }
 
-export function ToolTipConfig({list = lists, isOpen, setIsOpen}: ToolTipConfigProps): React.ReactElement<ToolTipConfigProps> {
-  const [value, setValues] = useState('');
+export function ToolTipConfig({list, isOpen, setIsOpen, listType}: ToolTipConfigProps): React.ReactElement<ToolTipConfigProps> {
   const {currentAccount} = useContext(PolkadotAccountsContext)
+  const {netWork} = useContext(NetWorkContext)
   const _toggle = (): void => setIsOpen(false);
 
   const component =  <>
@@ -64,12 +54,13 @@ export function ToolTipConfig({list = lists, isOpen, setIsOpen}: ToolTipConfigPr
         return (
           <Cell
             key={Math.random()}
-            isSelected={currentAccount === item.account || value === item.title}
-            setValues={setValues}
+            isSelected={currentAccount === item.account || netWork.name === item.title}
             iconUrl={item.iconUrl}
             title={item.title}
             accountName={item.accountName}
             account={item.account}
+            listType={listType}
+            item={item}
           />
         );
       })}

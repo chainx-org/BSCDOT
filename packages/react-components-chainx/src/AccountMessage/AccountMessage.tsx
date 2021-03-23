@@ -78,7 +78,6 @@ export function AccountMessage({ isReverse, polkadotAddress, platonAddress }: Ac
     }
   ];
 
-
   return (
     <Messages>
       <div className="middle-icon">
