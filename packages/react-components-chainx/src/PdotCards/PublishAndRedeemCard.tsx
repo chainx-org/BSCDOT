@@ -10,6 +10,9 @@ import { PolkadotAccountsContext } from '../PolkadotAccountsProvider';
 import { ApiContext } from '@polkadot/react-api';
 import { usePolkadotAccounts } from '@polkadot/react-hooks-chainx/usePolkadotAccounts';
 import { useApi } from '@polkadot/react-hooks';
+import {StatusContext} from '@polkadot/react-components';
+import {ActionStatus} from '@polkadot/react-components/Status/types';
+import {creatStatusInfo} from '@polkadot/pages/helper/helper';
 
 interface PublishAndRedeemProps {
   children?: React.ReactNode;
@@ -32,8 +35,10 @@ export default function PublishAndRedeemCard({
   const {api} = useApi()
   const {hasAccounts} = usePolkadotAccounts()
   const {formatProperties} = useContext(ApiContext)
+  const {queueAction} = useContext(StatusContext);
 
   const publish = () => {
+    const status = { action: 'publish' } as ActionStatus;
     async function ccc() {
       if (hasAccounts && amount && platonAccount) {
         try {
@@ -43,7 +48,15 @@ export default function PublishAndRedeemCard({
             api.tx.balances.transferKeepAlive(currentAccount, amount),
             api.tx.system.remark(platonAccount)
           ])
-            .signAndSend(currentAccount, { signer: injector.signer }, (status) => { console.log('status',status)});
+            .signAndSend(currentAccount, { signer: injector.signer }, (status) => {console.log('status',status)})
+            .then(result => {
+              creatStatusInfo(status, 'success', '发行成功', currentAccount)
+              queueAction(status as ActionStatus)
+            })
+            .catch(error => {
+              creatStatusInfo(status, 'error', (error as Error).message)
+              queueAction(status as ActionStatus)
+            })
         } catch (err) {
           console.log(err);
         }
@@ -53,17 +66,27 @@ export default function PublishAndRedeemCard({
   }
 
   const redeem = () => {
-    if(platonAccount && amount){
-      try{
+    const status = {action: 'redeem'} as ActionStatus;
+    if (platonAccount && amount) {
+      try {
         alaya.request({
           method: 'platon_sendTransaction',
           params: [createDepositTransactionParameters(platonAccount, currentAccount, parseInt(amount))]
-        }).then((result: any) => console.log((result)));
-      }catch(err){
-        console.log(err)
+        })
+          .then(result => {
+            creatStatusInfo(status, 'success', `赎回成功，交易哈希: ${result}`);
+            queueAction(status as ActionStatus);
+          })
+          .catch(error => {
+            creatStatusInfo(status, 'error', error.message);
+            queueAction(status as ActionStatus);
+          });
+
+      } catch (err) {
+        console.log(err);
       }
     }
-  }
+  };
 
   return (
     <Wrapper className={`ui-card ${className}`}>
@@ -92,5 +115,3 @@ export default function PublishAndRedeemCard({
     </Wrapper>
   );
 }
-
-
