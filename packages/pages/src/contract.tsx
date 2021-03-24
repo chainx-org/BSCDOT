@@ -2,13 +2,20 @@ import {toUtf8Bytes} from 'ethers/lib/utils';
 import {bytesToHex} from 'web3/packages/web3-utils';
 import {decodeAddress} from '@polkadot/keyring';
 import {u8aToHex} from '@polkadot/util';
+import uiSettings from '@polkadot/ui-settings';
 
 const Ethers = require('ethers');
 const Web3 = require('web3');
-const netWorkInfo = JSON.parse(JSON.stringify(window.localStorage.getItem('netWork')))
-const web3 = new Web3('http://127.0.0.1:6789');
-const {ppos} = web3;
+const netWorkInfo = JSON.parse(window.localStorage.getItem('netWork') || '{}')
+let web3;
+if(Object.keys(netWorkInfo).length >= 1){
+  web3 = new Web3(`${netWorkInfo.platonNetUrl}`);
+}else{
+  const polkadotSetting = uiSettings.get()
+  polkadotSetting.apiUrl === 'wss://westend-rpc.polkadot.io'? web3 = new Web3('http://127.0.0.1:6789'): web3 = new Web3('')
+}
 
+const {ppos} = web3;
 const bridge_abi = [
   {
     'inputs': [

@@ -30,7 +30,7 @@ export const NetWorkProvider: FC = ({children}) => {
         setNetWork({
           name: 'Alaya网络',
           polkadotNetUrl: polkadotSetting.apiUrl,
-          platonNetUrl: '127.0.0.1'
+          platonNetUrl: 'http://127.0.0.1:6789'
         })
         : setNetWork({
           name: 'Platon网络',
