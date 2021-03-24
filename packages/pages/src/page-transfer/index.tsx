@@ -2,8 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 import React, {useContext} from 'react';
 import styled from 'styled-components';
-// import { useTranslation } from '../translate';
-import {Records} from '@polkadot/pages/components/Records';
+import {Records} from '@polkadot/pages/components';
 import {PlatonAccountsContext} from '@polkadot/pages/components/PlatonAccountsProvider';
 import { PolkadotAccountsContext } from '@polkadot/pages/components/PolkadotAccountsProvider';
 import TransferCard from '../components/PdotCards/TransferCard';

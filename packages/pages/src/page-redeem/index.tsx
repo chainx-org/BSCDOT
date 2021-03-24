@@ -3,7 +3,7 @@
 
 import React, {useContext, useState} from 'react';
 import styled from "styled-components";
-import { Records } from "@polkadot/pages/components/Records";
+import { Records } from "@polkadot/pages/components";
 import {PlatonAccountsContext} from '@polkadot/pages/components/PlatonAccountsProvider';
 import { PolkadotAccountsContext } from '@polkadot/pages/components/PolkadotAccountsProvider';
 import PdotNodata from '../components/PdotCards/PdotNodata';
@@ -18,7 +18,6 @@ interface Props {
 }
 
 export default function RedeemContent({ className }: Props): React.ReactElement<Props> {
-  //   const { t } = useTranslation();
   const {hasAccounts, currentAccount } = useContext(PolkadotAccountsContext);
   const {platonAccount, hasPlatonAccount,RedeemRecords, setN} = useContext(PlatonAccountsContext)
   const redreemLength = RedeemRecords.length
