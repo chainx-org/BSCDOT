@@ -6,11 +6,11 @@ import Input from '@polkadot/react-components-chainx/Input';
 import InputDex from '@polkadot/react-components-chainx/InputDex';
 // import Button from "@polkadot/react-components-chainx/Button";
 import {createTransferTransactionParameters} from '@polkadot/pages/contract';
-import {PlatonAccountsContext} from '@polkadot/react-components-chainx/PlatonAccountsProvider';
+import {PlatonAccountsContext} from '@polkadot/pages/components/PlatonAccountsProvider';
 import {creatStatusInfo} from '@polkadot/pages/helper/helper';
 import {ActionStatus} from '@polkadot/react-components/Status/types';
 import {StatusContext} from '@polkadot/react-components';
-import Button from '../Button/Button';
+import Button from '../Button';
 
 interface PdotCardProps {
   children?: React.ReactNode;

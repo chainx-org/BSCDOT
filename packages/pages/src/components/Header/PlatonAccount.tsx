@@ -1,11 +1,11 @@
-import React, {useContext, useEffect, useState} from 'react';
-import AccountCard from '@polkadot/react-components-chainx/AccountCard/AccountCard';
+import React, {useContext} from 'react';
+import AccountCard from '@polkadot/pages/components/AccountCard';
 import PlantonAccountLogo from '@polkadot/pages/components/Header/icons/symbol-platNO.svg';
 import AlayaAccountLogo from '@polkadot/pages/components/Header/icons/symbol-alaya.svg'
-import Card from '@polkadot/react-components-chainx/Card/Card';
+import Card from '../Card';
 import samurai from '@polkadot/pages/components/Header/icons/logo_samurai.svg';
-import {PlatonAccountsContext} from '@polkadot/react-components-chainx/PlatonAccountsProvider';
-import {NetWorkContext} from '@polkadot/react-components-chainx/NetWorkProvider';
+import {PlatonAccountsContext} from '@polkadot/pages/components/PlatonAccountsProvider';
+import {NetWorkContext} from '@polkadot/pages/components/NetWorkProvider';
 
 function PlatonAccount() {
   const {platonAccount, setPlatonAccount, pdotAmount} = useContext(PlatonAccountsContext)

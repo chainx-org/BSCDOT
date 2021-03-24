@@ -1,15 +1,15 @@
 import React, {useContext, useEffect, useState} from 'react';
-import AccountCard from '@polkadot/react-components-chainx/AccountCard/AccountCard';
+import AccountCard from '@polkadot/pages/components/AccountCard';
 import PolkadotAccountLogo from '@polkadot/pages/components/Header/icons/polkadot_account.svg';
 import KusamaAccountLogo from '@polkadot/pages/components/Header/icons/symbol-Kusama.svg'
-import Card from '@polkadot/react-components-chainx/Card/Card';
+import Card from '../Card';
 import polkadot from '@polkadot/pages/components/Header/icons/logo_polkadot.svg';
 import BN from "bn.js";
 import {useApi} from '@polkadot/react-hooks';
 import {ApiContext} from '@polkadot/react-api';
-import { PolkadotAccountsContext, PolkadotAccountsData} from '@polkadot/react-components-chainx/PolkadotAccountsProvider';
+import { PolkadotAccountsContext, PolkadotAccountsData} from '@polkadot/pages/components/PolkadotAccountsProvider';
 import {ApiProps} from '@polkadot/react-api/types';
-import {NetWorkContext} from '@polkadot/react-components-chainx/NetWorkProvider';
+import {NetWorkContext} from '@polkadot/pages/components/NetWorkProvider';
 
 function PolkadotAccount(): React.ReactElement {
   const {api, isApiReady} = useApi();

@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { useEffect, useState } from 'react';
-import { useIsMountedRef } from './useIsMountedRef';
+import { useIsMountedRef } from '@polkadot/react-hooks-chainx/useIsMountedRef';
 import { web3Enable, web3Accounts ,web3AccountsSubscribe} from '@polkadot/extension-dapp';
 import {InjectedAccountWithMeta} from '@polkadot/extension-inject/types';
 import {useApi} from '@polkadot/react-hooks';

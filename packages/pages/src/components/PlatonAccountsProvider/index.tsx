@@ -1,6 +1,6 @@
 import React, {createContext, FC, useEffect, useState} from 'react';
-import usePlatonAccounts from '@polkadot/react-hooks-chainx/usePlatonAccounts';
-import useTokenTransferList, { PublishRecord, RedeemRecord, Transfer } from '@polkadot/app-accounts-chainx/useTransferList';
+import usePlatonAccounts from '@polkadot/pages/hooks/usePlatonAccounts';
+import useTokenTransferList, { PublishRecord, RedeemRecord, Transfer } from '@polkadot/pages/hooks/useTransferList';
 import {erc20_minter_contract} from '@polkadot/pages/contract';
 
 export interface PlatonAccountsProviderData {

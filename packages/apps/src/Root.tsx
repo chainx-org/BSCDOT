@@ -14,9 +14,9 @@ import settings from '@polkadot/ui-settings';
 import Apps from './Apps';
 import WindowDimensions from './WindowDimensions';
 import {darkTheme, lightTheme} from './themes';
-import {PlatonAccountsProvider} from '@polkadot/react-components-chainx/PlatonAccountsProvider';
-import { PolkadotAccountsProvider } from '@polkadot/react-components-chainx/PolkadotAccountsProvider';
-import {NetWorkProvider} from '@polkadot/react-components-chainx/NetWorkProvider';
+import {PlatonAccountsProvider} from '@polkadot/pages/components/PlatonAccountsProvider';
+import { PolkadotAccountsProvider } from '@polkadot/pages/components/PolkadotAccountsProvider';
+import {NetWorkProvider} from '@polkadot/pages/components/NetWorkProvider';
 
 
 interface Props {

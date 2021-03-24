@@ -5,13 +5,13 @@ import { Account, Detail, Header, Label, Line, Sequence } from './Detail';
 // import { useTranslation } from '@polkadot/react-components/translate';
 import useOutsideClick from '@polkadot/app-accounts-chainx/Myview/useOutsideClick';
 import {useApi} from '@polkadot/react-hooks';
-import Arrow from '../components/arrow.svg'
+import Arrow from './arrow.svg'
 
 export default function ({ records, num, arrows }: any) {
   // const { t } = useTranslation();
   const {isApiReady} = useApi()
   const [open, setOpen] = useState(false);
-  
+
   const wrapper = useRef(null);
 
   useOutsideClick(wrapper, () => {

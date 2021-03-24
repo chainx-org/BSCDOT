@@ -1,7 +1,7 @@
 import React, {createContext, FC, useEffect, useState} from 'react';
 import { InjectedAccountWithMeta } from '@polkadot/extension-inject/types';
 import { useLocalStorage } from '@polkadot/react-hooks-chainx';
-import { usePolkadotAccounts } from '@polkadot/react-hooks-chainx/usePolkadotAccounts';
+import { usePolkadotAccounts } from '@polkadot/pages/hooks/usePolkadotAccounts';
 
 
 export interface PolkadotAccountsData {

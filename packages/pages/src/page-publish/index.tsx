@@ -3,9 +3,9 @@
 // import type { Route } from '@polkadot/apps-routing/types';
 import React, {useContext, useState} from 'react';
 import styled from "styled-components";
-import { Records } from "@polkadot/react-components-chainx/Records";
-import { PolkadotAccountsContext } from '@polkadot/react-components-chainx/PolkadotAccountsProvider';
-import { PlatonAccountsContext } from '@polkadot/react-components-chainx/PlatonAccountsProvider';
+import {Records} from '@polkadot/pages/components';
+import { PolkadotAccountsContext } from '@polkadot/pages/components/PolkadotAccountsProvider';
+import { PlatonAccountsContext } from '@polkadot/pages/components/PlatonAccountsProvider';
 import PdotNodata from '../components/PdotCards/PdotNodata';
 import PublishAndRedeemCard from '../components/PdotCards/PublishAndRedeemCard';
 import {web3FromAddress} from '@polkadot/extension-dapp';

@@ -3,9 +3,9 @@
 
 import React, {useContext, useState} from 'react';
 import styled from "styled-components";
-import { Records } from "@polkadot/react-components-chainx/Records";
-import {PlatonAccountsContext} from '@polkadot/react-components-chainx/PlatonAccountsProvider';
-import { PolkadotAccountsContext } from '@polkadot/react-components-chainx/PolkadotAccountsProvider';
+import { Records } from "@polkadot/pages/components/Records";
+import {PlatonAccountsContext} from '@polkadot/pages/components/PlatonAccountsProvider';
+import { PolkadotAccountsContext } from '@polkadot/pages/components/PolkadotAccountsProvider';
 import PdotNodata from '../components/PdotCards/PdotNodata';
 import PublishAndRedeemCard from '../components/PdotCards/PublishAndRedeemCard';
 import {StatusContext} from '@polkadot/react-components';

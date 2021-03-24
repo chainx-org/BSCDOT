@@ -1,6 +1,6 @@
 import {useEffect, useState, useContext} from 'react';
 import axios from 'axios';
-import { PlatonAccountsContext } from '@polkadot/react-components-chainx/PlatonAccountsProvider';
+import { PlatonAccountsContext } from '@polkadot/pages/components/PlatonAccountsProvider';
 
 export interface Transfer {
   id: number,

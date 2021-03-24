@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import Button from '@polkadot/react-components-chainx/Button';
-import { ToolTipConfig } from '../ToolTipConfig/ToolTipConfig';
+import ToolTipConfig from '../ToolTipConfig';
 import ALAYA from '../ToolTipConfig/assets/alaya.svg';
 import PLATON from '../ToolTipConfig/assets/platon.svg';
 
@@ -39,7 +39,7 @@ const netWorkList: NetWorkInfo[] = [
   }
 ];
 
-function Index({ children, className = '', content, title, iconNode, btnLabel, onClick }: EndpointProps): React.ReactElement<EndpointProps> {
+function Endpoints({ children, className = '', content, title, iconNode, btnLabel, onClick }: EndpointProps): React.ReactElement<EndpointProps> {
   const [isEndpoints, setIsEndpoints] = useState<boolean>(false);
   const _toggleEndpoints = (): void => setIsEndpoints(true);
   return (
@@ -70,7 +70,7 @@ function Index({ children, className = '', content, title, iconNode, btnLabel, o
   );
 }
 
-export default React.memo(styled(Index)`
+export default React.memo(styled(Endpoints)`
 
   min-width: 308px;
   height: 152px;

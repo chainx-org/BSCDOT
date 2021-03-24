@@ -15,7 +15,7 @@ interface RecordsProps {
   arrows?: boolean;
 }
 
-export function Records({ children, className = '', title, records, recordLength, arrows }: RecordsProps): React.ReactElement<RecordsProps> {
+export default function Records({ children, className = '', title, records, recordLength, arrows }: RecordsProps): React.ReactElement<RecordsProps> {
   const [loading, setLoading] = useState(true);
   const mounted = useIsMounted();
 
