@@ -39,7 +39,7 @@ export const PublishAndRedeem = styled.div`
     padding: 20px 30px 30px;
     font-size: 12px;
     .isConfirm {
-        margin-top: 36px;
+        margin-top: 36px !important;
     }
 `;
 
@@ -64,7 +64,7 @@ export const TransfersCard = styled.div`
       }
     }
     .isConfirm {
-      margin-top: 20px;
+      margin-top: 20px !important;
     }
 `;
 
