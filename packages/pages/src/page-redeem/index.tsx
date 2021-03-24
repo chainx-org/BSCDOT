@@ -31,7 +31,7 @@ export default function RedeemContent({ className }: Props): React.ReactElement<
       try {
         alaya.request({
           method: 'platon_sendTransaction',
-          params: [createDepositTransactionParameters(platonAccount, currentAccount, parseInt(amount))]
+          params: [createDepositTransactionParameters(platonAccount, currentAccount, amount)]
         })
           .then(result => {
             creatStatusInfo(status, 'success', `赎回成功，交易哈希: ${result}`);

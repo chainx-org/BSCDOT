@@ -14,6 +14,7 @@ export interface PlatonAccountsProviderData {
   Transfers: Transfer[];
   pdotAmount: number;
   setPdotAmount: React.Dispatch<number>;
+  setN: React.Dispatch<number>
 }
 
 export const PlatonAccountsContext = createContext<PlatonAccountsProviderData>({} as PlatonAccountsProviderData);
@@ -23,6 +24,7 @@ export const PlatonAccountsProvider: FC = ({children}) => {
   const [platonAccount, setPlatonAccount] = useState<string>('');
   const [pdotAmount, setPdotAmount] = useState<number>(0)
   const { PublishRecords,Transfers, RedeemRecords } = useTokenTransferList(platonAccount);
+  const [n, setN] = useState<number>(0)
 
   if(typeof window.alaya !== 'undefined'){
     alaya.on('accountsChanged', function (accounts: string[]) {
@@ -42,7 +44,8 @@ export const PlatonAccountsProvider: FC = ({children}) => {
       erc20_minter_contract.methods.balanceOf(platonAccount).call()
         .then(setPdotAmount);
     }
-  }, [platonAccount]);
+    console.log('n',n)
+  }, [platonAccount, n]);
 
   return (
     <PlatonAccountsContext.Provider value={{
@@ -55,7 +58,8 @@ export const PlatonAccountsProvider: FC = ({children}) => {
       RedeemRecords,
       Transfers,
       pdotAmount,
-      setPdotAmount
+      setPdotAmount,
+      setN
     }}>
       {children}
     </PlatonAccountsContext.Provider>

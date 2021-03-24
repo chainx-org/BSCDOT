@@ -21,7 +21,7 @@ interface PdotCardProps {
 export default function TransferCard({ children, className = '',title }: PdotCardProps): React.ReactElement<PdotCardProps> {
   const [amount, setAmount] = useState<string>('')
   const [targetAddress, setTargetAddress] = useState<string>('')
-  const {platonAccount} = useContext(PlatonAccountsContext)
+  const {platonAccount, setN} = useContext(PlatonAccountsContext)
   const status = { action: 'transfer' } as ActionStatus;
   const {queueAction} = useContext(StatusContext);
 
@@ -33,8 +33,11 @@ export default function TransferCard({ children, className = '',title }: PdotCar
           params: [createTransferTransactionParameters(platonAccount, amount, targetAddress)]
         })
         .then(result => {
-          creatStatusInfo(status, 'success', `转账成功，交易哈希: ${result}`);
-          queueAction(status as ActionStatus);
+          setTimeout(() => {
+            creatStatusInfo(status, 'success', `转账成功，交易哈希: ${result}`);
+            queueAction(status as ActionStatus);
+            setN(Math.random())
+          },5000)
         })
         .catch(error => {
           creatStatusInfo(status, 'error', error.message);
