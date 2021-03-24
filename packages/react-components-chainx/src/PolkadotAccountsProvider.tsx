@@ -30,7 +30,6 @@ export const PolkadotAccountsProvider: FC = ({children}) => {
   const [accountName, setAccountName] = useState<string | undefined>('');
   const [usableBalance, setUsableBalance] = useState<number>(0);
   const [storedValue, setValue] = useLocalStorage<string>('currentAccount');
-  console.log('storedValue',storedValue)
   const [currentAccount, setAccount] = useState<string>(storedValue);
   function changeAccount(account: string) {
     setAccount(account);

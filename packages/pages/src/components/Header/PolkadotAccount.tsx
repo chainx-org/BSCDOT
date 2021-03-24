@@ -14,7 +14,6 @@ function PolkadotAccount(): React.ReactElement {
   const {currentAccount, hasAccounts, accountName, usableBalance, addressAndName} = useContext<PolkadotAccountsData>(PolkadotAccountsContext);
   const {formatProperties} = useContext<ApiProps>(ApiContext)
   const {netWork} = useContext(NetWorkContext)
-  console.log('usableBalance',usableBalance)
 
   return (
     <>
