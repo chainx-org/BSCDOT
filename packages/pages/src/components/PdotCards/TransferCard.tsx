@@ -2,15 +2,13 @@
 // SPDX-License-Identifier: Apache-2.0
 import React, {useContext, useState} from 'react';
 import { Wrapper, Title, Content, TransfersCard, AmountAndAddress } from './components'
-import Input from '@polkadot/react-components-chainx/Input';
-import InputDex from '@polkadot/react-components-chainx/InputDex';
-// import Button from "@polkadot/react-components-chainx/Button";
 import {createTransferTransactionParameters} from '@polkadot/pages/contract';
 import {PlatonAccountsContext} from '@polkadot/pages/components/PlatonAccountsProvider';
 import {creatStatusInfo} from '@polkadot/pages/helper/helper';
 import {ActionStatus} from '@polkadot/react-components/Status/types';
-import {StatusContext} from '@polkadot/react-components';
+import {Input, StatusContext} from '@polkadot/react-components';
 import Button from '../Button';
+import InputDex from '../Input/InputDex';
 
 interface PdotCardProps {
   children?: React.ReactNode;
