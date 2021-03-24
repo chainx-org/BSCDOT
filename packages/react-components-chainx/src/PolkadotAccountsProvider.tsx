@@ -3,6 +3,8 @@ import { InjectedAccountWithMeta } from '@polkadot/extension-inject/types';
 import { useLocalStorage } from '@polkadot/react-hooks-chainx';
 import { usePolkadotAccounts } from '@polkadot/react-hooks-chainx/usePolkadotAccounts';
 import all from '@polkadot/react-components/InputRpc/rpcs';
+import { useApi } from '@polkadot/react-hooks';
+import BN from 'bn.js';
 
 
 export interface PolkadotAccountsData {
@@ -14,6 +16,8 @@ export interface PolkadotAccountsData {
   currentAccount: string,
   addressAndName: object[],
   changeAccount: (account: string) => void,
+  accountName: string | undefined,
+  usableBalance: number
 }
 
 export const PolkadotAccountsContext = createContext<PolkadotAccountsData>({} as PolkadotAccountsData);
@@ -22,13 +26,15 @@ export const PolkadotAccountsProvider: FC = ({children}) => {
 
   const [isLoading, setLoading] = useState<boolean>(false)
   const { accountAddress, addressAndName, hasAccounts, allAccounts } = usePolkadotAccounts()
-
+  const {api, isApiReady} = useApi();
+  const [accountName, setAccountName] = useState<string | undefined>('');
+  const [usableBalance, setUsableBalance] = useState<number>(0);
   const [storedValue, setValue] = useLocalStorage<string>('currentAccount');
+  console.log('storedValue',storedValue)
   const [currentAccount, setAccount] = useState<string>(storedValue);
   function changeAccount(account: string) {
     setAccount(account);
   }
-
   useEffect(() => {
     if (!storedValue || !accountAddress.includes(currentAccount)) {
       const defaultAccount = accountAddress.length > 0 ? accountAddress[0] : ''
@@ -36,6 +42,23 @@ export const PolkadotAccountsProvider: FC = ({children}) => {
       changeAccount(defaultAccount)
     }
   }, [accountAddress])
+
+  useEffect(() => {
+    const currentAccountInfo = allAccounts?.find(item => item.address === currentAccount);
+    const currentName = currentAccountInfo?.meta.name;
+    setAccountName(currentName);
+
+    async function balances() {
+      if(isApiReady){
+        const {data: balance} = await api.query.system.account(currentAccount);
+        const allBalance = JSON.parse(JSON.stringify(balance));
+        const bgFree = new BN(allBalance.free);
+        setUsableBalance(bgFree.sub(new BN(allBalance.miscFrozen)).toNumber());
+      }
+    }
+
+    balances();
+  }, [currentAccount, isApiReady, accountName, allAccounts]);
 
   return (
     <PolkadotAccountsContext.Provider value={{
@@ -47,6 +70,8 @@ export const PolkadotAccountsProvider: FC = ({children}) => {
       setLoading,
       currentAccount,
       changeAccount,
+      accountName,
+      usableBalance
     }}>
       {children}
     </PolkadotAccountsContext.Provider>
