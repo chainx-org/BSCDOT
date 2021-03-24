@@ -16,7 +16,8 @@ export interface PolkadotAccountsData {
   addressAndName: object[],
   changeAccount: (account: string) => void,
   accountName: string | undefined,
-  usableBalance: number
+  usableBalance: number,
+  setN: React.Dispatch<number>
 }
 
 export const PolkadotAccountsContext = createContext<PolkadotAccountsData>({} as PolkadotAccountsData);
@@ -30,7 +31,8 @@ export const PolkadotAccountsProvider: FC = ({children}) => {
   const [usableBalance, setUsableBalance] = useState<number>(0);
   const [storedValue, setValue] = useLocalStorage<string>('currentAccount');
   const [currentAccount, setAccount] = useState<string>(storedValue);
-  
+  const [n, setN] = useState<number>(0)
+
   function changeAccount(account: string) {
     setAccount(account);
   }
@@ -65,7 +67,7 @@ export const PolkadotAccountsProvider: FC = ({children}) => {
     }
 
     balances();
-  }, [currentAccount, isApiReady, accountName, allAccounts]);
+  }, [currentAccount, isApiReady, accountName, allAccounts,n]);
 
   return (
     <PolkadotAccountsContext.Provider value={{
@@ -78,7 +80,8 @@ export const PolkadotAccountsProvider: FC = ({children}) => {
       currentAccount,
       changeAccount,
       accountName,
-      usableBalance
+      usableBalance,
+      setN
     }}>
       {children}
     </PolkadotAccountsContext.Provider>
