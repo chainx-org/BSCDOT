@@ -44,7 +44,6 @@ export const PlatonAccountsProvider: FC = ({children}) => {
       erc20_minter_contract.methods.balanceOf(platonAccount).call()
         .then(setPdotAmount);
     }
-    console.log('n',n)
   }, [platonAccount, n]);
 
   return (

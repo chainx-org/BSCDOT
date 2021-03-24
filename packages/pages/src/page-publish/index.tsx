@@ -27,8 +27,9 @@ export default function PublicContent({ className }: Props): React.ReactElement<
   const {queueAction} = useContext(StatusContext);
   const status = { action: 'publish' } as ActionStatus;
 
+
   const publish = () => {
-    console.log('111')
+
     async function ccc() {
       if (hasAccounts && amount && platonAccount) {
         try {
@@ -44,10 +45,12 @@ export default function PublicContent({ className }: Props): React.ReactElement<
               (statusData) => {
                 const formatStatusData = JSON.parse(JSON.stringify(statusData))
                 if(formatStatusData.status.inBlock){
-                  creatStatusInfo(status, 'success', '发行成功', currentAccount)
+                  creatStatusInfo(status, 'received', '发行成功', currentAccount)
+                  queueAction(status as ActionStatus)
+                }else{
+                  creatStatusInfo(status, 'sending', '正在发送中...')
                   queueAction(status as ActionStatus)
                 }
-
               })
             .then(result => {
               console.log('result', result)

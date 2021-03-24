@@ -34,6 +34,8 @@ export default function TransferCard({ children, className = '',title }: PdotCar
           params: [createTransferTransactionParameters(platonAccount, amount, targetAddress)]
         })
         .then(result => {
+          creatStatusInfo(status, 'sending', '正在发送中...')
+          queueAction(status as ActionStatus)
           setTimeout(() => {
             creatStatusInfo(status, 'success', `转账成功，交易哈希: ${result}`);
             queueAction(status as ActionStatus);

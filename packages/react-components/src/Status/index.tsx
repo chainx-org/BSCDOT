@@ -33,6 +33,9 @@ function iconName (status: string): IconName {
     case 'received':
       return 'telegram-plane';
 
+    case 'sending':
+      return 'paper-plane';
+
     default:
       return 'check';
   }
