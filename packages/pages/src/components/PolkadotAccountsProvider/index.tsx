@@ -30,14 +30,23 @@ export const PolkadotAccountsProvider: FC = ({children}) => {
   const [usableBalance, setUsableBalance] = useState<number>(0);
   const [storedValue, setValue] = useLocalStorage<string>('currentAccount');
   const [currentAccount, setAccount] = useState<string>(storedValue);
+  
   function changeAccount(account: string) {
     setAccount(account);
   }
+
   useEffect(() => {
-    if (!storedValue || !accountAddress.includes(currentAccount)) {
+    if (!storedValue) {
       const defaultAccount = accountAddress.length > 0 ? accountAddress[0] : ''
       setValue(defaultAccount)
       changeAccount(defaultAccount)
+    }
+    if(accountAddress.length !== 0) {
+      if(!accountAddress.includes(currentAccount)) {
+        const defaultAccount = accountAddress.length > 0 ? accountAddress[0] : ''
+        setValue(defaultAccount)
+        changeAccount(defaultAccount)
+      }
     }
   }, [accountAddress])
 
