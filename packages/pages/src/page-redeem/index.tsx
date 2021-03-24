@@ -33,15 +33,8 @@ export default function RedeemContent({ className }: Props): React.ReactElement<
           params: [createDepositTransactionParameters(platonAccount, currentAccount, amount)]
         })
           .then(result => {
-            creatStatusInfo(status, 'sending', '正在发送中...')
-            queueAction(status as ActionStatus)
-
-            setTimeout(() => {
-              creatStatusInfo(status, 'success', `赎回成功，交易哈希: ${result}`);
+              creatStatusInfo(status, `交易哈希: ${result}`);
               queueAction(status as ActionStatus);
-              setN(Math.random())
-            }, 5000)
-
           })
           .catch(error => {
             creatStatusInfo(status, 'error', error.message);

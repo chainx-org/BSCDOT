@@ -1,6 +1,5 @@
 import {useEffect, useState} from 'react';
 import axios from 'axios';
-import usePlatonAccounts from '@polkadot/pages/hooks/usePlatonAccounts';
 
 export interface Transfer {
   id: number,

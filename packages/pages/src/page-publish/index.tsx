@@ -45,7 +45,7 @@ export default function PublicContent({ className }: Props): React.ReactElement<
               (statusData) => {
                 const formatStatusData = JSON.parse(JSON.stringify(statusData))
                 if(formatStatusData.status.inBlock){
-                  creatStatusInfo(status, 'received', '发行成功', currentAccount)
+                  creatStatusInfo(status, '发行成功', currentAccount)
                   queueAction(status as ActionStatus)
                   setN(Math.random())
                 }else{
