@@ -29,6 +29,7 @@ export default function PublicContent({ className }: Props): React.ReactElement<
   const status = { action: 'publish' } as ActionStatus;
 
   const publish = () => {
+    console.log('111')
     async function ccc() {
       if (hasAccounts && amount && platonAccount) {
         try {
