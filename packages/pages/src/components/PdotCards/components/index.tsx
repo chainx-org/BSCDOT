@@ -53,12 +53,10 @@ export const TransfersCard = styled.div`
       background: #F2F3F4;
       border-radius: 4px;
       margin-bottom: 16px;
-      &.ui--Labelled { 
-        background: #F2F3F4;
-      }
       input {
         background: #F2F3F4;
         padding: 15px;
+        margin-bottom: 0;
         &:focus {
           background: #F2F3F4;
           border: 1px solid #DCE0E2;

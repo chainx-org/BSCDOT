@@ -1,10 +1,10 @@
-import React, { useContext, useEffect } from "react";
-import ReactDOM from "react-dom";
-import styled from "styled-components";
-import { Cell } from "./components/Cell/Cell";
-import CLOSE from "./assets/icon-close.png";
-import { PolkadotAccountsContext } from "@polkadot/react-components-chainx/PolkadotAccountsProvider";
-import { NetWorkContext } from "@polkadot/react-components-chainx/NetWorkProvider";
+import React, { useContext } from 'react';
+import ReactDOM from 'react-dom';
+import styled from 'styled-components';
+import {Cell} from './components/Cell/Cell';
+import CLOSE from './assets/icon-close.png';
+import { PolkadotAccountsContext } from '@polkadot/pages/components/PolkadotAccountsProvider';
+import {NetWorkContext} from '@polkadot/pages/components/NetWorkProvider';
 
 const Wrapper = React.memo(styled.section`
   position: fixed;
@@ -56,16 +56,9 @@ interface ToolTipConfigProps {
   listType: "netWork" | "accountList";
 }
 
-// const Cover = <div id="cover" />;
-
-export function ToolTipConfig({
-  list,
-  isOpen,
-  setIsOpen,
-  listType
-}: ToolTipConfigProps): React.ReactElement<ToolTipConfigProps> {
-  const { currentAccount } = useContext(PolkadotAccountsContext);
-  const { netWork } = useContext(NetWorkContext);
+export default function ToolTipConfig({list, isOpen, setIsOpen, listType}: ToolTipConfigProps): React.ReactElement<ToolTipConfigProps> {
+  const {currentAccount} = useContext(PolkadotAccountsContext)
+  const {netWork} = useContext(NetWorkContext)
   const _toggle = (): void => setIsOpen(false);
 
   const component = (

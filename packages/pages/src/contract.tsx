@@ -2,12 +2,20 @@ import {toUtf8Bytes} from 'ethers/lib/utils';
 import {bytesToHex} from 'web3/packages/web3-utils';
 import {decodeAddress} from '@polkadot/keyring';
 import {u8aToHex} from '@polkadot/util';
+import uiSettings from '@polkadot/ui-settings';
 
 const Ethers = require('ethers');
 const Web3 = require('web3');
-const web3 = new Web3('http://127.0.0.1:6789');
-const {ppos} = web3;
+const netWorkInfo = JSON.parse(window.localStorage.getItem('netWork') || '{}')
+let web3;
+if(Object.keys(netWorkInfo).length >= 1){
+  web3 = new Web3(`${netWorkInfo.platonNetUrl}`);
+}else{
+  const polkadotSetting = uiSettings.get()
+  polkadotSetting.apiUrl === 'wss://westend-rpc.polkadot.io'? web3 = new Web3('http://127.0.0.1:6789'): web3 = new Web3('')
+}
 
+const {ppos} = web3;
 const bridge_abi = [
   {
     'inputs': [
@@ -1659,7 +1667,7 @@ const createDepositTransactionParameters = (from: string, to: string, amount: st
     to: bridgeAddress,
     from, // must match user's active address.
     value: '0', // Only required to send ether to the recipient from the initiating external account.
-    data: bridge_contract.methods.deposit(1, resourceID, createERCDepositData(parseInt(amount) *1e18, 66, bytesToHex(toUtf8Bytes(addressToPublicKey(to))))).encodeABI(),
+    data: bridge_contract.methods.deposit(1, resourceID, createERCDepositData(parseInt(amount) *1e6, 66, bytesToHex(toUtf8Bytes(addressToPublicKey(to))))).encodeABI(),
     // chainId: '222', // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
   };
 };

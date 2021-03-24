@@ -6,7 +6,6 @@ import styled from "styled-components";
 import { KEYS_PRE } from "@polkadot/react-components/Input";
 
 const Wrapper = styled.div`
-  dislpay: flex !important;
   margin: 16px auto;
   font-family: PingFangSC-Semibold;
   font-size: 32px;
@@ -52,11 +51,11 @@ interface InputAutoLengthProps {
   tokenName?: string | undefined;
   placeholder?: any;
   isDecimal?: boolean;
+  onBlur: (event: React.FocusEvent<HTMLDivElement>) => void;
 }
 
 function getRegex(isDecimal: boolean): RegExp {
   const decimal = ".";
-  console.log(isDecimal);
   return new RegExp(isDecimal ? `^(0|[1-9]\\d*)(\\${decimal}\\d{0,4})?$` : "^(0|[1-9]\\d*)$");
 }
 var value = "";
@@ -66,7 +65,8 @@ function InputAutoLength({
   children,
   tokenName,
   placeholder,
-  isDecimal
+  isDecimal,
+  onBlur
 }: InputAutoLengthProps): React.ReactElement<InputAutoLengthProps> {
   const [isPreKeyDown, setIsPreKeyDown] = useState(false);
 
@@ -83,9 +83,7 @@ function InputAutoLength({
       }
       if (event.key.length === 1 && !isPreKeyDown) {
         value = event.target.innerText + event.key;
-        console.log(value);
         if (!getRegex(true).test(value)) {
-          console.log(getRegex(true).test(value));
           event.preventDefault();
         }
       }
@@ -102,6 +100,7 @@ function InputAutoLength({
         onKeyDown={_onKeyDown}
         onKeyUp={_onKeyUp}
         placeholder={placeholder}
+        onBlur={onBlur}
       >
         {children}
       </div>

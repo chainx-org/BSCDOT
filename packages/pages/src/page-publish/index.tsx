@@ -3,9 +3,9 @@
 // import type { Route } from '@polkadot/apps-routing/types';
 import React, {useContext, useState} from 'react';
 import styled from "styled-components";
-import { Records } from "@polkadot/react-components-chainx/Records";
-import { PolkadotAccountsContext } from '@polkadot/react-components-chainx/PolkadotAccountsProvider';
-import { PlatonAccountsContext } from '@polkadot/react-components-chainx/PlatonAccountsProvider';
+import {Records} from '@polkadot/pages/components';
+import { PolkadotAccountsContext } from '@polkadot/pages/components/PolkadotAccountsProvider';
+import { PlatonAccountsContext } from '@polkadot/pages/components/PlatonAccountsProvider';
 import PdotNodata from '../components/PdotCards/PdotNodata';
 import PublishAndRedeemCard from '../components/PdotCards/PublishAndRedeemCard';
 import {web3FromAddress} from '@polkadot/extension-dapp';
@@ -19,7 +19,6 @@ interface Props {
 }
 
 export default function PublicContent({ className }: Props): React.ReactElement<Props> {
-  //   const { t } = useTranslation();
   const {hasPlatonAccount, platonAccount, PublishRecords} = useContext(PlatonAccountsContext)
   const publishLength = PublishRecords.length
   const {hasAccounts, currentAccount} = useContext(PolkadotAccountsContext)
@@ -28,20 +27,33 @@ export default function PublicContent({ className }: Props): React.ReactElement<
   const {queueAction} = useContext(StatusContext);
   const status = { action: 'publish' } as ActionStatus;
 
+
   const publish = () => {
+
     async function ccc() {
       if (hasAccounts && amount && platonAccount) {
         try {
           const injector = await web3FromAddress(currentAccount);
           api.setSigner(injector.signer);
           api.tx.utility.batch([
-            api.tx.balances.transferKeepAlive(currentAccount, amount),
+            api.tx.balances.transferKeepAlive('5F3NgH5umL6dg6rmtKEm6m7z75YZwkBkyTybksL9CZfXxvPT', parseInt(amount)),
             api.tx.system.remark(platonAccount)
           ])
-            .signAndSend(currentAccount, { signer: injector.signer }, (status) => {console.log('status',status)})
+            .signAndSend(
+              currentAccount,
+              { signer: injector.signer },
+              (statusData) => {
+                const formatStatusData = JSON.parse(JSON.stringify(statusData))
+                if(formatStatusData.status.inBlock){
+                  creatStatusInfo(status, 'received', '发行成功', currentAccount)
+                  queueAction(status as ActionStatus)
+                }else{
+                  creatStatusInfo(status, 'sending', '正在发送中...')
+                  queueAction(status as ActionStatus)
+                }
+              })
             .then(result => {
-              creatStatusInfo(status, 'success', '发行成功', currentAccount)
-              queueAction(status as ActionStatus)
+              console.log('result', result)
             })
             .catch(error => {
               creatStatusInfo(status, 'error', (error as Error).message)

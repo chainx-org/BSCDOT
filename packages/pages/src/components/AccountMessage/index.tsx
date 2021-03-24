@@ -65,7 +65,7 @@ interface addressInfo{
   content: string;
 }
 
-export function AccountMessage({ isReverse, polkadotAddress, platonAddress }: AccountMessageProps): React.ReactElement<AccountMessageProps> {
+export default function AccountMessage({ isReverse, polkadotAddress, platonAddress }: AccountMessageProps): React.ReactElement<AccountMessageProps> {
 
   const transactionAddresses: addressInfo[] = [
     {

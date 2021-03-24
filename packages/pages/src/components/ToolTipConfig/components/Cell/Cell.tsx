@@ -1,10 +1,10 @@
 import React, {useCallback, useContext} from 'react';
 import styled from 'styled-components';
 import {useLocalStorage} from '@polkadot/react-hooks-chainx';
-import {PolkadotAccountsContext} from '@polkadot/react-components-chainx/PolkadotAccountsProvider';
+import {PolkadotAccountsContext} from '@polkadot/pages/components/PolkadotAccountsProvider';
 import uiSettings from '@polkadot/ui-settings';
 import {saveAndReload} from '@polkadot/apps/Endpoints/modals/util';
-import {NetWorkContext} from '@polkadot/react-components-chainx/NetWorkProvider';
+import {NetWorkContext} from '@polkadot/pages/components/NetWorkProvider';
 
 const Cells = React.memo(styled.section`
   cursor: pointer;

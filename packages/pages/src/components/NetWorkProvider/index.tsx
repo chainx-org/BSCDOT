@@ -28,12 +28,12 @@ export const NetWorkProvider: FC = ({children}) => {
     if(!localNet.name){
       polkadotSetting.apiUrl === 'wss://westend-rpc.polkadot.io'?
         setNetWork({
-          name: 'Alaya网络',
+          name: 'Alaya 网络',
           polkadotNetUrl: polkadotSetting.apiUrl,
-          platonNetUrl: '127.0.0.1'
+          platonNetUrl: 'http://127.0.0.1:6789'
         })
         : setNetWork({
-          name: 'Platon网络',
+          name: 'Platon 网络',
           polkadotNetUrl: polkadotSetting.apiUrl,
           platonNetUrl: ''
         })

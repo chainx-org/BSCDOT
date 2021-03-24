@@ -6,6 +6,7 @@ import CreateModal from '@polkadot/app-addresses/modals/Create';
 import Address from './Address';
 import Empty from '../Empty/index';
 import { useTranslation } from '@polkadot/react-components/translate';
+import { Button } from '@polkadot/pages/components';
 
 type SortedAddress = { address: string; isFavorite: boolean };
 
@@ -43,10 +44,10 @@ function AllAccounts() {
           onStatusChange={queueAction}
         />
       )}
-
-      <button className='addAccountBtn' onClick={toggleCreate}>
+      <Button className='addAccountBtn' onClick={toggleCreate} icon='plus'/>
+      {/* <button className='addAccountBtn' onClick={toggleCreate}>
         <Icon icon='plus'/>
-      </button>
+      </button> */}
       {!isLoading && sortedAddresses && sortedAddresses.length > 0 ?
         sortedAddresses.map(({address, isFavorite}): React.ReactNode => (
           <Address key={address} value={address}/>

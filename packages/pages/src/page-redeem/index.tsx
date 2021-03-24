@@ -3,9 +3,9 @@
 
 import React, {useContext, useState} from 'react';
 import styled from "styled-components";
-import { Records } from "@polkadot/react-components-chainx/Records";
-import {PlatonAccountsContext} from '@polkadot/react-components-chainx/PlatonAccountsProvider';
-import { PolkadotAccountsContext } from '@polkadot/react-components-chainx/PolkadotAccountsProvider';
+import { Records } from "@polkadot/pages/components";
+import {PlatonAccountsContext} from '@polkadot/pages/components/PlatonAccountsProvider';
+import { PolkadotAccountsContext } from '@polkadot/pages/components/PolkadotAccountsProvider';
 import PdotNodata from '../components/PdotCards/PdotNodata';
 import PublishAndRedeemCard from '../components/PdotCards/PublishAndRedeemCard';
 import {StatusContext} from '@polkadot/react-components';
@@ -18,9 +18,8 @@ interface Props {
 }
 
 export default function RedeemContent({ className }: Props): React.ReactElement<Props> {
-  //   const { t } = useTranslation();
   const {hasAccounts, currentAccount } = useContext(PolkadotAccountsContext);
-  const {platonAccount, hasPlatonAccount,RedeemRecords} = useContext(PlatonAccountsContext)
+  const {platonAccount, hasPlatonAccount,RedeemRecords, setN} = useContext(PlatonAccountsContext)
   const redreemLength = RedeemRecords.length
   const [amount, setAmount] = useState<string>('')
   const {queueAction} = useContext(StatusContext);
@@ -31,11 +30,18 @@ export default function RedeemContent({ className }: Props): React.ReactElement<
       try {
         alaya.request({
           method: 'platon_sendTransaction',
-          params: [createDepositTransactionParameters(platonAccount, currentAccount, parseInt(amount))]
+          params: [createDepositTransactionParameters(platonAccount, currentAccount, amount)]
         })
           .then(result => {
-            creatStatusInfo(status, 'success', `赎回成功，交易哈希: ${result}`);
-            queueAction(status as ActionStatus);
+            creatStatusInfo(status, 'sending', '正在发送中...')
+            queueAction(status as ActionStatus)
+
+            setTimeout(() => {
+              creatStatusInfo(status, 'success', `赎回成功，交易哈希: ${result}`);
+              queueAction(status as ActionStatus);
+              setN(Math.random())
+            }, 5000)
+
           })
           .catch(error => {
             creatStatusInfo(status, 'error', error.message);

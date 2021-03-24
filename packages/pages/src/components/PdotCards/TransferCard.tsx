@@ -6,11 +6,11 @@ import Input from '@polkadot/react-components-chainx/Input';
 import InputDex from '@polkadot/react-components-chainx/InputDex';
 // import Button from "@polkadot/react-components-chainx/Button";
 import {createTransferTransactionParameters} from '@polkadot/pages/contract';
-import {PlatonAccountsContext} from '@polkadot/react-components-chainx/PlatonAccountsProvider';
+import {PlatonAccountsContext} from '@polkadot/pages/components/PlatonAccountsProvider';
 import {creatStatusInfo} from '@polkadot/pages/helper/helper';
 import {ActionStatus} from '@polkadot/react-components/Status/types';
 import {StatusContext} from '@polkadot/react-components';
-import Button from '../Button/Button';
+import Button from '../Button';
 
 interface PdotCardProps {
   children?: React.ReactNode;
@@ -22,7 +22,7 @@ interface PdotCardProps {
 export default function TransferCard({ children, className = '',title }: PdotCardProps): React.ReactElement<PdotCardProps> {
   const [amount, setAmount] = useState<string>('')
   const [targetAddress, setTargetAddress] = useState<string>('')
-  const {platonAccount} = useContext(PlatonAccountsContext)
+  const {platonAccount, setN} = useContext(PlatonAccountsContext)
   const status = { action: 'transfer' } as ActionStatus;
   const {queueAction} = useContext(StatusContext);
 
@@ -34,8 +34,13 @@ export default function TransferCard({ children, className = '',title }: PdotCar
           params: [createTransferTransactionParameters(platonAccount, amount, targetAddress)]
         })
         .then(result => {
-          creatStatusInfo(status, 'success', `转账成功，交易哈希: ${result}`);
-          queueAction(status as ActionStatus);
+          creatStatusInfo(status, 'sending', '正在发送中...')
+          queueAction(status as ActionStatus)
+          setTimeout(() => {
+            creatStatusInfo(status, 'success', `转账成功，交易哈希: ${result}`);
+            queueAction(status as ActionStatus);
+            setN(Math.random())
+          },5000)
         })
         .catch(error => {
           creatStatusInfo(status, 'error', error.message);

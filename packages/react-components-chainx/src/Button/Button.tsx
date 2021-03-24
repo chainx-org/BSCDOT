@@ -61,7 +61,6 @@ export default React.memo(styled(Button)(({ theme }: ThemeProps) => `
 
   &:not(.hasLabel) {
     padding: 0 0.7em;
-
     .ui--Icon {
       padding: 0.6rem;
       margin: -0.6rem;
