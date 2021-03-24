@@ -28,7 +28,7 @@ function Apps({className = ''}: Props): React.ReactElement<Props> {
     <>
       <GlobalStyle uiHighlight={uiHighlight}/>
       <div className={`apps--Wrapper theme--${theme} ${className}`}>
-        <Signer>
+        <Signer> {/* loading */}
           <Sidebars/>
           <div className="main">
             <Contents/>
