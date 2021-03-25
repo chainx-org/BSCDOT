@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { useIsMounted } from '@polkadot/app-accounts-chainx/Myview/Records/hooks';
+import { useIsMounted } from './hooks';
 import { LoadingWrapper, RecordDetail, Title, Wrapper } from './components/Detail';
-import MiniLoading from '@polkadot/app-accounts-chainx/Myview/Records/MiniLoading';
+import MiniLoading from './MiniLoading';
 import Line from './components/Line';
 import Lines from './components/Lines';
 import Empty from './Empty';

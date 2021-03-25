@@ -27,11 +27,6 @@ function Card({
 
   return (
     <div className={`ui-card ${className} ${isBasic ? " isBasic" : ""}  `}>
-      {/* <Button
-        className='ui--AccountStatus'
-        icon={iconNode}
-        onClick={_onClick}
-      /> */}
       <Button className="ui--AccountStatus" icon={iconNode} onClick={_onClick} />
       <p>{label}</p>
       {children}

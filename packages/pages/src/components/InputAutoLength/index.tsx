@@ -3,7 +3,6 @@
 
 import React, { useCallback, useEffect, useLayoutEffect, useState } from "react";
 import styled from "styled-components";
-// import { KEYS_PRE } from "@polkadot/react-components/Input";
 
 const Wrapper = styled.div`
   margin: 16px auto;
@@ -43,6 +42,21 @@ const Wrapper = styled.div`
   }
 `;
 
+const KEYS = {
+  ALT: 'Alt',
+  CMD: 'Meta',
+  CTRL: 'Control',
+  ENTER: 'Enter',
+  SPACEBAR: 'Spacebar',
+  WHITE: ' '
+};
+
+const KEYS_PRE: any[] = [KEYS.ALT, KEYS.CMD, KEYS.CTRL, KEYS.ENTER];
+
+// const KEYS_PRE: any[] = ["Alt", "Meta", "Control", "Enter", "CapsLock", "Shift"];
+
+const KEY_CLEAR: any[] = [KEYS.ENTER, KEYS.SPACEBAR, KEYS.WHITE];
+
 interface InputAutoLengthProps {
   onKeyDown?: (event: React.KeyboardEvent<Element>) => void;
   onKeyUp?: (event: React.KeyboardEvent<Element>) => void;
@@ -53,10 +67,6 @@ interface InputAutoLengthProps {
   isDecimal?: boolean;
   onBlur: (event: React.FocusEvent<HTMLDivElement>) => void; //callback
 }
-
-const KEYS_PRE: any[] = ["Alt", "Meta", "Control", "Enter", "CapsLock", "Shift"];
-
-const KEY_CLEAR: any[] = ["Enter", "Spacebar", " "];
 
 function getRegex(isDecimal: boolean): RegExp {
   const decimal = ".";
