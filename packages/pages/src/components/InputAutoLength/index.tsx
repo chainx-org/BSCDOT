@@ -1,7 +1,7 @@
 // Copyright 2017-2020 @polkadot/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import React, { useCallback, useEffect, useLayoutEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import styled from "styled-components";
 
 const Wrapper = styled.div`
@@ -43,17 +43,15 @@ const Wrapper = styled.div`
 `;
 
 const KEYS = {
-  ALT: 'Alt',
-  CMD: 'Meta',
-  CTRL: 'Control',
-  ENTER: 'Enter',
-  SPACEBAR: 'Spacebar',
-  WHITE: ' '
+  ALT: "Alt",
+  CMD: "Meta",
+  CTRL: "Control",
+  ENTER: "Enter",
+  SPACEBAR: "Spacebar",
+  WHITE: " "
 };
 
 const KEYS_PRE: any[] = [KEYS.ALT, KEYS.CMD, KEYS.CTRL, KEYS.ENTER];
-
-// const KEYS_PRE: any[] = ["Alt", "Meta", "Control", "Enter", "CapsLock", "Shift"];
 
 const KEY_CLEAR: any[] = [KEYS.ENTER, KEYS.SPACEBAR, KEYS.WHITE];
 
@@ -83,9 +81,6 @@ function InputAutoLength({
   onBlur
 }: InputAutoLengthProps): React.ReactElement<InputAutoLengthProps> {
   const [isPreKeyDown, setIsPreKeyDown] = useState(false); // 是否设置preventDefault()
-  const [inputValue, setInputValue] = useState("");
-
-  useLayoutEffect(() => {}, [inputValue]);
 
   const _onKeyDown = useCallback(
     (event: React.KeyboardEvent<Element>): void => {
@@ -96,25 +91,24 @@ function InputAutoLength({
       }
       if (event.key.length === 1 && !isPreKeyDown) {
         let { innerText } = event.target as HTMLInputElement;
-        setInputValue(`${innerText.substring(0)}${event.key}`);
         let value = `${innerText.substring(0)}${event.key}`;
         if (!getRegex(true).test(value)) {
           event.preventDefault();
-          setInputValue(`${innerText.substring(0)}`);
         }
       }
     },
     [isDecimal]
   );
+
   const _onKeyDownN = useCallback(
     (event: React.KeyboardEvent<Element>): void => {
       if (KEYS_PRE.includes(event.key)) {
         setIsPreKeyDown(true);
+        event.preventDefault();
         return;
       }
       if (event.key.length === 1 && !isPreKeyDown) {
-        const { innerText } = event.target as HTMLInputElement;
-        setInputValue(`${innerText.substring(0)}${event.key}`);
+        let { innerText } = event.target as HTMLInputElement;
         let value = `${innerText.substring(0)}${event.key}`;
         if (!getRegex(false).test(value)) {
           event.preventDefault();
@@ -134,8 +128,7 @@ function InputAutoLength({
         var range = document.createRange();
         range.selectNodeContents(element);
         range.collapse(false);
-        var sel: Selection|null = window.getSelection();
-        console.log(sel)
+        var sel: Selection | null = window.getSelection();
         sel?.removeAllRanges();
         sel?.addRange(range);
       }
