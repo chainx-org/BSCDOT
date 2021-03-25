@@ -45,7 +45,6 @@ function AccountCard({ children, className = '', isBasic, accountName, accountAd
           {allAccounts ? 
           <Button
             className="ui--Account"
-            // isBasic={true}
             icon={SelectMore}
             onClick={_toggleAccountList}
           /> 

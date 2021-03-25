@@ -3,7 +3,6 @@
 
 import React, { useCallback, useState } from "react";
 import styled from "styled-components";
-import { KEYS_PRE } from "@polkadot/react-components/Input";
 
 const Wrapper = styled.div`
   margin: 16px auto;
@@ -42,6 +41,14 @@ const Wrapper = styled.div`
     padding-left: 10px;
   }
 `;
+
+const KEYS = {
+  ALT: 'Alt',
+  CMD: 'Meta',
+  CTRL: 'Control',
+};
+
+const KEYS_PRE: any[] = [KEYS.ALT, KEYS.CMD, KEYS.CTRL];
 
 interface InputAutoLengthProps {
   onKeyDown?: (event: React.KeyboardEvent<Element>) => void;
