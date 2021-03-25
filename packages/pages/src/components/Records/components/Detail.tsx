@@ -20,6 +20,7 @@ export const Wrapper = styled.section`
 
 export const Title = styled.p`
   font-size: 20px;
+  margin-bottom: 0;
   color: #444C5E;
   padding: 15px 20px;
   border-bottom-left-radius: 0;
@@ -31,11 +32,11 @@ export const RecordDetail = styled.div`
   &.overflow {
     max-height: 324px;
     overflow-y: auto;
-    &::-webkit-scrollbar {    
+    &::-webkit-scrollbar {
       width: 5px;
       background: transparent;
     }
-    &::-webkit-scrollbar-thumb { 
+    &::-webkit-scrollbar-thumb {
       background: #6F7C7C;
       border-radius: 2.5px;
     }
@@ -78,6 +79,7 @@ export const Sequence = styled.span`
   .txNums {
     color: #444C5E;
     margin-left: 8px;
+    font-weight: 550;
   }
 `;
 
@@ -137,7 +139,7 @@ export const Detail = styled.div`
     background: rgba(255,255,255,0.96);
     border: 1px solid #EFEFEF;
     box-shadow: 2px 6px 12px 1px rgba(0,0,0,0.12);
-  
+
     & > div {
       display: flex;
       justify-content: space-between;
@@ -191,7 +193,7 @@ export const LinkWrap = styled.span`
       opacity: 0.56;
     }
   }
-  
+
   font-size: 12px;
   letter-spacing: 0.2px;
   text-align: right;

@@ -1,27 +1,18 @@
 // Copyright 2017-2020 @polkadot/apps authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import type {BareProps as Props, ThemeDef, ThemeProps} from '@polkadot/react-components/types';
-
-import React, {useContext, useMemo} from 'react';
-import styled, {ThemeContext} from 'styled-components';
-import {getSystemChainColor} from '@polkadot/apps-config';
-import {useApi} from '@polkadot/react-hooks';
+import type { BareProps as Props, ThemeDef, ThemeProps } from '@polkadot/react-components/types';
+import React, { useContext } from 'react';
+import styled, { ThemeContext } from 'styled-components';
 import Signer from '@polkadot/react-signer';
-import ConnectingOverlay from './overlays/Connecting';
 import WarmUp from './WarmUp';
 import Contents from '@polkadot/pages';
 import Sidebars from '@polkadot/pages/components/SideBar';
 import Status from './Content/Status';
-export const PORTAL_ID = 'portals';
+
 
 function Apps({className = ''}: Props): React.ReactElement<Props> {
   const {theme} = useContext<ThemeDef>(ThemeContext);
-  const {systemChain, systemName} = useApi();
-  const uiHighlight = useMemo(
-    () => getSystemChainColor(systemChain, systemName),
-    [systemChain, systemName]
-  );
 
   return (
     <>
@@ -33,11 +24,8 @@ function Apps({className = ''}: Props): React.ReactElement<Props> {
           </div>
           <Status/>
         </Signer>
-        {/*<ConnectingOverlay/>*/}
-        <div id={PORTAL_ID}/>
       </div>
       <WarmUp/>
-
     </>
   );
 }

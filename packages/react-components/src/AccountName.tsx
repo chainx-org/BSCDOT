@@ -9,7 +9,7 @@ import type { AccountId, AccountIndex, Address } from '@polkadot/types/interface
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import registry from '@polkadot/react-api/typeRegistry';
-import { AccountSidebarToggle } from '@polkadot/app-accounts/Sidebar';
+import AccountSidebarToggle from './Sidebar';
 import { useCall, useApi } from '@polkadot/react-hooks';
 import { isFunction, stringToU8a } from '@polkadot/util';
 

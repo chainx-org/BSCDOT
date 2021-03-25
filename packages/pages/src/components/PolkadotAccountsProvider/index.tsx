@@ -1,6 +1,6 @@
 import React, {createContext, FC, useEffect, useState} from 'react';
 import { InjectedAccountWithMeta } from '@polkadot/extension-inject/types';
-import { useLocalStorage } from '@polkadot/react-hooks-chainx';
+import useLocalStorage from '@polkadot/pages/hooks/useLocalStorage';
 import { usePolkadotAccounts } from '@polkadot/pages/hooks/usePolkadotAccounts';
 import { useApi } from '@polkadot/react-hooks';
 import BN from 'bn.js';

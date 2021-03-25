@@ -1,6 +1,6 @@
 import React, {useCallback, useContext} from 'react';
 import styled from 'styled-components';
-import {useLocalStorage} from '@polkadot/react-hooks-chainx';
+import useLocalStorage from '@polkadot/pages/hooks/useLocalStorage';
 import {PolkadotAccountsContext} from '@polkadot/pages/components/PolkadotAccountsProvider';
 import uiSettings from '@polkadot/ui-settings';
 import {saveAndReload} from '@polkadot/apps/Endpoints/modals/util';
