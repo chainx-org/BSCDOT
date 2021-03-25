@@ -13,6 +13,7 @@ import { useApi } from '@polkadot/react-hooks';
 import {StatusContext} from '@polkadot/react-components';
 import {ActionStatus} from '@polkadot/react-components/Status/types';
 import {creatStatusInfo} from '@polkadot/pages/helper/helper';
+import BigNumber from 'bignumber.js';
 
 interface Props {
   className?: string;
@@ -27,16 +28,15 @@ export default function PublicContent({ className }: Props): React.ReactElement<
   const {queueAction} = useContext(StatusContext);
   const status = { action: 'publish' } as ActionStatus;
 
-
   const publish = () => {
-
-    async function ccc() {
+    async function publishEvent() {
       if (hasAccounts && amount && platonAccount) {
         try {
           const injector = await web3FromAddress(currentAccount);
+          const amountToBigNumber = (new BigNumber(amount)).times(1e12).toNumber()
           api.setSigner(injector.signer);
           api.tx.utility.batch([
-            api.tx.balances.transferKeepAlive('5F3NgH5umL6dg6rmtKEm6m7z75YZwkBkyTybksL9CZfXxvPT', parseInt(amount)),
+            api.tx.balances.transferKeepAlive('5F3NgH5umL6dg6rmtKEm6m7z75YZwkBkyTybksL9CZfXxvPT', amountToBigNumber),
             api.tx.system.remark(platonAccount)
           ])
             .signAndSend(
@@ -65,7 +65,7 @@ export default function PublicContent({ className }: Props): React.ReactElement<
         }
       }
     }
-    ccc();
+    publishEvent();
   }
 
   return (

@@ -3,6 +3,7 @@ import {bytesToHex} from 'web3/packages/web3-utils';
 import {decodeAddress} from '@polkadot/keyring';
 import {u8aToHex} from '@polkadot/util';
 import uiSettings from '@polkadot/ui-settings';
+import BigNumber from 'bignumber.js';
 
 const Ethers = require('ethers');
 const Web3 = require('web3');
@@ -1644,15 +1645,33 @@ const bridge_contract = new web3.platon.Contract(bridge_abi);
 bridge_contract.options.address = bridgeAddress;
 bridge_contract.options.from = adminAddress;
 
+const hexlifyAmount = (value) => {
+  const HexCharacters: string = "0123456789abcdef";
+  let hex = "";
+  while (value) {
+    hex = HexCharacters[value & 0x0f] + hex;
+    value = Math.floor(value / 16);
+  }
+  if (hex.length) {
+    if (hex.length % 2) { hex = "0" + hex; }
+    return "0x" + hex;
+  }
+  return "0x00";
+}
 
-const toHex = (covertThis, padding) => {
+const amountToHex = (covertThis, padding) => {
+  return Ethers.utils.hexZeroPad(hexlifyAmount(covertThis), padding);
+};
+
+const addressToHex = (covertThis, padding) => {
   return Ethers.utils.hexZeroPad(Ethers.utils.hexlify(covertThis), padding);
 };
 
+
 const createERCDepositData = (tokenAmountOrID, lenRecipientAddress, recipientAddress) => {
   return '0x' +
-    toHex(tokenAmountOrID, 32).substr(2) +      // Token amount or ID to deposit (32 bytes)
-    toHex(lenRecipientAddress, 32).substr(2) + // len(recipientAddress)          (32 bytes)
+    amountToHex(tokenAmountOrID, 32).substr(2) +      // Token amount or ID to deposit (32 bytes)
+    addressToHex(lenRecipientAddress, 32).substr(2) + // len(recipientAddress)          (32 bytes)
     recipientAddress.substr(2);               // recipientAddress               (?? bytes)
 };
 
@@ -1667,7 +1686,7 @@ const createDepositTransactionParameters = (from: string, to: string, amount: st
     to: bridgeAddress,
     from, // must match user's active address.
     value: '0', // Only required to send ether to the recipient from the initiating external account.
-    data: bridge_contract.methods.deposit(1, resourceID, createERCDepositData(parseInt(amount) *1e6, 66, bytesToHex(toUtf8Bytes(addressToPublicKey(to))))).encodeABI(),
+    data: bridge_contract.methods.deposit(1, resourceID, createERCDepositData((new BigNumber(amount)).times(1e18).toNumber(), 66, bytesToHex(toUtf8Bytes(addressToPublicKey(to))))).encodeABI(),
     // chainId: '222', // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
   };
 };
@@ -1689,7 +1708,7 @@ const createTransferTransactionParameters = (from: string, amount: string, to: s
     to: erc20Address, // Required except during contract publications.
     from, // must match user's active address.
     value: '0x00', // Only required to send ether to the recipient from the initiating external account.
-    data: erc20_minter_contract.methods.transfer(to, (parseInt(amount) * 1e18).toString()).encodeABI(),
+    data: erc20_minter_contract.methods.transfer(to, ((new BigNumber(amount)).times(1e18)).toString()).encodeABI(),
     // chainId: '0x3', // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
   }
 }
@@ -1709,7 +1728,6 @@ const createTransferTransactionParameters = (from: string, amount: string, to: s
 export {
   blankFunctionSig,
   blankFunctionDepositerOffset,
-  toHex,
   createERCDepositData,
   bridge_abi,
   erc20miner_abi,
