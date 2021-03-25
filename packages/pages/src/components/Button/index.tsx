@@ -44,15 +44,13 @@ export default React.memo(styled(Button)`
     font-size: 16px;
     color: #ffffff;
   }
-  
-  
-  &.hasLabel {
-    padding: 0 0.7em;
 
-    .ui--Icon {
-      padding: 0.6rem;
-      margin: -0.6rem;
-    }
+  &:not(.hasLabel) {
+    padding: 0 0.7em;
+    // .ui--Icon {
+    //   padding: 0.6rem;
+    //   margin: -0.6rem;
+    // }
   }
 
   &.isBasic {

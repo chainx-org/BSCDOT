@@ -43,12 +43,17 @@ const Wrapper = styled.div`
 `;
 
 const KEYS = {
-  ALT: 'Alt',
-  CMD: 'Meta',
-  CTRL: 'Control',
+  ALT: "Alt",
+  CMD: "Meta",
+  CTRL: "Control",
+  ENTER: "Enter",
+  SPACEBAR: "Spacebar",
+  WHITE: " "
 };
 
-const KEYS_PRE: any[] = [KEYS.ALT, KEYS.CMD, KEYS.CTRL];
+const KEYS_PRE: any[] = [KEYS.ALT, KEYS.CMD, KEYS.CTRL, KEYS.ENTER];
+
+const KEY_CLEAR: any[] = [KEYS.ENTER, KEYS.SPACEBAR, KEYS.WHITE];
 
 interface InputAutoLengthProps {
   onKeyDown?: (event: React.KeyboardEvent<Element>) => void;
@@ -58,38 +63,35 @@ interface InputAutoLengthProps {
   tokenName?: string | undefined;
   placeholder?: any;
   isDecimal?: boolean;
-  onBlur: (event: React.FocusEvent<HTMLDivElement>) => void;
+  onBlur: (event: React.FocusEvent<HTMLDivElement>) => void; //callback
 }
 
 function getRegex(isDecimal: boolean): RegExp {
   const decimal = ".";
   return new RegExp(isDecimal ? `^(0|[1-9]\\d*)(\\${decimal}\\d{0,4})?$` : "^(0|[1-9]\\d*)$");
 }
-var value = "";
+// var value = "";
 
 function InputAutoLength({
   className,
   children,
   tokenName,
   placeholder,
-  isDecimal,
+  isDecimal = true,
   onBlur
 }: InputAutoLengthProps): React.ReactElement<InputAutoLengthProps> {
-  const [isPreKeyDown, setIsPreKeyDown] = useState(false);
+  const [isPreKeyDown, setIsPreKeyDown] = useState(false); // 是否设置preventDefault()
 
-  const _onKeyUp = useCallback((event: React.KeyboardEvent<Element>): void => {
-    if (KEYS_PRE.includes(event.key)) {
-      setIsPreKeyDown(false);
-    }
-  }, []);
   const _onKeyDown = useCallback(
     (event: React.KeyboardEvent<Element>): void => {
       if (KEYS_PRE.includes(event.key)) {
         setIsPreKeyDown(true);
+        event.preventDefault();
         return;
       }
       if (event.key.length === 1 && !isPreKeyDown) {
-        value = event.target.innerText + event.key;
+        let { innerText } = event.target as HTMLInputElement;
+        let value = `${innerText.substring(0)}${event.key}`;
         if (!getRegex(true).test(value)) {
           event.preventDefault();
         }
@@ -98,19 +100,73 @@ function InputAutoLength({
     [isDecimal]
   );
 
+  const _onKeyDownN = useCallback(
+    (event: React.KeyboardEvent<Element>): void => {
+      if (KEYS_PRE.includes(event.key)) {
+        setIsPreKeyDown(true);
+        event.preventDefault();
+        return;
+      }
+      if (event.key.length === 1 && !isPreKeyDown) {
+        let { innerText } = event.target as HTMLInputElement;
+        let value = `${innerText.substring(0)}${event.key}`;
+        if (!getRegex(false).test(value)) {
+          event.preventDefault();
+        }
+      }
+    },
+    [isDecimal]
+  );
+
+  const _onKeyUp = useCallback(
+    (event: React.KeyboardEvent<Element>): void => {
+      if (KEY_CLEAR.includes(event.key)) {
+        let value = `${event.target.innerText.substring(0)}${event.key}`;
+        event.target.innerText = value.replace(/[^\d.]/g, "");
+        // 光标设置到最后
+        var element: Element | any = event.target;
+        var range = document.createRange();
+        range.selectNodeContents(element);
+        range.collapse(false);
+        var sel: Selection | null = window.getSelection();
+        sel?.removeAllRanges();
+        sel?.addRange(range);
+      }
+      setIsPreKeyDown(false);
+    },
+    [isDecimal]
+  );
+
   return (
     <Wrapper className={className}>
-      <div
-        className="auto"
-        suppressContentEditableWarning
-        contentEditable="true"
-        onKeyDown={_onKeyDown}
-        onKeyUp={_onKeyUp}
-        placeholder={placeholder}
-        onBlur={onBlur}
-      >
-        {children}
-      </div>
+      <>
+        {isDecimal ? (
+          <div
+            className="auto"
+            suppressContentEditableWarning
+            contentEditable={true}
+            onKeyDown={_onKeyDown}
+            onKeyUp={_onKeyUp}
+            placeholder={placeholder}
+            onBlur={onBlur}
+          >
+            {children}
+          </div>
+        ) : (
+          <div
+            className="auto"
+            suppressContentEditableWarning
+            contentEditable="true"
+            onKeyDown={_onKeyDownN}
+            onKeyUp={_onKeyUp}
+            placeholder={placeholder}
+            onBlur={onBlur}
+          >
+            {children}
+          </div>
+        )}
+      </>
+
       <span className="flagtitle">{tokenName}</span>
     </Wrapper>
   );
