@@ -20,18 +20,14 @@ export default function ({ records, num, arrows }: any) {
   });
 
   return (
-    <Line className='transfer'
-      onClick={() => setOpen(!open)}
-      ref={wrapper}>
+    <Line className='transfer' onClick={() => setOpen(!open)} ref={wrapper}>
       <Header>
         <Sequence className='txNum'>{moment(new Date(records.blockTimestamp)).format('YYYY/MM/DD hh:mm:ss')}</Sequence>
         <Inout>{records.type === 'OUT' ? t('Out'): t('In')}</Inout>
       </Header>
       <Account className='account'>
         <Amount>{records.transferValue} {records.symbol}</Amount>
-        {
-          arrows ? <img src={Arrow} alt='Arrow' className='arrow' />: ''
-        }
+        { arrows ? <img src={Arrow} alt='Arrow' className='arrow' />: '' }
         <Hash hash={records.transferTo} className='address' />
       </Account>
       {isApiReady && open ? (

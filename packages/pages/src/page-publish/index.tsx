@@ -22,7 +22,7 @@ interface Props {
 export default function PublicContent({ className }: Props): React.ReactElement<Props> {
   const {hasPlatonAccount, platonAccount, PublishRecords} = useContext(PlatonAccountsContext)
   const publishLength = PublishRecords.length
-  const {hasAccounts, currentAccount, setN} = useContext(PolkadotAccountsContext)
+  const {hasAccounts, currentAccount} = useContext(PolkadotAccountsContext)
   const [amount, setAmount] = useState<string>('')
   const {api} = useApi()
   const {queueAction} = useContext(StatusContext);
@@ -47,7 +47,6 @@ export default function PublicContent({ className }: Props): React.ReactElement<
                 if(formatStatusData.status.inBlock){
                   creatStatusInfo(status, '发行成功', currentAccount)
                   queueAction(status as ActionStatus)
-                  setN(Math.random())
                 }else{
                   creatStatusInfo(status, 'sending', '正在发送中...')
                   queueAction(status as ActionStatus)

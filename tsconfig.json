@@ -218,12 +218,6 @@
       "@polkadot/react-components/*": [
         "packages/react-components/src/*"
       ],
-      "@polkadot/react-components-chainx": [
-        "packages/react-components-chainx/src"
-      ],
-      "@polkadot/react-components-chainx/*": [
-        "packages/react-components-chainx/src/*"
-      ],
       "@polkadot/react-hooks": [
         "packages/react-hooks/src"
       ],

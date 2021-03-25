@@ -1,27 +1,27 @@
 // Copyright 2017-2020 @polkadot/apps authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import React, {useContext, useState} from 'react';
-import styled from "styled-components";
-import { Records } from "@polkadot/pages/components";
-import {PlatonAccountsContext} from '@polkadot/pages/components/PlatonAccountsProvider';
+import React, { useContext, useState } from 'react';
+import styled from 'styled-components';
+import { Records } from '@polkadot/pages/components';
+import { PlatonAccountsContext } from '@polkadot/pages/components/PlatonAccountsProvider';
 import { PolkadotAccountsContext } from '@polkadot/pages/components/PolkadotAccountsProvider';
 import PdotNodata from '../components/PdotCards/PdotNodata';
 import PublishAndRedeemCard from '../components/PdotCards/PublishAndRedeemCard';
-import {StatusContext} from '@polkadot/react-components';
-import {ActionStatus} from '@polkadot/react-components/Status/types';
-import {creatStatusInfo} from '@polkadot/pages/helper/helper';
+import { StatusContext } from '@polkadot/react-components';
+import { ActionStatus } from '@polkadot/react-components/Status/types';
+import { creatStatusInfo } from '@polkadot/pages/helper/helper';
 import { createDepositTransactionParameters } from '../contract';
 
 interface Props {
   className?: string;
 }
 
-export default function RedeemContent({ className }: Props): React.ReactElement<Props> {
-  const {hasAccounts, currentAccount } = useContext(PolkadotAccountsContext);
-  const {platonAccount, hasPlatonAccount,RedeemRecords, setN} = useContext(PlatonAccountsContext)
-  const redreemLength = RedeemRecords.length
-  const [amount, setAmount] = useState<string>('')
+export default function RedeemContent({className}: Props): React.ReactElement<Props> {
+  const {hasAccounts, currentAccount} = useContext(PolkadotAccountsContext);
+  const {platonAccount, hasPlatonAccount, RedeemRecords, setN} = useContext(PlatonAccountsContext);
+  const redreemLength = RedeemRecords.length;
+  const [amount, setAmount] = useState<string>('');
   const {queueAction} = useContext(StatusContext);
   const status = {action: 'redeem'} as ActionStatus;
 
@@ -33,8 +33,8 @@ export default function RedeemContent({ className }: Props): React.ReactElement<
           params: [createDepositTransactionParameters(platonAccount, currentAccount, amount)]
         })
           .then(result => {
-              creatStatusInfo(status, `交易哈希: ${result}`);
-              queueAction(status as ActionStatus);
+            creatStatusInfo(status, `交易哈希: ${result}`);
+            queueAction(status as ActionStatus);
           })
           .catch(error => {
             creatStatusInfo(status, 'error', error.message);
@@ -49,12 +49,13 @@ export default function RedeemContent({ className }: Props): React.ReactElement<
 
   return (
     <Wrapper className={`contentWrapper ${className}`}>
-      { hasPlatonAccount && hasAccounts?
-        <PublishAndRedeemCard className = "left" title="赎回" unit='PDOT' isReverse={true}  onClick={redeem} setAmount={setAmount} />
+      {hasPlatonAccount && hasAccounts ?
+        <PublishAndRedeemCard className="left" title="赎回" unit='PDOT' isReverse={true} onClick={redeem}
+                              setAmount={setAmount}/>
         : <PdotNodata title='赎回 PDOT' noDataMsg='请先登录 Polkadot 和 PlatON 账户'/>
       }
-        <Records className = "right" title="赎回记录" records={RedeemRecords} recordLength={redreemLength} arrows={true} />
-      </Wrapper>
+      <Records className="right" title="赎回记录" records={RedeemRecords} recordLength={redreemLength} arrows={true}/>
+    </Wrapper>
   );
 }
 

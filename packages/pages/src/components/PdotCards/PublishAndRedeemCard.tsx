@@ -1,9 +1,8 @@
 import React, {useContext} from 'react';
 import { Wrapper, Title, Content, PublishAndRedeem, AmountAndTip, RedeemWarn } from './components'
 import AccountMessage from "../AccountMessage";
-// import Button from "@polkadot/react-components-chainx/Button";
 import InputAutoLength from "@polkadot/pages/components/InputAutoLength";
-import {PlatonAccountsContext} from '@polkadot/pages/components/PlatonAccountsProvider';
+import { PlatonAccountsContext} from '@polkadot/pages/components/PlatonAccountsProvider';
 import { PolkadotAccountsContext } from '@polkadot/pages/components/PolkadotAccountsProvider';
 import { ApiContext } from '@polkadot/react-api';
 import Button from '../Button';
@@ -47,7 +46,6 @@ export default function PublishAndRedeemCard({
           {
             isReverse ? <RedeemWarn className="warn isShow">PDOT 余额不足</RedeemWarn>: null
           }
-          {/* <Button className="isConfirm" onClick={onClick}>确定{title}</Button> */}
           <Button className="isConfirm" onClick={onClick} text={`确定${title}`} />
         </PublishAndRedeem>
       </Content>

@@ -20,10 +20,10 @@ const Wrapper = React.memo(styled.section`
   border-radius: 10px;
   width: 312px;
 
-  .header{
+  .header {
     height: 44px;
 
-    img{
+    img {
       width: 16px;
       height: 16px;
       margin: 20px 20px 8px;
@@ -31,13 +31,29 @@ const Wrapper = React.memo(styled.section`
     }
   }
 `);
-
+const Cover = React.memo(styled.section`
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.3);
+  // display: none;
+  z-index: 998;
+`);
+const Coverer = () => {
+  return (
+    <Cover>
+      <div id="cover" />
+    </Cover>
+  );
+};
 
 interface ToolTipConfigProps {
   list: object[];
   isOpen: boolean;
   setIsOpen: React.Dispatch<boolean>;
-  listType: 'netWork' | 'accountList'
+  listType: "netWork" | "accountList";
 }
 
 export default function ToolTipConfig({list, isOpen, setIsOpen, listType}: ToolTipConfigProps): React.ReactElement<ToolTipConfigProps> {
@@ -45,30 +61,35 @@ export default function ToolTipConfig({list, isOpen, setIsOpen, listType}: ToolT
   const {netWork} = useContext(NetWorkContext)
   const _toggle = (): void => setIsOpen(false);
 
-  const component =  <>
-    {isOpen &&
-    <Wrapper>
-      <div className="header">
-        <img src={CLOSE} onClick={_toggle}/>
-      </div>
-      {list.map(function (item: any) {
-        return (
-          <Cell
-            key={Math.random()}
-            isSelected={currentAccount === item.account || netWork.name === item.title}
-            iconUrl={item.iconUrl}
-            title={item.title}
-            accountName={item.accountName}
-            account={item.account}
-            listType={listType}
-            item={item}
-          />
-        );
-      })}
-    </Wrapper>}
-  </>
+  const component = (
+    <>
+      {isOpen && (
+        <>
+          <Coverer />
 
-  return (
-    ReactDOM.createPortal(component, document.body)
+          <Wrapper>
+            <div className="header">
+              <img src={CLOSE} onClick={_toggle} />
+            </div>
+            {list.map(function(item: any) {
+              return (
+                <Cell
+                  key={Math.random()}
+                  isSelected={currentAccount === item.account || netWork.name === item.title}
+                  iconUrl={item.iconUrl}
+                  title={item.title}
+                  accountName={item.accountName}
+                  account={item.account}
+                  listType={listType}
+                  item={item}
+                />
+              );
+            })}
+          </Wrapper>
+        </>
+      )}
+    </>
   );
+
+  return ReactDOM.createPortal(component, document.body);
 }

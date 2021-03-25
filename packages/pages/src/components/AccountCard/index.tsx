@@ -3,7 +3,7 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
 import SelectMore from './icons/selectMore.svg';
-import Button from '@polkadot/react-components-chainx/Button';
+import Button from '../Button';
 import ToolTipConfig from '../ToolTipConfig';
 import {toPrecision} from '@polkadot/pages/helper/helper';
 import BigNumber from 'bignumber.js';
@@ -42,12 +42,14 @@ function AccountCard({ children, className = '', isBasic, accountName, accountAd
       <div className={`ui-accountAmount accountItem`}>
         <div className="accountName">
           <span>{accountName ? accountName : '-'}</span>
-          {allAccounts ? <Button
+          {allAccounts ? 
+          <Button
             className="ui--Account"
             // isBasic={true}
             icon={SelectMore}
             onClick={_toggleAccountList}
-          /> : null}
+          /> 
+          : null}
         </div>
         <div className="address">{accountAddress}</div>
       </div>

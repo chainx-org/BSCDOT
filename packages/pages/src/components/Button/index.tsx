@@ -1,20 +1,28 @@
+import Icon from "@polkadot/react-components/Icon";
 import React, { useCallback } from "react";
 import styled from "styled-components";
 
 interface ButtonProps {
   className?: string;
   onClick?: () => void | Promise<void>;
-  text: string;
+  text?: string;
+  icon?: any;
+  Icons?: any;
+  label?: React.ReactNode;
+  isBasic?: boolean | undefined;
 }
 
-function Button({ className, onClick, text }: ButtonProps): React.ReactElement<ButtonProps> {
+function Button({ className, onClick, text, icon, Icons, label, isBasic }: ButtonProps): React.ReactElement<ButtonProps> {
   const _onClick = useCallback(() => {
     onClick && onClick();
   }, [onClick]);
 
   return (
-    <button className={`ui-button ${className}`} onClick={_onClick}>
+    <button className={`ui-button${label ? ' hasLabel' : ''}${isBasic ? ' isBasic' : ''} ${className}`} onClick={_onClick}>
       {text}
+      {label}
+      {icon && <img src={icon} alt={icon} />}
+      {Icons && <Icon icon={icon}/>}
     </button>
   );
 }
@@ -24,6 +32,8 @@ export default React.memo(styled(Button)`
   vertical-align: middle;
   border: 0;
   outline: none;
+  background: transparent;
+  cursor: pointer;
   &.isConfirm {
     width: 212px;
     height: 52px;
@@ -34,4 +44,19 @@ export default React.memo(styled(Button)`
     font-size: 16px;
     color: #ffffff;
   }
+  
+  
+  &.hasLabel {
+    padding: 0 0.7em;
+
+    .ui--Icon {
+      padding: 0.6rem;
+      margin: -0.6rem;
+    }
+  }
+
+  &.isBasic {
+    border: 1px solid #fff;
+  }
+
 `);

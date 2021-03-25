@@ -2,15 +2,14 @@
 // SPDX-License-Identifier: Apache-2.0
 import React, {useContext, useState} from 'react';
 import {Wrapper, Title, Content, TransfersCard, AmountAndAddress} from './components';
-import Input from '@polkadot/react-components-chainx/Input';
-import InputDex from '@polkadot/react-components-chainx/InputDex';
-// import Button from "@polkadot/react-components-chainx/Button";
 import {createTransferTransactionParameters} from '@polkadot/pages/contract';
 import {PlatonAccountsContext} from '@polkadot/pages/components/PlatonAccountsProvider';
 import {creatStatusInfo} from '@polkadot/pages/helper/helper';
 import {ActionStatus} from '@polkadot/react-components/Status/types';
 import {StatusContext} from '@polkadot/react-components';
 import Button from '../Button';
+import InputDex from '../Input/InputDex';
+import Input from '../Input/Input';
 
 interface PdotCardProps {
   children?: React.ReactNode;
@@ -22,7 +21,7 @@ interface PdotCardProps {
 export default function TransferCard({children, className = '', title}: PdotCardProps): React.ReactElement<PdotCardProps> {
   const [amount, setAmount] = useState<string>('');
   const [targetAddress, setTargetAddress] = useState<string>('');
-  const {platonAccount, setN} = useContext(PlatonAccountsContext);
+  const {platonAccount} = useContext(PlatonAccountsContext);
   const status = {action: 'transfer'} as ActionStatus;
   const {queueAction} = useContext(StatusContext);
 
@@ -36,7 +35,6 @@ export default function TransferCard({children, className = '', title}: PdotCard
           .then(result => {
             creatStatusInfo(status, `交易哈希: ${result}`);
             queueAction(status as ActionStatus);
-            setN(Math.random());
           })
           .catch(error => {
             creatStatusInfo(status, 'error', error.message);
@@ -58,8 +56,7 @@ export default function TransferCard({children, className = '', title}: PdotCard
           <InputDex className='bgcolor' tokenName={'PDOT'} placeholder='输入 PDOT 数量' onChange={setAmount}/>
           <AmountAndAddress className='addressTit'>接收地址</AmountAndAddress>
           <Input className='bgcolor iptAddress' placeholder='输入 Platon 目标账户地址' onChange={setTargetAddress}/>
-          {/* <Button className="isConfirm" onClick={confirmTransfer}>确定转账</Button> */}
-          <Button className="isConfirm" onClick={confirmTransfer} text="确定转账"/>
+          <Button className="isConfirm" onClick={confirmTransfer} text="确定转账" />
         </TransfersCard>
       </Content>
     </Wrapper>

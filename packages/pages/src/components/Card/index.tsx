@@ -1,10 +1,9 @@
 // Copyright 2017-2020 @polkadot/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-
-import React, { useCallback } from 'react';
-import styled from 'styled-components';
-import Button from '@polkadot/react-components-chainx/Button';
+import React, { useCallback } from "react";
+import styled from "styled-components";
+import Button from "../Button";
 
 interface CardProps {
   children?: React.ReactNode;
@@ -15,21 +14,19 @@ interface CardProps {
   onClick?: () => void | Promise<void>;
 }
 
-function Card({ children, className = '', isBasic, label, iconNode, onClick }: CardProps): React.ReactElement<CardProps> {
-  const _onClick = useCallback(
-    () => onClick && onClick(),
-    [onClick]
-  );
+function Card({
+  children,
+  className = "",
+  isBasic,
+  label,
+  iconNode,
+  onClick
+}: CardProps): React.ReactElement<CardProps> {
+  const _onClick = useCallback(() => onClick && onClick(), [onClick]);
 
   return (
-    <div
-      className={`ui-card ${className} ${isBasic ? ' isBasic' : ''}  `}
-    >
-      <Button
-        className='ui--AccountStatus'
-        icon={iconNode}
-        onClick={_onClick}
-      />
+    <div className={`ui-card ${className} ${isBasic ? " isBasic" : ""}  `}>
+      <Button className="ui--AccountStatus" icon={iconNode} onClick={_onClick} />
       <p>{label}</p>
       {children}
     </div>
@@ -37,11 +34,10 @@ function Card({ children, className = '', isBasic, label, iconNode, onClick }: C
 }
 
 export default React.memo(styled(Card)`
-
   min-width: 308px;
   height: 152px;
   font-size: 12px;
-  color: #FFFFFF;
+  color: #ffffff;
   text-align: center;
   line-height: 16px;
   display: flex;
@@ -54,7 +50,6 @@ export default React.memo(styled(Card)`
   border: none;
   padding: 38px 37px;
   &.isBasic {
-
     .ui--AccountStatus {
       width: 196px;
       height: 48px;
@@ -64,13 +59,11 @@ export default React.memo(styled(Card)`
   }
 
   &.pinkCard {
-    background-image: linear-gradient(135deg, #C33379 0%, #ED449D 100%);
+    background-image: linear-gradient(135deg, #c33379 0%, #ed449d 100%);
     margin-right: 20px;
   }
 
   &.greenCard {
-    background-image: linear-gradient(135deg, #428A8B 0%, #58BBBD 100%);
+    background-image: linear-gradient(135deg, #428a8b 0%, #58bbbd 100%);
   }
-
-
 `);

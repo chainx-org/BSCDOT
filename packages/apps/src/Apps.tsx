@@ -6,7 +6,6 @@ import type {BareProps as Props, ThemeDef, ThemeProps} from '@polkadot/react-com
 import React, {useContext, useMemo} from 'react';
 import styled, {ThemeContext} from 'styled-components';
 import {getSystemChainColor} from '@polkadot/apps-config';
-import GlobalStyle from '@polkadot/react-components-chainx/styles';
 import {useApi} from '@polkadot/react-hooks';
 import Signer from '@polkadot/react-signer';
 import ConnectingOverlay from './overlays/Connecting';
@@ -26,7 +25,6 @@ function Apps({className = ''}: Props): React.ReactElement<Props> {
 
   return (
     <>
-      <GlobalStyle uiHighlight={uiHighlight}/>
       <div className={`apps--Wrapper theme--${theme} ${className}`}>
         <Signer>
           <Sidebars/>

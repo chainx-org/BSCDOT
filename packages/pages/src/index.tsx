@@ -1,3 +1,5 @@
+import { Loading } from '@polkadot/pages/components';
+import { useApi } from '@polkadot/react-hooks';
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Header from './components/Header';
@@ -6,7 +8,7 @@ import RedeemContent from './page-redeem';
 import TransferContent from './page-transfer';
 
 function Contents(): React.ReactElement {
-
+  const {isApiReady} = useApi()
   return (
     <>
       <main className='accounts--App'>
@@ -16,6 +18,7 @@ function Contents(): React.ReactElement {
           <Route path="/transfer" exact component={TransferContent}/>
           <Route path="/"  component={PublicContent}/>
         </Switch>
+        {!isApiReady && <Loading />}
       </main>
     </>
   );
