@@ -19,7 +19,7 @@ interface Props {
 
 export default function RedeemContent({className}: Props): React.ReactElement<Props> {
   const {hasAccounts, currentAccount} = useContext(PolkadotAccountsContext);
-  const {platonAccount, hasPlatonAccount, RedeemRecords, setN} = useContext(PlatonAccountsContext);
+  const {platonAccount, hasPlatonAccount, RedeemRecords} = useContext(PlatonAccountsContext);
   const redreemLength = RedeemRecords.length;
   const [amount, setAmount] = useState<string>('');
   const {queueAction} = useContext(StatusContext);
