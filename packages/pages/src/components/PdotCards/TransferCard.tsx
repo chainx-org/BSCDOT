@@ -6,9 +6,10 @@ import {createTransferTransactionParameters} from '@polkadot/pages/contract';
 import {PlatonAccountsContext} from '@polkadot/pages/components/PlatonAccountsProvider';
 import {creatStatusInfo} from '@polkadot/pages/helper/helper';
 import {ActionStatus} from '@polkadot/react-components/Status/types';
-import {Input, StatusContext} from '@polkadot/react-components';
+import {StatusContext} from '@polkadot/react-components';
 import Button from '../Button';
 import InputDex from '../Input/InputDex';
+import Input from '../Input/Input';
 
 interface PdotCardProps {
   children?: React.ReactNode;
@@ -60,7 +61,6 @@ export default function TransferCard({ children, className = '',title }: PdotCar
           <InputDex className='bgcolor' tokenName={'PDOT'}  placeholder='输入 PDOT 数量' onChange={setAmount}/>
           <AmountAndAddress className='addressTit'>接收地址</AmountAndAddress>
           <Input className='bgcolor iptAddress' placeholder='输入 Platon 目标账户地址' onChange={setTargetAddress}/>
-          {/* <Button className="isConfirm" onClick={confirmTransfer}>确定转账</Button> */}
           <Button className="isConfirm" onClick={confirmTransfer} text="确定转账" />
         </TransfersCard>
       </Content>

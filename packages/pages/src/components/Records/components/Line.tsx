@@ -19,17 +19,13 @@ export default function ({ records, num, arrows }: any) {
   });
 
   return (
-    <Line className='publishandredeem'
-      onClick={() => setOpen(!open)}
-      ref={wrapper}>
+    <Line className='publishandredeem' onClick={() => setOpen(!open)} ref={wrapper}>
       <Header>
-        <Sequence>交易号 <span className='txNums'>{records.seq}</span> </Sequence>
+        <Sequence>交易号 <span className='txNums'>{records.seq}</span></Sequence>
       </Header>
       <Account>
         <Hash hash={records.txFrom} className='address' />
-        {
-          arrows ? <img src={Arrow} alt='Arrow' className='arrow' />: ''
-        }
+        { arrows ? <img src={Arrow} alt='Arrow' className='arrow' />: '' }
         <Hash hash={records.transferTo} className='address' />
       </Account>
       {isApiReady && open ? (

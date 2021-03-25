@@ -33,6 +33,7 @@ export default React.memo(styled(Button)`
   border: 0;
   outline: none;
   background: transparent;
+  cursor: pointer;
   &.isConfirm {
     width: 212px;
     height: 52px;
