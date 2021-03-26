@@ -12,15 +12,16 @@
     "packages/*"
   ],
   "resolutions": {
-    "@polkadot/api": "^2.8.2-3",
-    "@polkadot/api-contract": "^2.8.2-3",
-    "@polkadot/keyring": "^4.2.1",
-    "@polkadot/networks": "^4.2.1",
-    "@polkadot/types": "^2.8.2-3",
-    "@polkadot/util": "^4.2.1",
-    "@polkadot/util-crypto": "^4.2.1",
-    "@polkadot/wasm-crypto": "^2.0.1",
-    "@chainx-v2/api": "^0.0.50",
+    "@polkadot/api": "^4.1.2-3",
+    "@polkadot/api-contract": "^4.1.2-3",
+    "@polkadot/hw-ledger": "^6.0.5",
+    "@polkadot/keyring": "^6.0.5",
+    "@polkadot/networks": "^6.0.5",
+    "@polkadot/types": "^4.1.2-3",
+    "@polkadot/util": "^6.0.5",
+    "@polkadot/util-crypto": "^6.0.5",
+    "@polkadot/wasm-crypto": "^4.0.2",
+    "@polkadot/x-rxjs": "^6.0.5",
     "babel-core": "^7.0.0-bridge.0",
     "styled-components": "^5.2.0",
     "typescript": "^4.0.3"
@@ -88,6 +89,7 @@
     "electron-builder": "^22.9.1",
     "electron-builder-notarize": "^1.2.0",
     "i18next-scanner": "^2.11.0",
+    "lerna": "^4.0.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-is": "^17.0.1",
@@ -104,7 +106,10 @@
   },
   "dependencies": {
     "bignumber.js": "^9.0.1",
+    "ethereumjs-tx": "^2.1.2",
+    "ethers": "^5.0.32",
     "klinecharts": "^5.7.0",
-    "uniqid": "^5.2.0"
+    "uniqid": "^5.2.0",
+    "web3": "git+https://github.com/PlatONnetwork/client-sdk-js#alaya-dev"
   }
 }
