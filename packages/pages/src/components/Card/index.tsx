@@ -35,6 +35,7 @@ function Card({
 
 export default React.memo(styled(Card)`
   min-width: 308px;
+  max-width: 308px;
   height: 152px;
   font-size: 12px;
   color: #ffffff;

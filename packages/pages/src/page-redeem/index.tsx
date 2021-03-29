@@ -8,7 +8,7 @@ import PublishAndRedeemCard from '../components/PdotCards/PublishAndRedeemCard';
 import { StatusContext } from '@polkadot/react-components';
 import { ActionStatus } from '@polkadot/pages/components/Status/types';
 import { creatStatusInfo } from '@polkadot/pages/helper/helper';
-import { bridgeAddress, createDepositTransactionParameters, erc20_minter_contract } from '../contract';
+import { createDepositTransactionParameters, createApproveTransactionParameters } from '../contract';
 import BigNumber from 'bignumber.js';
 
 interface Props {
@@ -23,32 +23,38 @@ export default function RedeemContent({className}: Props): React.ReactElement<Pr
   const {queueAction} = useContext(StatusContext);
   const status = {action: 'redeem'} as ActionStatus;
 
+  const sendErrorStatus = (error) => {
+    creatStatusInfo(status, 'error', error.message);
+    queueAction(status as ActionStatus);
+  }
+
   const redeem = () => {
-      if (platonAccount && amount) {
-        try {
-          const amountToBigNumber: BigNumber = (new BigNumber(amount)).times(1e18)
-          erc20_minter_contract.methods.approve(bridgeAddress, amountToBigNumber.toString()).call().then((isApprove: boolean) => {
-            console.log(isApprove)
-            isApprove && alaya.request({
-              method: 'platon_sendTransaction',
-              params: [createDepositTransactionParameters(platonAccount, currentAccount, amountToBigNumber)]
+    if (platonAccount && amount) {
+      try {
+        const amountToBigNumber: BigNumber = (new BigNumber(amount)).times(1e18);
+        alaya.request({
+          method: 'platon_sendTransaction',
+          params: [createApproveTransactionParameters(platonAccount, amountToBigNumber)]
+        }).then(() =>
+          alaya.request({
+            method: 'platon_sendTransaction',
+            params: [createDepositTransactionParameters(platonAccount, currentAccount, amountToBigNumber)]
+          })
+            .then(result => {
+              creatStatusInfo(status, 'success', `交易哈希: ${result}`);
+              queueAction(status as ActionStatus);
             })
-              .then(result => {
-                creatStatusInfo(status, 'success', `交易哈希: ${result}`);
-                queueAction(status as ActionStatus);
-              })
-              .catch(error => {
-                creatStatusInfo(status, 'error', error.message);
-                queueAction(status as ActionStatus);
-              });
-            }
-          );
-        } catch (err) {
-          console.log(err);
-        }
+            .catch(error => {
+              sendErrorStatus(error)
+            })
+        ).catch(error => {
+          sendErrorStatus(error)
+        });
+      } catch (err) {
+        console.log(err);
       }
     }
-  ;
+  };
 
   return (
     <Wrapper className={`contentWrapper ${className}`}>

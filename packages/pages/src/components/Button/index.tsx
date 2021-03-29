@@ -21,7 +21,7 @@ function Button({ className, onClick, text, icon, Icons, label, isBasic }: Butto
     <button className={`ui-button${label ? ' hasLabel' : ''}${isBasic ? ' isBasic' : ''} ${className}`} onClick={_onClick}>
       {text}
       {label}
-      {icon && <img src={icon} alt={icon} />}
+      {icon && <img src={icon} alt="" />}
       {Icons && <Icon icon={icon}/>}
     </button>
   );
