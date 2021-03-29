@@ -9,7 +9,7 @@ export interface ButtonProps {
   icon?: any;
   Icons?: any;
   label?: React.ReactNode;
-  isBasic?: boolean | undefined;
+  isBasic?: boolean;
 }
 
 function Button({ className, onClick, text, icon, Icons, label, isBasic }: ButtonProps): React.ReactElement<ButtonProps> {

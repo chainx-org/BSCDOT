@@ -1,6 +1,3 @@
-// Copyright 2017-2020 @polkadot/apps authors & contributors
-// SPDX-License-Identifier: Apache-2.0
-
 import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import { Records } from '@polkadot/pages/components';
@@ -11,7 +8,8 @@ import PublishAndRedeemCard from '../components/PdotCards/PublishAndRedeemCard';
 import { StatusContext } from '@polkadot/react-components';
 import { ActionStatus } from '@polkadot/pages/components/Status/types';
 import { creatStatusInfo } from '@polkadot/pages/helper/helper';
-import { createDepositTransactionParameters } from '../contract';
+import { bridgeAddress, createDepositTransactionParameters, erc20_minter_contract } from '../contract';
+import BigNumber from 'bignumber.js';
 
 interface Props {
   className?: string;
@@ -20,32 +18,37 @@ interface Props {
 export default function RedeemContent({className}: Props): React.ReactElement<Props> {
   const {hasAccounts, currentAccount} = useContext(PolkadotAccountsContext);
   const {platonAccount, hasPlatonAccount, RedeemRecords} = useContext(PlatonAccountsContext);
-  const redreemLength = RedeemRecords.length;
+  const redeemLength = RedeemRecords.length;
   const [amount, setAmount] = useState<string>('');
   const {queueAction} = useContext(StatusContext);
   const status = {action: 'redeem'} as ActionStatus;
 
   const redeem = () => {
-    if (platonAccount && amount) {
-      try {
-        alaya.request({
-          method: 'platon_sendTransaction',
-          params: [createDepositTransactionParameters(platonAccount, currentAccount, amount)]
-        })
-          .then(result => {
-            creatStatusInfo(status, 'success',`交易哈希: ${result}`);
-            queueAction(status as ActionStatus);
-          })
-          .catch(error => {
-            creatStatusInfo(status, 'error', error.message);
-            queueAction(status as ActionStatus);
-          });
-
-      } catch (err) {
-        console.log(err);
+      if (platonAccount && amount) {
+        try {
+          const amountToBigNumber: BigNumber = (new BigNumber(amount)).times(1e18)
+          erc20_minter_contract.methods.approve(bridgeAddress, amountToBigNumber.toString()).call().then((isApprove: boolean) => {
+            console.log(isApprove)
+            isApprove && alaya.request({
+              method: 'platon_sendTransaction',
+              params: [createDepositTransactionParameters(platonAccount, currentAccount, amountToBigNumber)]
+            })
+              .then(result => {
+                creatStatusInfo(status, 'success', `交易哈希: ${result}`);
+                queueAction(status as ActionStatus);
+              })
+              .catch(error => {
+                creatStatusInfo(status, 'error', error.message);
+                queueAction(status as ActionStatus);
+              });
+            }
+          );
+        } catch (err) {
+          console.log(err);
+        }
       }
     }
-  };
+  ;
 
   return (
     <Wrapper className={`contentWrapper ${className}`}>
@@ -54,7 +57,7 @@ export default function RedeemContent({className}: Props): React.ReactElement<Pr
                               setAmount={setAmount}/>
         : <PdotNodata title='赎回 PDOT' noDataMsg='请先登录 Polkadot 和 PlatON 账户'/>
       }
-      <Records className="right" title="赎回记录" records={RedeemRecords} recordLength={redreemLength} arrows={true}/>
+      <Records className="right" title="赎回记录" records={RedeemRecords} recordLength={redeemLength} arrows={true}/>
     </Wrapper>
   );
 }

@@ -1,4 +1,4 @@
-import React, {createContext, FC, useEffect, useState} from 'react';
+import React, { createContext, FC, useEffect, useState } from 'react';
 
 export interface NetWorkProviderData {
   netWork: NetWorkInfo;
@@ -16,8 +16,7 @@ export const NetWorkContext = createContext<NetWorkProviderData>({} as NetWorkPr
 
 export const NetWorkProvider: FC = ({children}) => {
   const localNet: NetWorkInfo = JSON.parse(window.localStorage.getItem('netWork') || '{}');
-  const polkadotSetting = JSON.parse(window.localStorage.getItem('settings')!)
-
+  const polkadotSetting = JSON.parse(window.localStorage.getItem('settings')!);
   const [netWork, setNetWork] = useState<NetWorkInfo>({
     name: localNet.name || '',
     polkadotNetUrl: localNet.polkadotNetUrl || '',
@@ -25,23 +24,21 @@ export const NetWorkProvider: FC = ({children}) => {
   });
 
   useEffect(() => {
-    if(!localNet.name){
-      polkadotSetting.apiUrl === 'wss://westend-rpc.polkadot.io'?
-        setNetWork({
-          name: 'Alaya 网络',
-          polkadotNetUrl: polkadotSetting.apiUrl,
-          platonNetUrl: 'http://127.0.0.1:6789'
-        })
-        : setNetWork({
-          name: 'Platon 网络',
-          polkadotNetUrl: polkadotSetting.apiUrl,
-          platonNetUrl: ''
-        })
-    }
-  }, [localNet, polkadotSetting])
+    polkadotSetting.apiUrl === 'wss://westend-rpc.polkadot.io' ?
+      setNetWork({
+        name: 'Alaya 网络',
+        polkadotNetUrl: polkadotSetting.apiUrl,
+        platonNetUrl: 'http://47.110.34.31:6789'
+      })
+      : setNetWork({
+        name: 'Platon 网络',
+        polkadotNetUrl: polkadotSetting.apiUrl,
+        platonNetUrl: ''
+      });
+  }, [polkadotSetting.apiUrl]);
 
   useEffect(() => {
-    window.localStorage.setItem('netWork', JSON.stringify(netWork))
+    window.localStorage.setItem('netWork', JSON.stringify(netWork));
   }, [netWork]);
 
   return (

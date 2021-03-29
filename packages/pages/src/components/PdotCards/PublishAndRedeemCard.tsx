@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, { useContext } from 'react';
 import { Wrapper, Title, Content, PublishAndRedeem, AmountAndTip, RedeemWarn } from './components'
 import AccountMessage from "../AccountMessage";
 import InputAutoLength from "@polkadot/pages/components/InputAutoLength";
@@ -14,19 +14,10 @@ interface PublishAndRedeemProps {
   isReverse?: boolean;
   unit?: string;
   onClick?: () => void;
-  setAmount?: any;
+  setAmount: React.Dispatch<string>;
 }
 
-export default function PublishAndRedeemCard({
-  children,
-  className = "",
-  title,
-  isReverse,
-  unit,
-  onClick,
-  setAmount
-}: PublishAndRedeemProps): React.ReactElement<PublishAndRedeemProps> {
-
+export default function PublishAndRedeemCard({children, className = "", title, isReverse, unit, onClick, setAmount}: PublishAndRedeemProps): React.ReactElement<PublishAndRedeemProps> {
   const {currentAccount} = useContext(PolkadotAccountsContext)
   const {platonAccount} = useContext(PlatonAccountsContext)
   const {formatProperties} = useContext(ApiContext)
@@ -38,13 +29,13 @@ export default function PublishAndRedeemCard({
         <PublishAndRedeem className={`ui-card-content`} key={title}>
           <AmountAndTip className='amountTit'>{title}数量</AmountAndTip>
           {
-            title==='发行'? <InputAutoLength placeholder="0" tokenName="PDOT" onBlur={(e) => setAmount(e.target.textContent)}/>:
-            <InputAutoLength placeholder="0" tokenName={formatProperties.tokenSymbol[0]} onBlur={(e) => setAmount(e.target.textContent)}/>
+            title==='发行'? <InputAutoLength placeholder="0" tokenName="PDOT" onBlur={(e) => setAmount(e.target.textContent!)}/>:
+            <InputAutoLength placeholder="0" tokenName={formatProperties.tokenSymbol[0]} onBlur={(e) => setAmount(e.target.textContent!)}/>
           }
           <AmountAndTip className='tip'>手续费： 0.5 PDOT</AmountAndTip>
           <AccountMessage isReverse={isReverse} polkadotAddress={currentAccount} platonAddress={platonAccount}/>
           {
-            isReverse ? <RedeemWarn className="warn isShow">PDOT 余额不足</RedeemWarn>: null
+            // isReverse ? <RedeemWarn className="warn isShow">PDOT 余额不足</RedeemWarn>: null
           }
           <Button className="isConfirm" onClick={onClick} text={`确定${title}`} />
         </PublishAndRedeem>

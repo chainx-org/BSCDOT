@@ -2,8 +2,8 @@ import React, { createContext, FC, useEffect, useState } from 'react';
 import usePlatonAccounts from '@polkadot/pages/hooks/usePlatonAccounts';
 import useTokenTransferList, { PublishRecord, RedeemRecord, Transfer } from '@polkadot/pages/hooks/useTransferList';
 import { erc20_minter_contract } from '@polkadot/pages/contract';
-import { interval, of, Subscription } from 'rxjs';
-import { filter, switchMap } from 'rxjs/operators';
+import { interval, of, Subscription } from '@polkadot/x-rxjs';
+import { filter, switchMap } from '@polkadot/x-rxjs/operators';
 import { fromPromise } from 'rxjs/internal-compatibility';
 
 export interface PlatonAccountsProviderData {
@@ -15,8 +15,8 @@ export interface PlatonAccountsProviderData {
   PublishRecords: PublishRecord[];
   RedeemRecords: RedeemRecord[];
   Transfers: Transfer[];
-  pdotAmount: number;
-  setPdotAmount: React.Dispatch<number>;
+  pdotAmount: string;
+  setPdotAmount: React.Dispatch<string>;
 }
 
 export const PlatonAccountsContext = createContext<PlatonAccountsProviderData>({} as PlatonAccountsProviderData);
@@ -24,7 +24,7 @@ export const PlatonAccountsContext = createContext<PlatonAccountsProviderData>({
 export const PlatonAccountsProvider: FC = ({children}) => {
   const {platonAccounts, platonSelectedAccount, hasPlatonAccount} = usePlatonAccounts();
   const [platonAccount, setPlatonAccount] = useState<string>(platonSelectedAccount);
-  const [pdotAmount, setPdotAmount] = useState<number>(0);
+  const [pdotAmount, setPdotAmount] = useState<string>('0');
   const {PublishRecords, Transfers, RedeemRecords} = useTokenTransferList(platonAccount);
 
   // @ts-ignore
@@ -57,7 +57,7 @@ export const PlatonAccountsProvider: FC = ({children}) => {
       switchMap(() => {
         return fromPromise(erc20_minter_contract.methods.balanceOf(platonAccount).call());
       })
-    ).subscribe(amount => setPdotAmount(amount as number));
+    ).subscribe(amount => setPdotAmount(amount as string));
 
     return () => balance$.unsubscribe();
   }, [pdotAmount, platonAccounts]);

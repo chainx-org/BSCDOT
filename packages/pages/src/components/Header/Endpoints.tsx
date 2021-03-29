@@ -29,7 +29,7 @@ const netWorkList: NetWorkInfo[] = [
     title: "Alaya 网络",
     iconUrl: ALAYA,
     polkadotNetUrl: "wss://westend-rpc.polkadot.io",
-    platOnNetUrl: "http://127.0.0.1:6789"
+    platOnNetUrl: "http://47.110.34.31:6789"
   },
   {
     title: "Platon 网络",

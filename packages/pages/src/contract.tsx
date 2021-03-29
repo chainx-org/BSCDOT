@@ -13,7 +13,7 @@ if(Object.keys(netWorkInfo).length >= 1){
   web3 = new Web3(`${netWorkInfo.platonNetUrl}`);
 }else{
   const polkadotSetting = uiSettings.get()
-  polkadotSetting.apiUrl === 'wss://westend-rpc.polkadot.io'? web3 = new Web3('http://127.0.0.1:6789'): web3 = new Web3('')
+  polkadotSetting.apiUrl === 'wss://westend-rpc.polkadot.io'? web3 = new Web3('http://47.110.34.31:6789'): web3 = new Web3('')
 }
 
 const {ppos} = web3;
@@ -1680,13 +1680,13 @@ const addressToPublicKey = (address: string): string => {
 };
 
 
-const createDepositTransactionParameters = (from: string, to: string, amount: string) => {
+const createDepositTransactionParameters = (from: string, to: string, amount: BigNumber) => {
   return {
     nonce: '0x00', // ignored by MetaMask
     to: bridgeAddress,
     from, // must match user's active address.
     value: '0', // Only required to send ether to the recipient from the initiating external account.
-    data: bridge_contract.methods.deposit(1, resourceID, createERCDepositData((new BigNumber(amount)).times(1e18).toNumber(), 66, bytesToHex(toUtf8Bytes(addressToPublicKey(to))))).encodeABI(),
+    data: bridge_contract.methods.deposit(1, resourceID, createERCDepositData(amount.toNumber(), 66, bytesToHex(toUtf8Bytes(addressToPublicKey(to))))).encodeABI(),
     // chainId: '222', // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
   };
 };

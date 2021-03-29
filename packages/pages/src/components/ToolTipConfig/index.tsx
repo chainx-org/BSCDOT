@@ -1,12 +1,12 @@
 import React, { useContext } from 'react';
 import ReactDOM from 'react-dom';
 import styled from 'styled-components';
-import {Cell} from './components/Cell/Cell';
+import { Cell } from './components/Cell/Cell';
 import CLOSE from './assets/icon-close.png';
 import { PolkadotAccountsContext } from '@polkadot/pages/components/PolkadotAccountsProvider';
-import {NetWorkContext} from '@polkadot/pages/components/NetWorkProvider';
+import { NetWorkContext } from '@polkadot/pages/components/NetWorkProvider';
 
-const Wrapper = React.memo(styled.section`
+const Wrapper = styled.section`
   position: fixed;
   left: 50%;
   top: 5%;
@@ -30,8 +30,8 @@ const Wrapper = React.memo(styled.section`
       cursor: pointer;
     }
   }
-`);
-const Cover = React.memo(styled.section`
+`;
+const Cover = styled.section`
   position: fixed;
   top: 0;
   left: 0;
@@ -40,11 +40,12 @@ const Cover = React.memo(styled.section`
   background-color: rgba(0, 0, 0, 0.3);
   // display: none;
   z-index: 998;
-`);
-const Coverer = () => {
+`;
+
+const Shade = () => {
   return (
     <Cover>
-      <div id="cover" />
+      <div id="cover"/>
     </Cover>
   );
 };
@@ -53,25 +54,25 @@ interface ToolTipConfigProps {
   list: object[];
   isOpen: boolean;
   setIsOpen: React.Dispatch<boolean>;
-  listType: "netWork" | "accountList";
+  listType: 'netWork' | 'accountList';
 }
 
 export default function ToolTipConfig({list, isOpen, setIsOpen, listType}: ToolTipConfigProps): React.ReactElement<ToolTipConfigProps> {
-  const {currentAccount} = useContext(PolkadotAccountsContext)
-  const {netWork} = useContext(NetWorkContext)
+  const {currentAccount} = useContext(PolkadotAccountsContext);
+  const {netWork} = useContext(NetWorkContext);
   const _toggle = (): void => setIsOpen(false);
 
   const component = (
     <>
       {isOpen && (
         <>
-          <Coverer />
+          <Shade/>
 
           <Wrapper>
             <div className="header">
-              <img src={CLOSE} onClick={_toggle} />
+              <img src={CLOSE as string} onClick={_toggle} alt=""/>
             </div>
-            {list.map(function(item: any) {
+            {list.map(function (item: any) {
               return (
                 <Cell
                   key={Math.random()}

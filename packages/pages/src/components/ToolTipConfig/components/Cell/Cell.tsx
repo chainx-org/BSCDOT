@@ -6,7 +6,7 @@ import uiSettings from '@polkadot/ui-settings';
 import {NetWorkContext} from '@polkadot/pages/components/NetWorkProvider';
 import { SettingsStruct } from '@polkadot/ui-settings/types';
 
-const Cells = React.memo(styled.section`
+const Cells = styled.section`
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -62,7 +62,7 @@ const Cells = React.memo(styled.section`
     background: #d9d9d9;
     cursor: pointer;
   }
-`);
+`;
 
 interface CellProps {
   iconUrl?: string;
