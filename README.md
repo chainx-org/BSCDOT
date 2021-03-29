@@ -18,11 +18,11 @@ yarn start
 1. Open https://platdot.chainx.org/ website，this is our homepage
 ![](https://ftp.bmp.ovh/imgs/2021/03/2388c7a785618747.png)
 
-2. Then you need to log in to the relevant account through the polkadot extension and samurai plugin to perform related operations such as transfers
+2. Then you need to log in to the relevant account through the ```polkadot extension``` and ```samurai``` plugin to perform related operations such as transfers
 
-    If you have installed the polkadot extension and samurai plug-ins, when you first enter the page, two plug-ins will be called up, prompting you to connect
+    If you have installed the ```polkadot extension``` and ```samurai``` plugin, when you first enter the page, two plugins will be called up, prompting you to connect
 ![](https://ftp.bmp.ovh/imgs/2021/03/2615ceee28332533.png)
-    If the browser does not have a plug-in installed, click the button on the homepage, and it will jump to the download address of the plug-in
+    If the browser does not have a plugin installed, click the button on the homepage, and it will jump to the download address of the plugin
 ![](https://ftp.bmp.ovh/imgs/2021/03/57e6cc5e9562d46c.png)
 
 3.  Page form after the login
@@ -37,7 +37,7 @@ yarn start
 
 5. How to switch platon account?
 
-    Click to open the samurai plugin
+    Click to open the ```samurai``` plugin
 ![](https://i.bmp.ovh/imgs/2021/03/d39d220f39354a12.png)
     Click to switch account
 ![](http://lc-XLoqMObG.cn-n1.lcfile.com/c6247812ce28699bede1.png?imageView2/0)
@@ -53,8 +53,10 @@ yarn start
 
 7. How to proceed with the redeem?
 
-    Please make sure to enter the transaction quantity and click the operation, and this click operation will evoke the samurai plugin
-![](http://lc-XLoqMObG.cn-n1.lcfile.com/01590348174ecfb7b92d.png)
+    Please make sure to enter the transaction quantity and click the operation, and this click operation will evoke the samurai plugin, then you need to click confirm to proceed with the transaction
+![](http://lc-XLoqMObG.cn-n1.lcfile.com/18a480eec98917c69155.png)
+    After confirming, ```samurai``` will call up again to initiate transaction-related information, you need to click again to confirm
+![](http://lc-XLoqMObG.cn-n1.lcfile.com/ea2e8e85d4e1a5bd290f.png)
     After clicking, the transaction hash will be returned, and you can use this transaction hash to query in the alaya browser
 ![](http://lc-XLoqMObG.cn-n1.lcfile.com/4842586edae696c2c851.png)
 
@@ -65,8 +67,18 @@ yarn start
 
 9. How to check whether the transaction is successful?
 
-    If it is a redeem and transfer operation, open the samurai plug-in to check the progress of the transaction.
+    If it is a redeem and transfer operation, open the ```samurai``` plugin to check the progress of the transaction.
 ![](http://lc-XLoqMObG.cn-n1.lcfile.com/0f59079c8d5dc8a1633e.png)
 
     If it is a publish operation, you can go to polkadot scan to view the specific information of the transaction, https://polkadot.js.org/apps/#/explorer
 ![](http://lc-XLoqMObG.cn-n1.lcfile.com/fdcad7102178516d969a.png)
+
+10. How to switch network?
+
+    Click the switch network button, expand the option box, and select the network you need.
+
+    Alaya network corresponds to alaya and westend, Platon network corresponds to platon and polkadot.
+![](http://lc-XLoqMObG.cn-n1.lcfile.com/a0abed351459eff2052b.png)
+
+    用户可以在本地 localStorage 中查看当前网络状态
+![](http://lc-XLoqMObG.cn-n1.lcfile.com/a31c86c0c50704018575.png)
