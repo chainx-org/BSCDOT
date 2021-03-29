@@ -6,13 +6,11 @@ import type { QueueStatus, QueueTx, QueueTxStatus } from './types';
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import type { IconName } from '@fortawesome/fontawesome-svg-core';
-
-import AddressMini from '../AddressMini';
-import Button from '../Button';
-import Icon from '../Icon';
-import Spinner from '../Spinner';
-import { useTranslation } from '../translate';
-import { classes } from '../util';
+import { Button } from '@polkadot/pages/components';
+import Icon from '@polkadot/pages/components/Icon';
+import Spinner from '@polkadot/pages/components/Spinner';
+import { useTranslation } from '@polkadot/pages/components/translate';
+import { classes } from '@polkadot/pages/helper/helper';
 import StatusContext from './Context';
 import { STATUS_COMPLETE } from './constants';
 
@@ -91,9 +89,6 @@ function renderStatus ({ account, action, id, message, removeItem, status }: Que
                 ? action.map((action, index) => <div key={index}>{action}</div>)
                 : action}
             </div>
-            {account && (
-              <AddressMini value={account} />
-            )}
             <div className='status'>
               {message}
             </div>

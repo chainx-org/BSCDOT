@@ -3,7 +3,7 @@
 
 import type { EventRecord } from '@polkadot/types/interfaces';
 import type { KeyringOptions } from '@polkadot/ui-keyring/options/types';
-import type { ActionStatus } from '@polkadot/react-components/Status/types';
+import type { ActionStatus } from '@polkadot/pages/components/Status/types';
 
 import React, { useContext, useEffect } from 'react';
 import { Status as StatusDisplay, StatusContext } from '@polkadot/react-components';
@@ -11,7 +11,7 @@ import { useAccounts, useApi, useCall } from '@polkadot/react-hooks';
 import { stringToU8a } from '@polkadot/util';
 import { xxhashAsHex } from '@polkadot/util-crypto';
 
-import { useTranslation } from '../translate';
+import { useTranslation } from './translate';
 
 interface Props {
   optionsAll?: KeyringOptions;

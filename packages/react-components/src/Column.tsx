@@ -6,7 +6,7 @@ import styled from 'styled-components';
 
 import Collection, { CollectionProps as Props, CollectionState as State, collectionStyles } from './Collection';
 
-import translate from './translate';
+import translate from '@polkadot/pages/components/translate';
 
 class Column extends Collection<Props, State> {
   public render (): React.ReactNode {

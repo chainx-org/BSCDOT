@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import type { SiDef } from '@polkadot/util/types';
-import type { BitLength } from './types';
+import type { BitLength } from '@polkadot/pages/components/types';
 
 import BN from 'bn.js';
 import React, { useCallback, useEffect, useState } from 'react';
@@ -14,7 +14,7 @@ import { classes } from './util';
 import { BitLengthOption } from './constants';
 import Dropdown from './Dropdown';
 import Input, { KEYS_PRE } from './Input';
-import { useTranslation } from './translate';
+import { useTranslation } from '@polkadot/pages/components/translate';
 
 interface Props {
   autoFocus?: boolean;

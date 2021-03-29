@@ -3,7 +3,26 @@
 
 import React, { useCallback, useState } from "react";
 import styled from "styled-components";
-import { KEYS_PRE } from "@polkadot/react-components/Input";
+
+const KEYS = {
+  A: 'a',
+  ALT: 'Alt',
+  ARROW_LEFT: 'ArrowLeft',
+  ARROW_RIGHT: 'ArrowRight',
+  BACKSPACE: 'Backspace',
+  C: 'c',
+  CMD: 'Meta',
+  CTRL: 'Control',
+  // DECIMAL: getDecimalSeparator(),
+  ENTER: 'Enter',
+  ESCAPE: 'Escape',
+  TAB: 'Tab',
+  V: 'v',
+  X: 'x',
+  ZERO: '0'
+};
+
+const KEYS_PRE: any[] = [KEYS.ALT, KEYS.CMD, KEYS.CTRL];
 
 const Wrapper = styled.div`
   margin: 16px auto;

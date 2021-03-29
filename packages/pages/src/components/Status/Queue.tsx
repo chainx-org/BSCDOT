@@ -12,7 +12,7 @@ import { SubmittableResult } from '@polkadot/api';
 import { registry } from '@polkadot/react-api';
 import jsonrpc from '@polkadot/types/interfaces/jsonrpc';
 
-import { getContractAbi } from '../util';
+import { getContractAbi } from '@polkadot/react-components/util';
 import { QueueProvider } from './Context';
 import { STATUS_COMPLETE } from './constants';
 

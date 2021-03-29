@@ -8,7 +8,7 @@ import { ApiPromise } from '@polkadot/api';
 import { useApi, useBlockTime } from '@polkadot/react-hooks';
 
 import Dropdown from './Dropdown';
-import { useTranslation } from './translate';
+import { useTranslation } from '@polkadot/pages/components/translate';
 
 export interface Props {
   className?: string;

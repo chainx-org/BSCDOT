@@ -5,8 +5,8 @@ import {Wrapper, Title, Content, TransfersCard, AmountAndAddress} from './compon
 import {createTransferTransactionParameters} from '@polkadot/pages/contract';
 import {PlatonAccountsContext} from '@polkadot/pages/components/PlatonAccountsProvider';
 import {creatStatusInfo} from '@polkadot/pages/helper/helper';
-import {ActionStatus} from '@polkadot/react-components/Status/types';
-import {StatusContext} from '@polkadot/react-components';
+import {ActionStatus} from '@polkadot/pages/components/Status/types';
+import {StatusContext} from '@polkadot/pages/components';
 import Button from '../Button';
 import InputDex from '../Input/InputDex';
 import Input from '../Input/Input';
@@ -33,7 +33,7 @@ export default function TransferCard({children, className = '', title}: PdotCard
           params: [createTransferTransactionParameters(platonAccount, amount, targetAddress)]
         })
           .then(result => {
-            creatStatusInfo(status, `交易哈希: ${result}`);
+            creatStatusInfo(status, 'success',`交易哈希: ${result}`);
             queueAction(status as ActionStatus);
           })
           .catch(error => {

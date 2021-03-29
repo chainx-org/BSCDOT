@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import useLocalStorage from '@polkadot/pages/hooks/useLocalStorage';
 import {PolkadotAccountsContext} from '@polkadot/pages/components/PolkadotAccountsProvider';
 import uiSettings from '@polkadot/ui-settings';
-import {saveAndReload} from '@polkadot/apps/Endpoints/modals/util';
 import {NetWorkContext} from '@polkadot/pages/components/NetWorkProvider';
+import { SettingsStruct } from '@polkadot/ui-settings/types';
 
 const Cells = React.memo(styled.section`
   cursor: pointer;
@@ -74,6 +74,16 @@ interface CellProps {
   listType: 'netWork' | 'accountList';
   item: any;
 }
+
+export function save (settings: SettingsStruct): void {
+  uiSettings.set(settings);
+}
+
+export function saveAndReload (settings: SettingsStruct): void {
+  save(settings);
+  window.location.reload();
+}
+
 
 export function Cell({className = '', iconUrl, title, account, accountName, isSelected, listType, item}: CellProps): React.ReactElement<CellProps> {
   const [, setValue] = useLocalStorage<string>('currentAccount');

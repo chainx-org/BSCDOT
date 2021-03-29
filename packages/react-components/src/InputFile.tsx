@@ -1,7 +1,7 @@
 // Copyright 2017-2020 @polkadot/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import type { ThemeProps } from './types';
+import type { ThemeProps } from '@polkadot/pages/components/types';
 
 import React, { useCallback, useState, createRef } from 'react';
 import Dropzone, { DropzoneRef } from 'react-dropzone';
@@ -9,7 +9,7 @@ import styled from 'styled-components';
 import { formatNumber, isHex, u8aToString, hexToU8a } from '@polkadot/util';
 
 import Labelled from './Labelled';
-import { useTranslation } from './translate';
+import { useTranslation } from '@polkadot/pages/components/translate';
 
 export interface InputFileProps {
   // Reference Example Usage: https://github.com/react-dropzone/react-dropzone/tree/master/examples/Accept

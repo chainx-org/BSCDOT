@@ -3,7 +3,7 @@
 
 import type { IconName } from '@fortawesome/fontawesome-svg-core';
 import type { DeriveAccountInfo, DeriveAccountRegistration } from '@polkadot/api-derive/types';
-import type { ThemeProps } from '@polkadot/react-components/types';
+import type { ThemeProps } from '@polkadot/pages/components/types';
 import type { AccountId, AccountIndex, Address } from '@polkadot/types/interfaces';
 
 import React, { useCallback, useContext, useEffect, useState } from 'react';

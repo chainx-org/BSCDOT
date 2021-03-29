@@ -1,7 +1,7 @@
 // Copyright 2017-2020 @polkadot/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import type { ThemeDef } from '@polkadot/react-components/types';
+import type { ThemeDef } from '@polkadot/pages/components/types';
 import type { ActionsProps, ColumnProps, ModalProps } from './types';
 
 import React, { useContext } from 'react';

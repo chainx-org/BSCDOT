@@ -9,7 +9,7 @@ import styled from 'styled-components';
 import { externalLinks } from '@polkadot/apps-config';
 import { useApi } from '@polkadot/react-hooks';
 
-import { useTranslation } from './translate';
+import { useTranslation } from '@polkadot/pages/components/translate';
 
 interface Props {
   className?: string;

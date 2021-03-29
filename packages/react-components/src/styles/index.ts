@@ -1,7 +1,7 @@
 // Copyright 2017-2020 @polkadot/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { ThemeProps } from '../types';
+import { ThemeProps } from '@polkadot/pages/components/types';
 
 import { createGlobalStyle } from 'styled-components';
 
@@ -347,11 +347,11 @@ export default createGlobalStyle<Props & ThemeProps>`
   h1, h2, h3, h4, h5 {
     margin-bottom: 0.25rem;
   }
-  
+
   h6, p {
     margin: 0;
   }
-  
+
   ul, li {
     list-style: none;
     padding: 0;

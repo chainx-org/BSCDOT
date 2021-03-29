@@ -1,7 +1,7 @@
 // Copyright 2017-2020 @polkadot/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import type { VoidFn } from './types';
+import type { VoidFn } from '@polkadot/pages/components/types';
 
 import React, { useCallback, useMemo } from 'react';
 import styled from 'styled-components';
@@ -11,7 +11,7 @@ import EditButton from './EditButton';
 import InputTags from './InputTags';
 import Tag from './Tag';
 
-import { useTranslation } from './translate';
+import { useTranslation } from '@polkadot/pages/components/translate';
 
 interface Props {
   children?: React.ReactNode;

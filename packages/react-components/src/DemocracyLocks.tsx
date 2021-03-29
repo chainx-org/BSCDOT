@@ -11,8 +11,8 @@ import { useApi, useCall } from '@polkadot/react-hooks';
 import { BlockToTime, FormatBalance } from '@polkadot/react-query';
 import { BN_ZERO, bnMax, formatBalance, formatNumber } from '@polkadot/util';
 
-import { useTranslation } from './translate';
-import Icon from './Icon';
+import { useTranslation } from '@polkadot/pages/components/translate';
+import Icon from '@polkadot/pages/components/Icon';
 import Tooltip from './Tooltip';
 
 interface Props {

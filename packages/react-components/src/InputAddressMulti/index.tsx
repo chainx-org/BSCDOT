@@ -5,9 +5,9 @@ import React, { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useDebounce, useLoadingDelay } from '@polkadot/react-hooks';
 
-import { useTranslation } from '../translate';
+import { useTranslation } from '@polkadot/pages/components/translate';
 import Input from '../Input';
-import Spinner from '../Spinner';
+import Spinner from '@polkadot/pages/components/Spinner';
 import Available from './Available';
 import Selected from './Selected';
 

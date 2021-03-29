@@ -9,7 +9,7 @@ import { PolkadotAccountsContext } from '@polkadot/pages/components/PolkadotAcco
 import PdotNodata from '../components/PdotCards/PdotNodata';
 import PublishAndRedeemCard from '../components/PdotCards/PublishAndRedeemCard';
 import { StatusContext } from '@polkadot/react-components';
-import { ActionStatus } from '@polkadot/react-components/Status/types';
+import { ActionStatus } from '@polkadot/pages/components/Status/types';
 import { creatStatusInfo } from '@polkadot/pages/helper/helper';
 import { createDepositTransactionParameters } from '../contract';
 
@@ -33,7 +33,7 @@ export default function RedeemContent({className}: Props): React.ReactElement<Pr
           params: [createDepositTransactionParameters(platonAccount, currentAccount, amount)]
         })
           .then(result => {
-            creatStatusInfo(status, `交易哈希: ${result}`);
+            creatStatusInfo(status, 'success',`交易哈希: ${result}`);
             queueAction(status as ActionStatus);
           })
           .catch(error => {

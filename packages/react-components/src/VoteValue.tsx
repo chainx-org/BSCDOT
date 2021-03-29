@@ -10,7 +10,7 @@ import { BalanceVoting } from '@polkadot/react-query';
 import { BN_ZERO } from '@polkadot/util';
 
 import InputBalance from './InputBalance';
-import { useTranslation } from './translate';
+import { useTranslation } from '@polkadot/pages/components/translate';
 
 interface Props {
   accountId?: string | null;

@@ -11,7 +11,7 @@ import PublishAndRedeemCard from '../components/PdotCards/PublishAndRedeemCard';
 import {web3FromAddress} from '@polkadot/extension-dapp';
 import { useApi } from '@polkadot/react-hooks';
 import {StatusContext} from '@polkadot/react-components';
-import {ActionStatus} from '@polkadot/react-components/Status/types';
+import {ActionStatus} from '@polkadot/pages/components/Status/types';
 import {creatStatusInfo} from '@polkadot/pages/helper/helper';
 import BigNumber from 'bignumber.js';
 
@@ -45,7 +45,7 @@ export default function PublicContent({ className }: Props): React.ReactElement<
               (statusData) => {
                 const formatStatusData = JSON.parse(JSON.stringify(statusData))
                 if(formatStatusData.status.inBlock){
-                  creatStatusInfo(status, '发行成功', currentAccount)
+                  creatStatusInfo(status, 'success','发行成功')
                   queueAction(status as ActionStatus)
                 }else{
                   creatStatusInfo(status, 'sending', '正在发送中...')

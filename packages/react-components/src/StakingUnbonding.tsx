@@ -10,9 +10,9 @@ import { useApi, useCall } from '@polkadot/react-hooks';
 import { BlockToTime, FormatBalance } from '@polkadot/react-query';
 import { BN_ONE, BN_ZERO, formatBalance, formatNumber } from '@polkadot/util';
 
-import Icon from './Icon';
+import Icon from '@polkadot/pages/components/Icon';
 import Tooltip from './Tooltip';
-import { useTranslation } from './translate';
+import { useTranslation } from '@polkadot/pages/components/translate';
 
 interface Props {
   className?: string;

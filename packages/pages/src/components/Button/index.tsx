@@ -1,8 +1,8 @@
-import Icon from "@polkadot/react-components/Icon";
+import Icon from "../Icon";
 import React, { useCallback } from "react";
 import styled from "styled-components";
 
-interface ButtonProps {
+export interface ButtonProps {
   className?: string;
   onClick?: () => void | Promise<void>;
   text?: string;

@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import Hash from './Hash';
 import { Detail, Header, Account, Label, Line, Sequence, Inout, Amount } from './Detail';
 import moment from 'moment';
-import { useTranslation } from '@polkadot/react-components/translate';
+import { useTranslation } from '@polkadot/pages/components/translate';
 import { useOutsideClick } from '../hooks';
 import { useApi } from '@polkadot/react-hooks';
 import Arrow from './arrow.svg';

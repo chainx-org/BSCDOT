@@ -4,7 +4,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { useTranslation } from './translate';
+import { useTranslation } from '@polkadot/pages/components/translate';
 import spinnerSrc from './Spinner.png';
 
 interface Props {
