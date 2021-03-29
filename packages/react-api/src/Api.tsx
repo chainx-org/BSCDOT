@@ -16,7 +16,7 @@ import { WsProvider } from '@polkadot/rpc-provider';
 import { StatusContext } from '@polkadot/pages/components/Status';
 import ApiSigner from '@polkadot/react-signer/signers/ApiSigner';
 import keyring from '@polkadot/ui-keyring';
-import uiSettings from '@polkadot/ui-settings';
+import settings from '@polkadot/ui-settings';
 import { formatBalance, isTestChain } from '@polkadot/util';
 import { setSS58Format } from '@polkadot/util-crypto';
 import { defaults as addressDefaults } from '@polkadot/util-crypto/address/defaults';
@@ -128,7 +128,9 @@ async function retrieve(api: ApiPromise, injectedPromise: Promise<InjectedExtens
 async function loadOnReady(api: ApiPromise, injectedPromise: Promise<InjectedExtension[]>, store: KeyringStore | undefined, types: Record<string, Record<string, string>>): Promise<ApiState> {
   registry.register(types);
   const { injectedAccounts, properties, systemChain, systemChainType, systemName, systemVersion } = await retrieve(api, injectedPromise);
-  const ss58Format = Number(JSON.stringify(properties.ss58Format))
+  const ss58Format = settings.prefix === -1
+    ? properties.ss58Format.unwrapOr(DEFAULT_SS58).toNumber()
+    : settings.prefix;
   const tokenSymbol = properties.tokenSymbol.unwrapOr(undefined)?.toString();
   const tokenDecimals = properties.tokenDecimals.unwrapOr(DEFAULT_DECIMALS);
   const isEthereum = ethereumNetworks.includes(api.runtimeVersion.specName.toString());
