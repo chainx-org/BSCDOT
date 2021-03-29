@@ -4,7 +4,7 @@
 import type { SubmittableExtrinsic } from '@polkadot/api/types';
 import type { SignerOptions } from '@polkadot/api/submittable/types';
 import type { KeyringPair } from '@polkadot/keyring/types';
-import type { QueueTx, QueueTxMessageSetStatus } from '@polkadot/react-components/Status/types';
+import type { QueueTx, QueueTxMessageSetStatus } from '@polkadot/pages/components/Status/types';
 import type { Option } from '@polkadot/types';
 import type { Multisig, Timepoint } from '@polkadot/types/interfaces';
 import type { AddressProxy, QrState } from './types';

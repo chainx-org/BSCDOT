@@ -1,7 +1,7 @@
 // Copyright 2017-2020 @polkadot/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import type { ThemeProps } from '../types';
+import type { ThemeProps } from '@polkadot/pages/components/types';
 import type { TabItem } from './types';
 
 import React from 'react';
@@ -9,7 +9,7 @@ import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
 import Badge from '../Badge';
-import Icon from '../Icon';
+import Icon from '@polkadot/pages/components/Icon';
 
 interface Props extends TabItem {
   basePath: string;

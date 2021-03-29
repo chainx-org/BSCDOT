@@ -9,8 +9,8 @@ import styled from 'styled-components';
 import { LabelHelp } from '@polkadot/react-components';
 import { useToggle } from '@polkadot/react-hooks';
 
-import { useTranslation } from './translate';
-import Icon from './Icon';
+import { useTranslation } from '@polkadot/pages/components/translate';
+import Icon from '@polkadot/pages/components/Icon';
 
 interface Meta {
   documentation: Text[];

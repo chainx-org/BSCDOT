@@ -6,9 +6,9 @@ import type { IconName } from '@fortawesome/fontawesome-svg-core';
 import React, { useCallback, useContext } from 'react';
 import CopyToClipboard from 'react-copy-to-clipboard';
 
-import StatusContext from './Status/Context';
+import StatusContext from '../../pages/src/components/Status/Context';
 import Button from './Button';
-import { useTranslation } from './translate';
+import { useTranslation } from '@polkadot/pages/components/translate';
 import styled from 'styled-components';
 
 interface Props {

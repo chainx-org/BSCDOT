@@ -19,7 +19,7 @@ import StakingRedeemable from './StakingRedeemable';
 import StakingUnbonding from './StakingUnbonding';
 import CryptoType from './CryptoType';
 import Label from './Label';
-import { useTranslation } from './translate';
+import { useTranslation } from '@polkadot/pages/components/translate';
 
 // true to display, or (for bonded) provided values [own, ...all extras]
 export interface BalanceActiveType {

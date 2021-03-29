@@ -13,7 +13,7 @@ import { GenericCall, getTypeDef } from '@polkadot/types';
 
 import Static from './Static';
 import { classes } from './util';
-import { useTranslation } from './translate';
+import { useTranslation } from '@polkadot/pages/components/translate';
 
 export interface Props {
   children?: React.ReactNode;

@@ -6,7 +6,7 @@ import type { IconName } from '@fortawesome/fontawesome-svg-core';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-import Icon from './Icon';
+import Icon from '@polkadot/pages/components/Icon';
 import Tooltip from './Tooltip';
 
 interface Props {

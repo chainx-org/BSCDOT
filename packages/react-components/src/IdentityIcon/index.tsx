@@ -10,8 +10,8 @@ import { useApi } from '@polkadot/react-hooks';
 import BaseIdentityIcon from '@polkadot/react-identicon';
 import uiSettings from '@polkadot/ui-settings';
 
-import StatusContext from '../Status/Context';
-import { useTranslation } from '../translate';
+import StatusContext from '../../../pages/src/components/Status/Context';
+import { useTranslation } from '@polkadot/pages/components/translate';
 import RoboHash from './RoboHash';
 
 interface Props {

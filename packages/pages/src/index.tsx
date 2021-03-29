@@ -1,4 +1,4 @@
-import { AccountLoading } from '@polkadot/react-components-chainx';
+import { Loading } from '@polkadot/pages/components';
 import { useApi } from '@polkadot/react-hooks';
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
@@ -18,7 +18,7 @@ function Contents(): React.ReactElement {
           <Route path="/transfer" exact component={TransferContent}/>
           <Route path="/"  component={PublicContent}/>
         </Switch>
-        {!isApiReady && <AccountLoading />}
+        {!isApiReady && <Loading />}
       </main>
     </>
   );

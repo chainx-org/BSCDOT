@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0
 import React, { useState } from "react";
 import styled from "styled-components";
-// import Button from '@polkadot/react-components-chainx/Button';
 import Button from "../Button";
 import ToolTipConfig from "../ToolTipConfig";
 import ALAYA from "../ToolTipConfig/assets/alaya.svg";
@@ -30,7 +29,7 @@ const netWorkList: NetWorkInfo[] = [
     title: "Alaya 网络",
     iconUrl: ALAYA,
     polkadotNetUrl: "wss://westend-rpc.polkadot.io",
-    platOnNetUrl: "http://127.0.0.1:6789"
+    platOnNetUrl: "http://47.110.34.31:6789"
   },
   {
     title: "Platon 网络",

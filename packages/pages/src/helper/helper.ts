@@ -1,10 +1,7 @@
-import {ActionStatus} from '@polkadot/react-components/Status/types';
+import {ActionStatus} from '@polkadot/pages/components/Status/types';
 import BigNumber from 'bignumber.js';
 
-const creatStatusInfo = (statusInfo: ActionStatus, status: "success" | "error" | "event" | "queued" | "received" | "sending",  message: string, address?: string) => {
-  if(status === 'success'){
-    statusInfo.account = address;
-  }
+const creatStatusInfo = (statusInfo: ActionStatus, status: string,message: string) => {
   statusInfo.status = status
   statusInfo.message = message
 }
@@ -20,7 +17,16 @@ const toPrecision = (value: number, precision = 0, paddingZero = true): number |
   }
 }
 
+const  classes = (...classNames: (boolean | null | string | undefined)[]): string =>  {
+  return classNames
+    .filter((className): boolean => !!className)
+    .join(' ');
+}
+
+
+
 export {
   creatStatusInfo,
-  toPrecision
+  toPrecision,
+  classes
 }

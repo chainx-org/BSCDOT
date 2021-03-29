@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import { useApi } from '@polkadot/react-hooks';
 import chains from '@polkadot/ui-settings/defaults/chains';
 
-import { useTranslation } from './translate';
+import { useTranslation } from '@polkadot/pages/components/translate';
 import Toggle from './Toggle';
 
 interface Props {

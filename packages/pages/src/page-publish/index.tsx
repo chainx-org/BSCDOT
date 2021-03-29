@@ -11,8 +11,9 @@ import PublishAndRedeemCard from '../components/PdotCards/PublishAndRedeemCard';
 import {web3FromAddress} from '@polkadot/extension-dapp';
 import { useApi } from '@polkadot/react-hooks';
 import {StatusContext} from '@polkadot/react-components';
-import {ActionStatus} from '@polkadot/react-components/Status/types';
+import {ActionStatus} from '@polkadot/pages/components/Status/types';
 import {creatStatusInfo} from '@polkadot/pages/helper/helper';
+import BigNumber from 'bignumber.js';
 
 interface Props {
   className?: string;
@@ -21,22 +22,21 @@ interface Props {
 export default function PublicContent({ className }: Props): React.ReactElement<Props> {
   const {hasPlatonAccount, platonAccount, PublishRecords} = useContext(PlatonAccountsContext)
   const publishLength = PublishRecords.length
-  const {hasAccounts, currentAccount, setN} = useContext(PolkadotAccountsContext)
+  const {hasAccounts, currentAccount} = useContext(PolkadotAccountsContext)
   const [amount, setAmount] = useState<string>('')
   const {api} = useApi()
   const {queueAction} = useContext(StatusContext);
   const status = { action: 'publish' } as ActionStatus;
 
-
   const publish = () => {
-
-    async function ccc() {
+    async function publishEvent() {
       if (hasAccounts && amount && platonAccount) {
         try {
           const injector = await web3FromAddress(currentAccount);
+          const amountToBigNumber = (new BigNumber(amount)).times(1e12).toNumber()
           api.setSigner(injector.signer);
           api.tx.utility.batch([
-            api.tx.balances.transferKeepAlive('5F3NgH5umL6dg6rmtKEm6m7z75YZwkBkyTybksL9CZfXxvPT', parseInt(amount)),
+            api.tx.balances.transferKeepAlive('5F3NgH5umL6dg6rmtKEm6m7z75YZwkBkyTybksL9CZfXxvPT', amountToBigNumber),
             api.tx.system.remark(platonAccount)
           ])
             .signAndSend(
@@ -45,9 +45,8 @@ export default function PublicContent({ className }: Props): React.ReactElement<
               (statusData) => {
                 const formatStatusData = JSON.parse(JSON.stringify(statusData))
                 if(formatStatusData.status.inBlock){
-                  creatStatusInfo(status, 'received', '发行成功', currentAccount)
+                  creatStatusInfo(status, 'success','发行成功')
                   queueAction(status as ActionStatus)
-                  setN(Math.random())
                 }else{
                   creatStatusInfo(status, 'sending', '正在发送中...')
                   queueAction(status as ActionStatus)
@@ -65,7 +64,7 @@ export default function PublicContent({ className }: Props): React.ReactElement<
         }
       }
     }
-    ccc();
+    publishEvent();
   }
 
   return (

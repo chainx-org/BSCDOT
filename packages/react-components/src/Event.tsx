@@ -11,7 +11,7 @@ import { Input } from '@polkadot/react-components';
 import Params from '@polkadot/react-params';
 import { getTypeDef } from '@polkadot/types';
 
-import { useTranslation } from './translate';
+import { useTranslation } from '@polkadot/pages/components/translate';
 import { classes, getContractAbi } from './util';
 
 export interface Props {

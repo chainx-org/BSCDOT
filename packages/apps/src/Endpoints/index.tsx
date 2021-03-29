@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import type { LinkOption } from '@polkadot/apps-config/settings/types';
-import type { ThemeProps } from '@polkadot/react-components/types';
+import type { ThemeProps } from '@polkadot/pages/components/types';
 import type { Group } from './types';
 
 import React, { useCallback, useMemo, useState } from 'react';

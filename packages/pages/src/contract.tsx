@@ -3,6 +3,7 @@ import {bytesToHex} from 'web3/packages/web3-utils';
 import {decodeAddress} from '@polkadot/keyring';
 import {u8aToHex} from '@polkadot/util';
 import uiSettings from '@polkadot/ui-settings';
+import BigNumber from 'bignumber.js';
 
 const Ethers = require('ethers');
 const Web3 = require('web3');
@@ -12,7 +13,7 @@ if(Object.keys(netWorkInfo).length >= 1){
   web3 = new Web3(`${netWorkInfo.platonNetUrl}`);
 }else{
   const polkadotSetting = uiSettings.get()
-  polkadotSetting.apiUrl === 'wss://westend-rpc.polkadot.io'? web3 = new Web3('http://127.0.0.1:6789'): web3 = new Web3('')
+  polkadotSetting.apiUrl === 'wss://westend-rpc.polkadot.io'? web3 = new Web3('http://47.110.34.31:6789'): web3 = new Web3('')
 }
 
 const {ppos} = web3;
@@ -1644,15 +1645,33 @@ const bridge_contract = new web3.platon.Contract(bridge_abi);
 bridge_contract.options.address = bridgeAddress;
 bridge_contract.options.from = adminAddress;
 
+const hexlifyAmount = (value) => {
+  const HexCharacters: string = "0123456789abcdef";
+  let hex = "";
+  while (value) {
+    hex = HexCharacters[value & 0x0f] + hex;
+    value = Math.floor(value / 16);
+  }
+  if (hex.length) {
+    if (hex.length % 2) { hex = "0" + hex; }
+    return "0x" + hex;
+  }
+  return "0x00";
+}
 
-const toHex = (covertThis, padding) => {
+const amountToHex = (covertThis, padding) => {
+  return Ethers.utils.hexZeroPad(hexlifyAmount(covertThis), padding);
+};
+
+const addressToHex = (covertThis, padding) => {
   return Ethers.utils.hexZeroPad(Ethers.utils.hexlify(covertThis), padding);
 };
 
+
 const createERCDepositData = (tokenAmountOrID, lenRecipientAddress, recipientAddress) => {
   return '0x' +
-    toHex(tokenAmountOrID, 32).substr(2) +      // Token amount or ID to deposit (32 bytes)
-    toHex(lenRecipientAddress, 32).substr(2) + // len(recipientAddress)          (32 bytes)
+    amountToHex(tokenAmountOrID, 32).substr(2) +      // Token amount or ID to deposit (32 bytes)
+    addressToHex(lenRecipientAddress, 32).substr(2) + // len(recipientAddress)          (32 bytes)
     recipientAddress.substr(2);               // recipientAddress               (?? bytes)
 };
 
@@ -1660,28 +1679,25 @@ const addressToPublicKey = (address: string): string => {
   return u8aToHex(decodeAddress(address))
 };
 
+const createApproveTransactionParameters = (from: string, amount: BigNumber) => {
+  return {
+    nonce: '0x00', // ignored by MetaMask
+    to: erc20Address,
+    from, // must match user's active address.
+    value: '0', // Only required to send ether to the recipient from the initiating external account.
+    data: erc20_minter_contract.methods.approve(handlerAddress, amount.toString()).encodeABI(),
+  };
+}
 
-const createDepositTransactionParameters = (from: string, to: string, amount: string) => {
+const createDepositTransactionParameters = (from: string, to: string, amount: BigNumber) => {
   return {
     nonce: '0x00', // ignored by MetaMask
     to: bridgeAddress,
     from, // must match user's active address.
     value: '0', // Only required to send ether to the recipient from the initiating external account.
-    data: bridge_contract.methods.deposit(1, resourceID, createERCDepositData(parseInt(amount) *1e6, 66, bytesToHex(toUtf8Bytes(addressToPublicKey(to))))).encodeABI(),
-    // chainId: '222', // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
+    data: bridge_contract.methods.deposit(1, resourceID, createERCDepositData(amount.toNumber(), 66, bytesToHex(toUtf8Bytes(addressToPublicKey(to))))).encodeABI(),
   };
 };
-
-// const depositTransactionParameters = {
-//   nonce: '0x00', // ignored by MetaMask
-//   gasPrice: '0x09184e72a000', // customizable by user during MetaMask confirmation.
-//   gas: '0x2710', // customizable by user during MetaMask confirmation.
-//   to: bridgeAddress,
-//   from: alaya.selectedAddress, // must match user's active address.
-//   value: '0x00', // Only required to send ether to the recipient from the initiating external account.
-//   data: bridge_contract.methods.deposit(1, resourceID, createERCDepositData(10, 66, bytesToHex(toUtf8Bytes('0x1cbd2d43530a44705ad088af313e18f80b53ef16b36177cd4b77b846f2a5f07c')))).encodeABI(),
-//   chainId: '0x3', // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
-// };
 
 const createTransferTransactionParameters = (from: string, amount: string, to: string) => {
   return {
@@ -1689,39 +1705,26 @@ const createTransferTransactionParameters = (from: string, amount: string, to: s
     to: erc20Address, // Required except during contract publications.
     from, // must match user's active address.
     value: '0x00', // Only required to send ether to the recipient from the initiating external account.
-    data: erc20_minter_contract.methods.transfer(to, (parseInt(amount) * 1e18).toString()).encodeABI(),
-    // chainId: '0x3', // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
+    data: erc20_minter_contract.methods.transfer(to, ((new BigNumber(amount)).times(1e18)).toString()).encodeABI(),
   }
 }
-
-// const transferTransactionParameters = {
-//   nonce: '0x00', // ignored by MetaMask
-//   gasPrice: '0x09184e72a000', // customizable by user during MetaMask confirmation.
-//   gas: '0x2710', // customizable by user during MetaMask confirmation.
-//   to: erc20Address, // Required except during contract publications.
-//   from: alaya.selectedAddress, // must match user's active address.
-//   value: '0x00', // Only required to send ether to the recipient from the initiating external account.
-//   data: erc20_minter_contract.methods.transfer(erc20Address, 100).encodeABI(),
-//   chainId: '0x3', // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
-// };
 
 
 export {
   blankFunctionSig,
   blankFunctionDepositerOffset,
-  toHex,
   createERCDepositData,
   bridge_abi,
   erc20miner_abi,
-  // depositTransactionParameters,
-  // transferTransactionParameters,
   bridge_contract,
   erc20_minter_contract,
   ppos,
   createDepositTransactionParameters,
   createTransferTransactionParameters,
+  createApproveTransactionParameters,
   bridgeAddress,
   erc20Address,
+  handlerAddress,
   addressToPublicKey,
   web3
 };

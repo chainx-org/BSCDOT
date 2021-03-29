@@ -1,165 +1,72 @@
-[![polkadotjs](https://img.shields.io/badge/polkadot-js-orange?style=flat-square)](https://polkadot.js.org)
+[![platon](https://img.shields.io/badge/platdot-js-orange)](https://platdot.chainx.org)
 ![license](https://img.shields.io/badge/License-Apache%202.0-blue?logo=apache&style=flat-square)
-[![maintainability](https://img.shields.io/codeclimate/maintainability-percentage/polkadot-js/apps?logo=code-climate&style=flat-square)](https://codeclimate.com/github/polkadot-js/apps)
 
-# @polkadot/apps
+# platdot
 
-A Portal into the Polkadot and Substrate networks. Provides a view and interaction layer from a browser.
+```Platdot``` is a cross-chain project based on ChainBridge. In order to achieve two-way cross-chain, platdot needs to deploy a pallet on the Substrate chain that is equivalent to the smart contract in the EVM, but it cannot be deployed on polkadot. Our team has improved this. Through Platdot, it can be passed without pallet. The multi-signature module realizes a completely decentralized token transfer across Polkadot, transferring Dot on Polkadot to PlatON, and it can also be applied to kusama, chainX and other networks that have huge value but cannot deploy pallets on their own.
 
-This can be accessed as a hosted application via https://polkadot.js.org/apps/ or you can access the IPFS hosted version via https://polkadot.js.org/apps/ipfs (via hash) or https://dotapps.io (via ipns) to explore any of the supported Polkadot and Substrate chains.
-
-If you run one or more IPFS node(s), pinning the UI (which only gets updated on releases) will make it faster for you and others. You can find details about that below in the IPFS chapter below.
-
-**Important** If you are a chain developer and would like to add support for your chain to the UI, all the local configuration (API types, settings, logos) can be customized in [the apps-config package](packages/apps-config#README.md), complete with instructions of what goes where.
-
-## overview
-
-The repo is split into a number of packages, each representing an application. These are -
-
-- [apps](packages/apps/) This is the main entry point. It handles the selection sidebar and routing to the specific application being displayed.
-- [apps-electron](packages/apps-electron/) Desktop app running [apps](packages/apps/).
-- [page-accounts](packages/page-accounts/) A basic account management app.
-- [page-address-book](packages/page-address-book/) A basic address management app.
-- [page-democracy](packages/page-democracy/) A basic voting app, allowing votes on activate proposals and referenda.
-- [page-explorer](packages/page-explorer/) A simple block explorer. It only shows the most recent blocks, updating as they become available.
-- [page-extrinsics](packages/page-extrinsics/) Submission of extrinsics to a node.
-- [page-js](packages/page-js/) An online code editor with [@polkadot-js/api](https://github.com/polkadot-js/api/tree/master/packages/api) access to the currently connected node.
-- [page-settings](packages/page-settings/) A basic settings management app, allowing choice of language, node to connect to, and theme
-- [page-staking](packages/page-staking/) A basic staking management app, allowing staking and nominations.
-- [page-storage](packages/page-storage/) A simple node storage query application. Multiple queries can be queued and updates as new values become available.
-- [page-toolbox](packages/page-toolbox/) Submission of raw data to RPC endpoints and utility hashing functions.
-- [page-transfer](packages/page-transfer/) A basic account management app, allowing transfer of Units/DOTs between accounts.
-
-In addition the following libraries are also included in the repo. These are to be moved to the [@polkadot/ui](https://github.com/polkadot-js/ui/) repository once it reaches a base level of stability and usability. (At this point with the framework being tested on the apps above, it makes development easier having it close)
-
-- [react-components](packages/react-components/) A reactive (using RxJS) application framework with a number of useful shared components.
-- [react-signer](packages/react-signer/) Signer implementation for apps.
-- [react-query](packages/react-query) Base components that use the RxJS Observable APIs
-
-## Development
-
-Contributions are welcome!
-
-To start off, this repo (along with others in the [@polkadot](https://github.com/polkadot-js/) family) uses yarn workspaces to organize the code. As such, after cloning dependencies _should_ be installed via `yarn`, not via npm, the latter will result in broken dependencies.
-
-To get started -
-
-1. Clone the repo locally, via `git clone https://github.com/polkadot-js/apps <optional local path>`
-2. Ensure that you have a recent LTS version of Node.js, for development purposes [Node >=10.13.0](https://nodejs.org/en/) is recommended.
-3. Ensure that you have a recent version of Yarn, for development purposes [Yarn >=1.10.1](https://yarnpkg.com/docs/install) is required.
-4. Install the dependencies by running `yarn`
-5. Ready! Now you can launch the UI (assuming you have a local Polkadot Node running), via `yarn run start`
-6. Access the UI via [http://localhost:3000](http://localhost:3000)
-
-## Docker
-
-You can run a docker container via -
+## Installation and quick start
 
 ```
-docker run --rm -it --name polkadot-ui -e WS_URL=ws://someip:9944 -p 80:80 jacogr/polkadot-js-apps:latest
+git clone https://github.com/chainx-org/Platdot.git
+cd ./Platdot
+yarn install
+yarn start
 ```
 
-To build a docker container containing local changes -
+## Use preview of Platdot
+1. Open https://platdot.chainx.org/ website，this is our homepage
+![](https://ftp.bmp.ovh/imgs/2021/03/2388c7a785618747.png)
 
-```
-docker build -t jacogr/polkadot-js-apps .
-```
+2. Then you need to log in to the relevant account through the polkadot extension and samurai plugin to perform related operations such as transfers
 
-When using these Docker commands, you can access the UI via http://localhost:80 (or just http://localhost)
+    If you have installed the polkadot extension and samurai plug-ins, when you first enter the page, two plug-ins will be called up, prompting you to connect
+![](https://ftp.bmp.ovh/imgs/2021/03/2615ceee28332533.png)
+    If the browser does not have a plug-in installed, click the button on the homepage, and it will jump to the download address of the plug-in
+![](https://ftp.bmp.ovh/imgs/2021/03/57e6cc5e9562d46c.png)
 
-## IPFS
+3.  Page form after the login
+![](https://ftp.bmp.ovh/imgs/2021/03/6aa73637d3ff4764.png)
 
-IPFS allows sharing files in a decentralized manner in a similar fashion the polkadot network exchanges blocks. IPFS works best when many nodes seed the same data. Nodes can seed specific data by **pinning** them.
+4. How to switch polkadot account?
 
-You can pin with the following command:
+    Click to expand the account list
+![](https://ftp.bmp.ovh/imgs/2021/03/8cbdeb8033e3f4d2.png)
+    Choose the account you want
+![](https://ftp.bmp.ovh/imgs/2021/03/35ba88e459e388ef.png)
 
-```
-curl -s https://polkadot.js.org/apps/ipfs/pin.json | jq -jr .IpfsHash | xargs -0 -I CID ipfs pin add --progress CID
-```
+5. How to switch platon account?
 
-Here is a script you can save as `/usr/local/bin/polkadotjs-ipfs-pin.sh`:
+    Click to open the samurai plugin
+![](https://i.bmp.ovh/imgs/2021/03/d39d220f39354a12.png)
+    Click to switch account
+![](http://lc-XLoqMObG.cn-n1.lcfile.com/c6247812ce28699bede1.png?imageView2/0)
 
-```
-#!/usr/bin/env bash
+6. How to proceed with the publish?
 
-IPFS='/usr/local/bin/ipfs'
-curl -s https://polkadot.js.org/apps/ipfs/pin.json | jq -jr .IpfsHash | xargs -0 -I CID $IPFS pin add --progress CID
-```
+    Please make sure to enter the transaction quantity and click the operation
+![](http://lc-XLoqMObG.cn-n1.lcfile.com/5f30848a3558ee5e7cad.png)
+    After entering the account password, the upper right corner will prompt the current transaction status, if it fails, it will prompt error related information
+![](http://lc-XLoqMObG.cn-n1.lcfile.com/a308995e3881dc4785b7.png)
+    If it successes
+![](http://lc-XLoqMObG.cn-n1.lcfile.com/3178257e8f1f5cbdca15.png)
 
-I suggest to run the script once. The output should be similar to (the CID/Hash will very likely be different though):
-```
-$ /usr/local/bin/polkadotjs-ipfs-pin.sh
-pinned QmNYAbzaE8kRAf68YiN3ZuUxgdwroeav3JhicsHsG5b2oW recursively
-```
+7. How to proceed with the redeem?
 
-Now that you know the CID (hash), you can check whether the data is already pinned or not:
-```
-$ ipfs pin ls | grep QmNYAbzaE8kRAf68YiN3ZuUxgdwroeav3JhicsHsG5b2oW
-QmNYAbzaE8kRAf68YiN3ZuUxgdwroeav3JhicsHsG5b2oW recursive
-```
+    Please make sure to enter the transaction quantity and click the operation, and this click operation will evoke the samurai plugin
+![](http://lc-XLoqMObG.cn-n1.lcfile.com/01590348174ecfb7b92d.png)
+    After clicking, the transaction hash will be returned, and you can use this transaction hash to query in the alaya browser
+![](http://lc-XLoqMObG.cn-n1.lcfile.com/4842586edae696c2c851.png)
 
-Now that we know it works, we can automate that with a cron task. Run `crontab -e`.
-If you see only comments, append the following to the file and save:
-```
-SHELL=/bin/bash
-HOME=/
-0 * * * * /usr/local/bin/polkadotjs-ipfs-pin.sh >/dev/null 2>&1
-```
+8. How to proceed with the transfer?
 
-Now our script will run every hours at minute '0' (8:00, 9:00, etc...). To check, we can unpin temporarily:
-```
-$ ipfs pin rm QmNYAbzaE8kRAf68YiN3ZuUxgdwroeav3JhicsHsG5b2oW
-unpinned QmNYAbzaE8kRAf68YiN3ZuUxgdwroeav3JhicsHsG5b2oW
-```
+    Similarly, you also need to enter the number of transactions, and the target account address.
+![](http://lc-XLoqMObG.cn-n1.lcfile.com/3d9fb285439effb5bc63.png)
 
-Now asking for the CID confirms that is it not there.
-```
-$ ipfs pin ls QmNYAbzaE8kRAf68YiN3ZuUxgdwroeav3JhicsHsG5b2oW
-Error: path 'QmNYAbzaE8kRAf68YiN3ZuUxgdwroeav3JhicsHsG5b2oW' is not pinned
-```
+9. How to check whether the transaction is successful?
 
-Wait until the your cron task runs and try again:
-```
-$ ipfs pin ls QmNYAbzaE8kRAf68YiN3ZuUxgdwroeav3JhicsHsG5b2oW
-QmNYAbzaE8kRAf68YiN3ZuUxgdwroeav3JhicsHsG5b2oW recursive
-```
+    If it is a redeem and transfer operation, open the samurai plug-in to check the progress of the transaction.
+![](http://lc-XLoqMObG.cn-n1.lcfile.com/0f59079c8d5dc8a1633e.png)
 
-Tada! This is now automatic and you may forget it.
-
-If you are curious and want to know how many people seed the UI on IPFS, here is the magic command (it may take a while to return the answer as ipfs will search for about 1 minute):
-```
-ipfs dht findprovs QmTejwB7mJPBHBoqubjzHSgSxfLMcjnZA3LFefqoQc87VJ | wc -l
-```
-
-If you are current about the content of what you just pinned, you may use the following command:
-```
-$ ipfs ls QmTejwB7mJPBHBoqubjzHSgSxfLMcjnZA3LFefqoQc87VJ
-QmPJGyqVCcXm238noz7TZDByyGa35qqc8g6sfyXF3KDXZ3 38078   favicon.ico
-QmdouVsVE9rMVB84Cy1ehVi1LAGW1fKcqqQxSEjgxJrv7H 668     index.html
-QmWHcGf1JCFZCYjZsw52vM5RiJVbcNpX1fo2NyoBKBvtuf -       ipfs/
-QmT6NwDsJzMyBs6bMq845nMumeJWbixBfNXA9hdAhAMdSG -       locales/
-QmcgiZpwvpT1E1dkSS3zr5je89rZRVocNKPebgWhn3JVTC 2178582 main.ce05dfca.js
-QmdnEtuhFDyw5Tjr82bFPzyveFrbkYjJAnUvBvzwT18YGG 337     manifest.json
-QmW7gDKHbmtD7sRTqsvyo84bDpyYPZR3w1wQo8pme2q5HC -       next/
-Qmd8UnRQiBobm4qb6dhiC1HoQ7SvwZrWJenoN3JPEV3iiF 480594  polkadotjs.3af757ad.js
-QmUfXPMfNys8Y8dekuankBx7BHiSAjALCpBDKH6F5DdcNm 628284  react.0cecb00d.css
-QmSEgXdQbC1ek9Td1mHy3BRvJpfWHm9zQYegTgAUj1QC4g 924156  react.8f083b49.js
-QmfGBgFe2aqf83Wv21m9k5DH2ew89CDj4tydoxJWdK6NNL 1552    runtime.3d77e510.js
-QmYPa8jcHH7gfopMALr5XTW4i1QM2xgVBe3NeP11y3tErA -       static/
-QmeYBC5EgbccC8NEwXC2rvbd93YiHtTM5xYzqCDohXerDf 859984  vendor.8b793a81.js
-```
-
-## Desktop App
-
-The main advantage of using Desktop App is that it by default stores encrypted accounts on the filesystem instead of browser's local storage.
-Local storage is susceptible to attacks using XSS (Cross-Site Scripting). There's no such risk when with files stored on disk.
-
-The desktop app uses the [Electron](https://www.electronjs.org/) framework. It provides the same features as web app, the only difference
-being different account storage.
-
-The accounts are stored in the following directories:
-* Mac: `~/Library/Application Support/polkadot-apps/polkadot-accounts`
-* Linux: `~/.config/polkadot-apps/polkadot-accounts` (or `$XDG_CONFIG_HOME/polkadot-apps/polkadot-accounts` if `$XDG_CONFIG_HOME` is defined)
-* Windows: `%APPDATA%\polkadot-apps\polkadot-accounts`
-
-For more details on the desktop app, head over to [Electron package README](https://github.com/polkadot-js/apps/blob/master/packages/apps-electron/README.md).
+    If it is a publish operation, you can go to polkadot scan to view the specific information of the transaction, https://polkadot.js.org/apps/#/explorer
+![](http://lc-XLoqMObG.cn-n1.lcfile.com/fdcad7102178516d969a.png)

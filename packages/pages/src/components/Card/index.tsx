@@ -3,7 +3,6 @@
 
 import React, { useCallback } from "react";
 import styled from "styled-components";
-// import Button from "@polkadot/react-components-chainx/Button";
 import Button from "../Button";
 
 interface CardProps {
@@ -36,6 +35,7 @@ function Card({
 
 export default React.memo(styled(Card)`
   min-width: 308px;
+  max-width: 308px;
   height: 152px;
   font-size: 12px;
   color: #ffffff;

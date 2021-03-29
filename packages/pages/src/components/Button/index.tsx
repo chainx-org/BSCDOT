@@ -1,15 +1,15 @@
-import Icon from "@polkadot/react-components/Icon";
+import Icon from "../Icon";
 import React, { useCallback } from "react";
 import styled from "styled-components";
 
-interface ButtonProps {
+export interface ButtonProps {
   className?: string;
   onClick?: () => void | Promise<void>;
   text?: string;
   icon?: any;
   Icons?: any;
   label?: React.ReactNode;
-  isBasic?: boolean | undefined;
+  isBasic?: boolean;
 }
 
 function Button({ className, onClick, text, icon, Icons, label, isBasic }: ButtonProps): React.ReactElement<ButtonProps> {
@@ -21,7 +21,7 @@ function Button({ className, onClick, text, icon, Icons, label, isBasic }: Butto
     <button className={`ui-button${label ? ' hasLabel' : ''}${isBasic ? ' isBasic' : ''} ${className}`} onClick={_onClick}>
       {text}
       {label}
-      {icon && <img src={icon} alt={icon} />}
+      {icon && <img src={icon} alt="" />}
       {Icons && <Icon icon={icon}/>}
     </button>
   );

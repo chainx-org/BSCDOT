@@ -4,7 +4,7 @@
 import React from 'react';
 
 import InputAddress from './InputAddress';
-import { useTranslation } from './translate';
+import { useTranslation } from '@polkadot/pages/components/translate';
 
 interface Props {
   className?: string;

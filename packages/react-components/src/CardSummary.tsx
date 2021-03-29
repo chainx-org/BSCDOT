@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import type { UInt } from '@polkadot/types';
-import type { ThemeProps } from './types';
+import type { ThemeProps } from '@polkadot/pages/components/types';
 
 import BN from 'bn.js';
 import React from 'react';

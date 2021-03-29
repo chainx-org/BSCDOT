@@ -13,8 +13,7 @@ import { setDeriveCache, deriveMapCache } from '@polkadot/api-derive/util';
 import { POLKADOT_DENOM_BLOCK, POLKADOT_GENESIS, ethereumNetworks, typesChain, typesSpec, typesBundle, typesRpc } from '@polkadot/apps-config';
 import { web3Accounts, web3Enable } from '@polkadot/extension-dapp';
 import { WsProvider } from '@polkadot/rpc-provider';
-import { StatusContext } from '@polkadot/react-components/Status';
-import { TokenUnit } from '@polkadot/react-components/InputNumber';
+import { StatusContext } from '@polkadot/pages/components/Status';
 import ApiSigner from '@polkadot/react-signer/signers/ApiSigner';
 import keyring from '@polkadot/ui-keyring';
 import uiSettings from '@polkadot/ui-settings';
@@ -25,6 +24,14 @@ import { options } from '@chainx-v2/api';
 
 import ApiContext from './ApiContext';
 import registry from './typeRegistry';
+
+export class TokenUnit {
+  public static abbr = 'Unit';
+
+  public static setAbbr (abbr: string = TokenUnit.abbr): void {
+    TokenUnit.abbr = abbr;
+  }
+}
 
 interface Props {
   children: React.ReactNode;

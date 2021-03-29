@@ -1,7 +1,7 @@
 // Copyright 2017-2020 @polkadot/react-query authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import type { ThemeProps } from '@polkadot/react-components/types';
+import type { ThemeProps } from '@polkadot/pages/components/types';
 import type { Compact } from '@polkadot/types';
 
 import BN from 'bn.js';

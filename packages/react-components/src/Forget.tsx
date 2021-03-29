@@ -4,7 +4,7 @@
 import React from 'react';
 import { AddressRow, Button, Modal } from '@polkadot/react-components';
 
-import { useTranslation } from './translate';
+import { useTranslation } from '@polkadot/pages/components/translate';
 
 type Mode = 'account' | 'address' | 'contract' | 'code';
 

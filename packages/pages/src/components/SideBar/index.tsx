@@ -36,6 +36,13 @@ const Wrapper = styled.div`
 
   .wrappers {
     margin: 0 56px 0 52px;
+
+    ul,li{
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
     .navLists {
       padding-top: 30px;
       .navItem {
