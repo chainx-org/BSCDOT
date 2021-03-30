@@ -10,7 +10,6 @@ import {Icon, StatusContext} from '@polkadot/pages/components';
 import Button from '../Button';
 import InputDex from '../Input/InputDex';
 import Input from '../Input/Input';
-import useTokenTransferList from '@polkadot/pages/hooks/useTransferList';
 
 interface PdotCardProps {
   children?: React.ReactNode;
@@ -23,7 +22,7 @@ export default function TransferCard({children, className = '', title}: PdotCard
   const [amount, setAmount] = useState<string>('');
   const [warning, setWarning] = useState<boolean>(false);
   const [targetAddress, setTargetAddress] = useState<string>('');
-  const {platonAccount} = useContext(PlatonAccountsContext);
+  const {platonAccount, useTokenTransferList } = useContext(PlatonAccountsContext);
   const status = {action: 'transfer'} as ActionStatus;
   const {queueAction} = useContext(StatusContext);
 

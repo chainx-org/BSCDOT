@@ -28,7 +28,7 @@ export const NetWorkProvider: FC = ({children}) => {
       setNetWork({
         name: 'Alaya 网络',
         polkadotNetUrl: polkadotSetting.apiUrl,
-        platonNetUrl: 'http://47.110.34.31:6789'
+        platonNetUrl: 'https://platonnet.chainx.org/'
       })
       : setNetWork({
         name: 'Platon 网络',
