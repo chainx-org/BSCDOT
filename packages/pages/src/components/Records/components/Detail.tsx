@@ -176,7 +176,7 @@ export const Label = styled.span`
   line-height: 16px;
 `;
 
-export const LinkWrap = styled.span`
+export const LinkWrap = styled.a`
   &.address {
     opacity: 1;
     color: #6F7C7C;
@@ -198,6 +198,7 @@ export const LinkWrap = styled.span`
   letter-spacing: 0.2px;
   text-align: right;
   line-height: 16px;
+  text-decoration: none;
 `;
 
 export const LoadingWrapper = styled.div`

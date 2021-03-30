@@ -85,9 +85,10 @@ export default function RedeemContent({className}: Props): React.ReactElement<Pr
           charge={charge}
           setAmount={setAmount}
           isChargeEnough={isChargeEnough}/>
+
         : <PdotNodata title='赎回 PDOT' noDataMsg='请先登录 Polkadot 和 PlatON 账户'/>
       }
-      <Records className="right" title="赎回记录" records={RedeemRecords} recordLength={redeemLength} arrows={true}/>
+      <Records className="right" title="赎回记录" records={RedeemRecords} recordLength={redeemLength} arrows={true} isReverse={true} />
     </Wrapper>
   );
 }
