@@ -1,6 +1,3 @@
-// Copyright 2017-2020 @polkadot/apps authors & contributors
-// SPDX-License-Identifier: Apache-2.0
-// import type { Route } from '@polkadot/apps-routing/types';
 import React, {useContext, useState} from 'react';
 import styled from "styled-components";
 import {Records} from '@polkadot/pages/components';
@@ -22,11 +19,22 @@ interface Props {
 export default function PublicContent({ className }: Props): React.ReactElement<Props> {
   const {hasPlatonAccount, platonAccount, PublishRecords} = useContext(PlatonAccountsContext)
   const publishLength = PublishRecords.length
-  const {hasAccounts, currentAccount} = useContext(PolkadotAccountsContext)
+  const {hasAccounts, currentAccount, getPolkadotBalances} = useContext(PolkadotAccountsContext)
   const [amount, setAmount] = useState<string>('')
   const {api} = useApi()
   const {queueAction} = useContext(StatusContext);
   const status = { action: 'publish' } as ActionStatus;
+
+  const displayStatusAndFetchBalance = (formatStatusData: any) => {
+    if(formatStatusData.status.inBlock){
+      creatStatusInfo(status, 'success','发行成功')
+      queueAction(status as ActionStatus)
+      getPolkadotBalances(currentAccount)
+    }else{
+      creatStatusInfo(status, 'sending', '正在发送中...')
+      queueAction(status as ActionStatus)
+    }
+  }
 
   const publish = () => {
     async function publishEvent() {
@@ -44,13 +52,7 @@ export default function PublicContent({ className }: Props): React.ReactElement<
               { signer: injector.signer },
               (statusData) => {
                 const formatStatusData = JSON.parse(JSON.stringify(statusData))
-                if(formatStatusData.status.inBlock){
-                  creatStatusInfo(status, 'success','发行成功')
-                  queueAction(status as ActionStatus)
-                }else{
-                  creatStatusInfo(status, 'sending', '正在发送中...')
-                  queueAction(status as ActionStatus)
-                }
+                displayStatusAndFetchBalance(formatStatusData)
               })
             .then(result => {
               console.log('result', result)

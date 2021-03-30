@@ -38,18 +38,19 @@ interface Props {
   withShrink?: boolean;
 }
 
-function AddressMini ({ balance, bonded, children, className = '', iconInfo, isHighlight, isPadded = true, label, labelBalance, summary, value, withAddress = true, withBalance = false, withBonded = false, withLockedVote = false, withName = true, withShrink = false, withSidebar = true }: Props): React.ReactElement<Props> | null {
+function AddressMini({balance, bonded, children, className = '', iconInfo, isHighlight, isPadded = true, label, labelBalance, summary, value, withAddress = true, withBalance = false, withBonded = false, withLockedVote = false, withName = true, withShrink = false, withSidebar = true}: Props): React.ReactElement<Props> | null {
   if (!value) {
     return null;
   }
 
   return (
-    <div className={classes('ui--AddressMini', isHighlight ? 'isHighlight' : '', isPadded ? 'padded' : '', withShrink ? 'withShrink' : '', className)}>
+    <div
+      className={classes('ui--AddressMini', isHighlight ? 'isHighlight' : '', isPadded ? 'padded' : '', withShrink ? 'withShrink' : '', className)}>
       {label && (
         <label className='ui--AddressMini-label'>{label}</label>
       )}
       <div className='ui--AddressMini-icon'>
-        <IdentityIcon value={value as Uint8Array} />
+        <IdentityIcon value={value as Uint8Array}/>
         {iconInfo && (
           <div className='ui--AddressMini-icon-info'>
             {iconInfo}
@@ -88,7 +89,7 @@ function AddressMini ({ balance, bonded, children, className = '', iconInfo, isH
           />
         )}
         {withLockedVote && (
-          <LockedVote params={value} />
+          <LockedVote params={value}/>
         )}
         {summary && (
           <div className='ui--AddressMini-summary'>{summary}</div>
