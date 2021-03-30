@@ -57,7 +57,7 @@ export default React.memo(styled(Icon)`
   }
 
   &.redColor {
-    color: darkred;
+    color: #db2828;
   }
 
   &.transparentColor {

@@ -59,8 +59,7 @@ export default function RedeemContent({className}: Props): React.ReactElement<Pr
   return (
     <Wrapper className={`contentWrapper ${className}`}>
       {hasPlatonAccount && hasAccounts ?
-        <PublishAndRedeemCard className="left" title="赎回" unit='PDOT' isReverse={true} onClick={redeem}
-                              setAmount={setAmount}/>
+        <PublishAndRedeemCard className="left" title="赎回" unit='PDOT' isReverse={true} onClick={redeem} setAmount={setAmount}/>
         : <PdotNodata title='赎回 PDOT' noDataMsg='请先登录 Polkadot 和 PlatON 账户'/>
       }
       <Records className="right" title="赎回记录" records={RedeemRecords} recordLength={redeemLength} arrows={true} isReverse={true} />

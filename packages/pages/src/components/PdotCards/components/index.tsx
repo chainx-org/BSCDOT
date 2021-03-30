@@ -120,3 +120,15 @@ export const Nodata = styled.div`
     letter-spacing: 0;
     text-align: center;
 `;
+
+export const Addressjudge = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .iptAddress {
+    width: 100%;
+  }
+  .warning {
+    margin: 0 0 16px 20px;
+  }
+`;
