@@ -20,7 +20,7 @@ interface PdotCardProps {
 
 export default function TransferCard({children, className = '', title}: PdotCardProps): React.ReactElement<PdotCardProps> {
   const [amount, setAmount] = useState<string>('');
-  const [warning, setWarning] = useState<boolean>(false);
+  const [warning, setWarning] = useState<string>('');
   const [targetAddress, setTargetAddress] = useState<string>('');
   const {platonAccount, useTokenTransferList } = useContext(PlatonAccountsContext);
   const status = {action: 'transfer'} as ActionStatus;
@@ -29,7 +29,7 @@ export default function TransferCard({children, className = '', title}: PdotCard
   const confirmTransfer = () => {
     if (platonAccount && amount && targetAddress) {
       try {
-        setWarning(false)
+        setWarning('')
         alaya.request({
           method: 'platon_sendTransaction',
           params: [createTransferTransactionParameters(platonAccount, amount, targetAddress)]
@@ -45,7 +45,7 @@ export default function TransferCard({children, className = '', title}: PdotCard
           });
 
       } catch (err) {
-        setWarning(true)
+        setWarning(err.coderType);
         console.log(err);
       }
     }
@@ -57,11 +57,14 @@ export default function TransferCard({children, className = '', title}: PdotCard
       <Content className="pdotCon">
         <TransfersCard className={`ui-Transfers `}>
           <AmountAndAddress className='amountTit'>转账数量</AmountAndAddress>
-          <InputDex className='bgcolor' tokenName={'PDOT'} placeholder='输入 PDOT 数量' onChange={setAmount}/>
-          <AmountAndAddress className='addressTit'>接收地址</AmountAndAddress>
           <Addressjudge>
+            <InputDex className='bgcolor' tokenName={'PDOT'} placeholder='输入 PDOT 数量' onChange={setAmount}/>
+            { warning === 'uint256' ? <Icon icon='times' className='warning redColor' size='2x' /> : null }
+          </Addressjudge>
+          <AmountAndAddress className='addressTit'>接收地址</AmountAndAddress>
+          <Addressjudge  className='judge'>
             <Input className='bgcolor iptAddress' placeholder='输入 Platon 目标账户地址' onChange={setTargetAddress}/>
-            { warning ? <Icon icon='times' className='warning redColor' size='2x' /> : null }
+            { warning === 'address' ? <Icon icon='times' className='warning redColor' size='2x' /> : null }
           </Addressjudge>
           <Button className="isConfirm" onClick={confirmTransfer} text="确定转账" />
         </TransfersCard>

@@ -123,12 +123,14 @@ export const Nodata = styled.div`
 
 export const Addressjudge = styled.div`
   display: flex;
-  justify-content: center;
   align-items: center;
   .iptAddress {
     width: 100%;
   }
   .warning {
     margin: 0 0 16px 20px;
+  }
+  &.judge {
+    justify-content: center;
   }
 `;
