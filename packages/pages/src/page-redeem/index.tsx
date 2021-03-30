@@ -17,7 +17,7 @@ interface Props {
 
 export default function RedeemContent({className}: Props): React.ReactElement<Props> {
   const {hasAccounts, currentAccount} = useContext(PolkadotAccountsContext);
-  const {platonAccount, hasPlatonAccount, RedeemRecords, pdotAmount, useTokenTransferList } = useContext(PlatonAccountsContext);
+  const {platonAccount, hasPlatonAccount, RedeemRecords, pdotAmount } = useContext(PlatonAccountsContext);
   const redeemLength = RedeemRecords.length;
   const [amount, setAmount] = useState<string>('0');
   const {queueAction} = useContext(StatusContext);
@@ -60,7 +60,6 @@ export default function RedeemContent({className}: Props): React.ReactElement<Pr
             .then(result => {
               creatStatusInfo(status, 'success', `交易哈希: ${result}`);
               queueAction(status as ActionStatus);
-              useTokenTransferList(platonAccount)
             })
             .catch(error => {
               sendErrorStatus(error)

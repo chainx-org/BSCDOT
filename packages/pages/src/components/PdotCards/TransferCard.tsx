@@ -22,7 +22,7 @@ export default function TransferCard({children, className = '', title}: PdotCard
   const [amount, setAmount] = useState<string>('');
   const [warning, setWarning] = useState<string>('');
   const [targetAddress, setTargetAddress] = useState<string>('');
-  const {platonAccount, useTokenTransferList } = useContext(PlatonAccountsContext);
+  const {platonAccount } = useContext(PlatonAccountsContext);
   const status = {action: 'transfer'} as ActionStatus;
   const {queueAction} = useContext(StatusContext);
 
@@ -37,7 +37,6 @@ export default function TransferCard({children, className = '', title}: PdotCard
           .then(result => {
             creatStatusInfo(status, 'success',`交易哈希: ${result}`);
             queueAction(status as ActionStatus);
-            useTokenTransferList(platonAccount)
           })
           .catch(error => {
             creatStatusInfo(status, 'error', error.message);
