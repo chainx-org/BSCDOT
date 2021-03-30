@@ -17,7 +17,7 @@ interface Props {
 }
 
 export default function PublicContent({className}: Props): React.ReactElement<Props> {
-  const {hasPlatonAccount, platonAccount, PublishRecords, pdotAmount, useTokenTransferList} = useContext(PlatonAccountsContext);
+  const {hasPlatonAccount, platonAccount, PublishRecords, pdotAmount, fetchTransfers} = useContext(PlatonAccountsContext);
   const publishLength = PublishRecords.length;
   const {hasAccounts, currentAccount, getPolkadotBalances, usableBalance} = useContext(PolkadotAccountsContext);
   const [amount, setAmount] = useState<string>('0');
@@ -48,7 +48,7 @@ export default function PublicContent({className}: Props): React.ReactElement<Pr
       creatStatusInfo(status, 'success', '发行成功');
       queueAction(status as ActionStatus);
       getPolkadotBalances(currentAccount);
-      useTokenTransferList(platonAccount)
+      fetchTransfers(platonAccount)
     } else {
       creatStatusInfo(status, 'sending', '正在发送中...');
       queueAction(status as ActionStatus);
