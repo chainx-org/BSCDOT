@@ -10,6 +10,7 @@ import {Icon, StatusContext} from '@polkadot/pages/components';
 import Button from '../Button';
 import InputDex from '../Input/InputDex';
 import Input from '../Input/Input';
+import { NetWorkContext } from '@polkadot/pages/components/NetWorkProvider';
 
 interface PdotCardProps {
   children?: React.ReactNode;
@@ -25,6 +26,7 @@ export default function TransferCard({children, className = '', title}: PdotCard
   const {platonAccount } = useContext(PlatonAccountsContext);
   const status = {action: 'transfer'} as ActionStatus;
   const {queueAction} = useContext(StatusContext);
+  const {platonUnit} = useContext(NetWorkContext);
 
   const confirmTransfer = () => {
     if (platonAccount && amount && targetAddress) {
@@ -57,7 +59,7 @@ export default function TransferCard({children, className = '', title}: PdotCard
         <TransfersCard className={`ui-Transfers `}>
           <AmountAndAddress className='amountTit'>转账数量</AmountAndAddress>
           <Addressjudge>
-            <InputDex className='bgcolor' tokenName={'PDOT'} placeholder='输入 PDOT 数量' onChange={setAmount}/>
+            <InputDex className='bgcolor' tokenName={platonUnit} placeholder={`输入 ${platonUnit} 数量`} onChange={setAmount}/>
             { warning === 'uint256' ? <Icon icon='times' className='warning redColor' size='2x' /> : null }
           </Addressjudge>
           <AmountAndAddress className='addressTit'>接收地址</AmountAndAddress>

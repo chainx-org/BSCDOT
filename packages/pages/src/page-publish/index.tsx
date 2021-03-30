@@ -11,6 +11,7 @@ import { StatusContext } from '@polkadot/react-components';
 import { ActionStatus } from '@polkadot/pages/components/Status/types';
 import { creatStatusInfo } from '@polkadot/pages/helper/helper';
 import BigNumber from 'bignumber.js';
+import { NetWorkContext } from '@polkadot/pages/components/NetWorkProvider';
 
 interface Props {
   className?: string;
@@ -29,6 +30,7 @@ export default function PublicContent({className}: Props): React.ReactElement<Pr
   const [isChargeEnough, setIsChargeEnough] = useState<boolean>(true);
   const amountToBigNumber = new BigNumber(amount) ;
   const usableBalanceToBigNumber = (new BigNumber(usableBalance)).div(1e12).toNumber()
+  const {platonUnit} = useContext(NetWorkContext);
 
   useEffect(() => {
     if (!amount) {
@@ -94,7 +96,7 @@ export default function PublicContent({className}: Props): React.ReactElement<Pr
         <PublishAndRedeemCard
           className="left"
           title="发行"
-          unit='PDOT'
+          unit={platonUnit}
           isReverse={false}
           onClick={publish}
           charge={charge}

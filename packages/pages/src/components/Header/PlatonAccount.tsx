@@ -9,8 +9,7 @@ import { NetWorkContext } from '@polkadot/pages/components/NetWorkProvider';
 
 function PlatonAccount() {
   const {platonAccount, setPlatonAccount, pdotAmount} = useContext(PlatonAccountsContext);
-  const {netWork} = useContext(NetWorkContext);
-
+  const {netWork, isAlaya, platonUnit} = useContext(NetWorkContext);
   const openSamurai = () => {
     if (typeof window.alaya !== 'undefined') {
       alaya.request({method: 'platon_requestAccounts'})
@@ -25,11 +24,11 @@ function PlatonAccount() {
       {platonAccount ?
         <AccountCard
           className="greenCard"
-          accountName="PlatON 账户"
+          accountName={isAlaya? 'Alaya 账户': 'PlatON 账户'}
           accountAddress={platonAccount}
           accountAmount={pdotAmount ? pdotAmount : 0}
           iconNode={netWork.name.trim() === 'Alaya 网络' ? AlayaAccountLogo : PlantonAccountLogo}
-          unit='PDOT'
+          unit={platonUnit}
           accountType='platon'
         /> :
         <Card isBasic className="greenCard" label="使用 Samurai 插件登录 Platon 账户" iconNode={samurai}

@@ -10,6 +10,7 @@ import { ActionStatus } from '@polkadot/pages/components/Status/types';
 import { creatStatusInfo } from '@polkadot/pages/helper/helper';
 import { createDepositTransactionParameters, createApproveTransactionParameters } from '../contract';
 import BigNumber from 'bignumber.js';
+import { NetWorkContext } from '@polkadot/pages/components/NetWorkProvider';
 
 interface Props {
   className?: string;
@@ -26,6 +27,7 @@ export default function RedeemContent({className}: Props): React.ReactElement<Pr
   const pdotAmountToBigNumber = (new BigNumber(pdotAmount)).div(1e18).toNumber()
   const amountToBigNumber = new BigNumber(amount)
   const [isChargeEnough, setIsChargeEnough] = useState<boolean>(true)
+  const {platonUnit} = useContext(NetWorkContext);
 
   useEffect(() => {
     if(!amount){
@@ -79,7 +81,7 @@ export default function RedeemContent({className}: Props): React.ReactElement<Pr
         <PublishAndRedeemCard
           className="left"
           title="赎回"
-          unit='PDOT'
+          unit={platonUnit}
           isReverse={true}
           onClick={redeem}
           charge={charge}

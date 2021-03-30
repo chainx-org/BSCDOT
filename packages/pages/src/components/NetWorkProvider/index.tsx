@@ -3,7 +3,9 @@ import React, { createContext, FC, useEffect, useState } from 'react';
 export interface NetWorkProviderData {
   netWork: NetWorkInfo;
   setNetWork: React.Dispatch<NetWorkInfo>;
-  localNet: NetWorkInfo;
+  localNet: NetWorkInfo
+  isAlaya: boolean;
+  platonUnit: string;
 }
 
 export interface NetWorkInfo {
@@ -17,6 +19,8 @@ export const NetWorkContext = createContext<NetWorkProviderData>({} as NetWorkPr
 export const NetWorkProvider: FC = ({children}) => {
   const localNet: NetWorkInfo = JSON.parse(window.localStorage.getItem('netWork') || '{}');
   const polkadotSetting = JSON.parse(window.localStorage.getItem('settings')!);
+  const [isAlaya, setIsAlaya] = useState<boolean>(true)
+  const [platonUnit, setPlatonUnit] = useState('AKSM')
   const [netWork, setNetWork] = useState<NetWorkInfo>({
     name: localNet.name || '',
     polkadotNetUrl: localNet.polkadotNetUrl || '',
@@ -24,17 +28,23 @@ export const NetWorkProvider: FC = ({children}) => {
   });
 
   useEffect(() => {
-    polkadotSetting.apiUrl === 'wss://westend-rpc.polkadot.io' ?
+    if( polkadotSetting.apiUrl === 'wss://westend-rpc.polkadot.io'){
       setNetWork({
         name: 'Alaya 网络',
         polkadotNetUrl: polkadotSetting.apiUrl,
         platonNetUrl: 'https://platonnet.chainx.org/'
       })
-      : setNetWork({
+      setIsAlaya(true)
+      setPlatonUnit('AKSM')
+    }else{
+      setNetWork({
         name: 'Platon 网络',
         polkadotNetUrl: polkadotSetting.apiUrl,
         platonNetUrl: ''
-      });
+      })
+      setIsAlaya(false)
+      setPlatonUnit('PDOT')
+    }
   }, [polkadotSetting.apiUrl]);
 
   useEffect(() => {
@@ -46,6 +56,8 @@ export const NetWorkProvider: FC = ({children}) => {
       netWork,
       setNetWork,
       localNet,
+      isAlaya,
+      platonUnit
     }}>
       {children}
     </NetWorkContext.Provider>

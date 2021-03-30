@@ -35,8 +35,8 @@ export default function PublishAndRedeemCard({children, className = "", title, i
       <Content className="pdotCon">
         <PublishAndRedeem className={`ui-card-content`} key={title}>
           <AmountAndTip className='amountTit'>{title}数量</AmountAndTip>
-          <InputAutoLength placeholder="0" tokenName={formatProperties.tokenSymbol[0]} onBlur={(e) => setAmount(e.target.textContent!)}/>
-          <AmountAndTip className='tip'>手续费： {charge} PDOT</AmountAndTip>
+          <InputAutoLength placeholder="0" tokenName={isReverse ? unit: formatProperties.tokenSymbol[0]} onBlur={(e) => setAmount(e.target.textContent!)}/>
+          <AmountAndTip className='tip'>手续费： {charge} {unit}</AmountAndTip>
           <AccountMessage isReverse={isReverse} polkadotAddress={currentAccount} platonAddress={platonAccount}/>
           <RedeemWarn className="warn isShow">{errorMessage}</RedeemWarn>
           <Button className="isConfirm" onClick={onClick} text={`确定${title}`} />
