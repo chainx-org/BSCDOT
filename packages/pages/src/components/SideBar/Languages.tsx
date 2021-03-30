@@ -8,14 +8,6 @@ interface Props {
   className?: string;
 }
 
-export interface NodeItem {
-  index: number | undefined;
-  nodeName: string;
-  link: string;
-  icon: React.ReactElement;
-  icon_after: React.ReactElement;
-}
-
 const Lang = styled.div`
   padding: 50px 0;
   span {
