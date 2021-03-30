@@ -10,6 +10,7 @@ import { ActionStatus } from '@polkadot/pages/components/Status/types';
 import { creatStatusInfo } from '@polkadot/pages/helper/helper';
 import { createDepositTransactionParameters, createApproveTransactionParameters } from '../contract';
 import BigNumber from 'bignumber.js';
+import useTokenTransferList from '../hooks/useTransferList';
 
 interface Props {
   className?: string;
@@ -43,6 +44,7 @@ export default function RedeemContent({className}: Props): React.ReactElement<Pr
             .then(result => {
               creatStatusInfo(status, 'success', `交易哈希: ${result}`);
               queueAction(status as ActionStatus);
+              useTokenTransferList(platonAccount)
             })
             .catch(error => {
               sendErrorStatus(error)

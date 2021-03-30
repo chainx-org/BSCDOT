@@ -14,6 +14,7 @@ import {StatusContext} from '@polkadot/react-components';
 import {ActionStatus} from '@polkadot/pages/components/Status/types';
 import {creatStatusInfo} from '@polkadot/pages/helper/helper';
 import BigNumber from 'bignumber.js';
+import useTokenTransferList from '../hooks/useTransferList';
 
 interface Props {
   className?: string;
@@ -47,6 +48,7 @@ export default function PublicContent({ className }: Props): React.ReactElement<
                 if(formatStatusData.status.inBlock){
                   creatStatusInfo(status, 'success','发行成功')
                   queueAction(status as ActionStatus)
+                  useTokenTransferList(platonAccount)
                 }else{
                   creatStatusInfo(status, 'sending', '正在发送中...')
                   queueAction(status as ActionStatus)

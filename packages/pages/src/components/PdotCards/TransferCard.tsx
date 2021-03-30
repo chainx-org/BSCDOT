@@ -10,6 +10,7 @@ import {Icon, StatusContext} from '@polkadot/pages/components';
 import Button from '../Button';
 import InputDex from '../Input/InputDex';
 import Input from '../Input/Input';
+import useTokenTransferList from '@polkadot/pages/hooks/useTransferList';
 
 interface PdotCardProps {
   children?: React.ReactNode;
@@ -37,6 +38,7 @@ export default function TransferCard({children, className = '', title}: PdotCard
           .then(result => {
             creatStatusInfo(status, 'success',`交易哈希: ${result}`);
             queueAction(status as ActionStatus);
+            useTokenTransferList(platonAccount)
           })
           .catch(error => {
             creatStatusInfo(status, 'error', error.message);
