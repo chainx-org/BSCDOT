@@ -17,7 +17,7 @@ export interface PolkadotAccountsData {
   changeAccount: (account: string) => void,
   accountName: string | undefined,
   usableBalance: number,
-  setN: React.Dispatch<number>
+  getPolkadotBalances: (account: string) => Promise<void>
 }
 
 export const PolkadotAccountsContext = createContext<PolkadotAccountsData>({} as PolkadotAccountsData);
@@ -31,7 +31,16 @@ export const PolkadotAccountsProvider: FC = ({children}) => {
   const [usableBalance, setUsableBalance] = useState<number>(0);
   const [storedValue, setValue] = useLocalStorage<string>('currentAccount');
   const [currentAccount, setAccount] = useState<string>(storedValue);
-  const [n, setN] = useState<number>(0)
+
+
+  async function getPolkadotBalances(currentAccount: string) {
+    if(isApiReady){
+      const {data: balance} = await api.query.system.account(currentAccount);
+      const allBalance = JSON.parse(JSON.stringify(balance));
+      const bgFree = new BN(allBalance.free);
+      setUsableBalance(bgFree.sub(new BN(allBalance.miscFrozen)).toNumber());
+    }
+  }
 
   function changeAccount(account: string) {
     setAccount(account);
@@ -57,17 +66,8 @@ export const PolkadotAccountsProvider: FC = ({children}) => {
     const currentName = currentAccountInfo?.meta.name;
     setAccountName(currentName);
 
-    async function balances() {
-      if(isApiReady){
-        const {data: balance} = await api.query.system.account(currentAccount);
-        const allBalance = JSON.parse(JSON.stringify(balance));
-        const bgFree = new BN(allBalance.free);
-        setUsableBalance(bgFree.sub(new BN(allBalance.miscFrozen)).toNumber());
-      }
-    }
-
-    balances();
-  }, [currentAccount, isApiReady, accountName, allAccounts,n]);
+    getPolkadotBalances(currentAccount);
+  }, [currentAccount, isApiReady, accountName, allAccounts]);
 
   return (
     <PolkadotAccountsContext.Provider value={{
@@ -81,7 +81,7 @@ export const PolkadotAccountsProvider: FC = ({children}) => {
       changeAccount,
       accountName,
       usableBalance,
-      setN
+      getPolkadotBalances
     }}>
       {children}
     </PolkadotAccountsContext.Provider>

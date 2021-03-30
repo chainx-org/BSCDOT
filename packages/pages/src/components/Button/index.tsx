@@ -43,6 +43,10 @@ export default React.memo(styled(Button)`
     font-family: PingFangSC-Semibold;
     font-size: 16px;
     color: #ffffff;
+    opacity: 1;
+    &:hover {
+      opacity: 0.9;
+    }
   }
 
   &:not(.hasLabel) {
@@ -55,6 +59,10 @@ export default React.memo(styled(Button)`
 
   &.isBasic {
     border: 1px solid #fff;
+    opacity: 0.8;
+    &:hover {
+      opacity: 1;
+    }
   }
 
 `);

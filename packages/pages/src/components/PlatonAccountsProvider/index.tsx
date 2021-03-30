@@ -17,6 +17,7 @@ export interface PlatonAccountsProviderData {
   Transfers: Transfer[];
   pdotAmount: string;
   setPdotAmount: React.Dispatch<string>;
+  useTokenTransferList: (currentAccount: string) => any;
 }
 
 export const PlatonAccountsContext = createContext<PlatonAccountsProviderData>({} as PlatonAccountsProviderData);
@@ -74,6 +75,7 @@ export const PlatonAccountsProvider: FC = ({children}) => {
       Transfers,
       pdotAmount,
       setPdotAmount,
+      useTokenTransferList
     }}>
       {children}
     </PlatonAccountsContext.Provider>
