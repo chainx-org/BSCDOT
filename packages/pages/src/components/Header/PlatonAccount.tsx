@@ -6,8 +6,10 @@ import Card from '../Card';
 import samurai from '@polkadot/pages/components/Header/icons/logo_samurai.svg';
 import { PlatonAccountsContext } from '@polkadot/pages/components/PlatonAccountsProvider';
 import { NetWorkContext } from '@polkadot/pages/components/NetWorkProvider';
+import { useTranslation } from '@polkadot/pages/components/translate';
 
 function PlatonAccount() {
+  const {t} = useTranslation();
   const {platonAccount, setPlatonAccount, pdotAmount} = useContext(PlatonAccountsContext);
   const {netWork, isAlaya, platonUnit} = useContext(NetWorkContext);
   const openSamurai = () => {
@@ -24,14 +26,14 @@ function PlatonAccount() {
       {platonAccount ?
         <AccountCard
           className="greenCard"
-          accountName={isAlaya? 'Alaya 账户': 'PlatON 账户'}
+          accountName={isAlaya? t('Alaya account'): t('Platon account')}
           accountAddress={platonAccount}
           accountAmount={pdotAmount ? pdotAmount : 0}
           iconNode={netWork.name.trim() === 'Alaya 网络' ? AlayaAccountLogo : PlantonAccountLogo}
           unit={platonUnit}
           accountType='platon'
         /> :
-        <Card isBasic className="greenCard" label="使用 Samurai 插件登录 Platon 账户" iconNode={samurai}
+        <Card isBasic className="greenCard" label={t('Sign in your Platon account with the Samurai plugin')} iconNode={samurai}
               onClick={openSamurai}/>
       }
     </>

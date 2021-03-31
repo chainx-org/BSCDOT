@@ -12,12 +12,14 @@ import { ActionStatus } from '@polkadot/pages/components/Status/types';
 import { creatStatusInfo } from '@polkadot/pages/helper/helper';
 import BigNumber from 'bignumber.js';
 import { NetWorkContext } from '@polkadot/pages/components/NetWorkProvider';
+import { useTranslation } from '@polkadot/pages/components/translate';
 
 interface Props {
   className?: string;
 }
 
 export default function PublicContent({className}: Props): React.ReactElement<Props> {
+  const {t} = useTranslation();
   const {hasPlatonAccount, platonAccount, PublishRecords, pdotAmount, fetchTransfers} = useContext(PlatonAccountsContext);
   const publishLength = PublishRecords.length;
   const {hasAccounts, currentAccount, getPolkadotBalances, usableBalance} = useContext(PolkadotAccountsContext);
@@ -47,12 +49,12 @@ export default function PublicContent({className}: Props): React.ReactElement<Pr
 
   const displayStatusAndFetchBalance = (formatStatusData: any) => {
     if (formatStatusData.status.inBlock) {
-      creatStatusInfo(status, 'success', '发行成功');
+      creatStatusInfo(status, 'success', t('The publish is successful'));
       queueAction(status as ActionStatus);
       getPolkadotBalances(currentAccount);
       fetchTransfers(platonAccount)
     } else {
-      creatStatusInfo(status, 'sending', '正在发送中...');
+      creatStatusInfo(status, 'sending', t('sending...'));
       queueAction(status as ActionStatus);
     }
   };
@@ -96,16 +98,16 @@ export default function PublicContent({className}: Props): React.ReactElement<Pr
       {hasPlatonAccount && hasAccounts ?
         <PublishAndRedeemCard
           className="left"
-          title="发行"
+          title={t('Publish')}
           unit={platonUnit}
           isReverse={false}
           onClick={publish}
           charge={charge}
           setAmount={setAmount}
           isChargeEnough={isChargeEnough}/>
-        : <PdotNodata title='发行 PDOT' noDataMsg='请先登录 Polkadot 和 PlatON 账户'/>
+        : <PdotNodata title={`${t('Publish')} ${platonUnit}`} noDataMsg={t('Please login to your Polkadot and PlatON accounts first')}/>
       }
-      <Records className="right" title="发行记录" records={PublishRecords} recordLength={publishLength} arrows={true} isReverse={false} />
+      <Records className="right" title={t('Publish record')} records={PublishRecords} recordLength={publishLength} arrows={true} isReverse={false} />
     </Wrapper>
   );
 }

@@ -6,6 +6,7 @@ import { PlatonAccountsContext} from '@polkadot/pages/components/PlatonAccountsP
 import { PolkadotAccountsContext } from '@polkadot/pages/components/PolkadotAccountsProvider';
 import { ApiContext } from '@polkadot/react-api';
 import Button from '../Button';
+import { useTranslation } from '@polkadot/pages/components/translate';
 
 interface PublishAndRedeemProps {
   children?: React.ReactNode;
@@ -20,13 +21,14 @@ interface PublishAndRedeemProps {
 }
 
 export default function PublishAndRedeemCard({children, className = "", title, isReverse, unit, onClick, charge, setAmount, isChargeEnough}: PublishAndRedeemProps): React.ReactElement<PublishAndRedeemProps> {
+  const {t} = useTranslation();
   const {currentAccount} = useContext(PolkadotAccountsContext)
   const {platonAccount} = useContext(PlatonAccountsContext)
   const {formatProperties} = useContext(ApiContext)
   const [errorMessage, setErrorMessage] = useState<string>('')
 
   useEffect(() => {
-    isChargeEnough? setErrorMessage(''): setErrorMessage('余额不足')
+    isChargeEnough? setErrorMessage(''): setErrorMessage(t('The balance is insufficient'))
   }, [isChargeEnough])
 
   return (
@@ -34,12 +36,12 @@ export default function PublishAndRedeemCard({children, className = "", title, i
       <Title className={`ui-card-title `}>{title} {unit}</Title>
       <Content className="pdotCon">
         <PublishAndRedeem className={`ui-card-content`} key={title}>
-          <AmountAndTip className='amountTit'>{title}数量</AmountAndTip>
+          <AmountAndTip className='amountTit'>{title}{t('amount')}</AmountAndTip>
           <InputAutoLength placeholder="0" tokenName={isReverse ? unit: formatProperties.tokenSymbol[0]} onBlur={(e) => setAmount(e.target.textContent!)}/>
-          <AmountAndTip className='tip'>手续费： {charge} {unit}</AmountAndTip>
+          <AmountAndTip className='tip'>{t('service charge')}： {charge} {unit}</AmountAndTip>
           <AccountMessage isReverse={isReverse} polkadotAddress={currentAccount} platonAddress={platonAccount}/>
           <RedeemWarn className="warn isShow">{errorMessage}</RedeemWarn>
-          <Button className="isConfirm" onClick={onClick} text={`确定${title}`} />
+          <Button className="isConfirm" onClick={onClick} text={t('Confirm redeem')} />
         </PublishAndRedeem>
       </Content>
     </Wrapper>

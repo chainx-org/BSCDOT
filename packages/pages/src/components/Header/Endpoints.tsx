@@ -95,7 +95,7 @@ export default React.memo(styled(Endpoints)`
       margin-bottom: 20px;
     }
     .ui-tabEndpoint {
-      width: 88px;
+      width: 100%;
       height: 36px;
       border: 1px solid #ffffff;
       border-radius: 4px;

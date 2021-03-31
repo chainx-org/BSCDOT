@@ -23,10 +23,10 @@ export default function TransferContent({className}: Props): React.ReactElement<
   return (
     <Wrapper className={`contentWrapper ${className}`}>
       {hasPlatonAccount && hasAccounts ?
-        <TransferCard className="left" title={`${platonUnit} 转账`}/>
-        : <PdotNodata title={`${platonUnit} 转账`} noDataMsg='请先登录 Polkadot 和 PlatON 账户'/>
+        <TransferCard className="left" title={`${platonUnit} ${t('Transfer')}`}/>
+        : <PdotNodata title={`${platonUnit} ${t('Transfer')}`} noDataMsg={t('Please login to your Polkadot and PlatON accounts first')}/>
       }
-      <Records className="right" title="转账记录" records={Transfers} recordLength={transferLength} arrows={false}/>
+      <Records className="right" title={t('Transfer record')} records={Transfers} recordLength={transferLength} arrows={false}/>
     </Wrapper>
   );
 }

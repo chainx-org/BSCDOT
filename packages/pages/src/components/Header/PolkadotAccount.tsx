@@ -10,13 +10,15 @@ import { ApiProps } from '@polkadot/react-api/types';
 import { NetWorkContext } from '@polkadot/pages/components/NetWorkProvider';
 import { isWeb3Injected } from '@polkadot/extension-dapp';
 import { useApi } from '@polkadot/react-hooks';
+import { useTranslation } from '@polkadot/pages/components/translate';
 
 function PolkadotAccount(): React.ReactElement {
+  const {t} = useTranslation();
   const {currentAccount, hasAccounts, accountName, usableBalance, addressAndName} = useContext<PolkadotAccountsData>(PolkadotAccountsContext);
   const {formatProperties} = useContext<ApiProps>(ApiContext);
   const {netWork} = useContext(NetWorkContext);
   const {hasInjectedAccounts} = useApi();
-  const [promptMessage, setPromptMessage] = useState('使用 Polkadot{.js} 插件登录 Polkadot 账户')
+  const [promptMessage, setPromptMessage] = useState(t('Sign in your Polkadot{.js} the Polkadot plugin'))
 
   const _clickPolkadot = (): void => {
     if (!isWeb3Injected) {
@@ -27,10 +29,10 @@ function PolkadotAccount(): React.ReactElement {
   useEffect(() => {
     if(isWeb3Injected){
       if(!hasInjectedAccounts){
-        setPromptMessage('检测到扩展程序，请授予插件访问帐户相关权限')
+        setPromptMessage(t('The extension is detected, please grant the plugin access to the account related permissions'))
       }
     }
-  }, [isWeb3Injected, hasInjectedAccounts])
+  }, [isWeb3Injected, hasInjectedAccounts, t])
 
   return (
     <>

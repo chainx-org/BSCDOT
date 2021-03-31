@@ -53,7 +53,7 @@ export default React.memo(styled(Card)`
   &.isBasic {
     .ui--AccountStatus {
       width: 196px;
-      height: 48px;
+      min-height: 48px;
       background: #fff;
       border-radius: 27px;
     }

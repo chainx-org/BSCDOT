@@ -5,6 +5,7 @@ import MiniLoading from './MiniLoading';
 import Line from './components/Line';
 import Lines from './components/Lines';
 import Empty from './Empty';
+import { useTranslation } from '@polkadot/pages/components/translate';
 
 interface RecordsProps {
   children?: React.ReactNode;
@@ -19,6 +20,7 @@ interface RecordsProps {
 export default function Records({ children, className = '', title, records, recordLength, arrows, isReverse }: RecordsProps): React.ReactElement<RecordsProps> {
   const [loading, setLoading] = useState(true);
   const mounted = useIsMounted();
+  const {t} = useTranslation();
 
   useEffect(() => {
     setLoading(true);
@@ -48,7 +50,7 @@ export default function Records({ children, className = '', title, records, reco
     <Wrapper className={`ui-record ${className} `}>
       <Title className='ui-record-title'>{title}</Title>
       <RecordDetail className={ recordLength === 1 ?  'normal' : 'overflow' }>
-        {(records || []).length > 0 ? ( RecordsElement ) : (<Empty text='暂无数据' />)}
+        {(records || []).length > 0 ? ( RecordsElement ) : (<Empty text={t('No data')} />)}
       </RecordDetail>
     </Wrapper>
   );

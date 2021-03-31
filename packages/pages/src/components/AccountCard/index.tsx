@@ -7,6 +7,7 @@ import Button from '../Button';
 import ToolTipConfig from '../ToolTipConfig';
 import {toPrecision} from '@polkadot/pages/helper/helper';
 import BigNumber from 'bignumber.js';
+import { useTranslation } from '@polkadot/pages/components/translate';
 
 export interface AccountAndAddress{
   account: string;
@@ -35,6 +36,7 @@ const formatAccountAmount = (amount: number, precision: number): string => {
 function AccountCard({ children, className = '', isBasic, accountName, accountAddress, accountAmount, iconNode, onClick, allAccounts, unit, accountType}: AccountCardProps): React.ReactElement<AccountCardProps> {
   const [isAccountListOpen, setIsAccountListOpen] = useState<boolean>(false);
   const _toggleAccountList = (): void => setIsAccountListOpen(true);
+  const {t} = useTranslation();
 
   return (
     <div className={`ui-accountCard ${className} ${isBasic ? ' isBasic' : ''}  `}>
@@ -42,17 +44,17 @@ function AccountCard({ children, className = '', isBasic, accountName, accountAd
       <div className={`ui-accountAmount accountItem`}>
         <div className="accountName">
           <span>{accountName ? accountName : '-'}</span>
-          {allAccounts ? 
+          {allAccounts ?
           <Button
             className="ui--Account"
             icon={SelectMore}
             onClick={_toggleAccountList}
-          /> 
+          />
           : null}
         </div>
         <div className="address">{accountAddress}</div>
       </div>
-      <div className="balance">可用余额</div>
+      <div className="balance">{t('Available balance')}</div>
       <div className="amounts">{accountType === 'polkadot' ? formatAccountAmount(accountAmount, 12): formatAccountAmount(accountAmount, 18)} {unit}</div>
       {children}{' '}
       {(isAccountListOpen && (

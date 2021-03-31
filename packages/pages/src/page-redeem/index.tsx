@@ -11,12 +11,14 @@ import { creatStatusInfo } from '@polkadot/pages/helper/helper';
 import { createDepositTransactionParameters, createApproveTransactionParameters } from '../contract';
 import BigNumber from 'bignumber.js';
 import { NetWorkContext } from '@polkadot/pages/components/NetWorkProvider';
+import { useTranslation } from '@polkadot/pages/components/translate';
 
 interface Props {
   className?: string;
 }
 
 export default function RedeemContent({className}: Props): React.ReactElement<Props> {
+  const {t} = useTranslation();
   const {hasAccounts, currentAccount} = useContext(PolkadotAccountsContext);
   const {platonAccount, hasPlatonAccount, RedeemRecords, pdotAmount, fetchTransfers } = useContext(PlatonAccountsContext);
   const redeemLength = RedeemRecords.length;
@@ -60,7 +62,7 @@ export default function RedeemContent({className}: Props): React.ReactElement<Pr
             params: [createDepositTransactionParameters(platonAccount, currentAccount, amountToPrecision)]
           })
             .then(result => {
-              creatStatusInfo(status, 'success', `交易哈希: ${result}`);
+              creatStatusInfo(status, 'success', `${t('Transaction hash')}: ${result}`);
               queueAction(status as ActionStatus);
               fetchTransfers(platonAccount)
             })
@@ -81,7 +83,7 @@ export default function RedeemContent({className}: Props): React.ReactElement<Pr
       {hasPlatonAccount && hasAccounts ?
         <PublishAndRedeemCard
           className="left"
-          title="赎回"
+          title={t('Redeem')}
           unit={platonUnit}
           isReverse={true}
           onClick={redeem}
@@ -89,9 +91,9 @@ export default function RedeemContent({className}: Props): React.ReactElement<Pr
           setAmount={setAmount}
           isChargeEnough={isChargeEnough}/>
 
-        : <PdotNodata title='赎回 PDOT' noDataMsg='请先登录 Polkadot 和 PlatON 账户'/>
+        : <PdotNodata title={`${t('Redeem')} ${platonUnit}`} noDataMsg={t('Please login to your Polkadot and PlatON accounts first')}/>
       }
-      <Records className="right" title="赎回记录" records={RedeemRecords} recordLength={redeemLength} arrows={true} isReverse={true} />
+      <Records className="right" title={t('Redeem record')} records={RedeemRecords} recordLength={redeemLength} arrows={true} isReverse={true} />
     </Wrapper>
   );
 }
