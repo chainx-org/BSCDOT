@@ -18,9 +18,9 @@
     "@polkadot/dev": "^0.60.5",
     "@polkadot/react-api": "^0.68.2-19",
     "@polkadot/react-hooks": "^0.68.2-19",
-    "@polkadot/react-params": "^0.68.2-19",
     "@polkadot/react-query": "^0.68.2-19",
-    "@polkadot/react-signer": "^0.68.2-19",
+    "@polkadot/ui-keyring": "^0.62.2-15",
+    "@polkadot/ui-settings": "^0.62.2-15",
     "punycode": "^2.1.1",
     "query-string": "^6.13.7"
   },

@@ -9,7 +9,7 @@ import {ThemeProvider} from 'styled-components';
 import {HashRouter} from 'react-router-dom';
 import {Api} from '@polkadot/react-api';
 import Queue from '@polkadot/pages/components/Status/Queue';
-import {BlockAuthors, Events} from '@polkadot/react-query';
+// import {BlockAuthors, Events} from '@polkadot/react-query';
 import settings from '@polkadot/ui-settings';
 import Apps from './Apps';
 import WindowDimensions from './WindowDimensions';
@@ -47,15 +47,15 @@ function Root({store}: Props): React.ReactElement<Props> {
             <NetWorkProvider>
               <PolkadotAccountsProvider>
                 <PlatonAccountsProvider>
-                  <BlockAuthors>
-                    <Events>
+                  {/*<BlockAuthors>*/}
+                  {/*  <Events>*/}
                       <HashRouter>
                         <WindowDimensions>
                           <Apps/>
                         </WindowDimensions>
                       </HashRouter>
-                    </Events>
-                  </BlockAuthors>
+                  {/*  </Events>*/}
+                  {/*</BlockAuthors>*/}
                 </PlatonAccountsProvider>
               </PolkadotAccountsProvider>
             </NetWorkProvider>
