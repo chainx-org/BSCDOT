@@ -13,7 +13,6 @@
   "dependencies": {
     "@babel/runtime": "^7.12.1",
     "@polkadot/extension-dapp": "^0.35.0-beta.54",
-    "@polkadot/react-components": "^0.68.2-19",
     "@polkadot/vanitygen": "^0.22.1",
     "detect-browser": "^5.2.0",
     "file-saver": "^2.0.2"

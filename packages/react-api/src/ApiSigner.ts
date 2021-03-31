@@ -3,7 +3,7 @@
 
 import type { Signer, SignerResult } from '@polkadot/api/types';
 import type { SubmittableResult } from '@polkadot/api';
-import type { QueueTxPayloadAdd, QueueTxMessageSetStatus, QueueTxStatus } from '@polkadot/react-components/../../../pages/src/components/Status/types';
+import type { QueueTxPayloadAdd, QueueTxMessageSetStatus, QueueTxStatus } from '@polkadot/pages/components/Status/types';
 import type { Hash } from '@polkadot/types/interfaces';
 import type { SignerPayloadJSON } from '@polkadot/types/types';
 

@@ -26,7 +26,7 @@ function PlatonAccount() {
       {platonAccount ?
         <AccountCard
           className="greenCard"
-          accountName={isAlaya? t('Alaya account'): t('Platon account')}
+          accountName={isAlaya? t('Alaya account'): t('PlatON account')}
           accountAddress={platonAccount}
           accountAmount={pdotAmount ? pdotAmount : 0}
           iconNode={netWork.name.trim() === 'Alaya 网络' ? AlayaAccountLogo : PlantonAccountLogo}

@@ -7,7 +7,7 @@ import PdotNodata from '../components/PdotCards/PdotNodata';
 import PublishAndRedeemCard from '../components/PdotCards/PublishAndRedeemCard';
 import { web3FromAddress } from '@polkadot/extension-dapp';
 import { useApi } from '@polkadot/react-hooks';
-import { StatusContext } from '@polkadot/react-components';
+import { StatusContext } from '@polkadot/pages/components';
 import { ActionStatus } from '@polkadot/pages/components/Status/types';
 import { creatStatusInfo } from '@polkadot/pages/helper/helper';
 import BigNumber from 'bignumber.js';

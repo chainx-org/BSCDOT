@@ -65,6 +65,12 @@ export default React.memo(styled(Button)`
   &.isFull {
     display: block;
     width: 100%;
+    background: white;
+    padding: 0.6rem;
+    border-radius: 0.25rem;
+    &:hover{
+      background: #e1b15b;
+    }
   }
   .ui--Icon {
     border-radius: 50%;

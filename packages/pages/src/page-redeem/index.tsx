@@ -5,7 +5,7 @@ import { PlatonAccountsContext } from '@polkadot/pages/components/PlatonAccounts
 import { PolkadotAccountsContext } from '@polkadot/pages/components/PolkadotAccountsProvider';
 import PdotNodata from '../components/PdotCards/PdotNodata';
 import PublishAndRedeemCard from '../components/PdotCards/PublishAndRedeemCard';
-import { StatusContext } from '@polkadot/react-components';
+import { StatusContext } from '@polkadot/pages/components';
 import { ActionStatus } from '@polkadot/pages/components/Status/types';
 import { creatStatusInfo } from '@polkadot/pages/helper/helper';
 import { createDepositTransactionParameters, createApproveTransactionParameters } from '../contract';

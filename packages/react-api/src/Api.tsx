@@ -14,7 +14,7 @@ import { POLKADOT_DENOM_BLOCK, POLKADOT_GENESIS, ethereumNetworks, typesChain, t
 import { web3Accounts, web3Enable } from '@polkadot/extension-dapp';
 import { WsProvider } from '@polkadot/rpc-provider';
 import { StatusContext } from '@polkadot/pages/components/Status';
-import ApiSigner from '@polkadot/react-signer/signers/ApiSigner';
+import ApiSigner from './ApiSigner';
 import keyring from '@polkadot/ui-keyring';
 import settings from '@polkadot/ui-settings';
 import { formatBalance, isTestChain } from '@polkadot/util';
