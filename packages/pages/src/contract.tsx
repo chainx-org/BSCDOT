@@ -1633,9 +1633,9 @@ const adminAddress = 'atp18hqda4eajphkfarxaa2rutc5dwdwx9z5vy2nmh';
 const ghjieAddress = 'atx1j4ncnc4ajm8ut0nvg2n34uedtz3kuecmsdf7qd';
 const rjmanAddress = 'atx1sy2tvmghdv47hwz89yu9wz2y29nd0frr0578e3';
 
-const bridgeAddress = 'atp1ed4mz9wawr7dnnznjx4uuu4uwdquc0wwn9uu96';
-const handlerAddress = 'atp13kpqglnd5xl699smjulk64v048ku7d50c8jt5p';
-const erc20Address = 'atp1uc38t2lghef8ccz4aw8r8d5hmnvs7qyvsv42lk';
+const bridgeAddress = 'atp15ysxv3f9qudxnlu8cel9sx6lp6asguful3yz5z';
+const handlerAddress = 'atp142a30tfa8jae8gpxhn2xye0hyy9xlmnaajpapa';
+const erc20Address = 'atp1s8y6ulfaajje430erl5nnf0q3szy0g5g7u03dt';
 const resourceID = '0x0000000000000000000000000000000000000000000000000000000000000000';
 const erc20_minter_contract = new web3.platon.Contract(erc20miner_abi);
 erc20_minter_contract.options.address = erc20Address;

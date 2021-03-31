@@ -21,7 +21,7 @@ function Header({className}: Props): React.ReactElement<Props> {
       <div className="cardListWrapper">
         <PolkadotAccount/>
         <PlatonAccount/>
-        <Endpoints className="blueCard" iconNode={Network} title={t('The current network')} content={netWork.name} btnLabel={t('Switch network')}/>
+        <Endpoints className="blueCard" iconNode={Network} title={t('The current network')} content={`${netWork.name} ${t('network')}`} btnLabel={t('Switch network')}/>
       </div>
     </div>
   );

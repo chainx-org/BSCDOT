@@ -30,7 +30,7 @@ export const NetWorkProvider: FC = ({children}) => {
   useEffect(() => {
     if( polkadotSetting.apiUrl === 'wss://kusama-testnet.chainx.org/ws'){
       setNetWork({
-        name: 'Alaya 网络',
+        name: 'Alaya',
         polkadotNetUrl: polkadotSetting.apiUrl,
         platonNetUrl: 'https://platonnet.chainx.org/'
       })
@@ -38,7 +38,7 @@ export const NetWorkProvider: FC = ({children}) => {
       setPlatonUnit('AKSM')
     }else{
       setNetWork({
-        name: 'Platon 网络',
+        name: 'Platon',
         polkadotNetUrl: polkadotSetting.apiUrl,
         platonNetUrl: ''
       })

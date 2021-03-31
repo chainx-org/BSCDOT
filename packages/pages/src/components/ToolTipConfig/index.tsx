@@ -5,6 +5,7 @@ import { Cell } from './components/Cell/Cell';
 import CLOSE from './assets/icon-close.png';
 import { PolkadotAccountsContext } from '@polkadot/pages/components/PolkadotAccountsProvider';
 import { NetWorkContext } from '@polkadot/pages/components/NetWorkProvider';
+import { useTranslation } from '@polkadot/pages/components/translate';
 
 const Wrapper = styled.section`
   position: fixed;
@@ -61,6 +62,7 @@ export default function ToolTipConfig({list, isOpen, setIsOpen, listType}: ToolT
   const {currentAccount} = useContext(PolkadotAccountsContext);
   const {netWork} = useContext(NetWorkContext);
   const _toggle = (): void => setIsOpen(false);
+  const {t} = useTranslation();
 
   const component = (
     <>
@@ -76,7 +78,7 @@ export default function ToolTipConfig({list, isOpen, setIsOpen, listType}: ToolT
               return (
                 <Cell
                   key={Math.random()}
-                  isSelected={currentAccount === item.account || netWork.name === item.title}
+                  isSelected={currentAccount === item.account || `${netWork.name} ${t('network')}` === item.title}
                   iconUrl={item.iconUrl}
                   title={item.title}
                   accountName={item.accountName}

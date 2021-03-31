@@ -1,11 +1,10 @@
-// Copyright 2017-2020 @polkadot/react-components authors & contributors
-// SPDX-License-Identifier: Apache-2.0
 import React, { useState } from "react";
 import styled from "styled-components";
 import Button from "../Button";
 import ToolTipConfig from "../ToolTipConfig";
 import ALAYA from "../ToolTipConfig/assets/alaya.svg";
 import PLATON from "../ToolTipConfig/assets/platon.svg";
+import { useTranslation } from '@polkadot/pages/components/translate';
 
 interface EndpointProps {
   children?: React.ReactNode;
@@ -24,21 +23,6 @@ export interface NetWorkInfo {
   platOnNetUrl: string;
 }
 
-const netWorkList: NetWorkInfo[] = [
-  {
-    title: "Alaya 网络",
-    iconUrl: ALAYA,
-    polkadotNetUrl: "wss://kusama-testnet.chainx.org/ws",
-    platOnNetUrl: "http://47.110.34.31:6789"
-  },
-  {
-    title: "Platon 网络",
-    iconUrl: PLATON,
-    polkadotNetUrl: "wss://rpc.polkadot.io",
-    platOnNetUrl: ""
-  }
-];
-
 function Endpoints({
   children,
   className = "",
@@ -48,8 +32,26 @@ function Endpoints({
   btnLabel,
   onClick
 }: EndpointProps): React.ReactElement<EndpointProps> {
+  const {t} = useTranslation();
   const [isEndpoints, setIsEndpoints] = useState<boolean>(false);
   const _toggleEndpoints = (): void => setIsEndpoints(true);
+
+  const netWorkList: NetWorkInfo[] = [
+    {
+      title: `Alaya ${t('network')}`,
+      iconUrl: ALAYA,
+      polkadotNetUrl: "wss://kusama-testnet.chainx.org/ws",
+      platOnNetUrl: "http://47.110.34.31:6789"
+    },
+    {
+      title: `Platon ${t('network')}`,
+      iconUrl: PLATON,
+      polkadotNetUrl: "wss://rpc.polkadot.io",
+      platOnNetUrl: ""
+    }
+  ];
+
+
   return (
     <div className={`isBasic ${className}`}>
       <div className="leftIcon">

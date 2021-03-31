@@ -29,7 +29,7 @@ function PlatonAccount() {
           accountName={isAlaya? t('Alaya account'): t('PlatON account')}
           accountAddress={platonAccount}
           accountAmount={pdotAmount ? pdotAmount : 0}
-          iconNode={netWork.name.trim() === 'Alaya 网络' ? AlayaAccountLogo : PlantonAccountLogo}
+          iconNode={netWork.name.trim() === 'Alaya' ? AlayaAccountLogo : PlantonAccountLogo}
           unit={platonUnit}
           accountType='platon'
         /> :

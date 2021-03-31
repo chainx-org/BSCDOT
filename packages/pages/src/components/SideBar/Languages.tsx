@@ -34,12 +34,14 @@ export function save (language: string): void {
 }
 
 function Languages({ className = "" }: Props): React.ReactElement<Props> {
-  const [language, setLanguage] =  useState<string>('zh')
+  const [language, setLanguage] =  useState<string>('')
   useEffect(() => {
     save(language)
   }, [language])
 
-
+  useEffect(() => {
+    setLanguage(uiSettings.get().i18nLang)
+  },[uiSettings.get().i18nLang])
 
   return (
     <Lang>

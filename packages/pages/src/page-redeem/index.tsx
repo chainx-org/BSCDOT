@@ -25,7 +25,7 @@ export default function RedeemContent({className}: Props): React.ReactElement<Pr
   const [amount, setAmount] = useState<string>('0');
   const {queueAction} = useContext(StatusContext);
   const status = {action: 'redeem'} as ActionStatus;
-  const [charge, setCharge] = useState(0.5)
+  const [charge, setCharge] = useState(0.3)
   const pdotAmountToBigNumber = (new BigNumber(pdotAmount)).div(1e18).toNumber()
   const amountToBigNumber = new BigNumber(amount)
   const [isChargeEnough, setIsChargeEnough] = useState<boolean>(true)
@@ -33,10 +33,10 @@ export default function RedeemContent({className}: Props): React.ReactElement<Pr
 
   useEffect(() => {
     if(!amount){
-      setCharge(0.5)
+      setCharge(0.3)
     }else{
       const chargeOfAmount = amountToBigNumber.times(0.001).toNumber()
-      setCharge(chargeOfAmount + 0.5)
+      setCharge(chargeOfAmount + 0.3)
     }
   }, [amount])
 

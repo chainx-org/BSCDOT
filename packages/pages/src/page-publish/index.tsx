@@ -28,7 +28,7 @@ export default function PublicContent({className}: Props): React.ReactElement<Pr
   const {queueAction} = useContext(StatusContext);
   const status = {action: 'publish'} as ActionStatus;
   const pdotAmountToBigNumber = (new BigNumber(pdotAmount)).div(1e18).toNumber();
-  const [charge, setCharge] = useState(0.5);
+  const [charge, setCharge] = useState(0.3);
   const [isChargeEnough, setIsChargeEnough] = useState<boolean>(true);
   const amountToBigNumber = new BigNumber(amount) ;
   const usableBalanceToBigNumber = (new BigNumber(usableBalance)).div(1e12).toNumber()
@@ -36,10 +36,10 @@ export default function PublicContent({className}: Props): React.ReactElement<Pr
 
   useEffect(() => {
     if (!amount) {
-      setCharge(0.5);
+      setCharge(0.3);
     } else {
       const chargeOfAmount = amountToBigNumber.times(0.001).toNumber();
-      setCharge(chargeOfAmount + 0.5);
+      setCharge(chargeOfAmount + 0.3);
     }
   }, [amount]);
 

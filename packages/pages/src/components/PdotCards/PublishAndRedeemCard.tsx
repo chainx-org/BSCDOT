@@ -29,7 +29,7 @@ export default function PublishAndRedeemCard({children, className = "", title, i
 
   useEffect(() => {
     isChargeEnough? setErrorMessage(''): setErrorMessage(t('The balance is insufficient'))
-  }, [isChargeEnough])
+  }, [isChargeEnough, t])
 
   return (
     <Wrapper className={`ui-card ${className}`}>

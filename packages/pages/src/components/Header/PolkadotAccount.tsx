@@ -43,7 +43,7 @@ function PolkadotAccount(): React.ReactElement {
             accountName={accountName}
             accountAddress={currentAccount}
             accountAmount={usableBalance ? usableBalance : 0}
-            iconNode={netWork.name.trim() === 'Alaya 网络' ? KusamaAccountLogo : PolkadotAccountLogo}
+            iconNode={netWork.name.trim() === 'Alaya' ? KusamaAccountLogo : PolkadotAccountLogo}
             allAccounts={addressAndName}
             unit={formatProperties.tokenSymbol[0]}
             accountType='polkadot'

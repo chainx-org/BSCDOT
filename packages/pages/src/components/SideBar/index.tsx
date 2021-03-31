@@ -10,9 +10,10 @@ import Transfer from "./icons/transfer.svg";
 import Publish_ACTIVE from "./icons/publish_active.svg";
 import Redeem_ACTIVE from "./icons/redeem_active.svg";
 import Transfer_ACTIVE from "./icons/transfer_active.svg";
-
 import SideItem from "./SideItem";
 import Languages from "./Languages";
+import { useTranslation } from '@polkadot/pages/components/translate';
+
 interface Props {
   className?: string;
 }
@@ -77,26 +78,26 @@ const Wrapper = styled.div`
 `;
 
 function Sidebars({ className = "" }: Props): React.ReactElement<Props> {
-  // const { t } = useTranslation();
+  const {t} = useTranslation();
 
   const nodeList: NodeItem[] = [
     {
       index: 0,
-      nodeName: "发行",
+      nodeName: t("Publish"),
       link: "/",
       icon: <img src={Publish} alt="publish" />,
       icon_after: <img src={Publish_ACTIVE} alt="publish" />
     },
     {
       index: 1,
-      nodeName: "赎回",
+      nodeName: t("Redeem"),
       link: "/redeem",
       icon: <img src={Redeem} alt="redeem" />,
       icon_after: <img src={Redeem_ACTIVE} alt="redeem" />
     },
     {
       index: 2,
-      nodeName: "转账",
+      nodeName: t("Transfer"),
       link: "/transfer",
       icon: <img src={Transfer} alt="transfer" />,
       icon_after: <img src={Transfer_ACTIVE} alt="transfer" />
