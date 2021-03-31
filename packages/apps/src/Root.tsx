@@ -1,22 +1,21 @@
 // Copyright 2017-2020 @polkadot/apps authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import type {ThemeDef} from '@polkadot/pages/components/types';
-import type {KeyringStore} from '@polkadot/ui-keyring/types';
+import type { ThemeDef } from '@polkadot/pages/components/types';
+import type { KeyringStore } from '@polkadot/ui-keyring/types';
 
-import React, {Suspense, useEffect, useState} from 'react';
-import {ThemeProvider} from 'styled-components';
-import {HashRouter} from 'react-router-dom';
-import {Api} from '@polkadot/react-api';
+import React, { Suspense, useEffect, useState } from 'react';
+import { ThemeProvider } from 'styled-components';
+import { HashRouter } from 'react-router-dom';
+import { Api } from '@polkadot/react-api';
 import Queue from '@polkadot/pages/components/Status/Queue';
-// import {BlockAuthors, Events} from '@polkadot/react-query';
 import settings from '@polkadot/ui-settings';
 import Apps from './Apps';
 import WindowDimensions from './WindowDimensions';
-import {darkTheme, lightTheme} from './themes';
-import {PlatonAccountsProvider} from '@polkadot/pages/components/PlatonAccountsProvider';
+import { darkTheme, lightTheme } from './themes';
+import { PlatonAccountsProvider } from '@polkadot/pages/components/PlatonAccountsProvider';
 import { PolkadotAccountsProvider } from '@polkadot/pages/components/PolkadotAccountsProvider';
-import {NetWorkProvider} from '@polkadot/pages/components/NetWorkProvider';
+import { NetWorkProvider } from '@polkadot/pages/components/NetWorkProvider';
 
 
 interface Props {
@@ -47,15 +46,11 @@ function Root({store}: Props): React.ReactElement<Props> {
             <NetWorkProvider>
               <PolkadotAccountsProvider>
                 <PlatonAccountsProvider>
-                  {/*<BlockAuthors>*/}
-                  {/*  <Events>*/}
-                      <HashRouter>
-                        <WindowDimensions>
-                          <Apps/>
-                        </WindowDimensions>
-                      </HashRouter>
-                  {/*  </Events>*/}
-                  {/*</BlockAuthors>*/}
+                  <HashRouter>
+                    <WindowDimensions>
+                      <Apps/>
+                    </WindowDimensions>
+                  </HashRouter>
                 </PlatonAccountsProvider>
               </PolkadotAccountsProvider>
             </NetWorkProvider>
