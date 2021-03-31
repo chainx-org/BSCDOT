@@ -3,7 +3,7 @@ import { InjectedAccountWithMeta } from '@polkadot/extension-inject/types';
 import useLocalStorage from '@polkadot/pages/hooks/useLocalStorage';
 import { usePolkadotAccounts } from '@polkadot/pages/hooks/usePolkadotAccounts';
 import { useApi } from '@polkadot/react-hooks';
-import BN from 'bn.js';
+import BigNumber from 'bignumber.js';
 
 
 export interface PolkadotAccountsData {
@@ -37,8 +37,8 @@ export const PolkadotAccountsProvider: FC = ({children}) => {
     if(isApiReady){
       const {data: balance} = await api.query.system.account(currentAccount);
       const allBalance = JSON.parse(JSON.stringify(balance));
-      const bgFree = new BN(allBalance.free);
-      setUsableBalance(bgFree.sub(new BN(allBalance.miscFrozen)).toNumber());
+      const bgFree = new BigNumber(Number(allBalance.free));
+      setUsableBalance(bgFree.minus(new BigNumber(allBalance.miscFrozen)).toNumber());
     }
   }
 
