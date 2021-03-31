@@ -12,6 +12,7 @@ import Redeem_ACTIVE from "./icons/redeem_active.svg";
 import Transfer_ACTIVE from "./icons/transfer_active.svg";
 
 import SideItem from "./SideItem";
+import Languages from "./Languages";
 interface Props {
   className?: string;
 }
@@ -25,6 +26,10 @@ export interface NodeItem {
 }
 
 const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
   padding-top: 30px;
   width: 256px;
   font-size: 16px;
@@ -110,6 +115,7 @@ function Sidebars({ className = "" }: Props): React.ReactElement<Props> {
           ))}
         </ul>
       </div>
+      <Languages />
     </Wrapper>
   );
 }

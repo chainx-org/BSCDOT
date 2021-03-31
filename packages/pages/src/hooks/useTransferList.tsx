@@ -29,7 +29,7 @@ interface AllRecords {
   Transfers: Transfer[],
 }
 
-export default function useTokenTransferList(currentAccount: string): AllRecords {
+export default function useTokenTransferList(currentAccount: string) {
   const [state, setState] = useState<AllRecords>({PublishRecords: [], RedeemRecords: [], Transfers: []});
 
   async function fetchTransfers(currentAccount: string) {
@@ -46,5 +46,5 @@ export default function useTokenTransferList(currentAccount: string): AllRecords
     fetchTransfers(currentAccount);
   }, [currentAccount]);
 
-  return state
+  return { state, fetchTransfers }
 }

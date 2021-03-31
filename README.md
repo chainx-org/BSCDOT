@@ -80,5 +80,5 @@ yarn start
     Alaya network corresponds to alaya and westend, Platon network corresponds to platon and polkadot.
 ![](http://lc-XLoqMObG.cn-n1.lcfile.com/a0abed351459eff2052b.png)
 
-    用户可以在本地 localStorage 中查看当前网络状态
+    Users can view the current network status in the local localStorage
 ![](http://lc-XLoqMObG.cn-n1.lcfile.com/a31c86c0c50704018575.png)
