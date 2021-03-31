@@ -18,7 +18,7 @@ export default function ({ hash, length = 5, className = '' }: Props): React.Rea
 
   useEffect(() => {
     async function fetchUrl() {
-      if ( localNet.polkadotNetUrl === 'wss://westend-rpc.polkadot.io') {
+      if ( localNet.polkadotNetUrl === 'wss://kusama-testnet.chainx.org/ws') {
         setUrl(`https://devnetscan.alaya.network/trade-detail?txHash=${hash}`)
       } else {
         setUrl(`https://scan.alaya.network/trade-detail?txHash=${hash}`)

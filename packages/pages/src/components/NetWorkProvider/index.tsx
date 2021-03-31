@@ -28,7 +28,7 @@ export const NetWorkProvider: FC = ({children}) => {
   });
 
   useEffect(() => {
-    if( polkadotSetting.apiUrl === 'wss://westend-rpc.polkadot.io'){
+    if( polkadotSetting.apiUrl === 'wss://kusama-testnet.chainx.org/ws'){
       setNetWork({
         name: 'Alaya 网络',
         polkadotNetUrl: polkadotSetting.apiUrl,

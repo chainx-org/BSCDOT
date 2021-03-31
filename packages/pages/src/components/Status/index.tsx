@@ -6,7 +6,7 @@ import type { QueueStatus, QueueTx, QueueTxStatus } from './types';
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import type { IconName } from '@fortawesome/fontawesome-svg-core';
-import { Button } from '@polkadot/react-components';
+import { Button } from '@polkadot/pages/components';
 import Icon from '@polkadot/pages/components/Icon';
 import Spinner from '@polkadot/pages/components/Spinner';
 import { useTranslation } from '@polkadot/pages/components/translate';

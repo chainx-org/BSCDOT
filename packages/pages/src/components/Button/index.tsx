@@ -6,23 +6,24 @@ export interface ButtonProps {
   className?: string;
   onClick?: () => void | Promise<void>;
   text?: string;
-  icon?: any;
-  Icons?: any;
+  icon?: string;
+  img?: string;
   label?: React.ReactNode;
   isBasic?: boolean;
+  isFull?: boolean;
 }
 
-function Button({ className, onClick, text, icon, Icons, label, isBasic }: ButtonProps): React.ReactElement<ButtonProps> {
+function Button({ className, onClick, text, img, icon, label, isBasic, isFull }: ButtonProps): React.ReactElement<ButtonProps> {
   const _onClick = useCallback(() => {
     onClick && onClick();
   }, [onClick]);
 
   return (
-    <button className={`ui-button${label ? ' hasLabel' : ''}${isBasic ? ' isBasic' : ''} ${className}`} onClick={_onClick}>
+    <button className={`ui-button${label ? ' hasLabel' : ''}${isBasic ? ' isBasic': ''} ${className}${isFull? ' isFull': ''}`} onClick={_onClick}>
+      {icon && <Icon icon={icon}/>}
       {text}
       {label}
-      {icon && <img src={icon} alt="" />}
-      {Icons && <Icon icon={icon}/>}
+      {img && <img src={img} alt="" />}
     </button>
   );
 }
@@ -51,10 +52,6 @@ export default React.memo(styled(Button)`
 
   &:not(.hasLabel) {
     padding: 0 0.7em;
-    // .ui--Icon {
-    //   padding: 0.6rem;
-    //   margin: -0.6rem;
-    // }
   }
 
   &.isBasic {
@@ -63,6 +60,19 @@ export default React.memo(styled(Button)`
     &:hover {
       opacity: 1;
     }
+  }
+
+  &.isFull {
+    display: block;
+    width: 100%;
+  }
+  .ui--Icon {
+    border-radius: 50%;
+    box-sizing: content-box;
+    height: 1rem;
+    margin: -0.5rem 0;
+    padding: 0.5rem;
+    width: 1rem;
   }
 
 `);

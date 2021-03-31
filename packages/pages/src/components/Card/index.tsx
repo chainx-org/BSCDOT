@@ -10,7 +10,7 @@ interface CardProps {
   className?: string;
   isBasic?: boolean;
   label?: React.ReactNode;
-  iconNode?: any;
+  iconNode?: string;
   onClick?: () => void | Promise<void>;
 }
 
@@ -26,7 +26,7 @@ function Card({
 
   return (
     <div className={`ui-card ${className} ${isBasic ? " isBasic" : ""}  `}>
-      <Button className="ui--AccountStatus" icon={iconNode} onClick={_onClick} />
+      <Button className="ui--AccountStatus" img={iconNode} onClick={_onClick} />
       <p>{label}</p>
       {children}
     </div>
@@ -52,10 +52,10 @@ export default React.memo(styled(Card)`
   padding: 38px 37px;
   &.isBasic {
     .ui--AccountStatus {
-      width: 196px;
-      min-height: 48px;
-      background: #fff;
-      border-radius: 27px;
+        width: 196px;
+        min-height: 48px;
+        background: #fff;
+        border-radius: 27px;
     }
   }
 

@@ -42,7 +42,7 @@
     "test": "polkadot-dev-run-test --selectProjects=fast-tests --silent --testPathIgnorePatterns slow --testNamePattern='^((?!--SLOW--).)*$'",
     "test:all": "polkadot-dev-run-test --selectProjects=all-tests --silent",
     "test:one": "polkadot-dev-run-test",
-    "start": "yarn clean && cd packages/apps && webpack --config webpack.config.js"
+    "start": "yarn clean && cd packages/apps && webpack --config webpack.dev.config.js"
   },
   "devDependencies": {
     "@babel/core": "^7.12.8",

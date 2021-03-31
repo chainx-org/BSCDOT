@@ -13,7 +13,7 @@ if(Object.keys(netWorkInfo).length >= 1){
   web3 = new Web3(`${netWorkInfo.platonNetUrl}`);
 }else{
   const polkadotSetting = uiSettings.get()
-  polkadotSetting.apiUrl === 'wss://westend-rpc.polkadot.io'? web3 = new Web3('https://platonnet.chainx.org/'): web3 = new Web3('')
+  polkadotSetting.apiUrl === 'wss://kusama-testnet.chainx.org/ws'? web3 = new Web3('https://platonnet.chainx.org/'): web3 = new Web3('')
 }
 
 const {ppos} = web3;
