@@ -1,5 +1,4 @@
 import React from 'react';
-import LoadingGif from './icons/loading.png';
 import styled from 'styled-components';
 
 const LoadingWrapper = styled.div`
