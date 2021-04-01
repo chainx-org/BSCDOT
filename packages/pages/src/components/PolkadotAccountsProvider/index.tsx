@@ -8,7 +8,6 @@ import { interval, Subscription } from '@polkadot/x-rxjs';
 import { switchMap } from '@polkadot/x-rxjs/operators';
 import { fromPromise } from 'rxjs/internal-compatibility';
 
-
 export interface PolkadotAccountsData {
   accountAddress: string[],
   hasAccounts: boolean,
@@ -25,7 +24,6 @@ export interface PolkadotAccountsData {
 export const PolkadotAccountsContext = createContext<PolkadotAccountsData>({} as PolkadotAccountsData);
 
 export const PolkadotAccountsProvider: FC = ({children}) => {
-
   const [isLoading, setLoading] = useState<boolean>(false)
   const { accountAddress, addressAndName, hasAccounts, allAccounts } = usePolkadotAccounts()
   const {api, isApiReady} = useApi();
@@ -86,7 +84,6 @@ export const PolkadotAccountsProvider: FC = ({children}) => {
       changeAccount,
       accountName,
       usableBalance,
-
     }}>
       {children}
     </PolkadotAccountsContext.Provider>
