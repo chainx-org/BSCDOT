@@ -23,7 +23,7 @@ export default function PublicContent({className}: Props): React.ReactElement<Pr
   const {t} = useTranslation();
   const {hasPlatonAccount, platonAccount, PublishRecords, pdotAmount, fetchTransfers} = useContext(PlatonAccountsContext);
   const publishLength = PublishRecords.length;
-  const {hasAccounts, currentAccount, getPolkadotBalances, usableBalance} = useContext(PolkadotAccountsContext);
+  const {hasAccounts, currentAccount, usableBalance} = useContext(PolkadotAccountsContext);
   const [amount, setAmount] = useState<string>('0');
   const {api} = useApi();
   const {queueAction} = useContext(StatusContext);
@@ -53,7 +53,6 @@ export default function PublicContent({className}: Props): React.ReactElement<Pr
       if(formatStatusData.status.inBlock){
         creatStatusInfo(status, 'success', t('The publish is successful'));
         queueAction(status as ActionStatus);
-        getPolkadotBalances(currentAccount);
         fetchTransfers(platonAccount)
       }
     } else {
