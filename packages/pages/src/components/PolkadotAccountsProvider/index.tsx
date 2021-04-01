@@ -44,7 +44,7 @@ export const PolkadotAccountsProvider: FC = ({children}) => {
     });
 
     return () => balance$.unsubscribe();
-  })
+  }, [])
 
   function changeAccount(account: string) {
     setAccount(account);
