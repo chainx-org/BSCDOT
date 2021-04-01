@@ -1,6 +1,5 @@
 import React  from 'react';
 import { Wrapper, Title, Content, Nodata } from './components'
-import Logout from './icons/logout.svg'
 
 interface dataProps {
   children?: React.ReactNode;
@@ -16,7 +15,7 @@ export default function PdotNodata({ children, className = '', noDataMsg, title 
       <Title className={`ui-card-title  `}>{title}</Title>
       <Content className="pdotCon">
         <Nodata className='nodata'>
-          <img src={Logout}/>
+          <img src='http://lc-XLoqMObG.cn-n1.lcfile.com/40f3f2c50eb57913979a.svg' />
           <p>{noDataMsg}</p>
         </Nodata>
       </Content>

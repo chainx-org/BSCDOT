@@ -3,13 +3,6 @@
 import React  from "react";
 import { useLocation } from "react-router-dom";
 import styled from "styled-components";
-import Logo from "./icons/logo.svg";
-import Publish from "./icons/publish.svg";
-import Redeem from "./icons/redeem.svg";
-import Transfer from "./icons/transfer.svg";
-import Publish_ACTIVE from "./icons/publish_active.svg";
-import Redeem_ACTIVE from "./icons/redeem_active.svg";
-import Transfer_ACTIVE from "./icons/transfer_active.svg";
 
 import SideItem from "./SideItem";
 import Languages from "./Languages";
@@ -84,22 +77,22 @@ function Sidebars({ className = "" }: Props): React.ReactElement<Props> {
       index: 0,
       nodeName: "发行",
       link: "/",
-      icon: <img src={Publish} alt="publish" />,
-      icon_after: <img src={Publish_ACTIVE} alt="publish" />
+      icon: <img src='http://lc-XLoqMObG.cn-n1.lcfile.com/720bb60af2705f141078.svg' alt="publish" />,
+      icon_after: <img src='http://lc-XLoqMObG.cn-n1.lcfile.com/fbaef60905798d33727b.svg' alt="publish" />
     },
     {
       index: 1,
       nodeName: "赎回",
       link: "/redeem",
-      icon: <img src={Redeem} alt="redeem" />,
-      icon_after: <img src={Redeem_ACTIVE} alt="redeem" />
+      icon: <img src='http://lc-XLoqMObG.cn-n1.lcfile.com/cdecc6a6733584359b5b.svg' alt="redeem" />,
+      icon_after: <img src='http://lc-XLoqMObG.cn-n1.lcfile.com/873084d11f0ffb9d9f7b.svg' alt="redeem" />
     },
     {
       index: 2,
       nodeName: "转账",
       link: "/transfer",
-      icon: <img src={Transfer} alt="transfer" />,
-      icon_after: <img src={Transfer_ACTIVE} alt="transfer" />
+      icon: <img src='http://lc-XLoqMObG.cn-n1.lcfile.com/0bef863a2d9db0f3d3de.svg' alt="transfer" />,
+      icon_after: <img src='http://lc-XLoqMObG.cn-n1.lcfile.com/4bb974cd897fd02c5fbf.svg' alt="transfer" />
     }
   ];
 
@@ -108,7 +101,7 @@ function Sidebars({ className = "" }: Props): React.ReactElement<Props> {
   return (
     <Wrapper className="">
       <div className="wrappers">
-        <img src={Logo} alt="logo" />
+        <img src='http://lc-XLoqMObG.cn-n1.lcfile.com/2708a538eefe61748c0e.svg' alt="logo" />
         <ul className="navLists">
           {nodeList.map((node: NodeItem, index: number) => (
             <SideItem node={node} key={index} id={index} pathname={pathname} />

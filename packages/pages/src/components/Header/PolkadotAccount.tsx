@@ -1,9 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import AccountCard from '@polkadot/pages/components/AccountCard';
-import PolkadotAccountLogo from '@polkadot/pages/components/Header/icons/polkadot_account.svg';
-import KusamaAccountLogo from '@polkadot/pages/components/Header/icons/symbol-Kusama.svg';
 import Card from '../Card';
-import polkadot from '@polkadot/pages/components/Header/icons/logo_polkadot.svg';
 import { ApiContext } from '@polkadot/react-api';
 import { PolkadotAccountsContext, PolkadotAccountsData } from '@polkadot/pages/components/PolkadotAccountsProvider';
 import { ApiProps } from '@polkadot/react-api/types';
@@ -41,12 +38,12 @@ function PolkadotAccount(): React.ReactElement {
             accountName={accountName}
             accountAddress={currentAccount}
             accountAmount={usableBalance ? usableBalance : 0}
-            iconNode={netWork.name.trim() === 'Alaya 网络' ? KusamaAccountLogo : PolkadotAccountLogo}
+            iconNode={netWork.name.trim() === 'Alaya 网络' ? 'http://lc-XLoqMObG.cn-n1.lcfile.com/0267c62c6d3ebcf003c4.svg' : 'http://lc-XLoqMObG.cn-n1.lcfile.com/af0c6b2a22f2c51ca70d.svg'}
             allAccounts={addressAndName}
             unit={formatProperties.tokenSymbol[0]}
             accountType='polkadot'
           /> :
-          <Card isBasic className="pinkCard" label={promptMessage} iconNode={polkadot}
+          <Card isBasic className="pinkCard" label={promptMessage} iconNode='http://lc-XLoqMObG.cn-n1.lcfile.com/86b2e36632644d5f5fdc.svg'
                 onClick={_clickPolkadot}/>
       }
     </>

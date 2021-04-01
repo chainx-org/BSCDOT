@@ -4,8 +4,6 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Button from "../Button";
 import ToolTipConfig from "../ToolTipConfig";
-import ALAYA from "../ToolTipConfig/assets/alaya.svg";
-import PLATON from "../ToolTipConfig/assets/platon.svg";
 
 interface EndpointProps {
   children?: React.ReactNode;
@@ -27,13 +25,13 @@ export interface NetWorkInfo {
 const netWorkList: NetWorkInfo[] = [
   {
     title: "Alaya 网络",
-    iconUrl: ALAYA,
+    iconUrl: 'http://lc-XLoqMObG.cn-n1.lcfile.com/bf834bf003fe7c3d2a68.svg',
     polkadotNetUrl: "wss://westend-rpc.polkadot.io",
     platOnNetUrl: "http://47.110.34.31:6789"
   },
   {
     title: "Platon 网络",
-    iconUrl: PLATON,
+    iconUrl: 'http://lc-XLoqMObG.cn-n1.lcfile.com/a984a2950cd8099f093e.svg',
     polkadotNetUrl: "wss://rpc.polkadot.io",
     platOnNetUrl: ""
   }
