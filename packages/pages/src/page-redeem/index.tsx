@@ -33,10 +33,10 @@ export default function RedeemContent({className}: Props): React.ReactElement<Pr
 
   useEffect(() => {
     if(!amount){
-      netName === 'Alaya'? setCharge(tipInAlaya): setCharge(tipInPlaton);
+      netName === 'Alaya'? setCharge(tipInAlaya.toNumber()): setCharge(tipInPlaton.toNumber());
     }else{
-      const chargeOfAmount = amountToBigNumber.times(0.001).toNumber()
-      netName === 'Alaya'? setCharge(chargeOfAmount + tipInAlaya): setCharge(chargeOfAmount + tipInPlaton)
+      const chargeOfAmount = amountToBigNumber.times(0.001)
+       setCharge(chargeOfAmount.plus(netName === 'Alaya'? tipInAlaya: tipInPlaton).toNumber())
     }
   }, [amount, netName])
 

@@ -37,10 +37,10 @@ export default function PublicContent({className}: Props): React.ReactElement<Pr
 
   useEffect(() => {
     if (!amount) {
-      netName === 'Alaya'? setCharge(tipInAlaya): setCharge(tipInPlaton);
+      netName === 'Alaya'? setCharge(tipInAlaya.toNumber()): setCharge(tipInPlaton.toNumber());
     } else {
-      const chargeOfAmount = amountToBigNumber.times(0.001).toNumber();
-      netName === 'Alaya'? setCharge(chargeOfAmount + tipInAlaya): setCharge(chargeOfAmount + tipInPlaton);
+      const chargeOfAmount = amountToBigNumber.times(0.001);
+      setCharge(chargeOfAmount.plus(netName === 'Alaya'? tipInAlaya: tipInPlaton).toNumber())
     }
   }, [amount, netName]);
 
@@ -49,11 +49,13 @@ export default function PublicContent({className}: Props): React.ReactElement<Pr
   }, [pdotAmount, charge, usableBalance]);
 
   const displayStatusAndFetchBalance = (formatStatusData: any) => {
-    if (formatStatusData.status.inBlock) {
-      creatStatusInfo(status, 'success', t('The publish is successful'));
-      queueAction(status as ActionStatus);
-      getPolkadotBalances(currentAccount);
-      fetchTransfers(platonAccount)
+    if (formatStatusData.dispatchInfo) {
+      if(formatStatusData.status.inBlock){
+        creatStatusInfo(status, 'success', t('The publish is successful'));
+        queueAction(status as ActionStatus);
+        getPolkadotBalances(currentAccount);
+        fetchTransfers(platonAccount)
+      }
     } else {
       creatStatusInfo(status, 'sending', t('sending...'));
       queueAction(status as ActionStatus);
