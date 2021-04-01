@@ -11,15 +11,16 @@ export interface ButtonProps {
   label?: React.ReactNode;
   isBasic?: boolean;
   isFull?: boolean;
+  disabled?: boolean;
 }
 
-function Button({ className, onClick, text, img, icon, label, isBasic, isFull }: ButtonProps): React.ReactElement<ButtonProps> {
+function Button({ className, onClick, text, img, icon, label, isBasic, isFull, disabled }: ButtonProps): React.ReactElement<ButtonProps> {
   const _onClick = useCallback(() => {
     onClick && onClick();
   }, [onClick]);
 
   return (
-    <button className={`ui-button${label ? ' hasLabel' : ''}${isBasic ? ' isBasic': ''} ${className}${isFull? ' isFull': ''}`} onClick={_onClick}>
+    <button disabled={disabled} className={`ui-button${label ? ' hasLabel' : ''}${isBasic ? ' isBasic': ''} ${className}${isFull? ' isFull': ''}${disabled? ' disabled': ''}`} onClick={_onClick}>
       {icon && <Icon icon={icon}/>}
       {text}
       {label}
@@ -79,6 +80,10 @@ export default React.memo(styled(Button)`
     margin: -0.5rem 0;
     padding: 0.5rem;
     width: 1rem;
+  }
+
+  &.disabled{
+    cursor: not-allowed;
   }
 
 `);

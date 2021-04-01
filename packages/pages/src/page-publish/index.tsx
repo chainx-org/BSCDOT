@@ -34,6 +34,7 @@ export default function PublicContent({className}: Props): React.ReactElement<Pr
   const usableBalanceToBigNumber = (new BigNumber(usableBalance)).div(1e12).toNumber()
   const {platonUnit, netName} = useContext(NetWorkContext);
   const {formatProperties} = useContext(ApiContext)
+  const [isButtonDisabled, setButtonDisabled] = useState<boolean>(false)
 
   useEffect(() => {
     if (!amount) {
@@ -54,6 +55,7 @@ export default function PublicContent({className}: Props): React.ReactElement<Pr
         creatStatusInfo(status, 'success', t('The publish is successful'));
         queueAction(status as ActionStatus);
         fetchTransfers(platonAccount)
+        setButtonDisabled(false)
       }
     } else {
       creatStatusInfo(status, 'sending', t('sending...'));
@@ -63,8 +65,9 @@ export default function PublicContent({className}: Props): React.ReactElement<Pr
 
   const publish = () => {
     async function publishEvent() {
-      if (hasAccounts && amount && platonAccount && isChargeEnough) {
+      if (hasAccounts && Number(amount) && platonAccount && isChargeEnough) {
         try {
+          setButtonDisabled(true)
           const injector = await web3FromAddress(currentAccount);
           const amountToPrecision = amountToBigNumber.times(1e12).toNumber();
           api.setSigner(injector.signer);
@@ -85,6 +88,7 @@ export default function PublicContent({className}: Props): React.ReactElement<Pr
             .catch(error => {
               creatStatusInfo(status, 'error', (error as Error).message);
               queueAction(status as ActionStatus);
+              setButtonDisabled(false)
             });
         } catch (err) {
           console.log(err);
@@ -106,7 +110,8 @@ export default function PublicContent({className}: Props): React.ReactElement<Pr
           onClick={publish}
           charge={charge}
           setAmount={setAmount}
-          isChargeEnough={isChargeEnough}/>
+          isChargeEnough={isChargeEnough}
+          isButtonDisabled={isButtonDisabled}/>
         : <PdotNodata title={`${t('Publish')} ${platonUnit}`} noDataMsg={t('Please login to your Polkadot and PlatON accounts first')}/>
       }
       <Records className="right" title={t('Publish record')} records={PublishRecords} recordLength={publishLength} arrows={true} isReverse={false} />

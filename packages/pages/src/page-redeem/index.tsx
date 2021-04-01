@@ -30,13 +30,14 @@ export default function RedeemContent({className}: Props): React.ReactElement<Pr
   const amountToBigNumber = new BigNumber(amount)
   const [isChargeEnough, setIsChargeEnough] = useState<boolean>(true)
   const {platonUnit, netName} = useContext(NetWorkContext);
+  const [isButtonDisabled, setButtonDisabled] = useState<boolean>(false)
 
   useEffect(() => {
     if(!amount){
       netName === 'Alaya'? setCharge(tipInAlaya.toNumber()): setCharge(tipInPlaton.toNumber());
     }else{
       const chargeOfAmount = amountToBigNumber.times(0.001)
-       setCharge(chargeOfAmount.plus(netName === 'Alaya'? tipInAlaya: tipInPlaton).toNumber())
+      setCharge(chargeOfAmount.plus(netName === 'Alaya'? tipInAlaya: tipInPlaton).toNumber())
     }
   }, [amount, netName])
 
@@ -50,8 +51,9 @@ export default function RedeemContent({className}: Props): React.ReactElement<Pr
   }
 
   const redeem = () => {
-    if (platonAccount && amount && isChargeEnough) {
+    if (platonAccount && Number(amount) && isChargeEnough) {
       try {
+        setButtonDisabled(true)
         const amountToPrecision: BigNumber = amountToBigNumber.times(1e18);
         alaya.request({
           method: 'platon_sendTransaction',
@@ -65,12 +67,15 @@ export default function RedeemContent({className}: Props): React.ReactElement<Pr
               creatStatusInfo(status, 'success', `${t('Transaction hash')}: ${result}`);
               queueAction(status as ActionStatus);
               fetchTransfers(platonAccount)
+              setButtonDisabled(false)
             })
             .catch(error => {
               sendErrorStatus(error)
+              setButtonDisabled(false)
             })
         ).catch(error => {
           sendErrorStatus(error)
+          setButtonDisabled(false)
         });
       } catch (err) {
         console.log(err);
@@ -89,8 +94,8 @@ export default function RedeemContent({className}: Props): React.ReactElement<Pr
           onClick={redeem}
           charge={charge}
           setAmount={setAmount}
-          isChargeEnough={isChargeEnough}/>
-
+          isChargeEnough={isChargeEnough}
+          isButtonDisabled={isButtonDisabled}/>
         : <PdotNodata title={`${t('Redeem')} ${platonUnit}`} noDataMsg={t('Please login to your Polkadot and PlatON accounts first')}/>
       }
       <Records className="right" title={t('Redeem record')} records={RedeemRecords} recordLength={redeemLength} arrows={true} isReverse={true} />
