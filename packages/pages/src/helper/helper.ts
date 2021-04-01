@@ -23,10 +23,13 @@ const  classes = (...classNames: (boolean | null | string | undefined)[]): strin
     .join(' ');
 }
 
-
+const tipInAlaya: BigNumber = new BigNumber(0.03)
+const tipInPlaton: BigNumber = new BigNumber(0.5)
 
 export {
   creatStatusInfo,
   toPrecision,
-  classes
+  classes,
+  tipInAlaya,
+  tipInPlaton
 }

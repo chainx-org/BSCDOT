@@ -1,6 +1,6 @@
 // Copyright 2017-2020 @polkadot/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
-import React, {useContext, useState} from 'react';
+import React, { useContext, useState } from 'react';
 import {Wrapper, Title, Content, TransfersCard, AmountAndAddress, Addressjudge} from './components';
 import {createTransferTransactionParameters} from '@polkadot/pages/contract';
 import {PlatonAccountsContext} from '@polkadot/pages/components/PlatonAccountsProvider';
@@ -28,7 +28,7 @@ export default function TransferCard({children, className = '', title}: PdotCard
   const {platonAccount, fetchTransfers } = useContext(PlatonAccountsContext);
   const status = {action: 'transfer'} as ActionStatus;
   const {queueAction} = useContext(StatusContext);
-  const {platonUnit} = useContext(NetWorkContext);
+  const {platonUnit, netName} = useContext(NetWorkContext);
 
   const confirmTransfer = () => {
     if (platonAccount && amount && targetAddress) {
@@ -67,10 +67,10 @@ export default function TransferCard({children, className = '', title}: PdotCard
           </Addressjudge>
           <AmountAndAddress className='addressTit'>{t('Receiving address')}</AmountAndAddress>
           <Addressjudge  className='judge'>
-            <Input className='bgcolor iptAddress' placeholder={t('Enter the Platon destination account address')} onChange={setTargetAddress}/>
+            <Input className='bgcolor iptAddress' placeholder={t('Enter the {{netName}} destination account address', {replace: { netName }})} onChange={setTargetAddress}/>
             { warning === 'address' ? <Icon icon='times' className='warning redColor' size='2x' /> : null }
           </Addressjudge>
-          <Button className="isConfirm" onClick={confirmTransfer} text={t('Confirm transfer')} />
+          <Button className="isConfirm" onClick={confirmTransfer} text={t('Confirm Transfer')} />
         </TransfersCard>
       </Content>
     </Wrapper>

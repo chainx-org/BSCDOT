@@ -18,13 +18,13 @@ interface PublishAndRedeemProps {
   charge: number;
   isChargeEnough: boolean;
   setAmount: React.Dispatch<string>;
-  isAmount: boolean;
+  isButtonDisabled?: boolean;
+  isAmount?: boolean;
 }
 
-export default function PublishAndRedeemCard({children, className = "", title, isReverse, unit, onClick, charge, setAmount, isChargeEnough, isAmount}: PublishAndRedeemProps): React.ReactElement<PublishAndRedeemProps> {
+export default function PublishAndRedeemCard({children, className = "", title, isReverse, unit, onClick, charge, setAmount, isChargeEnough, isButtonDisabled, isAmount}: PublishAndRedeemProps): React.ReactElement<PublishAndRedeemProps> {
   const {t} = useTranslation();
   const {currentAccount} = useContext(PolkadotAccountsContext)
-  const {platonAccount} = useContext(PlatonAccountsContext)
   const {formatProperties} = useContext(ApiContext)
   const [errorMessage, setErrorMessage] = useState<string>('')
 
@@ -42,7 +42,7 @@ export default function PublishAndRedeemCard({children, className = "", title, i
           <AmountAndTip className='tip'>{t('service charge')}： {charge} {unit}</AmountAndTip>
           <AccountMessage isReverse={isReverse} polkadotAddress={currentAccount} platonAddress={platonAccount}/>
           <RedeemWarn className="warn isShow">{errorMessage}</RedeemWarn>
-          <Button className="isConfirm" onClick={onClick} text={t('Confirm redeem')} />
+          <Button className="isConfirm" onClick={onClick} text={`${t('Confirm')}${title}`} disabled={isButtonDisabled}/>
         </PublishAndRedeem>
       </Content>
     </Wrapper>

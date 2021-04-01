@@ -6,6 +6,7 @@ export interface NetWorkProviderData {
   localNet: NetWorkInfo
   isAlaya: boolean;
   platonUnit: string;
+  netName: string;
 }
 
 export interface NetWorkInfo {
@@ -21,6 +22,7 @@ export const NetWorkProvider: FC = ({children}) => {
   const polkadotSetting = JSON.parse(window.localStorage.getItem('settings')!);
   const [isAlaya, setIsAlaya] = useState<boolean>(true)
   const [platonUnit, setPlatonUnit] = useState('AKSM')
+  const [netName, setNetName] = useState('Alaya')
   const [netWork, setNetWork] = useState<NetWorkInfo>({
     name: localNet.name || '',
     polkadotNetUrl: localNet.polkadotNetUrl || '',
@@ -36,6 +38,7 @@ export const NetWorkProvider: FC = ({children}) => {
       })
       setIsAlaya(true)
       setPlatonUnit('AKSM')
+      setNetName('Alaya')
     }else{
       setNetWork({
         name: 'Platon',
@@ -44,6 +47,7 @@ export const NetWorkProvider: FC = ({children}) => {
       })
       setIsAlaya(false)
       setPlatonUnit('PDOT')
+      setNetName('Platon')
     }
   }, [polkadotSetting.apiUrl]);
 
@@ -57,7 +61,8 @@ export const NetWorkProvider: FC = ({children}) => {
       setNetWork,
       localNet,
       isAlaya,
-      platonUnit
+      platonUnit,
+      netName
     }}>
       {children}
     </NetWorkContext.Provider>

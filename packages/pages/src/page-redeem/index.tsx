@@ -7,7 +7,7 @@ import PdotNodata from '../components/PdotCards/PdotNodata';
 import PublishAndRedeemCard from '../components/PdotCards/PublishAndRedeemCard';
 import { StatusContext } from '@polkadot/pages/components';
 import { ActionStatus } from '@polkadot/pages/components/Status/types';
-import { creatStatusInfo } from '@polkadot/pages/helper/helper';
+import { creatStatusInfo, tipInAlaya, tipInPlaton } from '@polkadot/pages/helper/helper';
 import { createDepositTransactionParameters, createApproveTransactionParameters } from '../contract';
 import BigNumber from 'bignumber.js';
 import { NetWorkContext } from '@polkadot/pages/components/NetWorkProvider';
@@ -25,25 +25,26 @@ export default function RedeemContent({className}: Props): React.ReactElement<Pr
   const [amount, setAmount] = useState<string>('0');
   const {queueAction} = useContext(StatusContext);
   const status = {action: 'redeem'} as ActionStatus;
-  const [charge, setCharge] = useState(0.3)
+  const [charge, setCharge] = useState(0)
   const pdotAmountToBigNumber = (new BigNumber(pdotAmount)).div(1e18).toNumber()
   const amountToBigNumber = new BigNumber(amount)
   const [isChargeEnough, setIsChargeEnough] = useState<boolean>(true)
-  const {platonUnit} = useContext(NetWorkContext);
   const [isAmount, setIsAmount] = useState<boolean>(true);
+  const {platonUnit, netName} = useContext(NetWorkContext);
+  const [isButtonDisabled, setButtonDisabled] = useState<boolean>(false)
 
   useEffect(() => {
     if(!amount){
-      setCharge(0.3)
+      netName === 'Alaya'? setCharge(tipInAlaya.toNumber()): setCharge(tipInPlaton.toNumber());
     }else{
-      const chargeOfAmount = amountToBigNumber.times(0.001).toNumber()
-      setCharge(chargeOfAmount + 0.3)
+      const chargeOfAmount = amountToBigNumber.times(0.001)
+      setCharge(chargeOfAmount.plus(netName === 'Alaya'? tipInAlaya: tipInPlaton).toNumber())
     }
-  }, [amount])
+  }, [amount, netName])
 
   useEffect(() => {
-    setIsChargeEnough(pdotAmountToBigNumber > charge && pdotAmountToBigNumber > amountToBigNumber.toNumber())
     setIsAmount(amountToBigNumber.toNumber() >= 1000)
+    setIsChargeEnough(pdotAmountToBigNumber > charge && pdotAmountToBigNumber > amountToBigNumber.toNumber() + charge)
   }, [pdotAmount, charge])
 
   const sendErrorStatus = (error) => {
@@ -52,8 +53,9 @@ export default function RedeemContent({className}: Props): React.ReactElement<Pr
   }
 
   const redeem = () => {
-    if (platonAccount && amount && isChargeEnough) {
+    if (platonAccount && Number(amount) && isChargeEnough) {
       try {
+        setButtonDisabled(true)
         const amountToPrecision: BigNumber = amountToBigNumber.times(1e18);
         alaya.request({
           method: 'platon_sendTransaction',
@@ -67,12 +69,15 @@ export default function RedeemContent({className}: Props): React.ReactElement<Pr
               creatStatusInfo(status, 'success', `${t('Transaction hash')}: ${result}`);
               queueAction(status as ActionStatus);
               fetchTransfers(platonAccount)
+              setButtonDisabled(false)
             })
             .catch(error => {
               sendErrorStatus(error)
+              setButtonDisabled(false)
             })
         ).catch(error => {
           sendErrorStatus(error)
+          setButtonDisabled(false)
         });
       } catch (err) {
         console.log(err);
@@ -93,7 +98,7 @@ export default function RedeemContent({className}: Props): React.ReactElement<Pr
           setAmount={setAmount}
           isChargeEnough={isChargeEnough}
           isAmount={isAmount}
-          />
+          isButtonDisabled={isButtonDisabled}/>
         : <PdotNodata title={`${t('Redeem')} ${platonUnit}`} noDataMsg={t('Please login to your Polkadot and PlatON accounts first')}/>
       }
       <Records className="right" title={t('Redeem record')} records={RedeemRecords} recordLength={redeemLength} arrows={true} isReverse={true} />

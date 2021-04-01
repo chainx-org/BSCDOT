@@ -53,7 +53,6 @@ export const PlatonAccountsProvider: FC = ({children}) => {
   }, [platonAccount]);
 
   useEffect(() => {
-    // const account$ = of(platonAccount).pipe(filter(a => a.length > 0)).subscribe(console.log)
     const balance$: Subscription = interval(1000).pipe(
       switchMap(() => {
         return fromPromise(erc20_minter_contract.methods.balanceOf(platonAccount).call());
