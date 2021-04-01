@@ -9,10 +9,11 @@ import { web3FromAddress } from '@polkadot/extension-dapp';
 import { useApi } from '@polkadot/react-hooks';
 import { StatusContext } from '@polkadot/pages/components';
 import { ActionStatus } from '@polkadot/pages/components/Status/types';
-import { creatStatusInfo } from '@polkadot/pages/helper/helper';
+import { creatStatusInfo, tipInAlaya, tipInPlaton } from '@polkadot/pages/helper/helper';
 import BigNumber from 'bignumber.js';
 import { NetWorkContext } from '@polkadot/pages/components/NetWorkProvider';
 import { useTranslation } from '@polkadot/pages/components/translate';
+import { ApiContext } from '@polkadot/react-api';
 
 interface Props {
   className?: string;
@@ -27,24 +28,24 @@ export default function PublicContent({className}: Props): React.ReactElement<Pr
   const {api} = useApi();
   const {queueAction} = useContext(StatusContext);
   const status = {action: 'publish'} as ActionStatus;
-  const pdotAmountToBigNumber = (new BigNumber(pdotAmount)).div(1e18).toNumber();
-  const [charge, setCharge] = useState(0.3);
+  const [charge, setCharge] = useState(0);
   const [isChargeEnough, setIsChargeEnough] = useState<boolean>(true);
   const amountToBigNumber = new BigNumber(amount) ;
   const usableBalanceToBigNumber = (new BigNumber(usableBalance)).div(1e12).toNumber()
-  const {platonUnit} = useContext(NetWorkContext);
+  const {platonUnit, netName} = useContext(NetWorkContext);
+  const {formatProperties} = useContext(ApiContext)
 
   useEffect(() => {
     if (!amount) {
-      setCharge(0.3);
+      netName === 'Alaya'? setCharge(tipInAlaya): setCharge(tipInPlaton);
     } else {
       const chargeOfAmount = amountToBigNumber.times(0.001).toNumber();
-      setCharge(chargeOfAmount + 0.3);
+      netName === 'Alaya'? setCharge(chargeOfAmount + tipInAlaya): setCharge(chargeOfAmount + tipInPlaton);
     }
-  }, [amount]);
+  }, [amount, netName]);
 
   useEffect(() => {
-    setIsChargeEnough(pdotAmountToBigNumber > charge && usableBalanceToBigNumber > amountToBigNumber.toNumber());
+    setIsChargeEnough(usableBalanceToBigNumber > charge && usableBalanceToBigNumber > amountToBigNumber.toNumber() + charge);
   }, [pdotAmount, charge, usableBalance]);
 
   const displayStatusAndFetchBalance = (formatStatusData: any) => {
@@ -99,7 +100,7 @@ export default function PublicContent({className}: Props): React.ReactElement<Pr
         <PublishAndRedeemCard
           className="left"
           title={t('Publish')}
-          unit={platonUnit}
+          unit={formatProperties.tokenSymbol[0]}
           isReverse={false}
           onClick={publish}
           charge={charge}

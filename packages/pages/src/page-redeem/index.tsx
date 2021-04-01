@@ -7,7 +7,7 @@ import PdotNodata from '../components/PdotCards/PdotNodata';
 import PublishAndRedeemCard from '../components/PdotCards/PublishAndRedeemCard';
 import { StatusContext } from '@polkadot/pages/components';
 import { ActionStatus } from '@polkadot/pages/components/Status/types';
-import { creatStatusInfo } from '@polkadot/pages/helper/helper';
+import { creatStatusInfo, tipInAlaya, tipInPlaton } from '@polkadot/pages/helper/helper';
 import { createDepositTransactionParameters, createApproveTransactionParameters } from '../contract';
 import BigNumber from 'bignumber.js';
 import { NetWorkContext } from '@polkadot/pages/components/NetWorkProvider';
@@ -25,23 +25,23 @@ export default function RedeemContent({className}: Props): React.ReactElement<Pr
   const [amount, setAmount] = useState<string>('0');
   const {queueAction} = useContext(StatusContext);
   const status = {action: 'redeem'} as ActionStatus;
-  const [charge, setCharge] = useState(0.3)
+  const [charge, setCharge] = useState(0)
   const pdotAmountToBigNumber = (new BigNumber(pdotAmount)).div(1e18).toNumber()
   const amountToBigNumber = new BigNumber(amount)
   const [isChargeEnough, setIsChargeEnough] = useState<boolean>(true)
-  const {platonUnit} = useContext(NetWorkContext);
+  const {platonUnit, netName} = useContext(NetWorkContext);
 
   useEffect(() => {
     if(!amount){
-      setCharge(0.3)
+      netName === 'Alaya'? setCharge(tipInAlaya): setCharge(tipInPlaton);
     }else{
       const chargeOfAmount = amountToBigNumber.times(0.001).toNumber()
-      setCharge(chargeOfAmount + 0.3)
+      netName === 'Alaya'? setCharge(chargeOfAmount + tipInAlaya): setCharge(chargeOfAmount + tipInPlaton)
     }
-  }, [amount])
+  }, [amount, netName])
 
   useEffect(() => {
-    setIsChargeEnough(pdotAmountToBigNumber > charge && pdotAmountToBigNumber > amountToBigNumber.toNumber())
+    setIsChargeEnough(pdotAmountToBigNumber > charge && pdotAmountToBigNumber > amountToBigNumber.toNumber() + charge)
   }, [pdotAmount, charge])
 
   const sendErrorStatus = (error) => {

@@ -23,10 +23,15 @@ const  classes = (...classNames: (boolean | null | string | undefined)[]): strin
     .join(' ');
 }
 
+const tipInAlaya = 0.03
+const tipInPlaton = 0.5
+
 
 
 export {
   creatStatusInfo,
   toPrecision,
-  classes
+  classes,
+  tipInAlaya,
+  tipInPlaton
 }
