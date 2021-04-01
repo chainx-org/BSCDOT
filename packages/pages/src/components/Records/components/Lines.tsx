@@ -25,7 +25,7 @@ export default function ({records, num, arrows}: any) {
       </Header>
       <Account className='account'>
         <Amount>{records.transferValue} {records.symbol}</Amount>
-        {arrows ? <img src={Arrow} alt='Arrow' className='arrow'/> : ''}
+        {arrows ? <img src='http://lc-XLoqMObG.cn-n1.lcfile.com/cb023eeb56945d0cd674.svg' alt='Arrow' className='arrow'/> : ''}
         <Hash hash={records.transferTo} className='address'/>
       </Account>
       {isApiReady && open ? (

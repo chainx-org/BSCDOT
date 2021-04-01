@@ -26,7 +26,7 @@ type Props = {
 export default function ({ className = '' }: Props): React.ReactElement<Props> {
   return (
     <Wrapper className={className}>
-      <img alt='loading' src={Loading} />
+      <img alt='loading' src='http://lc-XLoqMObG.cn-n1.lcfile.com/68a85e472802b872d7c4.svg' />
     </Wrapper>
   );
 }

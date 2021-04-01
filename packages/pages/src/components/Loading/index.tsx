@@ -1,5 +1,4 @@
 import React from 'react';
-import LoadingGif from './icons/loading.png';
 import styled from 'styled-components';
 
 const LoadingWrapper = styled.div`
@@ -32,7 +31,7 @@ function AccountLoading(){
   return(
     <LoadingWrapper>
       <div className='gif'>
-        <img src={LoadingGif} alt="" height={40} width={40}/>
+        <img src='http://lc-XLoqMObG.cn-n1.lcfile.com/1af3148620162578bb02.png' alt="" height={40} width={40}/>
       </div>
       <div className='shade'/>
     </LoadingWrapper>

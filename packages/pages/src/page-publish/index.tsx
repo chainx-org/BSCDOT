@@ -30,6 +30,7 @@ export default function PublicContent({className}: Props): React.ReactElement<Pr
   const pdotAmountToBigNumber = (new BigNumber(pdotAmount)).div(1e18).toNumber();
   const [charge, setCharge] = useState(0.3);
   const [isChargeEnough, setIsChargeEnough] = useState<boolean>(true);
+  const [isAmount, setIsAmount] = useState<boolean>(true);
   const amountToBigNumber = new BigNumber(amount) ;
   const usableBalanceToBigNumber = (new BigNumber(usableBalance)).div(1e12).toNumber()
   const {platonUnit} = useContext(NetWorkContext);
@@ -45,6 +46,8 @@ export default function PublicContent({className}: Props): React.ReactElement<Pr
 
   useEffect(() => {
     setIsChargeEnough(pdotAmountToBigNumber > charge && usableBalanceToBigNumber > amountToBigNumber.toNumber());
+    console.log('amountToBigNumber',amountToBigNumber.toNumber())
+    setIsAmount(amountToBigNumber.toNumber() >= 1000)
   }, [pdotAmount, charge, usableBalance]);
 
   const displayStatusAndFetchBalance = (formatStatusData: any) => {
@@ -104,7 +107,9 @@ export default function PublicContent({className}: Props): React.ReactElement<Pr
           onClick={publish}
           charge={charge}
           setAmount={setAmount}
-          isChargeEnough={isChargeEnough}/>
+          isChargeEnough={isChargeEnough}
+          isAmount={isAmount}
+          />
         : <PdotNodata title={`${t('Publish')} ${platonUnit}`} noDataMsg={t('Please login to your Polkadot and PlatON accounts first')}/>
       }
       <Records className="right" title={t('Publish record')} records={PublishRecords} recordLength={publishLength} arrows={true} isReverse={false} />

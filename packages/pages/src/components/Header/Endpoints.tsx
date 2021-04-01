@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Button from "../Button";
 import ToolTipConfig from "../ToolTipConfig";
-import ALAYA from "../ToolTipConfig/assets/alaya.svg";
-import PLATON from "../ToolTipConfig/assets/platon.svg";
 import { useTranslation } from '@polkadot/pages/components/translate';
 
 interface EndpointProps {
@@ -39,13 +37,13 @@ function Endpoints({
   const netWorkList: NetWorkInfo[] = [
     {
       title: `Alaya ${t('network')}`,
-      iconUrl: ALAYA,
+      iconUrl: 'http://lc-XLoqMObG.cn-n1.lcfile.com/bf834bf003fe7c3d2a68.svg',
       polkadotNetUrl: "wss://kusama-testnet.chainx.org/ws",
       platOnNetUrl: "http://47.110.34.31:6789"
     },
     {
       title: `Platon ${t('network')}`,
-      iconUrl: PLATON,
+      iconUrl: 'http://lc-XLoqMObG.cn-n1.lcfile.com/a984a2950cd8099f093e.svg',
       polkadotNetUrl: "wss://rpc.polkadot.io",
       platOnNetUrl: ""
     }

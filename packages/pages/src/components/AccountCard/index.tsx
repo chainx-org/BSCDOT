@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0
 import React, {useState} from 'react';
 import styled from 'styled-components';
-import SelectMore from './icons/selectMore.svg';
 import Button from '../Button';
 import ToolTipConfig from '../ToolTipConfig';
 import {toPrecision} from '@polkadot/pages/helper/helper';
@@ -47,7 +46,7 @@ function AccountCard({ children, className = '', isBasic, accountName, accountAd
           {allAccounts ?
           <Button
             className="ui--Account"
-            img={SelectMore as string}
+            icon='http://lc-XLoqMObG.cn-n1.lcfile.com/21a9cda27d93f1b0304f.svg'
             onClick={_toggleAccountList}
           />
           : null}

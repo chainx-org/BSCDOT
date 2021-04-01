@@ -1,12 +1,10 @@
 import React, { useContext } from 'react';
 import AccountCard from '@polkadot/pages/components/AccountCard';
-import PlantonAccountLogo from '@polkadot/pages/components/Header/icons/symbol-platNO.svg';
-import AlayaAccountLogo from '@polkadot/pages/components/Header/icons/symbol-alaya.svg';
 import Card from '../Card';
-import samurai from '@polkadot/pages/components/Header/icons/logo_samurai.svg';
 import { PlatonAccountsContext } from '@polkadot/pages/components/PlatonAccountsProvider';
 import { NetWorkContext } from '@polkadot/pages/components/NetWorkProvider';
 import { useTranslation } from '@polkadot/pages/components/translate';
+import { jsonInterfaceMethodToString } from 'web3/packages/web3-utils';
 
 function PlatonAccount() {
   const {t} = useTranslation();
@@ -29,11 +27,11 @@ function PlatonAccount() {
           accountName={isAlaya? t('Alaya account'): t('PlatON account')}
           accountAddress={platonAccount}
           accountAmount={pdotAmount ? pdotAmount : 0}
-          iconNode={netWork.name.trim() === 'Alaya' ? AlayaAccountLogo : PlantonAccountLogo}
+          iconNode={netWork.name.trim() === 'Alaya' ? 'http://lc-XLoqMObG.cn-n1.lcfile.com/df5990ab96edbde34115.svg' : 'http://lc-XLoqMObG.cn-n1.lcfile.com/49330e39b9a4631c4e0f.svg'}
           unit={platonUnit}
           accountType='platon'
         /> :
-        <Card isBasic className="greenCard" label={t('Sign in your Platon account with the Samurai plugin')} iconNode={samurai as string}
+        <Card isBasic className="greenCard" label={t('Sign in your Platon account with the Samurai plugin')} iconNode='http://lc-XLoqMObG.cn-n1.lcfile.com/2a8160e1492ced7f4b2c.svg'
               onClick={openSamurai}/>
       }
     </>

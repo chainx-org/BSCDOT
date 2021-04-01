@@ -1,6 +1,5 @@
 import React, {useContext} from 'react';
 import styled from 'styled-components';
-import Network from './icons/network.svg';
 import Endpoints from './Endpoints';
 import PolkadotAccount from './PolkadotAccount';
 import PlatonAccount from './PlatonAccount';
@@ -21,7 +20,7 @@ function Header({className}: Props): React.ReactElement<Props> {
       <div className="cardListWrapper">
         <PolkadotAccount/>
         <PlatonAccount/>
-        <Endpoints className="blueCard" iconNode={Network} title={t('The current network')} content={`${netWork.name} ${t('network')}`} btnLabel={t('Switch network')}/>
+        <Endpoints className="blueCard" iconNode='http://lc-XLoqMObG.cn-n1.lcfile.com/0b20f25c875498805e07.svg' title={t('The current network')} content={`${netWork.name} ${t('network')}`} btnLabel={t('Switch network')}/>
       </div>
     </div>
   );

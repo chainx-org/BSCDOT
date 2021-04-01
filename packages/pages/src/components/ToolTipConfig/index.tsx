@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import ReactDOM from 'react-dom';
 import styled from 'styled-components';
 import { Cell } from './components/Cell/Cell';
-import CLOSE from './assets/icon-close.png';
 import { PolkadotAccountsContext } from '@polkadot/pages/components/PolkadotAccountsProvider';
 import { NetWorkContext } from '@polkadot/pages/components/NetWorkProvider';
 import { useTranslation } from '@polkadot/pages/components/translate';
@@ -72,7 +71,7 @@ export default function ToolTipConfig({list, isOpen, setIsOpen, listType}: ToolT
 
           <Wrapper>
             <div className="header">
-              <img src={CLOSE as string} onClick={_toggle} alt=""/>
+              <img src='http://lc-XLoqMObG.cn-n1.lcfile.com/dd2cf18768579432fc72.png' onClick={_toggle} alt=""/>
             </div>
             {list.map(function (item: any) {
               return (

@@ -3,7 +3,6 @@ import Hash from './Hash';
 import { Account, Detail, Header, Label, Line, Sequence } from './Detail';
 import { useOutsideClick } from '../hooks';
 import { useApi } from '@polkadot/react-hooks';
-import Arrow from './arrow.svg';
 import moment from 'moment';
 import { PlatonAccountsContext } from '../../PlatonAccountsProvider';
 import { PolkadotAccountsContext } from '../../PolkadotAccountsProvider';
@@ -30,12 +29,12 @@ export default function ({records, num, arrows, isReverse}: any) {
           isReverse ? 
           <>
             <Hash hash={platonAccount} className='address'/>
-            {arrows ? <img src={Arrow} alt='Arrow' className='arrow'/> : ''}
+            {arrows ? <img src='http://lc-XLoqMObG.cn-n1.lcfile.com/cb023eeb56945d0cd674.svg' alt='Arrow' className='arrow'/> : ''}
             <Hash hash={currentAccount} className='address'/>
           </>:
           <>
             <Hash hash={currentAccount} className='address'/>
-            {arrows ? <img src={Arrow} alt='Arrow' className='arrow'/> : ''}
+            {arrows ? <img src='http://lc-XLoqMObG.cn-n1.lcfile.com/cb023eeb56945d0cd674.svg' alt='Arrow' className='arrow'/> : ''}
             <Hash hash={platonAccount} className='address'/>
           </>
         }

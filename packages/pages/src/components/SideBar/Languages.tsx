@@ -10,10 +10,6 @@ interface Props {
 
 const Lang = styled.div`
   padding: 50px 0;
-  span {
-    font-size: 14px;
-    font-weight: 600;
-  }
   .line, .languages {
     color: #6F7C7C;
     opacity: 0.5;
@@ -21,7 +17,9 @@ const Lang = styled.div`
   .line {
     padding: 0 18px;
   }
-  .languages {
+  .lang {
+    font-size: 14px;
+    font-weight: 600;
     cursor: pointer;
   }
   .active {
@@ -45,10 +43,10 @@ function Languages({ className = "" }: Props): React.ReactElement<Props> {
 
   return (
     <Lang>
-      <span className={`  ${language==='zh'? 'active' : 'languages'}`}
+      <span className={`lang  ${language==='zh'? 'active' : 'languages'}`}
         onClick={()=>setLanguage('zh')}>简体中文</span>
       <span className='line'>|</span>
-      <span className={`  ${language==='en'? 'active' : 'languages'}`}
+      <span className={`lang  ${language==='en'? 'active' : 'languages'}`}
         onClick={()=>setLanguage('en')}>English</span>
     </Lang>
   );

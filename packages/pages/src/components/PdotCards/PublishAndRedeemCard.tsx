@@ -18,9 +18,10 @@ interface PublishAndRedeemProps {
   charge: number;
   isChargeEnough: boolean;
   setAmount: React.Dispatch<string>;
+  isAmount: boolean;
 }
 
-export default function PublishAndRedeemCard({children, className = "", title, isReverse, unit, onClick, charge, setAmount, isChargeEnough}: PublishAndRedeemProps): React.ReactElement<PublishAndRedeemProps> {
+export default function PublishAndRedeemCard({children, className = "", title, isReverse, unit, onClick, charge, setAmount, isChargeEnough, isAmount}: PublishAndRedeemProps): React.ReactElement<PublishAndRedeemProps> {
   const {t} = useTranslation();
   const {currentAccount} = useContext(PolkadotAccountsContext)
   const {platonAccount} = useContext(PlatonAccountsContext)
@@ -28,8 +29,8 @@ export default function PublishAndRedeemCard({children, className = "", title, i
   const [errorMessage, setErrorMessage] = useState<string>('')
 
   useEffect(() => {
-    isChargeEnough? setErrorMessage(''): setErrorMessage(t('The balance is insufficient'))
-  }, [isChargeEnough, t])
+    !isChargeEnough? setErrorMessage(t('The balance is insufficient')): isAmount? setErrorMessage('金额不能超过1000'):setErrorMessage('')
+  }, [isChargeEnough,isAmount,t])
 
   return (
     <Wrapper className={`ui-card ${className}`}>

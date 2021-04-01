@@ -1,7 +1,5 @@
 import React  from "react";
 import styled from "styled-components";
-import POLKADOT from "./assets/little_polkadot_js.svg";
-import PLATON from "./assets/little_platon_js.svg";
 
 const Messages = React.memo(styled.section`
   display: flex;
@@ -69,11 +67,11 @@ export default function AccountMessage({ isReverse, polkadotAddress, platonAddre
 
   const transactionAddresses: addressInfo[] = [
     {
-      iconUrl: POLKADOT,
+      iconUrl: 'http://lc-XLoqMObG.cn-n1.lcfile.com/59801a5cc3eca902d254.svg',
       content: polkadotAddress
     },
     {
-      iconUrl: PLATON,
+      iconUrl: 'http://lc-XLoqMObG.cn-n1.lcfile.com/ed79dc96ca234c1efbbd.svg',
       content: platonAddress
     }
   ];

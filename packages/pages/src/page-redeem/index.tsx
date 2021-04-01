@@ -30,6 +30,7 @@ export default function RedeemContent({className}: Props): React.ReactElement<Pr
   const amountToBigNumber = new BigNumber(amount)
   const [isChargeEnough, setIsChargeEnough] = useState<boolean>(true)
   const {platonUnit} = useContext(NetWorkContext);
+  const [isAmount, setIsAmount] = useState<boolean>(true);
 
   useEffect(() => {
     if(!amount){
@@ -42,6 +43,7 @@ export default function RedeemContent({className}: Props): React.ReactElement<Pr
 
   useEffect(() => {
     setIsChargeEnough(pdotAmountToBigNumber > charge && pdotAmountToBigNumber > amountToBigNumber.toNumber())
+    setIsAmount(amountToBigNumber.toNumber() >= 1000)
   }, [pdotAmount, charge])
 
   const sendErrorStatus = (error) => {
@@ -89,8 +91,9 @@ export default function RedeemContent({className}: Props): React.ReactElement<Pr
           onClick={redeem}
           charge={charge}
           setAmount={setAmount}
-          isChargeEnough={isChargeEnough}/>
-
+          isChargeEnough={isChargeEnough}
+          isAmount={isAmount}
+          />
         : <PdotNodata title={`${t('Redeem')} ${platonUnit}`} noDataMsg={t('Please login to your Polkadot and PlatON accounts first')}/>
       }
       <Records className="right" title={t('Redeem record')} records={RedeemRecords} recordLength={redeemLength} arrows={true} isReverse={true} />
