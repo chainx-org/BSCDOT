@@ -30,7 +30,7 @@ export default function PublishAndRedeemCard({children, className = "", title, i
   const [errorMessage, setErrorMessage] = useState<string>('')
 
   useEffect(() => {
-    !isChargeEnough? setErrorMessage(t('The balance is insufficient')): isAmount? setErrorMessage('金额不能超过1000'):setErrorMessage('')
+    !isChargeEnough? setErrorMessage(t('The balance is insufficient')): isAmount && isReverse ? setErrorMessage('金额不能超过1000'):setErrorMessage('')
   }, [isChargeEnough,isAmount,t])
 
   return (

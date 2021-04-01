@@ -45,6 +45,7 @@ export default function RedeemContent({className}: Props): React.ReactElement<Pr
   useEffect(() => {
     setIsAmount(amountToBigNumber.toNumber() >= 1000)
     setIsChargeEnough(pdotAmountToBigNumber > charge && pdotAmountToBigNumber > amountToBigNumber.toNumber() + charge)
+    console.log('amountToBigNumber',amountToBigNumber.toNumber())
   }, [pdotAmount, charge])
 
   const sendErrorStatus = (error) => {
@@ -81,6 +82,7 @@ export default function RedeemContent({className}: Props): React.ReactElement<Pr
         });
       } catch (err) {
         console.log(err);
+        setButtonDisabled(false)
       }
     }
   };
