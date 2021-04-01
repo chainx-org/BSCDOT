@@ -25,6 +25,7 @@ interface PublishAndRedeemProps {
 export default function PublishAndRedeemCard({children, className = "", title, isReverse, unit, onClick, charge, setAmount, isChargeEnough, isButtonDisabled, isAmount}: PublishAndRedeemProps): React.ReactElement<PublishAndRedeemProps> {
   const {t} = useTranslation();
   const {currentAccount} = useContext(PolkadotAccountsContext)
+  const {platonAccount} = useContext(PlatonAccountsContext);
   const {formatProperties} = useContext(ApiContext)
   const [errorMessage, setErrorMessage] = useState<string>('')
 

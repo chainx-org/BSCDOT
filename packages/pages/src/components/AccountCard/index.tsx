@@ -46,7 +46,7 @@ function AccountCard({ children, className = '', isBasic, accountName, accountAd
           {allAccounts ?
           <Button
             className="ui--Account"
-            icon='http://lc-XLoqMObG.cn-n1.lcfile.com/21a9cda27d93f1b0304f.svg'
+            img='http://lc-XLoqMObG.cn-n1.lcfile.com/43d12c031d280a71c192.svg'
             onClick={_toggleAccountList}
           />
           : null}
