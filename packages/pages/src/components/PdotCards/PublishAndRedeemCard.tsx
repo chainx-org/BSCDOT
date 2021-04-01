@@ -41,7 +41,7 @@ export default function PublishAndRedeemCard({children, className = "", title, i
           <AmountAndTip className='tip'>{t('service charge')}： {charge} {unit}</AmountAndTip>
           <AccountMessage isReverse={isReverse} polkadotAddress={currentAccount} platonAddress={platonAccount}/>
           <RedeemWarn className="warn isShow">{errorMessage}</RedeemWarn>
-          <Button className="isConfirm" onClick={onClick} text={t('Confirm redeem')} />
+          <Button className="isConfirm" onClick={onClick} text={`${t('Confirm')}${title}`} />
         </PublishAndRedeem>
       </Content>
     </Wrapper>
