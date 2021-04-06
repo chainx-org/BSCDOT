@@ -49,7 +49,6 @@ export default function PublicContent({className}: Props): React.ReactElement<Pr
   useEffect(() => {
     setIsAmount(amountToBigNumber.toNumber() >= 1000)
     setIsChargeEnough(usableBalanceToBigNumber > charge && usableBalanceToBigNumber > amountToBigNumber.toNumber() + charge);
-    console.log('amountToBigNumber.toNumber()',amountToBigNumber.toNumber())
   }, [pdotAmount, charge, usableBalance]);
 
   const displayStatusAndFetchBalance = (formatStatusData: any) => {

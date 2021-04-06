@@ -44,7 +44,8 @@ export const PolkadotAccountsProvider: FC = ({children}) => {
     });
 
     return () => balance$.unsubscribe();
-  }, [])
+  })
+  console.log('usableBalance', usableBalance)
 
   function changeAccount(account: string) {
     setAccount(account);

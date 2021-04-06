@@ -4,18 +4,18 @@ import Card from '../Card';
 import { PlatonAccountsContext } from '@polkadot/pages/components/PlatonAccountsProvider';
 import { NetWorkContext } from '@polkadot/pages/components/NetWorkProvider';
 import { useTranslation } from '@polkadot/pages/components/translate';
-import { jsonInterfaceMethodToString } from 'web3/packages/web3-utils';
 
 function PlatonAccount() {
   const {t} = useTranslation();
   const {platonAccount, setPlatonAccount, pdotAmount} = useContext(PlatonAccountsContext);
   const {netWork, isAlaya, platonUnit} = useContext(NetWorkContext);
+
   const openSamurai = () => {
     if (typeof window.alaya !== 'undefined') {
       alaya.request({method: 'platon_requestAccounts'})
         .then((platonAccounts: string[]) => setPlatonAccount(platonAccounts[0]));
     } else {
-      window.location.href = 'https://github.com/AlayaNetwork/Samurai/releases/download/v8.0.11/samurai-chrome-8.0.11.zip';
+      window.location.href = isAlaya? 'https://github.com/AlayaNetwork/Samurai/raw/develop/devnet/samurai-devnet-chrome-8.0.11.zip': 'https://github.com/AlayaNetwork/Samurai/releases/download/v8.0.11/samurai-chrome-8.0.11.zip';
     }
   };
 

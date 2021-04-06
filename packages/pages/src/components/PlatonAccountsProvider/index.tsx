@@ -60,7 +60,8 @@ export const PlatonAccountsProvider: FC = ({children}) => {
     ).subscribe(amount => setPdotAmount(amount as string));
 
     return () => balance$.unsubscribe();
-  }, [pdotAmount, platonAccounts]);
+  });
+  console.log('pdotAmount', pdotAmount)
 
   return (
     <PlatonAccountsContext.Provider value={{
