@@ -13,7 +13,7 @@ if(Object.keys(netWorkInfo).length >= 1){
   web3 = new Web3(`${netWorkInfo.platonNetUrl}`);
 }else{
   const polkadotSetting = uiSettings.get()
-  polkadotSetting.apiUrl === 'wss://kusama-testnet.chainx.org/ws'? web3 = new Web3('https://platonnet.chainx.org/'): web3 = new Web3('')
+  polkadotSetting.apiUrl === 'wss://supercube.pro/ws'? web3 = new Web3('https://platonnet.chainx.org/'): web3 = new Web3('')
 }
 
 const {ppos} = web3;
@@ -1633,9 +1633,9 @@ const adminAddress = 'atp18hqda4eajphkfarxaa2rutc5dwdwx9z5vy2nmh';
 const ghjieAddress = 'atx1j4ncnc4ajm8ut0nvg2n34uedtz3kuecmsdf7qd';
 const rjmanAddress = 'atx1sy2tvmghdv47hwz89yu9wz2y29nd0frr0578e3';
 
-const bridgeAddress = 'atp15ysxv3f9qudxnlu8cel9sx6lp6asguful3yz5z';
-const handlerAddress = 'atp142a30tfa8jae8gpxhn2xye0hyy9xlmnaajpapa';
-const erc20Address = 'atp1s8y6ulfaajje430erl5nnf0q3szy0g5g7u03dt';
+const bridgeAddress = 'atp1emxqzwmz0nv5pxk3h9e2dp3p6djfkqwn4v05zk';
+const handlerAddress = 'atp15nqwyjpffntmgg05aq6u7frdvy60qnm82007q5';
+const erc20Address = 'atp18uylvwsppggu5wn458yxe0stetr7tpytyllaxc';
 const resourceID = '0x0000000000000000000000000000000000000000000000000000000000000000';
 const erc20_minter_contract = new web3.platon.Contract(erc20miner_abi);
 erc20_minter_contract.options.address = erc20Address;

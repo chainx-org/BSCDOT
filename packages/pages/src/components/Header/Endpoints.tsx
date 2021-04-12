@@ -38,7 +38,7 @@ function Endpoints({
     {
       title: `Alaya ${t('network')}`,
       iconUrl: 'http://lc-XLoqMObG.cn-n1.lcfile.com/bf834bf003fe7c3d2a68.svg',
-      polkadotNetUrl: "wss://kusama-testnet.chainx.org/ws",
+      polkadotNetUrl: "wss://supercube.pro/ws",
       platOnNetUrl: "http://47.110.34.31:6789"
     },
     {

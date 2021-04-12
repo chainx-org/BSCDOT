@@ -9,7 +9,7 @@ type Props = {
 }
 
 export default function ({ hash, length = 5, className = '' }: Props): React.ReactElement<Props> {
-  const { localNet } = useContext(NetWorkContext)
+  const { isAlaya } = useContext(NetWorkContext)
   const [url, setUrl] = useState<string>('')
   let result: string = hash
   if (hash.length > 2 * length) {
@@ -18,7 +18,7 @@ export default function ({ hash, length = 5, className = '' }: Props): React.Rea
 
   useEffect(() => {
     async function fetchUrl() {
-      if ( localNet.polkadotNetUrl === 'wss://kusama-testnet.chainx.org/ws') {
+      if (isAlaya) {
         setUrl(`https://devnetscan.alaya.network/trade-detail?txHash=${hash}`)
       } else {
         setUrl(`https://scan.alaya.network/trade-detail?txHash=${hash}`)

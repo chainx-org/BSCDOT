@@ -30,7 +30,7 @@ export const NetWorkProvider: FC = ({children}) => {
   });
 
   useEffect(() => {
-    if( polkadotSetting.apiUrl === 'wss://kusama-testnet.chainx.org/ws'){
+    if( polkadotSetting.apiUrl === 'wss://supercube.pro/ws'){
       setNetWork({
         name: 'Alaya',
         polkadotNetUrl: polkadotSetting.apiUrl,
