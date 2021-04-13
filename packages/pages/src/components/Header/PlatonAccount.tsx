@@ -15,7 +15,9 @@ function PlatonAccount() {
       alaya.request({method: 'platon_requestAccounts'})
         .then((platonAccounts: string[]) => setPlatonAccount(platonAccounts[0]));
     } else {
-      window.location.href = isAlaya? 'https://github.com/AlayaNetwork/Samurai/raw/develop/devnet/samurai-devnet-chrome-8.0.11.zip': 'https://github.com/AlayaNetwork/Samurai/releases/download/v8.0.11/samurai-chrome-8.0.11.zip';
+      window.location.href = isAlaya?
+        'https://singapore-chainx.oss-ap-southeast-1.aliyuncs.com/platdot/Samurai/samurai-devnet-chrome-8.0.11.zip?versionId=CAEQDhiBgICdg4ykxhciIGI4YTZmNDZlYzRjZTRhY2JhNDk0OGIxNGY4NWJjYjNh':
+        'https://singapore-chainx.oss-ap-southeast-1.aliyuncs.com/platdot/Samurai/samurai-chrome-8.0.11.zip?versionId=CAEQDhiBgMCdg4ykxhciIGNiZTk3ODA5YTdmYzQ2M2E5OTVkN2Y5ZGI0YWMyMzli';
     }
   };
 
