@@ -7,6 +7,7 @@ import { PolkadotAccountsContext } from '@polkadot/pages/components/PolkadotAcco
 import { ApiContext } from '@polkadot/react-api';
 import Button from '../Button';
 import { useTranslation } from '@polkadot/pages/components/translate';
+import BigNumber from 'bignumber.js';
 
 interface PublishAndRedeemProps {
   children?: React.ReactNode;
@@ -17,12 +18,13 @@ interface PublishAndRedeemProps {
   onClick?: () => void;
   charge: number;
   isChargeEnough: boolean;
+  amount: BigNumber;
   setAmount: React.Dispatch<string>;
   isButtonDisabled?: boolean;
   isAmount?: boolean;
 }
 
-export default function PublishAndRedeemCard({children, className = "", title, isReverse, unit, onClick, charge, setAmount, isChargeEnough, isButtonDisabled, isAmount}: PublishAndRedeemProps): React.ReactElement<PublishAndRedeemProps> {
+export default function PublishAndRedeemCard({children, className = "", title, isReverse, unit, onClick, charge, amount, setAmount, isChargeEnough, isButtonDisabled, isAmount}: PublishAndRedeemProps): React.ReactElement<PublishAndRedeemProps> {
   const {t} = useTranslation();
   const {currentAccount} = useContext(PolkadotAccountsContext)
   const {platonAccount} = useContext(PlatonAccountsContext);
@@ -30,7 +32,11 @@ export default function PublishAndRedeemCard({children, className = "", title, i
   const [errorMessage, setErrorMessage] = useState<string>('')
 
   useEffect(() => {
-    !isChargeEnough? setErrorMessage(t('The balance is insufficient')): isAmount && isReverse ? setErrorMessage('金额不能超过1000'):setErrorMessage('')
+    amount.toNumber() > charge? setErrorMessage(''): setErrorMessage(t('The input amount should be greater than the handling fee'))
+  }, [charge, amount, t])
+
+  useEffect(() => {
+    !isChargeEnough? setErrorMessage(t('The balance is insufficient')): isAmount && isReverse ? setErrorMessage('The amount cannot exceed 1000'):setErrorMessage('')
   }, [isChargeEnough,isAmount,t])
 
   return (

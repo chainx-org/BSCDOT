@@ -44,7 +44,7 @@ export default function RedeemContent({className}: Props): React.ReactElement<Pr
 
   useEffect(() => {
     setIsAmount(amountToBigNumber.toNumber() >= 1000)
-    setIsChargeEnough(pdotAmountToBigNumber > charge && pdotAmountToBigNumber >= amountToBigNumber.toNumber() && amountToBigNumber.toNumber() > charge)
+    setIsChargeEnough(pdotAmountToBigNumber > charge && pdotAmountToBigNumber >= amountToBigNumber.toNumber())
   }, [pdotAmount, charge])
 
   const sendErrorStatus = (error) => {
@@ -96,6 +96,7 @@ export default function RedeemContent({className}: Props): React.ReactElement<Pr
           isReverse={true}
           onClick={redeem}
           charge={charge}
+          amount={amountToBigNumber}
           setAmount={setAmount}
           isChargeEnough={isChargeEnough}
           isAmount={isAmount}

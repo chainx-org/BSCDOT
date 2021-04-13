@@ -29,5 +29,7 @@
   "Alaya account": "Alaya 账户",
   "PlatON account": "PlatON 账户",
   "network": "网络",
-  "Dismiss all notifications": "关闭所有通知"
+  "Dismiss all notifications": "关闭所有通知",
+  "The amount cannot exceed 1000": "金额不能超过1000",
+  "The input amount should be greater than the handling fee": "输入金额应大于手续费"
 }
