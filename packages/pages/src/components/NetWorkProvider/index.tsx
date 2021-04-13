@@ -41,13 +41,13 @@ export const NetWorkProvider: FC = ({children}) => {
       setNetName('Alaya')
     }else{
       setNetWork({
-        name: 'Platon',
+        name: 'PlatON',
         polkadotNetUrl: polkadotSetting.apiUrl,
         platonNetUrl: ''
       })
       setIsAlaya(false)
       setPlatonUnit('PDOT')
-      setNetName('Platon')
+      setNetName('PlatON')
     }
   }, [polkadotSetting.apiUrl]);
 

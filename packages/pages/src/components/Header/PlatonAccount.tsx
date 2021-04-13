@@ -31,7 +31,7 @@ function PlatonAccount() {
           unit={platonUnit}
           accountType='platon'
         /> :
-        <Card isBasic className="greenCard" label={t('Sign in your Platon account with the Samurai plugin')} iconNode='http://lc-XLoqMObG.cn-n1.lcfile.com/2a8160e1492ced7f4b2c.svg'
+        <Card isBasic className="greenCard" label={t('Sign in your PlatON account with the Samurai plugin')} iconNode='http://lc-XLoqMObG.cn-n1.lcfile.com/2a8160e1492ced7f4b2c.svg'
               onClick={openSamurai}/>
       }
     </>

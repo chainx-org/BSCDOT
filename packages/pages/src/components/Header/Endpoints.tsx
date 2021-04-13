@@ -42,7 +42,7 @@ function Endpoints({
       platOnNetUrl: "http://47.110.34.31:6789"
     },
     {
-      title: `Platon ${t('network')}`,
+      title: `PlatON ${t('network')}`,
       iconUrl: 'http://lc-XLoqMObG.cn-n1.lcfile.com/a984a2950cd8099f093e.svg',
       polkadotNetUrl: "wss://rpc.polkadot.io",
       platOnNetUrl: ""
