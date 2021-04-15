@@ -48,8 +48,8 @@ export default function PublicContent({className}: Props): React.ReactElement<Pr
 
   useEffect(() => {
     setIsAmount(amountToBigNumber.toNumber() >= 1000)
-    setIsChargeEnough(usableBalanceToBigNumber > charge && usableBalanceToBigNumber >= amountToBigNumber.toNumber());
-  }, [pdotAmount, charge, usableBalance]);
+    setIsChargeEnough(usableBalanceToBigNumber > charge && usableBalanceToBigNumber > amountToBigNumber.toNumber() + charge);
+  }, [pdotAmount, charge, usableBalance, amountToBigNumber]);
 
   const displayStatusAndFetchBalance = (formatStatusData: any) => {
     if (formatStatusData.dispatchInfo) {
@@ -67,7 +67,7 @@ export default function PublicContent({className}: Props): React.ReactElement<Pr
 
   const publish = () => {
     async function publishEvent() {
-      if (hasAccounts && Number(amount) && platonAccount && isChargeEnough) {
+      if (hasAccounts && amountToBigNumber.toNumber() && platonAccount && isChargeEnough && (amountToBigNumber.toNumber() > charge)) {
         try {
           setButtonDisabled(true)
           const injector = await web3FromAddress(currentAccount);

@@ -32,12 +32,9 @@ export default function PublishAndRedeemCard({children, className = "", title, i
   const [errorMessage, setErrorMessage] = useState<string>('')
 
   useEffect(() => {
-    amount.toNumber() > charge? setErrorMessage(''): setErrorMessage(t('The input amount should be greater than the handling fee'))
-  }, [charge, amount, t])
-
-  useEffect(() => {
     !isChargeEnough? setErrorMessage(t('The balance is insufficient')): isAmount && isReverse ? setErrorMessage('The amount cannot exceed 1000'):setErrorMessage('')
-  }, [isChargeEnough,isAmount,t])
+    amount.toNumber() > charge? setErrorMessage(''): setErrorMessage(t('The input amount should be greater than the handling fee'))
+  }, [isChargeEnough, isAmount, t, amount, charge])
 
   return (
     <Wrapper className={`ui-card ${className}`}>

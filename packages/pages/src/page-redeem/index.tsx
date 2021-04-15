@@ -53,7 +53,7 @@ export default function RedeemContent({className}: Props): React.ReactElement<Pr
   }
 
   const redeem = () => {
-    if (platonAccount && Number(amount) && isChargeEnough) {
+    if (platonAccount && amountToBigNumber.toNumber() && isChargeEnough && (amountToBigNumber.toNumber() > charge)) {
       try {
         setButtonDisabled(true)
         const amountToPrecision: BigNumber = amountToBigNumber.times(1e18);
