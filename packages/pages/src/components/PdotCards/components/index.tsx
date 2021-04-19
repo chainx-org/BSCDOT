@@ -99,6 +99,7 @@ export const RedeemWarn = styled.span`
     font-size: 12px;
     color: #de071c;
     line-height: 16px;
+    white-space: nowrap;
     &.isShow {
         display: block !important;
     }

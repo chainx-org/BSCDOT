@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { Icon, Records, StatusContext } from '@polkadot/pages/components';
 import { PlatonAccountsContext } from '@polkadot/pages/components/PlatonAccountsProvider';
 import { PolkadotAccountsContext } from '@polkadot/pages/components/PolkadotAccountsProvider';
-import PdotNodata from '../components/PdotCards/PdotNodata';
+import EmptyCard from '../components/PdotCards/EmptyCard';
 import { NetWorkContext } from '@polkadot/pages/components/NetWorkProvider';
 import { useTranslation } from '../components/translate';
 import Card from '@polkadot/pages/components/Card/Card';
@@ -69,7 +69,7 @@ export default function TransferContent({className}: Props): React.ReactElement<
     <Wrapper className={`contentWrapper ${className}`}>
       {hasPlatonAccount && hasAccounts ?
         <Card className="left" title={`${platonUnit} ${t('Transfer')}`}>
-          <Content className="pdotContent">
+          <div className="pdotContent">
             <TransfersCard className={`ui-Transfers`}>
               <AmountAndAddress className='amountTit'>{t('Number of transfers')}</AmountAndAddress>
               <AddressJudge>
@@ -87,10 +87,10 @@ export default function TransferContent({className}: Props): React.ReactElement<
               </AddressJudge>
               <Button className="isConfirm" onClick={confirmTransfer} text={t('Confirm Transfer')}/>
             </TransfersCard>
-          </Content>
+          </div>
         </Card>
-        : <PdotNodata title={`${platonUnit} ${t('Transfer')}`}
-                      noDataMsg={t('Please login to your Polkadot and PlatON accounts first')}/>
+        : <EmptyCard title={`${platonUnit} ${t('Transfer')}`}
+                     noDataMsg={t('Please login to your Polkadot and PlatON accounts first')}/>
       }
       <Records className="right" title={t('Transfer record')} records={Transfers} recordLength={transferLength}
                arrows={false}/>

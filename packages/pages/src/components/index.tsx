@@ -9,6 +9,7 @@ export { NetWorkProvider } from './NetWorkProvider';
 export { PlatonAccountsProvider } from './PlatonAccountsProvider';
 export { PolkadotAccountsProvider } from './PolkadotAccountsProvider';
 export { default as Card } from './Card';
+export { default as CardContent } from './Card/CardContent'
 export { default as AccountMessage } from './AccountMessage';
 export { default as AccountCard } from './AccountCard';
 export { default as Loading } from './Loading';
