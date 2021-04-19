@@ -1,6 +1,10 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import { NetWorkInfo } from '@polkadot/pages/components/Header/Endpoints';
+import uiSettings from '@polkadot/ui-settings';
+import { saveAndReload } from '@polkadot/pages/components/ToolTipConfig/components/Cell/Cell';
+import { NetWorkContext } from '@polkadot/pages/components/NetWorkProvider';
+import { useTranslation } from '@polkadot/pages/components/translate';
 
 interface Props {
   netList: NetWorkInfo[];
@@ -30,17 +34,28 @@ const OptionWrapper = styled.div`
       line-height: 24px;
       font-weight: 600;
     }
-    &:hover{
+    &.isSelected{
       background: #f1f4f4;
     }
   }
 `;
 
 function NetOption({netList}: Props): React.ReactElement<Props> {
+  const {netName, setNetWork} = useContext(NetWorkContext);
+
+  const handleOnClick = (item: NetWorkInfo): void => {
+    setNetWork({
+      name: item.title,
+      polkadotNetUrl: item.polkadotNetUrl,
+      platonNetUrl: item.platOnNetUrl
+    });
+    saveAndReload({...uiSettings.get(), apiUrl: item.polkadotNetUrl});
+  };
+
   return (
     <OptionWrapper>
-      {netList.map(item =>
-        <div className='netItem'>
+      {netList.map((item: NetWorkInfo) =>
+        <div key={item.title} className={`netItem ${item.title.slice(0, -3) === netName? 'isSelected': ''}`} onClick={() => handleOnClick(item)}>
           <img src={item.iconUrl} alt={item.title}/>
           <span>{item.title}</span>
         </div>)}
