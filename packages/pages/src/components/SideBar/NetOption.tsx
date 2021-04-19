@@ -1,10 +1,9 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { NetWorkInfo } from '@polkadot/pages/components/Header/Endpoints';
 import uiSettings from '@polkadot/ui-settings';
 import { saveAndReload } from '@polkadot/pages/components/ToolTipConfig/components/Cell/Cell';
 import { NetWorkContext } from '@polkadot/pages/components/NetWorkProvider';
-import { useTranslation } from '@polkadot/pages/components/translate';
 
 interface Props {
   netList: NetWorkInfo[];
