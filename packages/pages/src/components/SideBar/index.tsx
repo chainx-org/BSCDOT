@@ -6,6 +6,7 @@ import styled from "styled-components";
 import SideItem from "./SideItem";
 import Languages from "./Languages";
 import { useTranslation } from '@polkadot/pages/components/translate';
+import NetWorkList from '@polkadot/pages/components/SideBar/NetWorkList';
 
 interface Props {
   className?: string;
@@ -43,7 +44,7 @@ const Wrapper = styled.div`
     }
 
     .navLists {
-      padding-top: 30px;
+      padding-top: 23px;
       .navItem {
         margin: 25px 0;
         a {
@@ -100,9 +101,10 @@ function Sidebars({ className = "" }: Props): React.ReactElement<Props> {
   const { pathname } = useLocation();
 
   return (
-    <Wrapper className="">
+    <Wrapper>
       <div className="wrappers">
-        <img src='http://lc-XLoqMObG.cn-n1.lcfile.com/2708a538eefe61748c0e.svg' alt="logo" />
+        <img src='http://lc-XLoqMObG.cn-n1.lcfile.com/2708a538eefe61748c0e.svg' alt="PlatDot" />
+        <NetWorkList/>
         <ul className="navLists">
           {nodeList.map((node: NodeItem, index: number) => (
             <SideItem node={node} key={index} id={index} pathname={pathname} />

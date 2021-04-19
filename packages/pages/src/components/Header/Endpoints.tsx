@@ -16,7 +16,7 @@ interface EndpointProps {
 
 export interface NetWorkInfo {
   title: string;
-  iconUrl: unknown;
+  iconUrl: string;
   polkadotNetUrl: string;
   platOnNetUrl: string;
 }
