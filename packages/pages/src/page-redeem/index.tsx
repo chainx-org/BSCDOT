@@ -4,7 +4,6 @@ import { Records } from '@polkadot/pages/components';
 import { PlatonAccountsContext } from '@polkadot/pages/components/PlatonAccountsProvider';
 import { PolkadotAccountsContext } from '@polkadot/pages/components/PolkadotAccountsProvider';
 import PdotNodata from '../components/PdotCards/PdotNodata';
-import PublishAndRedeemCard from '../components/PdotCards/PublishAndRedeemCard';
 import { StatusContext } from '@polkadot/pages/components';
 import { ActionStatus } from '@polkadot/pages/components/Status/types';
 import { creatStatusInfo, tipInAlaya, tipInPlaton } from '@polkadot/pages/helper/helper';
@@ -12,6 +11,11 @@ import { createDepositTransactionParameters, createApproveTransactionParameters 
 import BigNumber from 'bignumber.js';
 import { NetWorkContext } from '@polkadot/pages/components/NetWorkProvider';
 import { useTranslation } from '@polkadot/pages/components/translate';
+import Card from '@polkadot/pages/components/Card/Card';
+import { AmountAndTip, Content, PublishAndRedeem, Title } from '@polkadot/pages/components/PdotCards/components';
+import InputAutoLength from '@polkadot/pages/components/InputAutoLength';
+import AccountMessage from '@polkadot/pages/components/AccountMessage';
+import Button from '@polkadot/pages/components/Button';
 
 interface Props {
   className?: string;
@@ -88,20 +92,25 @@ export default function RedeemContent({className}: Props): React.ReactElement<Pr
 
   return (
     <Wrapper className={`contentWrapper ${className}`}>
-      {hasPlatonAccount && hasAccounts ?
-        <PublishAndRedeemCard
-          className="left"
-          title={t('Redeem')}
-          unit={platonUnit}
-          isReverse={true}
-          onClick={redeem}
-          charge={charge}
-          amount={amountToBigNumber}
-          setAmount={setAmount}
-          isChargeEnough={isChargeEnough}
-          isAmount={isAmount}
-          isButtonDisabled={isButtonDisabled}/>
-        : <PdotNodata title={`${t('Redeem')} ${platonUnit}`} noDataMsg={t('Please login to your Polkadot and PlatON accounts first')}/>
+      {hasPlatonAccount && hasAccounts ?(
+          <Card className='left'>
+            <Title className={`ui-card-title `}>{t('Redeem')} {platonUnit}</Title>
+            <Content className="pdotContent">
+              <PublishAndRedeem className={`ui-card-content`}>
+                <AmountAndTip className='amountTit'>{t('Redeem')}{t('amount')}</AmountAndTip>
+                <InputAutoLength placeholder="0" tokenName={platonUnit}
+                                 onBlur={(e) => setAmount(e.target.textContent!)}/>
+                <AmountAndTip
+                  className='tip'>{t('service charge')}： {charge} {platonUnit}</AmountAndTip>
+                <AccountMessage isReverse polkadotAddress={currentAccount} platonAddress={platonAccount}/>
+                {/*<RedeemWarn className="warn isShow">{errorMessage}</RedeemWarn>*/}
+                <Button className="isConfirm" onClick={redeem} text={`${t('Confirm')}${t('Redeem')}`}
+                        disabled={isButtonDisabled}/>
+              </PublishAndRedeem>
+            </Content>
+          </Card>):
+        <PdotNodata title={`${t('Redeem')} ${platonUnit}`}
+                    noDataMsg={t('Please login to your Polkadot and PlatON accounts first')}/>
       }
       <Records className="right" title={t('Redeem record')} records={RedeemRecords} recordLength={redeemLength} arrows={true} isReverse={true} />
     </Wrapper>
