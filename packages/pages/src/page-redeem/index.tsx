@@ -115,7 +115,7 @@ export default function RedeemContent({className}: Props): React.ReactElement<Pr
               isReverse/>
           </Card>) :
         <EmptyCard
-          title={`${t('Redeem')} ${platonUnit}`}/>}
+          title={`${t('Redeem')} ${platonUnit ? platonUnit : ''}`}/>}
 
       <Records className="right" title={t('Redeem record')} records={RedeemRecords} recordLength={redeemLength}
                arrows={true} isReverse={true}/>
