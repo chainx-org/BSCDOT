@@ -114,8 +114,7 @@ export default function PublicContent({className}: Props): React.ReactElement<Pr
   return (
     <Wrapper className={`contentWrapper ${className}`}>
       {hasPlatonAccount && hasAccounts ?(
-        <Card className='left'>
-          <Title className={`ui-card-title `}>{t('Publish')} {formatProperties.tokenSymbol[0]}</Title>
+        <Card className='left' title={`${t('Publish')} ${formatProperties.tokenSymbol[0]}`}>
           <Content className="pdotContent">
             <PublishAndRedeem className={`ui-card-content`}>
               <AmountAndTip className='amountTit'>{t('Publish')}{t('amount')}</AmountAndTip>

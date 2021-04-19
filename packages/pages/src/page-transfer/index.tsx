@@ -10,7 +10,7 @@ import { NetWorkContext } from '@polkadot/pages/components/NetWorkProvider';
 import { useTranslation } from '../components/translate';
 import Card from '@polkadot/pages/components/Card/Card';
 import {
-  Addressjudge,
+  AddressJudge,
   AmountAndAddress,
   Content,
   Title,
@@ -68,24 +68,23 @@ export default function TransferContent({className}: Props): React.ReactElement<
   return (
     <Wrapper className={`contentWrapper ${className}`}>
       {hasPlatonAccount && hasAccounts ?
-        <Card className="left">
-          <Title className={`ui-card-title  `}>{`${platonUnit} ${t('Transfer')}`}</Title>
+        <Card className="left" title={`${platonUnit} ${t('Transfer')}`}>
           <Content className="pdotContent">
             <TransfersCard className={`ui-Transfers`}>
               <AmountAndAddress className='amountTit'>{t('Number of transfers')}</AmountAndAddress>
-              <Addressjudge>
+              <AddressJudge>
                 <InputDex className='bgcolor' tokenName={platonUnit}
                           placeholder={t('Enter the number of {{platonUnit}}', {replace: {platonUnit}})}
                           onChange={setAmount}/>
                 {warning === 'uint256' ? <Icon icon='times' className='warning redColor' size='2x'/> : null}
-              </Addressjudge>
+              </AddressJudge>
               <AmountAndAddress className='addressTit'>{t('Receiving address')}</AmountAndAddress>
-              <Addressjudge className='judge'>
+              <AddressJudge className='judge'>
                 <Input className='bgcolor iptAddress'
                        placeholder={t('Enter the {{netName}} destination account address', {replace: {netName}})}
                        onChange={setTargetAddress}/>
                 {warning === 'address' ? <Icon icon='times' className='warning redColor' size='2x'/> : null}
-              </Addressjudge>
+              </AddressJudge>
               <Button className="isConfirm" onClick={confirmTransfer} text={t('Confirm Transfer')}/>
             </TransfersCard>
           </Content>

@@ -121,7 +121,7 @@ export const Nodata = styled.div`
     text-align: center;
 `;
 
-export const Addressjudge = styled.div`
+export const AddressJudge = styled.div`
   display: flex;
   align-items: center;
   .iptAddress {
