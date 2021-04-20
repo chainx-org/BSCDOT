@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import { Icon } from '@polkadot/pages/components';
 import NetOption from '@polkadot/pages/components/SideBar/NetOption';
 import { NetWorkInfo } from '@polkadot/pages/components/Header/Endpoints';
 import { useTranslation } from '@polkadot/pages/components/translate';
+import { NetWorkContext } from '@polkadot/pages/components/NetWorkProvider';
 
 const Wrapper = styled.div`
   display: flex;
@@ -28,6 +29,7 @@ const Wrapper = styled.div`
 function NetWorkList(): React.ReactElement{
   const {t} = useTranslation();
   const [isShow, setIsShow] = useState<boolean>(false)
+  const {netName} = useContext(NetWorkContext);
   const netList: NetWorkInfo[] = [
     {
       title: `Alaya ${t('network')}`,
@@ -45,7 +47,7 @@ function NetWorkList(): React.ReactElement{
 
   return (
     <Wrapper onClick={() => setIsShow(!isShow)}>
-      <span>alaya 网络</span>
+      <span>{`${netName} ${t('network')}`}</span>
       <Icon icon={`${isShow? 'caret-up': 'caret-down'}`}/>
       {isShow && <NetOption netList={netList}/>}
     </Wrapper>
