@@ -71,7 +71,7 @@ interface CellProps {
   accountName?: string;
   isSelected: boolean;
   className?: string;
-  listType: 'netWork' | 'accountList';
+  listType: 'coinList' | 'accountList';
   item: any;
 }
 
@@ -91,7 +91,7 @@ export function Cell({className = '', iconUrl, title, account, accountName, isSe
   const {setNetWork} = useContext(NetWorkContext);
 
   const handleOnClick = useCallback(() => {
-      if (listType === 'netWork') {
+      if (listType === 'coinList') {
         setNetWork({
           name: title,
           polkadotNetUrl: item.polkadotNetUrl,

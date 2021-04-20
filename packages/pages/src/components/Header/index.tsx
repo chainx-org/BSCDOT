@@ -1,9 +1,8 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Endpoints from './Endpoints';
 import PolkadotAccount from './PolkadotAccount';
 import PlatonAccount from './PlatonAccount';
-import {NetWorkContext} from '../NetWorkProvider';
 import { useTranslation } from '@polkadot/pages/components/translate';
 
 interface Props {
@@ -12,7 +11,6 @@ interface Props {
 
 function Header({className}: Props): React.ReactElement<Props> {
   const {t} = useTranslation();
-  const {netWork} = useContext(NetWorkContext)
 
   return (
     <div className={className}>
@@ -20,7 +18,7 @@ function Header({className}: Props): React.ReactElement<Props> {
       <div className="cardListWrapper">
         <PolkadotAccount/>
         <PlatonAccount/>
-        <Endpoints className="blueCard" iconNode='http://lc-XLoqMObG.cn-n1.lcfile.com/0b20f25c875498805e07.svg' title={t('The current network')} content={`${netWork.name} ${t('network')}`} btnLabel={t('Switch network')}/>
+        <Endpoints className="blueCard"/>
       </div>
     </div>
   );

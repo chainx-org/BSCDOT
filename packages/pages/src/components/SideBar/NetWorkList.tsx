@@ -2,7 +2,6 @@ import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import { Icon } from '@polkadot/pages/components';
 import NetOption from '@polkadot/pages/components/SideBar/NetOption';
-import { NetWorkInfo } from '@polkadot/pages/components/Header/Endpoints';
 import { useTranslation } from '@polkadot/pages/components/translate';
 import { NetWorkContext } from '@polkadot/pages/components/NetWorkProvider';
 
@@ -26,10 +25,17 @@ const Wrapper = styled.div`
   }
 `
 
+export interface NetWorkInfo {
+  title: string;
+  iconUrl: string;
+  polkadotNetUrl: string;
+  platOnNetUrl: string;
+}
+
 function NetWorkList(): React.ReactElement{
   const {t} = useTranslation();
   const [isShow, setIsShow] = useState<boolean>(false)
-  const {netName} = useContext(NetWorkContext);
+  const {localNet} = useContext(NetWorkContext);
   const netList: NetWorkInfo[] = [
     {
       title: `Alaya ${t('network')}`,
@@ -40,14 +46,14 @@ function NetWorkList(): React.ReactElement{
     {
       title: `PlatON ${t('network')}`,
       iconUrl: 'http://lc-XLoqMObG.cn-n1.lcfile.com/a984a2950cd8099f093e.svg',
-      polkadotNetUrl: "wss://rpc.polkadot.io",
+      polkadotNetUrl: "wss://polkadot.elara.patract.io",
       platOnNetUrl: ""
     }
   ];
 
   return (
     <Wrapper onClick={() => setIsShow(!isShow)}>
-      <span>{`${netName} ${t('network')}`}</span>
+      <span>{`${localNet.name} ${t('network')}`}</span>
       <Icon icon={`${isShow? 'caret-up': 'caret-down'}`}/>
       {isShow && <NetOption netList={netList}/>}
     </Wrapper>

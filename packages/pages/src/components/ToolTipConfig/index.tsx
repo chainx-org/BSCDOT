@@ -42,7 +42,7 @@ const Cover = styled.section`
   z-index: 998;
 `;
 
-const Shade = () => {
+export const Shade = () => {
   return (
     <Cover>
       <div id="cover"/>
@@ -54,7 +54,7 @@ interface ToolTipConfigProps {
   list: object[];
   isOpen: boolean;
   setIsOpen: React.Dispatch<boolean>;
-  listType: 'netWork' | 'accountList';
+  listType: 'coinList' | 'accountList';
 }
 
 export default function ToolTipConfig({list, isOpen, setIsOpen, listType}: ToolTipConfigProps): React.ReactElement<ToolTipConfigProps> {
@@ -68,7 +68,6 @@ export default function ToolTipConfig({list, isOpen, setIsOpen, listType}: ToolT
       {isOpen && (
         <>
           <Shade/>
-
           <Wrapper>
             <div className="header">
               <img src='http://lc-XLoqMObG.cn-n1.lcfile.com/dd2cf18768579432fc72.png' onClick={_toggle} alt=""/>
@@ -77,7 +76,7 @@ export default function ToolTipConfig({list, isOpen, setIsOpen, listType}: ToolT
               return (
                 <Cell
                   key={Math.random()}
-                  isSelected={currentAccount === item.account || `${netWork.name} ${t('network')}` === item.title}
+                  isSelected={currentAccount === item.account || `${netWork.name} ${t('network')}` === item.name}
                   iconUrl={item.iconUrl}
                   title={item.title}
                   accountName={item.accountName}

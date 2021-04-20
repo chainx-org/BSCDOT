@@ -8,9 +8,11 @@ import BigNumber from 'bignumber.js';
 const Ethers = require('ethers');
 const Web3 = require('web3');
 const netWorkInfo = JSON.parse(window.localStorage.getItem('netWork') || '{}')
+const coinInfo = JSON.parse(window.localStorage.getItem('coinInfo') || '{}')
+
 let web3;
-if(Object.keys(netWorkInfo).length >= 1){
-  web3 = new Web3(`${netWorkInfo.platonNetUrl}`);
+if(netWorkInfo.platonNetUrl){
+  web3 = new Web3(netWorkInfo.platonNetUrl);
 }else{
   const polkadotSetting = uiSettings.get()
   polkadotSetting.apiUrl === 'wss://supercube.pro/ws'? web3 = new Web3('https://platonnet.chainx.org/'): web3 = new Web3('')

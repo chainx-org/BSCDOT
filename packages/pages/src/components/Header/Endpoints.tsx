@@ -1,69 +1,72 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import Button from "../Button";
-import ToolTipConfig from "../ToolTipConfig";
+import React, { useContext, useState } from 'react';
+import styled from 'styled-components';
+import Button from '../Button';
 import { useTranslation } from '@polkadot/pages/components/translate';
+import { NetWorkContext } from '@polkadot/pages/components/NetWorkProvider';
+import CoinInfoList from '@polkadot/pages/components/Header/CoinInfoList';
 
 interface EndpointProps {
-  children?: React.ReactNode;
   className?: string;
-  title?: string;
-  content?: string;
-  iconNode?: any;
-  btnLabel?: string;
-  onClick?: () => void | Promise<void>;
 }
 
-export interface NetWorkInfo {
-  title: string;
-  iconUrl: string;
-  polkadotNetUrl: string;
-  platOnNetUrl: string;
+export interface CoinItem {
+  name: string;
+  matchingNode: string;
+  CoinIcon: string;
+  whiteIcon: string;
 }
 
-function Endpoints({
-  children,
-  className = "",
-  content,
-  title,
-  iconNode,
-  btnLabel,
-  onClick
-}: EndpointProps): React.ReactElement<EndpointProps> {
-  const {t} = useTranslation();
+function Endpoints({className = ''}: EndpointProps): React.ReactElement<EndpointProps> {
   const [isEndpoints, setIsEndpoints] = useState<boolean>(false);
+  const {t} = useTranslation();
+  const {localCoin, localNet} = useContext(NetWorkContext)
+
   const _toggleEndpoints = (): void => setIsEndpoints(true);
 
-  const netWorkList: NetWorkInfo[] = [
+  const coinList: CoinItem[] = localNet.name ==='Alaya' ? [
     {
-      title: `Alaya ${t('network')}`,
-      iconUrl: 'http://lc-XLoqMObG.cn-n1.lcfile.com/bf834bf003fe7c3d2a68.svg',
-      polkadotNetUrl: "wss://supercube.pro/ws",
-      platOnNetUrl: "http://47.110.34.31:6789"
+      name: `KSM`,
+      matchingNode: 'wss://supercube.pro/ws',
+      CoinIcon: 'http://lc-XLoqMObG.cn-n1.lcfile.com/bbc68996a01aa2e8c19a.svg',
+      whiteIcon: 'http://lc-XLoqMObG.cn-n1.lcfile.com/7f0b4956f9dd593c01ef.svg'
     },
     {
-      title: `PlatON ${t('network')}`,
-      iconUrl: 'http://lc-XLoqMObG.cn-n1.lcfile.com/a984a2950cd8099f093e.svg',
-      polkadotNetUrl: "wss://rpc.polkadot.io",
-      platOnNetUrl: ""
-    }
+      name: `XBTC`,
+      matchingNode: 'wss://testnet-2.chainx.org/ws',
+      CoinIcon: 'http://lc-XLoqMObG.cn-n1.lcfile.com/23004d06cafd179780c1.svg',
+      whiteIcon: 'http://lc-XLoqMObG.cn-n1.lcfile.com/e19d81cbc3ad30b636cd.svg'
+    },
+  ]: [
+    {
+      name: `DOT`,
+      matchingNode: 'wss://polkadot.elara.patract.io',
+      CoinIcon: 'http://lc-XLoqMObG.cn-n1.lcfile.com/0a9cba405d7acad81643.svg',
+      whiteIcon: 'http://lc-XLoqMObG.cn-n1.lcfile.com/519b3e5ce282616f1cd7.svg'
+    },
+    {
+      name: `XBTC`,
+      matchingNode: 'wss://testnet-2.chainx.org/ws',
+      CoinIcon: 'http://lc-XLoqMObG.cn-n1.lcfile.com/23004d06cafd179780c1.svg',
+      whiteIcon: 'http://lc-XLoqMObG.cn-n1.lcfile.com/e19d81cbc3ad30b636cd.svg'
+    },
   ];
-
 
   return (
     <div className={`isBasic ${className}`}>
-      <div className="leftIcon">
-        <img src={iconNode} alt={iconNode} />
+      <div className='coinInfo'>
+        <div className="leftIcon">
+          <img src={localCoin.whiteIcon} alt={localCoin.coinName}/>
+        </div>
+        <div className="rightCon">
+          <div className="title">{t('The current currency')}</div>
+          <p className="tabEndpoints">{localCoin.coinName}</p>
+        </div>
       </div>
-      <div className="rightCon">
-        <div className="title">{title}</div>
-        <p className="tabEndpoints">{content}</p>
-        <Button className="ui-tabEndpoint" isBasic label={btnLabel} onClick={_toggleEndpoints} />
-      </div>
+
+      <Button className="ui-tabEndpoint" isBasic label={t('Switch network')} onClick={_toggleEndpoints}/>
       {isEndpoints && (
-        <ToolTipConfig isOpen={isEndpoints} setIsOpen={setIsEndpoints} list={netWorkList} listType="netWork" />
+        <CoinInfoList setIsOpen={setIsEndpoints} list={coinList}/>
       )}
-      {children}
     </div>
   );
 }
@@ -80,29 +83,35 @@ export default React.memo(styled(Endpoints)`
 
   &.isBasic {
     display: flex;
+    flex-direction: column;
+    .coinInfo{
+      display: flex;
+      .rightCon {
+        display: flex;
+        flex-direction: column;
+        margin-left: 22px;
+        .title {
+          font-size: 16px;
+          margin-bottom: 6px;
+        }
+        .tabEndpoints {
+          font-size: 20px;
+          margin-bottom: 20px;
+        }
+      }
+    }
   }
 
-  .rightCon {
-    display: flex;
-    flex-direction: column;
-    margin-left: 22px;
-    .title {
-      font-size: 16px;
-      margin-bottom: 6px;
-    }
-    .tabEndpoints {
-      font-size: 20px;
-      margin-bottom: 20px;
-    }
-    .ui-tabEndpoint {
-      width: 100%;
-      height: 36px;
-      border: 1px solid #ffffff;
-      border-radius: 4px;
-      font-family: PingFangSC-Regular;
-      font-size: 14px;
-      color: #ffffff;
-    }
+  .ui-tabEndpoint {
+    padding: 8px 16px;
+    min-height: 36px;
+    border: 1px solid #ffffff;
+    border-radius: 4px;
+    font-family: PingFangSC-Regular;
+    font-size: 14px;
+    color: #ffffff;
+    margin: 0 auto;
+    transform: translateX(-22%);
   }
 
   &.blueCard {

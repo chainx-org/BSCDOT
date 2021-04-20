@@ -7,6 +7,8 @@ export interface NetWorkProviderData {
   isAlaya: boolean;
   platonUnit: string;
   netName: string;
+  localCoin: CoinInfo;
+  setCoin: React.Dispatch<CoinInfo>;
 }
 
 export interface NetWorkInfo {
@@ -15,18 +17,40 @@ export interface NetWorkInfo {
   platonNetUrl: string;
 }
 
+export interface CoinInfo{
+  coinName: string;
+  whiteIcon: string;
+  matchingNode: string;
+}
+
 export const NetWorkContext = createContext<NetWorkProviderData>({} as NetWorkProviderData);
 
 export const NetWorkProvider: FC = ({children}) => {
-  const localNet: NetWorkInfo = JSON.parse(window.localStorage.getItem('netWork') || '{}');
+  const defaultNet: NetWorkInfo = JSON.parse(window.localStorage.getItem('netWork') || '{}')
+  const defaultCoin: CoinInfo = JSON.parse(window.localStorage.getItem('coinInfo') || '{}')
+  const [localNet, setLocalNet] = useState<NetWorkInfo>({
+    name: defaultNet.name,
+    polkadotNetUrl: defaultNet.polkadotNetUrl,
+    platonNetUrl: defaultNet.platonNetUrl,
+  });
+  const [localCoin, setLocalCoin] = useState<CoinInfo>({
+    coinName: defaultCoin.coinName,
+    whiteIcon: defaultCoin.whiteIcon,
+    matchingNode: defaultCoin.matchingNode,
+  })
   const polkadotSetting = JSON.parse(window.localStorage.getItem('settings')!);
   const [isAlaya, setIsAlaya] = useState<boolean>(true)
   const [platonUnit, setPlatonUnit] = useState('AKSM')
   const [netName, setNetName] = useState('Alaya')
+  const [coin, setCoin] = useState<CoinInfo>({
+    coinName: localCoin.coinName,
+    whiteIcon: localCoin.whiteIcon,
+    matchingNode: localCoin.matchingNode
+  })
   const [netWork, setNetWork] = useState<NetWorkInfo>({
-    name: localNet.name || '',
-    polkadotNetUrl: localNet.polkadotNetUrl || '',
-    platonNetUrl: localNet.platonNetUrl || '',
+    name: localNet.name,
+    polkadotNetUrl: localNet.polkadotNetUrl,
+    platonNetUrl: localNet.platonNetUrl,
   });
 
   useEffect(() => {
@@ -34,26 +58,50 @@ export const NetWorkProvider: FC = ({children}) => {
       setNetWork({
         name: 'Alaya',
         polkadotNetUrl: polkadotSetting.apiUrl,
-        platonNetUrl: 'https://platonnet.chainx.org/'
+        platonNetUrl: 'https://platonnet.chainx.org/',
       })
       setIsAlaya(true)
       setPlatonUnit('AKSM')
       setNetName('Alaya')
-    }else{
+      setCoin({
+        coinName: 'KSM',
+        whiteIcon: 'http://lc-XLoqMObG.cn-n1.lcfile.com/7f0b4956f9dd593c01ef.svg',
+        matchingNode: 'wss://supercube.pro/ws'
+      })
+    }else if(polkadotSetting.apiUrl === 'wss://polkadot.elara.patract.io'){
       setNetWork({
         name: 'PlatON',
         polkadotNetUrl: polkadotSetting.apiUrl,
-        platonNetUrl: ''
+        platonNetUrl: '',
       })
       setIsAlaya(false)
       setPlatonUnit('PDOT')
       setNetName('PlatON')
+      setCoin({
+        coinName: 'DOT',
+        whiteIcon: 'http://lc-XLoqMObG.cn-n1.lcfile.com/519b3e5ce282616f1cd7.svg',
+        matchingNode: 'wss://polkadot.elara.patract.io'
+      })
+    }else if(polkadotSetting.apiUrl === 'wss://testnet-2.chainx.org/ws'){
+      setCoin({
+        coinName: 'XBTC',
+        whiteIcon: 'http://lc-XLoqMObG.cn-n1.lcfile.com/e19d81cbc3ad30b636cd.svg',
+        matchingNode: 'wss://testnet-2.chainx.org/ws'
+      })
+      setNetWork({
+        ...netWork,
+        polkadotNetUrl: polkadotSetting.apiUrl
+      })
     }
   }, [polkadotSetting.apiUrl]);
+  console.log('localNet', localNet)
 
   useEffect(() => {
     window.localStorage.setItem('netWork', JSON.stringify(netWork));
-  }, [netWork]);
+    window.localStorage.setItem('coinInfo', JSON.stringify(coin))
+    setLocalNet(JSON.parse(window.localStorage.getItem('netWork') || '{}'))
+    setLocalCoin(JSON.parse(window.localStorage.getItem('coinInfo') || '{}'))
+  }, [netWork, coin]);
 
   return (
     <NetWorkContext.Provider value={{
@@ -62,7 +110,9 @@ export const NetWorkProvider: FC = ({children}) => {
       localNet,
       isAlaya,
       platonUnit,
-      netName
+      netName,
+      localCoin,
+      setCoin
     }}>
       {children}
     </NetWorkContext.Provider>
