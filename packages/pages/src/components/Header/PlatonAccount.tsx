@@ -8,14 +8,14 @@ import { useTranslation } from '@polkadot/pages/components/translate';
 function PlatonAccount() {
   const {t} = useTranslation();
   const {platonAccount, setPlatonAccount, pdotAmount} = useContext(PlatonAccountsContext);
-  const {netWork, isAlaya, platonUnit} = useContext(NetWorkContext);
+  const {netWork, netName, platonUnit} = useContext(NetWorkContext);
 
   const openSamurai = () => {
     if (typeof window.alaya !== 'undefined') {
       alaya.request({method: 'platon_requestAccounts'})
         .then((platonAccounts: string[]) => setPlatonAccount(platonAccounts[0]));
     } else {
-      window.location.href = isAlaya?
+      window.location.href = netName === 'Alaya'?
         'https://singapore-chainx.oss-ap-southeast-1.aliyuncs.com/platdot/Samurai/samurai-devnet-chrome-8.0.11.zip?versionId=CAEQDhiBgICdg4ykxhciIGI4YTZmNDZlYzRjZTRhY2JhNDk0OGIxNGY4NWJjYjNh':
         'https://singapore-chainx.oss-ap-southeast-1.aliyuncs.com/platdot/Samurai/samurai-chrome-8.0.11.zip?versionId=CAEQDhiBgMCdg4ykxhciIGNiZTk3ODA5YTdmYzQ2M2E5OTVkN2Y5ZGI0YWMyMzli';
     }
@@ -26,7 +26,7 @@ function PlatonAccount() {
       {platonAccount ?
         <AccountCard
           className="greenCard"
-          accountName={isAlaya? t('Alaya account'): t('PlatON account')}
+          accountName={netName === 'Alaya'? t('Alaya account'): t('PlatON account')}
           accountAddress={platonAccount}
           accountAmount={pdotAmount ? pdotAmount : 0}
           iconNode={netWork.name.trim() === 'Alaya' ? 'http://lc-XLoqMObG.cn-n1.lcfile.com/df5990ab96edbde34115.svg' : 'http://lc-XLoqMObG.cn-n1.lcfile.com/49330e39b9a4631c4e0f.svg'}

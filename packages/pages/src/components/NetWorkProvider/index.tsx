@@ -4,7 +4,6 @@ export interface NetWorkProviderData {
   netWork: NetWorkInfo;
   setNetWork: React.Dispatch<NetWorkInfo>;
   localNet: NetWorkInfo
-  isAlaya: boolean;
   platonUnit: string;
   netName: string;
   localCoin: CoinInfo;
@@ -39,7 +38,6 @@ export const NetWorkProvider: FC = ({children}) => {
     matchingNode: defaultCoin.matchingNode,
   })
   const polkadotSetting = JSON.parse(window.localStorage.getItem('settings')!);
-  const [isAlaya, setIsAlaya] = useState<boolean>(true)
   const [platonUnit, setPlatonUnit] = useState('AKSM')
   const [netName, setNetName] = useState('Alaya')
   const [coin, setCoin] = useState<CoinInfo>({
@@ -60,9 +58,7 @@ export const NetWorkProvider: FC = ({children}) => {
         polkadotNetUrl: polkadotSetting.apiUrl,
         platonNetUrl: 'https://platonnet.chainx.org/',
       })
-      setIsAlaya(true)
       setPlatonUnit('AKSM')
-      setNetName('Alaya')
       setCoin({
         coinName: 'KSM',
         whiteIcon: 'http://lc-XLoqMObG.cn-n1.lcfile.com/7f0b4956f9dd593c01ef.svg',
@@ -74,9 +70,7 @@ export const NetWorkProvider: FC = ({children}) => {
         polkadotNetUrl: polkadotSetting.apiUrl,
         platonNetUrl: '',
       })
-      setIsAlaya(false)
       setPlatonUnit('PDOT')
-      setNetName('PlatON')
       setCoin({
         coinName: 'DOT',
         whiteIcon: 'http://lc-XLoqMObG.cn-n1.lcfile.com/519b3e5ce282616f1cd7.svg',
@@ -94,7 +88,6 @@ export const NetWorkProvider: FC = ({children}) => {
       })
     }
   }, [polkadotSetting.apiUrl]);
-  console.log('localNet', localNet)
 
   useEffect(() => {
     window.localStorage.setItem('netWork', JSON.stringify(netWork));
@@ -103,12 +96,15 @@ export const NetWorkProvider: FC = ({children}) => {
     setLocalCoin(JSON.parse(window.localStorage.getItem('coinInfo') || '{}'))
   }, [netWork, coin]);
 
+  useEffect(() => {
+    setNetName(localNet.name)
+  }, [localNet])
+
   return (
     <NetWorkContext.Provider value={{
       netWork,
       setNetWork,
       localNet,
-      isAlaya,
       platonUnit,
       netName,
       localCoin,
