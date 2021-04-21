@@ -1,4 +1,4 @@
-import React, {createContext, FC, useEffect, useState} from 'react';
+import React, { createContext, FC, useEffect, useState } from 'react';
 import { InjectedAccountWithMeta } from '@polkadot/extension-inject/types';
 import useLocalStorage from '@polkadot/pages/hooks/useLocalStorage';
 import { usePolkadotAccounts } from '@polkadot/pages/hooks/usePolkadotAccounts';
@@ -7,6 +7,7 @@ import BigNumber from 'bignumber.js';
 import { interval, Subscription } from '@polkadot/x-rxjs';
 import { switchMap } from '@polkadot/x-rxjs/operators';
 import { fromPromise } from 'rxjs/internal-compatibility';
+import uiSettings from '@polkadot/ui-settings';
 
 export interface PolkadotAccountsData {
   accountAddress: string[],
@@ -24,8 +25,8 @@ export interface PolkadotAccountsData {
 export const PolkadotAccountsContext = createContext<PolkadotAccountsData>({} as PolkadotAccountsData);
 
 export const PolkadotAccountsProvider: FC = ({children}) => {
-  const [isLoading, setLoading] = useState<boolean>(false)
-  const { accountAddress, addressAndName, hasAccounts, allAccounts } = usePolkadotAccounts()
+  const [isLoading, setLoading] = useState<boolean>(false);
+  const {accountAddress, addressAndName, hasAccounts, allAccounts} = usePolkadotAccounts();
   const {api, isApiReady} = useApi();
   const [accountName, setAccountName] = useState<string | undefined>('');
   const [usableBalance, setUsableBalance] = useState<number>(0);
@@ -33,18 +34,35 @@ export const PolkadotAccountsProvider: FC = ({children}) => {
   const [currentAccount, setAccount] = useState<string>(storedValue);
 
   useEffect(() => {
-    const balance$: Subscription = interval(1000).pipe(
-      switchMap(() => {
-        return fromPromise(api.query.system.account(currentAccount));
-      })
-    ).subscribe(result => {
-      const allBalance = JSON.parse(JSON.stringify(result.data));
-      const bgFree = new BigNumber(Number(allBalance.free));
-      setUsableBalance(bgFree.minus(new BigNumber(allBalance.miscFrozen)).toNumber());
-    });
+    let balance$: Subscription;
+    if (uiSettings.get().apiUrl === 'wss://testnet-2.chainx.org/ws') {
+      balance$ = interval(1000).pipe(
+        switchMap(() => {
+          return fromPromise(api.rpc.xassets.getAssetsByAccount(currentAccount));
+        })
+      ).subscribe(result => {
+        const formatResult = JSON.parse(JSON.stringify(result));
+        Object.keys(formatResult).length === 0 ?
+          setUsableBalance(0) :
+          setUsableBalance(new BigNumber(formatResult[1].Usable).toNumber());
+      });
+    } else {
+      balance$ = interval(1000).pipe(
+        switchMap(() => {
+          return fromPromise(api.query.system.account(currentAccount));
+        })
+      ).subscribe(result => {
+        const allBalance = JSON.parse(JSON.stringify(result.data));
+        const bgFree = new BigNumber(Number(allBalance.free));
+        setUsableBalance(bgFree.minus(new BigNumber(allBalance.miscFrozen)).toNumber());
+      });
+    }
+
 
     return () => balance$.unsubscribe();
-  })
+  });
+
+  window.api = api;
 
   function changeAccount(account: string) {
     setAccount(account);
@@ -52,18 +70,18 @@ export const PolkadotAccountsProvider: FC = ({children}) => {
 
   useEffect(() => {
     if (!storedValue) {
-      const defaultAccount = accountAddress.length > 0 ? accountAddress[0] : ''
-      setValue(defaultAccount)
-      changeAccount(defaultAccount)
+      const defaultAccount = accountAddress.length > 0 ? accountAddress[0] : '';
+      setValue(defaultAccount);
+      changeAccount(defaultAccount);
     }
-    if(accountAddress.length !== 0) {
-      if(!accountAddress.includes(currentAccount)) {
-        const defaultAccount = accountAddress.length > 0 ? accountAddress[0] : ''
-        setValue(defaultAccount)
-        changeAccount(defaultAccount)
+    if (accountAddress.length !== 0) {
+      if (!accountAddress.includes(currentAccount)) {
+        const defaultAccount = accountAddress.length > 0 ? accountAddress[0] : '';
+        setValue(defaultAccount);
+        changeAccount(defaultAccount);
       }
     }
-  }, [accountAddress])
+  }, [accountAddress]);
 
   useEffect(() => {
     const currentAccountInfo = allAccounts?.find(item => item.address === currentAccount);

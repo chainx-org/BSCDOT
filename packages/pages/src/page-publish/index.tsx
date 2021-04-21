@@ -33,7 +33,7 @@ export default function PublicContent({className = ''}: Props): React.ReactEleme
   const [isChargeEnough, setIsChargeEnough] = useState<boolean>(true);
   const amountToBigNumber = new BigNumber(amount);
   const usableBalanceToBigNumber = (new BigNumber(usableBalance)).div(1e12).toNumber();
-  const {netName} = useContext(NetWorkContext);
+  const {netName, localCoin} = useContext(NetWorkContext);
   const {formatProperties} = useContext(ApiContext);
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [isButtonDisabled, setButtonDisabled] = useState<boolean>(false);
@@ -115,9 +115,9 @@ export default function PublicContent({className = ''}: Props): React.ReactEleme
   return (
     <Wrapper className={`contentWrapper ${className}`}>
       {hasPlatonAccount && hasAccounts && isApiReady ? (
-          <Card className='left' title={`${t('Publish')} ${formatProperties?.tokenSymbol[0]}`}>
+          <Card className='left' title={`${t('Publish')} ${localCoin.coinName}`}>
             <CardContent
-              tokenName={formatProperties.tokenSymbol[0]}
+              tokenName={localCoin.coinName}
               tipLabel={t('Publish amount')}
               charge={charge}
               onClick={publish}
@@ -128,7 +128,7 @@ export default function PublicContent({className = ''}: Props): React.ReactEleme
               isReverse={false}/>
           </Card>) :
         <EmptyCard
-          title={`${t('Publish')} ${formatProperties?.tokenSymbol[0] ? formatProperties?.tokenSymbol[0] : ''}`}/>}
+          title={`${t('Publish')} ${localCoin.coinName ? localCoin.coinName : ''}`}/>}
       <Records className="right" title={t('Publish record')} records={PublishRecords} recordLength={publishLength}
                arrows={true} isReverse={false}/>
     </Wrapper>

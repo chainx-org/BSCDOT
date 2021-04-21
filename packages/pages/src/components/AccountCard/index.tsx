@@ -9,7 +9,6 @@ import BigNumber from 'bignumber.js';
 import { useTranslation } from '@polkadot/pages/components/translate';
 import { ApiProps } from '@polkadot/react-api/types';
 import { ApiContext } from '@polkadot/react-api';
-import { useApi } from '@polkadot/react-hooks';
 
 export interface AccountAndAddress{
   account: string;

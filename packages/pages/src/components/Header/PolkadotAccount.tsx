@@ -1,9 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import AccountCard from '@polkadot/pages/components/AccountCard';
 import Card from '../Card';
-import { ApiContext } from '@polkadot/react-api';
 import { PolkadotAccountsContext, PolkadotAccountsData } from '@polkadot/pages/components/PolkadotAccountsProvider';
-import { ApiProps } from '@polkadot/react-api/types';
 import { NetWorkContext } from '@polkadot/pages/components/NetWorkProvider';
 import { isWeb3Injected } from '@polkadot/extension-dapp';
 import { useApi } from '@polkadot/react-hooks';
@@ -12,8 +10,7 @@ import { useTranslation } from '@polkadot/pages/components/translate';
 function PolkadotAccount(): React.ReactElement {
   const {t} = useTranslation();
   const {currentAccount, hasAccounts, accountName, usableBalance, addressAndName} = useContext<PolkadotAccountsData>(PolkadotAccountsContext);
-  const {formatProperties} = useContext<ApiProps>(ApiContext);
-  const {netWork} = useContext(NetWorkContext);
+  const {netWork, localCoin} = useContext(NetWorkContext);
   const {hasInjectedAccounts} = useApi();
   const [promptMessage, setPromptMessage] = useState(t('Sign in your Polkadot{.js} the Polkadot plugin'))
 
@@ -42,7 +39,7 @@ function PolkadotAccount(): React.ReactElement {
             accountAmount={usableBalance ? usableBalance : 0}
             iconNode={netWork.name.trim() === 'Alaya' ? 'http://lc-XLoqMObG.cn-n1.lcfile.com/0267c62c6d3ebcf003c4.svg' : 'http://lc-XLoqMObG.cn-n1.lcfile.com/af0c6b2a22f2c51ca70d.svg'}
             allAccounts={addressAndName}
-            unit={formatProperties.tokenSymbol[0]}
+            unit={localCoin.coinName}
             accountType='polkadot'
           /> :
           <Card isBasic className="pinkCard" label={promptMessage} iconNode='http://lc-XLoqMObG.cn-n1.lcfile.com/86b2e36632644d5f5fdc.svg'
