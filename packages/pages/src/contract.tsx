@@ -4,18 +4,28 @@ import {decodeAddress} from '@polkadot/keyring';
 import {u8aToHex} from '@polkadot/util';
 import uiSettings from '@polkadot/ui-settings';
 import BigNumber from 'bignumber.js';
+import { CoinInfo, NetWorkInfo } from '@polkadot/pages/components/NetWorkProvider';
 
 const Ethers = require('ethers');
 const Web3 = require('web3');
-const netWorkInfo = JSON.parse(window.localStorage.getItem('netWork') || '{}')
-const coinInfo = JSON.parse(window.localStorage.getItem('coinInfo') || '{}')
+const netWorkInfo: NetWorkInfo = JSON.parse(window.localStorage.getItem('netWork') || '{}')
+const coinInfo: CoinInfo= JSON.parse(window.localStorage.getItem('coinInfo') || '{}')
 
 let web3;
+const polkadotSetting = uiSettings.get()
 if(netWorkInfo.platonNetUrl){
   web3 = new Web3(netWorkInfo.platonNetUrl);
 }else{
-  const polkadotSetting = uiSettings.get()
   polkadotSetting.apiUrl === 'wss://supercube.pro/ws'? web3 = new Web3('https://platonnet.chainx.org/'): web3 = new Web3('')
+}
+let erc20Address: string;
+
+if(polkadotSetting.apiUrl === 'wss://supercube.pro/ws'){
+  erc20Address = 'atp18uylvwsppggu5wn458yxe0stetr7tpytyllaxc';
+}else if(polkadotSetting.apiUrl === 'wss://testnet-2.chainx.org/ws'){
+  erc20Address = 'atp15r65x5lwydl2m24c8yjz35pmykfvynd9gvf86m'
+}else{
+  erc20Address = 'atp18uylvwsppggu5wn458yxe0stetr7tpytyllaxc'
 }
 
 const {ppos} = web3;
@@ -1637,7 +1647,6 @@ const rjmanAddress = 'atx1sy2tvmghdv47hwz89yu9wz2y29nd0frr0578e3';
 
 const bridgeAddress = 'atp1emxqzwmz0nv5pxk3h9e2dp3p6djfkqwn4v05zk';
 const handlerAddress = 'atp15nqwyjpffntmgg05aq6u7frdvy60qnm82007q5';
-const erc20Address = 'atp18uylvwsppggu5wn458yxe0stetr7tpytyllaxc';
 const resourceID = '0x0000000000000000000000000000000000000000000000000000000000000000';
 const erc20_minter_contract = new web3.platon.Contract(erc20miner_abi);
 erc20_minter_contract.options.address = erc20Address;

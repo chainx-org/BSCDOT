@@ -99,12 +99,12 @@ export const NetWorkProvider: FC = ({children}) => {
     if (localNet.name === 'Alaya') {
       setPlatonUnit('AKSM');
       if (localCoin.coinName === 'XBTC') {
-        setPlatonUnit('XKSM');
+        setPlatonUnit('ABTC');
       }
     } else if (localNet.name === 'PlatON') {
       setPlatonUnit('PDOT');
       if (localCoin.coinName === 'XBTC') {
-        setPlatonUnit('XDOT');
+        setPlatonUnit('PBTC');
       }
     }
 
