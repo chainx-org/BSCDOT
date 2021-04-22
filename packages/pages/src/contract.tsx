@@ -16,18 +16,16 @@ const polkadotSetting = uiSettings.get()
 if(netWorkInfo.platonNetUrl){
   web3 = new Web3(netWorkInfo.platonNetUrl);
 }else{
-  polkadotSetting.apiUrl === 'wss://kusama-rpc.polkadot.io'? web3 = new Web3('https://alaya.supercube.pro/ws'): web3 = new Web3('')
+  polkadotSetting.apiUrl === 'wss://supercube.pro/ws'? web3 = new Web3('https://platonnet.chainx.org/'): web3 = new Web3('')
 }
 let erc20Address: string;
-
-if(polkadotSetting.apiUrl === 'wss://kusama-rpc.polkadot.io'){
+if(polkadotSetting.apiUrl === 'wss://supercube.pro/ws'){
   erc20Address = 'atp18uylvwsppggu5wn458yxe0stetr7tpytyllaxc';
 }else if(polkadotSetting.apiUrl === 'wss://testnet-2.chainx.org/ws'){
   erc20Address = 'atp15r65x5lwydl2m24c8yjz35pmykfvynd9gvf86m'
 }else{
   erc20Address = 'atp18uylvwsppggu5wn458yxe0stetr7tpytyllaxc'
 }
-
 const {ppos} = web3;
 const bridge_abi = [
   {

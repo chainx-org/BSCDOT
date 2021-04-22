@@ -26,7 +26,7 @@ function Endpoints({className = ''}: EndpointProps): React.ReactElement<Endpoint
   const coinList: CoinItem[] = localNet.name ==='Alaya' ? [
     {
       name: `KSM`,
-      matchingNode: 'wss://kusama-rpc.polkadot.io',
+      matchingNode: 'wss://supercube.pro/ws',
       CoinIcon: 'http://lc-XLoqMObG.cn-n1.lcfile.com/bbc68996a01aa2e8c19a.svg',
       whiteIcon: 'http://lc-XLoqMObG.cn-n1.lcfile.com/7f0b4956f9dd593c01ef.svg'
     },

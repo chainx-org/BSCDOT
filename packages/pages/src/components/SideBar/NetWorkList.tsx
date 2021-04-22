@@ -40,8 +40,8 @@ function NetWorkList(): React.ReactElement{
     {
       title: `Alaya ${t('network')}`,
       iconUrl: 'http://lc-XLoqMObG.cn-n1.lcfile.com/bf834bf003fe7c3d2a68.svg',
-      polkadotNetUrl: "wss://kusama-rpc.polkadot.io",
-      platOnNetUrl: "http://47.110.34.31:6789"
+      polkadotNetUrl: "wss://supercube.pro/ws",
+      platOnNetUrl: "https://platonnet.chainx.org/"
     },
     {
       title: `PlatON ${t('network')}`,

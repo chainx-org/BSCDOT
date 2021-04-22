@@ -52,16 +52,16 @@ export const NetWorkProvider: FC = ({children}) => {
   });
 
   useEffect(() => {
-    if (polkadotSetting.apiUrl === 'wss://kusama-rpc.polkadot.io') {
+    if (polkadotSetting.apiUrl === 'wss://supercube.pro/ws') {
       setNetWork({
         name: 'Alaya',
         polkadotNetUrl: polkadotSetting.apiUrl,
-        platonNetUrl: 'https://alaya.supercube.pro/ws',
+        platonNetUrl: 'https://platonnet.chainx.org/',
       });
       setCoin({
         coinName: 'KSM',
         whiteIcon: 'http://lc-XLoqMObG.cn-n1.lcfile.com/7f0b4956f9dd593c01ef.svg',
-        matchingNode: 'wss://kusama-rpc.polkadot.io'
+        matchingNode: 'wss://supercube.pro/ws'
       });
     } else if (polkadotSetting.apiUrl === 'wss://polkadot.elara.patract.io') {
       setNetWork({
