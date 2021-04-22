@@ -16,7 +16,7 @@ export interface NetWorkInfo {
   platonNetUrl: string;
 }
 
-export interface CoinInfo{
+export interface CoinInfo {
   coinName: string;
   whiteIcon: string;
   matchingNode: string;
@@ -25,8 +25,8 @@ export interface CoinInfo{
 export const NetWorkContext = createContext<NetWorkProviderData>({} as NetWorkProviderData);
 
 export const NetWorkProvider: FC = ({children}) => {
-  const defaultNet: NetWorkInfo = JSON.parse(window.localStorage.getItem('netWork') || '{}')
-  const defaultCoin: CoinInfo = JSON.parse(window.localStorage.getItem('coinInfo') || '{}')
+  const defaultNet: NetWorkInfo = JSON.parse(window.localStorage.getItem('netWork') || '{}');
+  const defaultCoin: CoinInfo = JSON.parse(window.localStorage.getItem('coinInfo') || '{}');
   const [localNet, setLocalNet] = useState<NetWorkInfo>({
     name: defaultNet.name,
     polkadotNetUrl: defaultNet.polkadotNetUrl,
@@ -36,15 +36,15 @@ export const NetWorkProvider: FC = ({children}) => {
     coinName: defaultCoin.coinName,
     whiteIcon: defaultCoin.whiteIcon,
     matchingNode: defaultCoin.matchingNode,
-  })
+  });
   const polkadotSetting = JSON.parse(window.localStorage.getItem('settings')!);
-  const [platonUnit, setPlatonUnit] = useState('AKSM')
-  const [netName, setNetName] = useState('Alaya')
+  const [platonUnit, setPlatonUnit] = useState('AKSM');
+  const [netName, setNetName] = useState('Alaya');
   const [coin, setCoin] = useState<CoinInfo>({
     coinName: localCoin.coinName,
     whiteIcon: localCoin.whiteIcon,
     matchingNode: localCoin.matchingNode
-  })
+  });
   const [netWork, setNetWork] = useState<NetWorkInfo>({
     name: localNet.name,
     polkadotNetUrl: localNet.polkadotNetUrl,
@@ -52,53 +52,63 @@ export const NetWorkProvider: FC = ({children}) => {
   });
 
   useEffect(() => {
-    if( polkadotSetting.apiUrl === 'wss://supercube.pro/ws'){
+    if (polkadotSetting.apiUrl === 'wss://supercube.pro/ws') {
       setNetWork({
         name: 'Alaya',
         polkadotNetUrl: polkadotSetting.apiUrl,
         platonNetUrl: 'https://platonnet.chainx.org/',
-      })
-      setPlatonUnit('AKSM')
+      });
       setCoin({
         coinName: 'KSM',
         whiteIcon: 'http://lc-XLoqMObG.cn-n1.lcfile.com/7f0b4956f9dd593c01ef.svg',
         matchingNode: 'wss://supercube.pro/ws'
-      })
-    }else if(polkadotSetting.apiUrl === 'wss://polkadot.elara.patract.io'){
+      });
+    } else if (polkadotSetting.apiUrl === 'wss://polkadot.elara.patract.io') {
       setNetWork({
         name: 'PlatON',
         polkadotNetUrl: polkadotSetting.apiUrl,
         platonNetUrl: '',
-      })
-      setPlatonUnit('PDOT')
+      });
       setCoin({
         coinName: 'DOT',
         whiteIcon: 'http://lc-XLoqMObG.cn-n1.lcfile.com/519b3e5ce282616f1cd7.svg',
         matchingNode: 'wss://polkadot.elara.patract.io'
-      })
-    }else if(polkadotSetting.apiUrl === 'wss://testnet-2.chainx.org/ws'){
+      });
+    } else if (polkadotSetting.apiUrl === 'wss://testnet-2.chainx.org/ws') {
       setCoin({
         coinName: 'XBTC',
         whiteIcon: 'http://lc-XLoqMObG.cn-n1.lcfile.com/e19d81cbc3ad30b636cd.svg',
         matchingNode: 'wss://testnet-2.chainx.org/ws'
-      })
+      });
       setNetWork({
         ...netWork,
         polkadotNetUrl: polkadotSetting.apiUrl
-      })
+      });
     }
   }, [polkadotSetting.apiUrl]);
 
   useEffect(() => {
     window.localStorage.setItem('netWork', JSON.stringify(netWork));
-    window.localStorage.setItem('coinInfo', JSON.stringify(coin))
-    setLocalNet(JSON.parse(window.localStorage.getItem('netWork') || '{}'))
-    setLocalCoin(JSON.parse(window.localStorage.getItem('coinInfo') || '{}'))
+    window.localStorage.setItem('coinInfo', JSON.stringify(coin));
+    setLocalNet(JSON.parse(window.localStorage.getItem('netWork') || '{}'));
+    setLocalCoin(JSON.parse(window.localStorage.getItem('coinInfo') || '{}'));
   }, [netWork, coin]);
 
   useEffect(() => {
-    setNetName(localNet.name)
-  }, [localNet])
+    setNetName(localNet.name);
+    if (localNet.name === 'Alaya') {
+      setPlatonUnit('AKSM');
+      if (localCoin.coinName === 'XBTC') {
+        setPlatonUnit('XKSM');
+      }
+    } else if (localNet.name === 'PlatON') {
+      setPlatonUnit('PDOT');
+      if (localCoin.coinName === 'XBTC') {
+        setPlatonUnit('XDOT');
+      }
+    }
+
+  }, [localNet.name, localCoin.coinName]);
 
   return (
     <NetWorkContext.Provider value={{
