@@ -9,7 +9,7 @@ import { NetWorkContext } from '@polkadot/pages/components/NetWorkProvider';
 import { createTransferTransactionParameters } from '@polkadot/pages/contract';
 import { creatStatusInfo } from '@polkadot/pages/helper/helper';
 import { ActionStatus } from '@polkadot/pages/components/Status/types';
-import { PlatonAccountsContext } from '@polkadot/pages/components/PlatonAccountsProvider';
+import { BSCAccountsContext } from '@polkadot/pages/components/BSCAccountsProvider';
 
 function CardContent(): React.ReactElement{
   const {t} = useTranslation();
@@ -17,12 +17,12 @@ function CardContent(): React.ReactElement{
   const [amount, setAmount] = useState<string>('');
   const status = {action: 'transfer'} as ActionStatus;
   const {platonUnit, netName} = useContext(NetWorkContext);
-  const {platonAccount, fetchTransfers} = useContext(PlatonAccountsContext);
+  const {BSCAccount, fetchTransfers} = useContext(BSCAccountsContext);
   const {queueAction} = useContext(StatusContext);
   const [targetAddress, setTargetAddress] = useState<string>('');
 
   const confirmTransfer = () => {
-    if (platonAccount && amount && targetAddress) {
+    if (BSCAccount && amount && targetAddress) {
       try {
         setWarning('');
         alaya.request({
@@ -32,7 +32,7 @@ function CardContent(): React.ReactElement{
           .then(result => {
             creatStatusInfo(status, 'success', `${t('Transaction hash')}: ${result}`);
             queueAction(status as ActionStatus);
-            fetchTransfers(platonAccount);
+            fetchTransfers(BSCAccount);
           })
           .catch(error => {
             creatStatusInfo(status, 'error', error.message);

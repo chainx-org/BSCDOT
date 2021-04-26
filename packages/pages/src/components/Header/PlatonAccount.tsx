@@ -1,40 +1,38 @@
 import React, { useContext } from 'react';
 import AccountCard from '@polkadot/pages/components/AccountCard';
 import Card from '../Card';
-import { PlatonAccountsContext } from '@polkadot/pages/components/PlatonAccountsProvider';
+import { BSCAccountsContext } from '@polkadot/pages/components/BSCAccountsProvider';
 import { NetWorkContext } from '@polkadot/pages/components/NetWorkProvider';
 import { useTranslation } from '@polkadot/pages/components/translate';
 
 function PlatonAccount() {
   const {t} = useTranslation();
-  const {platonAccount, setPlatonAccount, pdotAmount} = useContext(PlatonAccountsContext);
-  const {netWork, netName, platonUnit} = useContext(NetWorkContext);
+  const {hasBSCAccount, BSCAccount, BSCAmount} = useContext(BSCAccountsContext);
+  const {platonUnit} = useContext(NetWorkContext);
 
-  const openSamurai = () => {
-    if (typeof window.alaya !== 'undefined') {
-      alaya.request({method: 'platon_requestAccounts'})
-        .then((platonAccounts: string[]) => setPlatonAccount(platonAccounts[0]));
+  const openMetaMask = () => {
+    if (typeof window.ethereum !== 'undefined') {
+      ethereum.request({method: 'platon_requestAccounts'})
+        // .then((platonAccounts: string[]) => setPlatonAccount(platonAccounts[0]));
     } else {
-      window.location.href = netName === 'Alaya'?
-        'https://singapore-chainx.oss-ap-southeast-1.aliyuncs.com/platdot/Samurai/samurai-devnet-chrome-8.0.11.zip?versionId=CAEQDhiBgICdg4ykxhciIGI4YTZmNDZlYzRjZTRhY2JhNDk0OGIxNGY4NWJjYjNh':
-        'https://singapore-chainx.oss-ap-southeast-1.aliyuncs.com/platdot/Samurai/samurai-chrome-8.0.11.zip?versionId=CAEQDhiBgMCdg4ykxhciIGNiZTk3ODA5YTdmYzQ2M2E5OTVkN2Y5ZGI0YWMyMzli';
+      window.location.href = 'https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn'
     }
   };
 
   return (
     <>
-      {platonAccount ?
+      {hasBSCAccount ?
         <AccountCard
           className="greenCard"
-          accountName={netName === 'Alaya'? t('Alaya account'): t('PlatON account')}
-          accountAddress={platonAccount}
-          accountAmount={pdotAmount ? pdotAmount : 0}
-          iconNode={netWork.name.trim() === 'Alaya' ? 'http://lc-XLoqMObG.cn-n1.lcfile.com/df5990ab96edbde34115.svg' : 'http://lc-XLoqMObG.cn-n1.lcfile.com/49330e39b9a4631c4e0f.svg'}
+          accountName={t('BSC Account')}
+          accountAddress={BSCAccount}
+          accountAmount={BSCAmount ? BSCAmount : 0}
+          iconNode='http://lc-XLoqMObG.cn-n1.lcfile.com/91d74a84c392f404a687.svg'
           unit={platonUnit}
           accountType='platon'
         /> :
-        <Card isBasic className="greenCard" label={t('Sign in your PlatON account with the Samurai plugin')} iconNode='http://lc-XLoqMObG.cn-n1.lcfile.com/2a8160e1492ced7f4b2c.svg'
-              onClick={openSamurai}/>
+        <Card isBasic className="greenCard" label={t('Sign in your BSC account with the metamask plugin')} iconNode='http://lc-XLoqMObG.cn-n1.lcfile.com/e83164f3c19d30a230cc.svg'
+              onClick={openMetaMask}/>
       }
     </>
   );

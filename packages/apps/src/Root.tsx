@@ -13,7 +13,7 @@ import settings from '@polkadot/ui-settings';
 import Apps from './Apps';
 import WindowDimensions from './WindowDimensions';
 import { darkTheme, lightTheme } from './themes';
-import { PlatonAccountsProvider } from '@polkadot/pages/components/PlatonAccountsProvider';
+import { BSCAccountsProvider } from '@polkadot/pages/components/BSCAccountsProvider';
 import { PolkadotAccountsProvider } from '@polkadot/pages/components/PolkadotAccountsProvider';
 import { NetWorkProvider } from '@polkadot/pages/components/NetWorkProvider';
 
@@ -45,13 +45,13 @@ function Root({store}: Props): React.ReactElement<Props> {
           >
             <NetWorkProvider>
               <PolkadotAccountsProvider>
-                <PlatonAccountsProvider>
+                <BSCAccountsProvider>
                   <HashRouter>
                     <WindowDimensions>
                       <Apps/>
                     </WindowDimensions>
                   </HashRouter>
-                </PlatonAccountsProvider>
+                </BSCAccountsProvider>
               </PolkadotAccountsProvider>
             </NetWorkProvider>
           </Api>

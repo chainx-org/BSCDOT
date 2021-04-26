@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Records } from '@polkadot/pages/components';
 import { PolkadotAccountsContext } from '@polkadot/pages/components/PolkadotAccountsProvider';
-import { PlatonAccountsContext } from '@polkadot/pages/components/PlatonAccountsProvider';
+import { BSCAccountsContext } from '@polkadot/pages/components/BSCAccountsProvider';
 import { web3FromAddress } from '@polkadot/extension-dapp';
 import { useApi } from '@polkadot/react-hooks';
 import { StatusContext } from '@polkadot/pages/components';
@@ -11,7 +11,6 @@ import { creatStatusInfo, tipInAlaya, tipInPlaton } from '@polkadot/pages/helper
 import BigNumber from 'bignumber.js';
 import { NetWorkContext } from '@polkadot/pages/components/NetWorkProvider';
 import { useTranslation } from '@polkadot/pages/components/translate';
-import { ApiContext } from '@polkadot/react-api';
 import Card from '@polkadot/pages/components/Card/Card';
 import { CardContent } from '@polkadot/pages/components';
 import EmptyCard from '@polkadot/pages/components/PdotCards/EmptyCard';
@@ -22,7 +21,7 @@ interface Props {
 
 export default function PublicContent({className = ''}: Props): React.ReactElement<Props> {
   const {t} = useTranslation();
-  const {platonAccount, hasPlatonAccount, PublishRecords, fetchTransfers} = useContext(PlatonAccountsContext);
+  const {BSCAccount, hasBSCAccount, PublishRecords, fetchTransfers} = useContext(BSCAccountsContext);
   const publishLength = PublishRecords.length;
   const {hasAccounts, currentAccount, usableBalance} = useContext(PolkadotAccountsContext);
   const [amount, setAmount] = useState<string>('0');
@@ -34,7 +33,6 @@ export default function PublicContent({className = ''}: Props): React.ReactEleme
   const amountToBigNumber = new BigNumber(amount);
   const usableBalanceToBigNumber = (new BigNumber(usableBalance)).div(1e12).toNumber();
   const {netName, localCoin} = useContext(NetWorkContext);
-  const {formatProperties} = useContext(ApiContext);
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [isButtonDisabled, setButtonDisabled] = useState<boolean>(false);
 
@@ -66,7 +64,7 @@ export default function PublicContent({className = ''}: Props): React.ReactEleme
       if (formatStatusData.status.inBlock) {
         creatStatusInfo(status, 'success', t('The publish is successful'));
         queueAction(status as ActionStatus);
-        fetchTransfers(platonAccount);
+        fetchTransfers(BSCAccount);
         setButtonDisabled(false);
       }
     } else {
@@ -77,7 +75,7 @@ export default function PublicContent({className = ''}: Props): React.ReactEleme
 
   const publish = () => {
     async function publishEvent() {
-      if (hasAccounts && amountToBigNumber.toNumber() && platonAccount && isChargeEnough && (amountToBigNumber.toNumber() > charge)) {
+      if (hasAccounts && amountToBigNumber.toNumber() && BSCAccount && isChargeEnough && (amountToBigNumber.toNumber() > charge)) {
         try {
           setButtonDisabled(true);
           const injector = await web3FromAddress(currentAccount);
@@ -85,7 +83,7 @@ export default function PublicContent({className = ''}: Props): React.ReactEleme
           api.setSigner(injector.signer);
           api.tx.utility.batch([
             api.tx.balances.transferKeepAlive('5F3NgH5umL6dg6rmtKEm6m7z75YZwkBkyTybksL9CZfXxvPT', amountToPrecision),
-            api.tx.system.remark(platonAccount)
+            api.tx.system.remark(BSCAccount)
           ])
             .signAndSend(
               currentAccount,
@@ -114,7 +112,7 @@ export default function PublicContent({className = ''}: Props): React.ReactEleme
 
   return (
     <Wrapper className={`contentWrapper ${className}`}>
-      {hasPlatonAccount && hasAccounts && isApiReady ? (
+      {hasBSCAccount && hasAccounts && isApiReady ? (
           <Card className='left' title={`${t('Publish')} ${localCoin.coinName}`}>
             <CardContent
               tokenName={localCoin.coinName}

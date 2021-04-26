@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Records } from '@polkadot/pages/components';
-import { PlatonAccountsContext } from '@polkadot/pages/components/PlatonAccountsProvider';
+import { BSCAccountsContext } from '@polkadot/pages/components/BSCAccountsProvider';
 import { PolkadotAccountsContext } from '@polkadot/pages/components/PolkadotAccountsProvider';
 import EmptyCard from '../components/PdotCards/EmptyCard';
 import { StatusContext, CardContent } from '@polkadot/pages/components';
@@ -22,13 +22,13 @@ export default function RedeemContent({className}: Props): React.ReactElement<Pr
   const {t} = useTranslation();
   const {isApiReady} = useApi();
   const {currentAccount, hasAccounts} = useContext(PolkadotAccountsContext);
-  const {platonAccount, hasPlatonAccount, RedeemRecords, pdotAmount, fetchTransfers} = useContext(PlatonAccountsContext);
+  const {BSCAccount, hasBSCAccount, RedeemRecords, BSCAmount, fetchTransfers} = useContext(BSCAccountsContext);
   const redeemLength = RedeemRecords.length;
   const [amount, setAmount] = useState<string>('0');
   const {queueAction} = useContext(StatusContext);
   const status = {action: 'redeem'} as ActionStatus;
   const [charge, setCharge] = useState(0);
-  const pdotAmountToBigNumber = (new BigNumber(pdotAmount)).div(1e18).toNumber();
+  const pdotAmountToBigNumber = (new BigNumber(BSCAccount)).div(1e18).toNumber();
   const amountToBigNumber = new BigNumber(amount);
   const [isChargeEnough, setIsChargeEnough] = useState<boolean>(true);
   const {platonUnit, netName} = useContext(NetWorkContext);
@@ -46,7 +46,7 @@ export default function RedeemContent({className}: Props): React.ReactElement<Pr
 
   useEffect(() => {
     setIsChargeEnough(pdotAmountToBigNumber > charge && pdotAmountToBigNumber >= amountToBigNumber.toNumber());
-  }, [pdotAmount, charge]);
+  }, [BSCAccount, charge]);
 
   useEffect(() => {
     if (!isChargeEnough) {
@@ -66,22 +66,24 @@ export default function RedeemContent({className}: Props): React.ReactElement<Pr
   };
 
   const redeem = () => {
-    if (platonAccount && amountToBigNumber.toNumber() && isChargeEnough && (amountToBigNumber.toNumber() > charge)) {
+    if (BSCAccount && amountToBigNumber.toNumber() && isChargeEnough && (amountToBigNumber.toNumber() > charge)) {
       try {
         setButtonDisabled(true);
         const amountToPrecision: BigNumber = amountToBigNumber.times(1e18);
-        alaya.request({
+        //@ts-ignore
+        ethereum.request({
           method: 'platon_sendTransaction',
-          params: [createApproveTransactionParameters(platonAccount, amountToPrecision)]
+          params: [createApproveTransactionParameters(BSCAccount, amountToPrecision)]
         }).then(() =>
-          alaya.request({
+          //@ts-ignore
+          ethereum.request({
             method: 'platon_sendTransaction',
-            params: [createDepositTransactionParameters(platonAccount, currentAccount, amountToPrecision)]
+            params: [createDepositTransactionParameters(BSCAccount, currentAccount, amountToPrecision)]
           })
             .then(result => {
               creatStatusInfo(status, 'success', `${t('Transaction hash')}: ${result}`);
               queueAction(status as ActionStatus);
-              fetchTransfers(platonAccount);
+              fetchTransfers(BSCAccount);
               setButtonDisabled(false);
             })
             .catch(error => {
@@ -101,7 +103,7 @@ export default function RedeemContent({className}: Props): React.ReactElement<Pr
 
   return (
     <Wrapper className={`contentWrapper ${className}`}>
-      {hasPlatonAccount && hasAccounts && isApiReady ? (
+      {hasBSCAccount && hasAccounts && isApiReady ? (
           <Card className='left' title={`${t('Redeem')} ${platonUnit}`}>
             <CardContent
               tokenName={platonUnit}

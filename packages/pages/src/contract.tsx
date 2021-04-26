@@ -1,5 +1,4 @@
 import {toUtf8Bytes} from 'ethers/lib/utils';
-import {bytesToHex} from 'web3/packages/web3-utils';
 import {decodeAddress} from '@polkadot/keyring';
 import {u8aToHex} from '@polkadot/util';
 import uiSettings from '@polkadot/ui-settings';
@@ -11,21 +10,21 @@ const Web3 = require('web3');
 const netWorkInfo: NetWorkInfo = JSON.parse(window.localStorage.getItem('netWork') || '{}')
 const coinInfo: CoinInfo= JSON.parse(window.localStorage.getItem('coinInfo') || '{}')
 
-let web3;
+const web3 = new Web3('https://data-seed-prebsc-1-s3.binance.org:8545');
 const polkadotSetting = uiSettings.get()
-if(netWorkInfo.platonNetUrl){
-  web3 = new Web3(netWorkInfo.platonNetUrl);
-}else{
-  polkadotSetting.apiUrl === 'wss://supercube.pro/ws'? web3 = new Web3('https://platonnet.chainx.org/'): web3 = new Web3('')
-}
-let erc20Address: string;
-if(polkadotSetting.apiUrl === 'wss://supercube.pro/ws'){
-  erc20Address = 'atp18uylvwsppggu5wn458yxe0stetr7tpytyllaxc';
-}else if(polkadotSetting.apiUrl === 'wss://testnet-2.chainx.org/ws'){
-  erc20Address = 'atp15r65x5lwydl2m24c8yjz35pmykfvynd9gvf86m'
-}else{
-  erc20Address = 'atp18uylvwsppggu5wn458yxe0stetr7tpytyllaxc'
-}
+// if(netWorkInfo.platonNetUrl){
+//   web3 = new Web3(netWorkInfo.platonNetUrl);
+// }else{
+//   polkadotSetting.apiUrl === 'wss://supercube.pro/ws'? web3 = new Web3('https://platonnet.chainx.org/'): web3 = new Web3('')
+// }
+// let erc20Address: string;
+// if(polkadotSetting.apiUrl === 'wss://supercube.pro/ws'){
+//   erc20Address = 'atp18uylvwsppggu5wn458yxe0stetr7tpytyllaxc';
+// }else if(polkadotSetting.apiUrl === 'wss://testnet-2.chainx.org/ws'){
+//   erc20Address = 'atp15r65x5lwydl2m24c8yjz35pmykfvynd9gvf86m'
+// }else{
+//   erc20Address = 'atp18uylvwsppggu5wn458yxe0stetr7tpytyllaxc'
+// }
 const {ppos} = web3;
 const bridge_abi = [
   {
@@ -1634,25 +1633,18 @@ const erc20miner_abi = [
 
 const blankFunctionSig = '0x00000000';
 const blankFunctionDepositerOffset = 0;
-const ADMIN_ROLE = '0x0000000000000000000000000000000000000000000000000000000000000000';
-const RELAYER_ROLE = '0xe2b7fb3b832174769106daebcfd6d1970523240dda11281102db9363b83b0dc4';
-const MINTER_ROLE = '0x9f2df0fed2c77648de5860a4cc508cd0818c85b8b8a1ab4ceeef8d981c8956a6';
-const PAUSER_ROLE = '0x65d7a28e3265b37a6474929f336521b332c1681b933f6cb9f3376673440d862a';
 
-const adminAddress = 'atp18hqda4eajphkfarxaa2rutc5dwdwx9z5vy2nmh';
-const ghjieAddress = 'atx1j4ncnc4ajm8ut0nvg2n34uedtz3kuecmsdf7qd';
-const rjmanAddress = 'atx1sy2tvmghdv47hwz89yu9wz2y29nd0frr0578e3';
-
-const bridgeAddress = 'atp1emxqzwmz0nv5pxk3h9e2dp3p6djfkqwn4v05zk';
-const handlerAddress = 'atp15nqwyjpffntmgg05aq6u7frdvy60qnm82007q5';
+const erc20Address = '0x39b7FBbC38e4963A5cBCAd8d4A8ACbA21391CC55' //BBTC
+// BDOT: 0xf0723e55127406FcAA17C6B2E5d2e68459cF40a6
+//Bpcx: 0xDf0aFC545A3E819a7B69cD2D92df69Fa64606748
+const bridgeAddress = '0xeEc45984F86f35AF9F6489fd30a7f0aa655c08dB';
+const handlerAddress = '0x04c20C38e015e52685ba7DC34E839960a23C03CC';
 const resourceID = '0x0000000000000000000000000000000000000000000000000000000000000000';
-const erc20_minter_contract = new web3.platon.Contract(erc20miner_abi);
+const erc20_minter_contract = new web3.eth.Contract(erc20miner_abi);
 erc20_minter_contract.options.address = erc20Address;
-erc20_minter_contract.options.from = adminAddress;
 
-const bridge_contract = new web3.platon.Contract(bridge_abi);
+const bridge_contract = new web3.eth.Contract(bridge_abi);
 bridge_contract.options.address = bridgeAddress;
-bridge_contract.options.from = adminAddress;
 
 const hexlifyAmount = (value) => {
   const HexCharacters: string = "0123456789abcdef";
@@ -1704,7 +1696,7 @@ const createDepositTransactionParameters = (from: string, to: string, amount: Bi
     to: bridgeAddress,
     from, // must match user's active address.
     value: '0', // Only required to send ether to the recipient from the initiating external account.
-    data: bridge_contract.methods.deposit(1, resourceID, createERCDepositData(amount.toNumber(), 66, bytesToHex(toUtf8Bytes(addressToPublicKey(to))))).encodeABI(),
+    data: bridge_contract.methods.deposit(1, resourceID, createERCDepositData(amount.toNumber(), 66, web3.Utils.bytesToHex(toUtf8Bytes(addressToPublicKey(to))))).encodeABI(),
   };
 };
 

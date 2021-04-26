@@ -4,13 +4,13 @@ import { Account, Detail, Header, Label, Line, Sequence } from './Detail';
 import { useOutsideClick } from '../hooks';
 import { useApi } from '@polkadot/react-hooks';
 import moment from 'moment';
-import { PlatonAccountsContext } from '../../PlatonAccountsProvider';
+import { BSCAccountsContext } from '../../BSCAccountsProvider';
 import { PolkadotAccountsContext } from '../../PolkadotAccountsProvider';
 
 export default function ({records, num, arrows, isReverse}: any) {
   const {isApiReady} = useApi();
   const [open, setOpen] = useState(false);
-  const { platonAccount } = useContext(PlatonAccountsContext)
+  const { BSCAccount } = useContext(BSCAccountsContext)
   const { currentAccount } = useContext(PolkadotAccountsContext)
 
   const wrapper = useRef(null);
@@ -26,16 +26,16 @@ export default function ({records, num, arrows, isReverse}: any) {
       </Header>
       <Account>
         {
-          isReverse ? 
+          isReverse ?
           <>
-            <Hash hash={platonAccount} className='address'/>
+            <Hash hash={BSCAccount} className='address'/>
             {arrows ? <img src='http://lc-XLoqMObG.cn-n1.lcfile.com/cb023eeb56945d0cd674.svg' alt='Arrow' className='arrow'/> : ''}
             <Hash hash={currentAccount} className='address'/>
           </>:
           <>
             <Hash hash={currentAccount} className='address'/>
             {arrows ? <img src='http://lc-XLoqMObG.cn-n1.lcfile.com/cb023eeb56945d0cd674.svg' alt='Arrow' className='arrow'/> : ''}
-            <Hash hash={platonAccount} className='address'/>
+            <Hash hash={BSCAccount} className='address'/>
           </>
         }
       </Account>

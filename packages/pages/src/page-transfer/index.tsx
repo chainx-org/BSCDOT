@@ -3,7 +3,7 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
 import {  Records } from '@polkadot/pages/components';
-import { PlatonAccountsContext } from '@polkadot/pages/components/PlatonAccountsProvider';
+import { BSCAccountsContext } from '@polkadot/pages/components/BSCAccountsProvider';
 import { PolkadotAccountsContext } from '@polkadot/pages/components/PolkadotAccountsProvider';
 import EmptyCard from '../components/PdotCards/EmptyCard';
 import { NetWorkContext } from '@polkadot/pages/components/NetWorkProvider';
@@ -17,14 +17,14 @@ interface Props {
 
 export default function TransferContent({className}: Props): React.ReactElement<Props> {
   const {t} = useTranslation();
-  const {hasPlatonAccount, Transfers} = useContext(PlatonAccountsContext);
+  const {hasBSCAccount, Transfers} = useContext(BSCAccountsContext);
   const {hasAccounts} = useContext(PolkadotAccountsContext);
   const transferLength = Transfers.length;
   const {platonUnit} = useContext(NetWorkContext);
 
   return (
     <Wrapper className={`contentWrapper ${className}`}>
-      {hasPlatonAccount && hasAccounts ?
+      {hasBSCAccount && hasAccounts ?
         <Card className="left" title={`${platonUnit} ${t('Transfer')}`}>
           <CardContent/>
         </Card>

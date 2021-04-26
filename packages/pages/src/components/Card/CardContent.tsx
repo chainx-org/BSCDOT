@@ -5,7 +5,7 @@ import AccountMessage from '@polkadot/pages/components/AccountMessage';
 import Button from '@polkadot/pages/components/Button';
 import { useTranslation } from '@polkadot/pages/components/translate';
 import { PolkadotAccountsContext } from '@polkadot/pages/components/PolkadotAccountsProvider';
-import { PlatonAccountsContext } from '@polkadot/pages/components/PlatonAccountsProvider';
+import { BSCAccountsContext } from '@polkadot/pages/components/BSCAccountsProvider';
 
 interface Props {
   tipLabel: string;
@@ -22,7 +22,7 @@ interface Props {
 function CardContent({tipLabel, tokenName, charge, onClick, buttonText, isButtonDisabled, setAmount, errorMessage, isReverse}: Props): React.ReactElement<Props> {
   const {t} = useTranslation();
   const {currentAccount} = useContext(PolkadotAccountsContext);
-  const {platonAccount} = useContext(PlatonAccountsContext);
+  const {BSCAccount} = useContext(BSCAccountsContext);
 
   return (
     <div className="pdotContent">
@@ -32,7 +32,7 @@ function CardContent({tipLabel, tokenName, charge, onClick, buttonText, isButton
                          onBlur={(e) => setAmount(e.target.textContent!)}/>
         <AmountAndTip
           className='tip'>{t('service charge')}： {charge} {tokenName}</AmountAndTip>
-        <AccountMessage isReverse={isReverse} polkadotAddress={currentAccount} platonAddress={platonAccount}/>
+        <AccountMessage isReverse={isReverse} polkadotAddress={currentAccount} platonAddress={BSCAccount}/>
         <RedeemWarn className="warn isShow">{errorMessage}</RedeemWarn>
         <Button className="isConfirm" onClick={onClick} text={buttonText}
                 disabled={isButtonDisabled}/>

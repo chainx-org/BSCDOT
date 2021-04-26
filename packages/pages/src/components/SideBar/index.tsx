@@ -6,11 +6,6 @@ import styled from "styled-components";
 import SideItem from "./SideItem";
 import Languages from "./Languages";
 import { useTranslation } from '@polkadot/pages/components/translate';
-import NetWorkList from '@polkadot/pages/components/SideBar/NetWorkList';
-
-interface Props {
-  className?: string;
-}
 
 export interface NodeItem {
   index: number | undefined;
@@ -44,7 +39,7 @@ const Wrapper = styled.div`
     }
 
     .navLists {
-      padding-top: 23px;
+      padding-top: 56px;
       .navItem {
         margin: 25px 0;
         a {
@@ -59,7 +54,7 @@ const Wrapper = styled.div`
       }
 
       .statusRisk > a {
-        background: #51abad;
+        background: #F3BA2F;
         border-radius: 0 10px 10px 0;
         margin: 25px -26px 25px -52px;
         padding-left: 52px;
@@ -71,7 +66,7 @@ const Wrapper = styled.div`
   }
 `;
 
-function Sidebars({ className = "" }: Props): React.ReactElement<Props> {
+function Sidebars(): React.ReactElement {
   const {t} = useTranslation();
 
   const nodeList: NodeItem[] = [
@@ -103,8 +98,7 @@ function Sidebars({ className = "" }: Props): React.ReactElement<Props> {
   return (
     <Wrapper>
       <div className="wrappers">
-        <img src='http://lc-XLoqMObG.cn-n1.lcfile.com/2708a538eefe61748c0e.svg' alt="PlatDot" />
-        <NetWorkList/>
+        <img src='http://lc-XLoqMObG.cn-n1.lcfile.com/9f3e2a8e9e134f3ff4cd.svg' alt="BSCDOT" />
         <ul className="navLists">
           {nodeList.map((node: NodeItem, index: number) => (
             <SideItem node={node} key={index} id={index} pathname={pathname} />

@@ -49,7 +49,7 @@ function createWebpack (ENV, context) {
 
   return {
     context,
-    entry: ['@babel/polyfill', './src/index.tsx'],
+    entry: ['core-js/stable', 'regenerator-runtime/runtime', './src/index.tsx'],
     mode: ENV,
     module: {
       rules: [
