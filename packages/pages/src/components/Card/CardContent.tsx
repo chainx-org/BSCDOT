@@ -32,7 +32,7 @@ function CardContent({tipLabel, tokenName, charge, onClick, buttonText, isButton
                          onBlur={(e) => setAmount(e.target.textContent!)}/>
         <AmountAndTip
           className='tip'>{t('service charge')}： {charge} {tokenName}</AmountAndTip>
-        <AccountMessage isReverse={isReverse} polkadotAddress={currentAccount} platonAddress={BSCAccount}/>
+        <AccountMessage isReverse={isReverse} polkadotAddress={currentAccount} BSCAddress={BSCAccount}/>
         <RedeemWarn className="warn isShow">{errorMessage}</RedeemWarn>
         <Button className="isConfirm" onClick={onClick} text={buttonText}
                 disabled={isButtonDisabled}/>

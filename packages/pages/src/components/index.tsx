@@ -5,7 +5,6 @@ export { default as Records } from './Records';
 export { default as SideBar } from './SideBar';
 export { default as ToolTipConfig } from './ToolTipConfig';
 export { default as InputAutoLength } from './InputAutoLength';
-export { NetWorkProvider } from './NetWorkProvider';
 export { BSCAccountsProvider } from './BSCAccountsProvider';
 export { PolkadotAccountsProvider } from './PolkadotAccountsProvider';
 export { default as Card } from './Card';

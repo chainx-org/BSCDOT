@@ -9,10 +9,10 @@ import { ActionStatus } from '@polkadot/pages/components/Status/types';
 import { creatStatusInfo, tipInAlaya, tipInPlaton } from '@polkadot/pages/helper/helper';
 import { createDepositTransactionParameters, createApproveTransactionParameters } from '../contract';
 import BigNumber from 'bignumber.js';
-import { NetWorkContext } from '@polkadot/pages/components/NetWorkProvider';
 import { useTranslation } from '@polkadot/pages/components/translate';
 import Card from '@polkadot/pages/components/Card/Card';
 import { useApi } from '@polkadot/react-hooks';
+import { CoinInfoContext } from '@polkadot/pages/components/CoinInfoProvider';
 
 interface Props {
   className?: string;
@@ -31,18 +31,10 @@ export default function RedeemContent({className}: Props): React.ReactElement<Pr
   const pdotAmountToBigNumber = (new BigNumber(BSCAccount)).div(1e18).toNumber();
   const amountToBigNumber = new BigNumber(amount);
   const [isChargeEnough, setIsChargeEnough] = useState<boolean>(true);
-  const {platonUnit, netName} = useContext(NetWorkContext);
+  const {coinInfo} = useContext(CoinInfoContext);
   const [isButtonDisabled, setButtonDisabled] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>('');
 
-  useEffect(() => {
-    if (!amount) {
-      netName === 'Alaya' ? setCharge(tipInAlaya.toNumber()) : setCharge(tipInPlaton.toNumber());
-    } else {
-      const chargeOfAmount = amountToBigNumber.times(0.001);
-      setCharge(chargeOfAmount.plus(netName === 'Alaya' ? tipInAlaya : tipInPlaton).toNumber());
-    }
-  }, [amount, netName]);
 
   useEffect(() => {
     setIsChargeEnough(pdotAmountToBigNumber > charge && pdotAmountToBigNumber >= amountToBigNumber.toNumber());
@@ -104,9 +96,9 @@ export default function RedeemContent({className}: Props): React.ReactElement<Pr
   return (
     <Wrapper className={`contentWrapper ${className}`}>
       {hasBSCAccount && hasAccounts && isApiReady ? (
-          <Card className='left' title={`${t('Redeem')} ${platonUnit}`}>
+          <Card className='left' title={`${t('Redeem')} ${coinInfo.bCoinName}`}>
             <CardContent
-              tokenName={platonUnit}
+              tokenName={coinInfo.bCoinName}
               tipLabel={t('Redeem amount')}
               charge={charge}
               onClick={redeem}
@@ -117,7 +109,7 @@ export default function RedeemContent({className}: Props): React.ReactElement<Pr
               isReverse/>
           </Card>) :
         <EmptyCard
-          title={`${t('Redeem')} ${platonUnit ? platonUnit : ''}`}/>}
+          title={`${t('Redeem')} ${coinInfo.bCoinName ? coinInfo.bCoinName : ''}`}/>}
 
       <Records className="right" title={t('Redeem record')} records={RedeemRecords} recordLength={redeemLength}
                arrows={true} isReverse={true}/>

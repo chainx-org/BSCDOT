@@ -1,9 +1,8 @@
-import React, {useCallback, useContext} from 'react';
+import React, { useCallback, useContext } from 'react';
 import styled from 'styled-components';
 import useLocalStorage from '@polkadot/pages/hooks/useLocalStorage';
-import {PolkadotAccountsContext} from '@polkadot/pages/components/PolkadotAccountsProvider';
+import { PolkadotAccountsContext } from '@polkadot/pages/components/PolkadotAccountsProvider';
 import uiSettings from '@polkadot/ui-settings';
-import {NetWorkContext} from '@polkadot/pages/components/NetWorkProvider';
 import { SettingsStruct } from '@polkadot/ui-settings/types';
 
 const Cells = styled.section`
@@ -75,11 +74,11 @@ interface CellProps {
   item: any;
 }
 
-export function save (settings: SettingsStruct): void {
+export function save(settings: SettingsStruct): void {
   uiSettings.set(settings);
 }
 
-export function saveAndReload (settings: SettingsStruct): void {
+export function saveAndReload(settings: SettingsStruct): void {
   save(settings);
   window.location.reload();
 }
@@ -88,29 +87,18 @@ export function saveAndReload (settings: SettingsStruct): void {
 export function Cell({className = '', iconUrl, title, account, accountName, isSelected, listType, item}: CellProps): React.ReactElement<CellProps> {
   const [, setValue] = useLocalStorage<string>('currentAccount');
   const {changeAccount} = useContext(PolkadotAccountsContext);
-  const {setNetWork} = useContext(NetWorkContext);
 
   const handleOnClick = useCallback(() => {
-      if (listType === 'coinList') {
-        setNetWork({
-          name: title,
-          polkadotNetUrl: item.polkadotNetUrl,
-          platonNetUrl: item.platOnNetUrl
-        });
-        saveAndReload({...uiSettings.get(), apiUrl: item.polkadotNetUrl});
-      } else if (listType === 'accountList' && account) {
-        setValue(account);
-        changeAccount(account);
-      }
-    }
-    , [account, listType, item]);
+    setValue(account);
+    changeAccount(account);
+  }, [account, listType, item]);
 
 
   return (
     <Cells className={`${className} isBasic  `} onClick={handleOnClick}>
       {iconUrl ? (
         <div className="left">
-          <img src={iconUrl}/>
+          <img src={iconUrl} alt=''/>
         </div>
       ) : null}
       {account ? (

@@ -4,8 +4,9 @@ import uiSettings from '@polkadot/ui-settings';
 import { saveAndReload } from '@polkadot/pages/components/ToolTipConfig/components/Cell/Cell';
 import { CoinInfoContext } from '@polkadot/pages/components/CoinInfoProvider';
 
-interface Props{
+interface Props {
   name: string;
+  bCoinName: string;
   icon: string;
   isSelected?: boolean;
   matchingNode: string;
@@ -51,21 +52,21 @@ const Wrapper = styled.div`
     background: #d9d9d9;
     cursor: pointer;
   }
-`
+`;
 
-function CoinInfo({name, icon, isSelected, matchingNode, whiteIcon}: Props): React.ReactElement<Props>{
-  const {coinInfo,localCoin,setCoinInfo} = useContext(CoinInfoContext);
+function CoinInfo({name, bCoinName, icon, isSelected, matchingNode, whiteIcon}: Props): React.ReactElement<Props> {
+  const {coinInfo, localCoin, setCoinInfo} = useContext(CoinInfoContext);
 
   const modifyCoin = (): void => {
-    console.log(name, whiteIcon, matchingNode)
     setCoinInfo({
       coinName: name,
+      bCoinName,
       whiteIcon,
       matchingNode
     });
-    // saveAndReload({...uiSettings.get(), apiUrl: matchingNode});
-  }
-  console.log(coinInfo, localCoin)
+    saveAndReload({...uiSettings.get(), apiUrl: matchingNode});
+  };
+  console.log(coinInfo, localCoin);
   return (
     <Wrapper onClick={() => modifyCoin()}>
       <div className="left">
@@ -74,7 +75,7 @@ function CoinInfo({name, icon, isSelected, matchingNode, whiteIcon}: Props): Rea
       <div className="title">{name}</div>
 
       <div className="right">
-        {isSelected?(
+        {isSelected ? (
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
             <path
               fill="#51ABAD"
@@ -83,10 +84,10 @@ function CoinInfo({name, icon, isSelected, matchingNode, whiteIcon}: Props): Rea
               transform="translate(-268 -20)"
             />
           </svg>
-        ): null}
+        ) : null}
       </div>
     </Wrapper>
-  )
+  );
 }
 
-export default CoinInfo
+export default CoinInfo;

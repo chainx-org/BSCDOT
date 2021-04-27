@@ -55,24 +55,24 @@ const Cell = React.memo(styled.section`
 interface AccountMessageProps {
   isReverse?: boolean;
   polkadotAddress: string;
-  platonAddress: string;
+  BSCAddress: string;
 }
 
 interface addressInfo{
-  iconUrl: unknown;
+  iconUrl: string;
   content: string;
 }
 
-export default function AccountMessage({ isReverse, polkadotAddress, platonAddress }: AccountMessageProps): React.ReactElement<AccountMessageProps> {
+export default function AccountMessage({ isReverse, polkadotAddress, BSCAddress }: AccountMessageProps): React.ReactElement<AccountMessageProps> {
 
   const transactionAddresses: addressInfo[] = [
     {
-      iconUrl: 'http://lc-XLoqMObG.cn-n1.lcfile.com/59801a5cc3eca902d254.svg',
+      iconUrl: 'http://lc-XLoqMObG.cn-n1.lcfile.com/7c50cab4254d7af84509.svg',
       content: polkadotAddress
     },
     {
-      iconUrl: 'http://lc-XLoqMObG.cn-n1.lcfile.com/ed79dc96ca234c1efbbd.svg',
-      content: platonAddress
+      iconUrl: 'http://lc-XLoqMObG.cn-n1.lcfile.com/7e14d4d87b9b3f6b65f9.svg',
+      content: BSCAddress
     }
   ];
 
@@ -89,18 +89,18 @@ export default function AccountMessage({ isReverse, polkadotAddress, platonAddre
       <div className="cells">
         {isReverse ?
           <>
-            {transactionAddresses.reverse().map((item: any) => (
+            {transactionAddresses.reverse().map((item: addressInfo) => (
               <Cell key={item.content}>
-                <img src={item.iconUrl} />
+                <img src={item.iconUrl} alt=''/>
                 <div className="content">{item.content}</div>
               </Cell>
             ))}
           </>
          :
           <>
-          {transactionAddresses.map((item: any) => (
+          {transactionAddresses.map((item: addressInfo) => (
               <Cell key={item.content}>
-                <img src={item.iconUrl} />
+                <img src={item.iconUrl} alt=''/>
                 <div className="content">{item.content}</div>
               </Cell>
             ))}

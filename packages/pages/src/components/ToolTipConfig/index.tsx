@@ -59,7 +59,6 @@ interface ToolTipConfigProps {
 
 export default function ToolTipConfig({list, isOpen, setIsOpen, listType}: ToolTipConfigProps): React.ReactElement<ToolTipConfigProps> {
   const {currentAccount} = useContext(PolkadotAccountsContext);
-  const {netWork} = useContext(NetWorkContext);
   const _toggle = (): void => setIsOpen(false);
   const {t} = useTranslation();
 
@@ -76,7 +75,7 @@ export default function ToolTipConfig({list, isOpen, setIsOpen, listType}: ToolT
               return (
                 <Cell
                   key={Math.random()}
-                  isSelected={currentAccount === item.account || `${netWork.name} ${t('network')}` === item.name}
+                  isSelected={currentAccount === item.account}
                   iconUrl={item.iconUrl}
                   title={item.title}
                   accountName={item.accountName}

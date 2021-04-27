@@ -5,7 +5,6 @@ import moment from 'moment';
 import { useTranslation } from '@polkadot/pages/components/translate';
 import { useOutsideClick } from '../hooks';
 import { useApi } from '@polkadot/react-hooks';
-import Arrow from './arrow.svg';
 
 export default function ({records, num, arrows}: any) {
   const {t} = useTranslation();

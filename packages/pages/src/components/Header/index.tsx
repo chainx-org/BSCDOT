@@ -14,7 +14,7 @@ function Header({className}: Props): React.ReactElement<Props> {
 
   return (
     <div className={className}>
-      <h2>{t('Welcome to Platdot!')}</h2>
+      <h2>{t('Welcome to BSCDOT!')}</h2>
       <div className="cardListWrapper">
         <PolkadotAccount/>
         <PlatonAccount/>

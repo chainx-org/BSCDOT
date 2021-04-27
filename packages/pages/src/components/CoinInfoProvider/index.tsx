@@ -9,6 +9,7 @@ export interface CoinInfoProviderData {
 
 export interface CoinInfo {
   coinName: string;
+  bCoinName: string;
   whiteIcon: string;
   matchingNode: string;
 }
@@ -16,30 +17,42 @@ export interface CoinInfo {
 export const CoinInfoContext = createContext<CoinInfoProviderData>({} as CoinInfoProviderData);
 
 export const CoinInfoProvider: FC = ({children}) => {
-  const defaultCoin: CoinInfo = JSON.parse(window.localStorage.getItem('coinInfoList') || '{}');
+  const [defaultCoin] = useState<CoinInfo>(JSON.parse(window.localStorage.getItem('coinInfoList') || '{}'));
   const [localCoin, setLocalCoin] = useState<CoinInfo>({
     coinName: defaultCoin.coinName,
+    bCoinName: defaultCoin.bCoinName,
     whiteIcon: defaultCoin.whiteIcon,
     matchingNode: defaultCoin.matchingNode,
   })
-  const [coin, setCoin] = useState<CoinInfo>({
+  const [coinInfo, setCoinInfo] = useState<CoinInfo>({
     coinName: localCoin.coinName,
+    bCoinName: localCoin.bCoinName,
     whiteIcon: localCoin.whiteIcon,
     matchingNode: localCoin.matchingNode
   });
 
   useEffect(() => {
-    window.localStorage.setItem('coinInfoList', JSON.stringify(coin));
+    Object.keys(defaultCoin).length === 0 &&
+      setCoinInfo({
+        coinName: 'XBTC',
+        bCoinName:'BBTC',
+        whiteIcon: 'http://lc-XLoqMObG.cn-n1.lcfile.com/e19d81cbc3ad30b636cd.svg',
+        matchingNode: 'wss://chainx.supercube.pro/ws'
+      })
+  }, [])
+
+  useEffect(() => {
+    window.localStorage.setItem('coinInfoList', JSON.stringify(coinInfo));
     setLocalCoin(JSON.parse(window.localStorage.getItem('coinInfoList') || '{}'));
-  }, [coin]);
+  }, [coinInfo]);
 
 
   return (
     <CoinInfoContext.Provider value={{
       localCoin,
       setLocalCoin,
-      coinInfo: coin,
-      setCoinInfo: setCoin
+      coinInfo,
+      setCoinInfo
     }}>
       {children}
     </CoinInfoContext.Provider>

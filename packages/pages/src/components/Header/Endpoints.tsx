@@ -11,6 +11,7 @@ interface EndpointProps {
 
 export interface CoinItem {
   name: string;
+  bCoinName: string;
   matchingNode: string;
   CoinIcon: string;
   whiteIcon: string;
@@ -26,18 +27,21 @@ function Endpoints({className = ''}: EndpointProps): React.ReactElement<Endpoint
   const coinList: CoinItem[] = [
     {
       name: `DOT`,
+      bCoinName: 'BDOT',
       matchingNode: 'wss://polkadot.elara.patract.io',
       CoinIcon: 'http://lc-XLoqMObG.cn-n1.lcfile.com/0a9cba405d7acad81643.svg',
       whiteIcon: 'http://lc-XLoqMObG.cn-n1.lcfile.com/519b3e5ce282616f1cd7.svg'
     },
     {
       name: `PCX`,
+      bCoinName: 'BPCX',
       matchingNode: 'wss://chainx.supercube.pro/ws',
       CoinIcon: 'http://lc-XLoqMObG.cn-n1.lcfile.com/786ca6353bc2f938d7b8.svg',
       whiteIcon: 'http://lc-XLoqMObG.cn-n1.lcfile.com/9005a4ad230740127fc2.svg'
     },
     {
       name: `XBTC`,
+      bCoinName: 'BBTC',
       matchingNode: 'wss://chainx.supercube.pro/ws',
       CoinIcon: 'http://lc-XLoqMObG.cn-n1.lcfile.com/23004d06cafd179780c1.svg',
       whiteIcon: 'http://lc-XLoqMObG.cn-n1.lcfile.com/e19d81cbc3ad30b636cd.svg'

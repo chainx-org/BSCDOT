@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { NetWorkContext } from '../../NetWorkProvider';
 import { LinkWrap } from './Detail';
 
 type Props = {
@@ -9,7 +8,6 @@ type Props = {
 }
 
 export default function ({ hash, length = 5, className = '' }: Props): React.ReactElement<Props> {
-  const { netName } = useContext(NetWorkContext)
   const [url, setUrl] = useState<string>('')
   let result: string = hash
   if (hash.length > 2 * length) {
@@ -18,11 +16,7 @@ export default function ({ hash, length = 5, className = '' }: Props): React.Rea
 
   useEffect(() => {
     async function fetchUrl() {
-      if (netName === 'Alaya') {
-        setUrl(`https://devnetscan.alaya.network/trade-detail?txHash=${hash}`)
-      } else {
-        setUrl(`https://scan.alaya.network/trade-detail?txHash=${hash}`)
-      }
+
     }
     fetchUrl()
   }, [])

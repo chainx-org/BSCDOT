@@ -18,7 +18,7 @@ export default function EmptyCard({ noDataMsg, title, className = '' }: dataProp
       <Content className="pdotCon">
         <Nodata className='nodata'>
           <img src='http://lc-XLoqMObG.cn-n1.lcfile.com/40f3f2c50eb57913979a.svg' alt=''/>
-          <p>{noDataMsg? noDataMsg: t('Please login to your Polkadot and PlatON accounts first')}</p>
+          <p>{noDataMsg? noDataMsg: t('Please login to your Polkadot and BSC accounts first')}</p>
         </Nodata>
       </Content>
     </Wrapper>

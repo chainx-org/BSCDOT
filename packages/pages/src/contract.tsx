@@ -1,17 +1,30 @@
-import {toUtf8Bytes} from 'ethers/lib/utils';
-import {decodeAddress} from '@polkadot/keyring';
-import {u8aToHex} from '@polkadot/util';
-import uiSettings from '@polkadot/ui-settings';
+import { decodeAddress } from '@polkadot/keyring';
+import { u8aToHex } from '@polkadot/util';
 import BigNumber from 'bignumber.js';
-import { CoinInfo, NetWorkInfo } from '@polkadot/pages/components/NetWorkProvider';
+import { CoinInfo } from '@polkadot/pages/components/CoinInfoProvider';
 
 const Ethers = require('ethers');
 const Web3 = require('web3');
-const netWorkInfo: NetWorkInfo = JSON.parse(window.localStorage.getItem('netWork') || '{}')
-const coinInfo: CoinInfo= JSON.parse(window.localStorage.getItem('coinInfo') || '{}')
+const coinInfo: CoinInfo = JSON.parse(window.localStorage.getItem('coinInfoList') || '{}');
 
 const web3 = new Web3('https://data-seed-prebsc-1-s3.binance.org:8545');
-const polkadotSetting = uiSettings.get()
+let erc20Address: string;
+let resourceID: string;
+let chainID: number;
+
+if (coinInfo.coinName === 'XBTC') {
+  erc20Address = '0x39b7FBbC38e4963A5cBCAd8d4A8ACbA21391CC55';
+  resourceID = '0x0000000000000000000000000000000000000000000000000000000000000001';
+  chainID = 3;
+} else if (coinInfo.coinName === 'PCX') {
+  erc20Address = '0xDf0aFC545A3E819a7B69cD2D92df69Fa64606748';
+  resourceID = '0x0000000000000000000000000000000000000000000000000000000000000003';
+  chainID = 7;
+} else if (coinInfo.coinName === 'DOT') {
+  erc20Address = '0xf0723e55127406FcAA17C6B2E5d2e68459cF40a6';
+  resourceID = '0x0000000000000000000000000000000000000000000000000000000000000002';
+  chainID = 5;
+}
 // if(netWorkInfo.platonNetUrl){
 //   web3 = new Web3(netWorkInfo.platonNetUrl);
 // }else{
@@ -1634,42 +1647,39 @@ const erc20miner_abi = [
 const blankFunctionSig = '0x00000000';
 const blankFunctionDepositerOffset = 0;
 
-const erc20Address = '0x39b7FBbC38e4963A5cBCAd8d4A8ACbA21391CC55' //BBTC
-// BDOT: 0xf0723e55127406FcAA17C6B2E5d2e68459cF40a6
-//Bpcx: 0xDf0aFC545A3E819a7B69cD2D92df69Fa64606748
+
 const bridgeAddress = '0xeEc45984F86f35AF9F6489fd30a7f0aa655c08dB';
 const handlerAddress = '0x04c20C38e015e52685ba7DC34E839960a23C03CC';
-const resourceID = '0x0000000000000000000000000000000000000000000000000000000000000000';
 const erc20_minter_contract = new web3.eth.Contract(erc20miner_abi);
 erc20_minter_contract.options.address = erc20Address;
 
 const bridge_contract = new web3.eth.Contract(bridge_abi);
 bridge_contract.options.address = bridgeAddress;
 
-const hexlifyAmount = (value) => {
-  const HexCharacters: string = "0123456789abcdef";
-  let hex = "";
+const hexlifyAmount = (value: number): string => {
+  const HexCharacters: string = '0123456789abcdef';
+  let hex = '';
   while (value) {
     hex = HexCharacters[value & 0x0f] + hex;
     value = Math.floor(value / 16);
   }
   if (hex.length) {
-    if (hex.length % 2) { hex = "0" + hex; }
-    return "0x" + hex;
+    if (hex.length % 2) { hex = '0' + hex; }
+    return '0x' + hex;
   }
-  return "0x00";
-}
+  return '0x00';
+};
 
-const amountToHex = (covertThis, padding) => {
+const amountToHex = (covertThis: number, padding: number): string => {
   return Ethers.utils.hexZeroPad(hexlifyAmount(covertThis), padding);
 };
 
-const addressToHex = (covertThis, padding) => {
+const addressToHex = (covertThis: number, padding: number): string => {
   return Ethers.utils.hexZeroPad(Ethers.utils.hexlify(covertThis), padding);
 };
 
 
-const createERCDepositData = (tokenAmountOrID, lenRecipientAddress, recipientAddress) => {
+const createERCDepositData = (tokenAmountOrID: number, lenRecipientAddress: number, recipientAddress: string): string => {
   return '0x' +
     amountToHex(tokenAmountOrID, 32).substr(2) +      // Token amount or ID to deposit (32 bytes)
     addressToHex(lenRecipientAddress, 32).substr(2) + // len(recipientAddress)          (32 bytes)
@@ -1677,7 +1687,7 @@ const createERCDepositData = (tokenAmountOrID, lenRecipientAddress, recipientAdd
 };
 
 const addressToPublicKey = (address: string): string => {
-  return u8aToHex(decodeAddress(address))
+  return u8aToHex(decodeAddress(address));
 };
 
 const createApproveTransactionParameters = (from: string, amount: BigNumber) => {
@@ -1688,7 +1698,7 @@ const createApproveTransactionParameters = (from: string, amount: BigNumber) => 
     value: '0', // Only required to send ether to the recipient from the initiating external account.
     data: erc20_minter_contract.methods.approve(handlerAddress, amount.toString()).encodeABI(),
   };
-}
+};
 
 const createDepositTransactionParameters = (from: string, to: string, amount: BigNumber) => {
   return {
@@ -1696,7 +1706,7 @@ const createDepositTransactionParameters = (from: string, to: string, amount: Bi
     to: bridgeAddress,
     from, // must match user's active address.
     value: '0', // Only required to send ether to the recipient from the initiating external account.
-    data: bridge_contract.methods.deposit(1, resourceID, createERCDepositData(amount.toNumber(), 66, web3.Utils.bytesToHex(toUtf8Bytes(addressToPublicKey(to))))).encodeABI(),
+    data: bridge_contract.methods.deposit(chainID, resourceID, createERCDepositData(amount.toNumber(), 32, to)).encodeABI(),
   };
 };
 
@@ -1707,8 +1717,8 @@ const createTransferTransactionParameters = (from: string, amount: string, to: s
     from, // must match user's active address.
     value: '0x00', // Only required to send ether to the recipient from the initiating external account.
     data: erc20_minter_contract.methods.transfer(to, ((new BigNumber(amount)).times(1e18)).toString()).encodeABI(),
-  }
-}
+  };
+};
 
 
 export {

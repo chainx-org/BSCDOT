@@ -9,11 +9,11 @@ import { StatusContext } from '@polkadot/pages/components';
 import { ActionStatus } from '@polkadot/pages/components/Status/types';
 import { creatStatusInfo, tipInAlaya, tipInPlaton } from '@polkadot/pages/helper/helper';
 import BigNumber from 'bignumber.js';
-import { NetWorkContext } from '@polkadot/pages/components/NetWorkProvider';
 import { useTranslation } from '@polkadot/pages/components/translate';
 import Card from '@polkadot/pages/components/Card/Card';
 import { CardContent } from '@polkadot/pages/components';
 import EmptyCard from '@polkadot/pages/components/PdotCards/EmptyCard';
+import { CoinInfoContext } from '@polkadot/pages/components/CoinInfoProvider';
 
 interface Props {
   className?: string;
@@ -32,18 +32,11 @@ export default function PublicContent({className = ''}: Props): React.ReactEleme
   const [isChargeEnough, setIsChargeEnough] = useState<boolean>(true);
   const amountToBigNumber = new BigNumber(amount);
   const usableBalanceToBigNumber = (new BigNumber(usableBalance)).div(1e12).toNumber();
-  const {netName, localCoin} = useContext(NetWorkContext);
+  const {coinInfo} = useContext(CoinInfoContext);
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [isButtonDisabled, setButtonDisabled] = useState<boolean>(false);
 
-  useEffect(() => {
-    if (!amount) {
-      netName === 'Alaya' ? setCharge(tipInAlaya.toNumber()) : setCharge(tipInPlaton.toNumber());
-    } else {
-      const chargeOfAmount = amountToBigNumber.times(0.001);
-      setCharge(chargeOfAmount.plus(netName === 'Alaya' ? tipInAlaya : tipInPlaton).toNumber());
-    }
-  }, [amount, netName]);
+
 
   useEffect(() => {
     setIsChargeEnough(usableBalanceToBigNumber > charge && usableBalanceToBigNumber > amountToBigNumber.toNumber() + charge);
@@ -113,9 +106,9 @@ export default function PublicContent({className = ''}: Props): React.ReactEleme
   return (
     <Wrapper className={`contentWrapper ${className}`}>
       {hasBSCAccount && hasAccounts && isApiReady ? (
-          <Card className='left' title={`${t('Publish')} ${localCoin.coinName}`}>
+          <Card className='left' title={`${t('Publish')} ${coinInfo.coinName}`}>
             <CardContent
-              tokenName={localCoin.coinName}
+              tokenName={coinInfo.coinName}
               tipLabel={t('Publish amount')}
               charge={charge}
               onClick={publish}
@@ -126,7 +119,7 @@ export default function PublicContent({className = ''}: Props): React.ReactEleme
               isReverse={false}/>
           </Card>) :
         <EmptyCard
-          title={`${t('Publish')} ${localCoin.coinName ? localCoin.coinName : ''}`}/>}
+          title={`${t('Publish')} ${coinInfo.coinName ? coinInfo.coinName : ''}`}/>}
       <Records className="right" title={t('Publish record')} records={PublishRecords} recordLength={publishLength}
                arrows={true} isReverse={false}/>
     </Wrapper>

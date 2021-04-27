@@ -2,15 +2,15 @@ import React, { useContext, useEffect, useState } from 'react';
 import AccountCard from '@polkadot/pages/components/AccountCard';
 import Card from '../Card';
 import { PolkadotAccountsContext, PolkadotAccountsData } from '@polkadot/pages/components/PolkadotAccountsProvider';
-import { NetWorkContext } from '@polkadot/pages/components/NetWorkProvider';
 import { isWeb3Injected } from '@polkadot/extension-dapp';
 import { useApi } from '@polkadot/react-hooks';
 import { useTranslation } from '@polkadot/pages/components/translate';
+import { CoinInfoContext } from '@polkadot/pages/components/CoinInfoProvider';
 
 function PolkadotAccount(): React.ReactElement {
   const {t} = useTranslation();
   const {currentAccount, hasAccounts, accountName, usableBalance, addressAndName} = useContext<PolkadotAccountsData>(PolkadotAccountsContext);
-  const {localCoin} = useContext(NetWorkContext);
+  const {coinInfo} = useContext(CoinInfoContext);
   const {hasInjectedAccounts} = useApi();
   const [promptMessage, setPromptMessage] = useState(t('Sign in your Polkadot{.js} the Polkadot plugin'));
 
@@ -37,13 +37,9 @@ function PolkadotAccount(): React.ReactElement {
             accountName={accountName}
             accountAddress={currentAccount}
             accountAmount={usableBalance ? usableBalance : 0}
-            iconNode={localCoin.coinName === 'KSM' ?
-              'http://lc-XLoqMObG.cn-n1.lcfile.com/0267c62c6d3ebcf003c4.svg' :
-              localCoin.coinName === 'XBTC' ?
-                'http://lc-XLoqMObG.cn-n1.lcfile.com/e19d81cbc3ad30b636cd.svg' :
-                'http://lc-XLoqMObG.cn-n1.lcfile.com/af0c6b2a22f2c51ca70d.svg'}
+            iconNode={'http://lc-XLoqMObG.cn-n1.lcfile.com/af0c6b2a22f2c51ca70d.svg'}
             allAccounts={addressAndName}
-            unit={localCoin.coinName}
+            unit={coinInfo.coinName}
             accountType='polkadot'
           /> :
           <Card isBasic className="pinkCard" label={promptMessage}

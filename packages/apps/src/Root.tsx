@@ -15,9 +15,7 @@ import WindowDimensions from './WindowDimensions';
 import { darkTheme, lightTheme } from './themes';
 import { BSCAccountsProvider } from '@polkadot/pages/components/BSCAccountsProvider';
 import { PolkadotAccountsProvider } from '@polkadot/pages/components/PolkadotAccountsProvider';
-import { NetWorkProvider } from '@polkadot/pages/components/NetWorkProvider';
 import { CoinInfoProvider } from '@polkadot/pages/components/CoinInfoProvider';
-
 
 interface Props {
   store?: KeyringStore;
@@ -44,19 +42,17 @@ function Root({store}: Props): React.ReactElement<Props> {
             store={store}
             url={settings.apiUrl}
           >
-            <NetWorkProvider>
-              <CoinInfoProvider>
-                <PolkadotAccountsProvider>
-                  <BSCAccountsProvider>
-                    <HashRouter>
-                      <WindowDimensions>
-                        <Apps/>
-                      </WindowDimensions>
-                    </HashRouter>
-                  </BSCAccountsProvider>
-                </PolkadotAccountsProvider>
-              </CoinInfoProvider>
-            </NetWorkProvider>
+            <CoinInfoProvider>
+              <PolkadotAccountsProvider>
+                <BSCAccountsProvider>
+                  <HashRouter>
+                    <WindowDimensions>
+                      <Apps/>
+                    </WindowDimensions>
+                  </HashRouter>
+                </BSCAccountsProvider>
+              </PolkadotAccountsProvider>
+            </CoinInfoProvider>
           </Api>
         </Queue>
       </ThemeProvider>
