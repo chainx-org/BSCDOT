@@ -2,7 +2,6 @@ import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import Button from '../Button';
 import { useTranslation } from '@polkadot/pages/components/translate';
-import { NetWorkContext } from '@polkadot/pages/components/NetWorkProvider';
 import CoinInfoList from '@polkadot/pages/components/Header/CoinInfoList';
 import { CoinInfoContext } from '@polkadot/pages/components/CoinInfoProvider';
 

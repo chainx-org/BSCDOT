@@ -22,14 +22,14 @@ module.exports = merge(
     devtool: process.env.BUILD_ANALYZE ? 'source-map' : false,
     plugins: [
       new HtmlWebpackPlugin({
-        PAGE_TITLE: 'Platdot',
+        PAGE_TITLE: 'BSCDOT',
         meta: {'viewport': 'width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover'},
         inject: true,
         template: path.join(context, `${hasPublic ? 'public/' : ''}index.html`)
       }),
       new AliosscdnWebpackPlugin({
         https: true,
-        directoryInOss: 'platdot/v1.1.3',
+        directoryInOss: 'BSCDOT/v0.0.1',
         filesPath: `${__dirname}/build`,
         region: CLIENT.region,
         accessKeyId: CLIENT.accessKeyId,
