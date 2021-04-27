@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { CoinItem } from '@polkadot/pages/components/Header/Endpoints';
 import CoinInfo from '@polkadot/pages/components/Header/CoinInfo';
 import { Shade } from '@polkadot/pages/components/ToolTipConfig';
-import { NetWorkContext } from '@polkadot/pages/components/NetWorkProvider';
+import { CoinInfoContext } from '@polkadot/pages/components/CoinInfoProvider';
 
 const Wrapper = styled.section`
   position: fixed;
@@ -37,7 +37,7 @@ interface Props {
 }
 
 function CoinInfoList({setIsOpen, list}: Props): React.ReactElement<Props> {
-  const {localCoin} = useContext(NetWorkContext);
+  const {coinInfo} = useContext(CoinInfoContext);
 
   return (
     <>
@@ -47,7 +47,9 @@ function CoinInfoList({setIsOpen, list}: Props): React.ReactElement<Props> {
           <img src='http://lc-XLoqMObG.cn-n1.lcfile.com/dd2cf18768579432fc72.png' onClick={() => setIsOpen(false)} alt=""/>
         </div>
         {list.map((item: CoinItem) => (
-          <CoinInfo key={item.name} name={item.name} icon={item.CoinIcon} whiteIcon={item.whiteIcon} matchingNode={item.matchingNode} isSelected={localCoin.coinName=== item.name}/>
+          <CoinInfo key={item.name} name={item.name} icon={item.CoinIcon} whiteIcon={item.whiteIcon} matchingNode={item.matchingNode}
+                    isSelected={coinInfo.coinName=== item.name}
+          />
         ))}
       </Wrapper>
     </>

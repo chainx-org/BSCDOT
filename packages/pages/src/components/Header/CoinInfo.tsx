@@ -2,12 +2,12 @@ import React, { useContext } from 'react';
 import styled from 'styled-components';
 import uiSettings from '@polkadot/ui-settings';
 import { saveAndReload } from '@polkadot/pages/components/ToolTipConfig/components/Cell/Cell';
-import { NetWorkContext } from '@polkadot/pages/components/NetWorkProvider';
+import { CoinInfoContext } from '@polkadot/pages/components/CoinInfoProvider';
 
 interface Props{
   name: string;
   icon: string;
-  isSelected: boolean;
+  isSelected?: boolean;
   matchingNode: string;
   whiteIcon: string;
 }
@@ -54,17 +54,18 @@ const Wrapper = styled.div`
 `
 
 function CoinInfo({name, icon, isSelected, matchingNode, whiteIcon}: Props): React.ReactElement<Props>{
-  const {setCoin} = useContext(NetWorkContext);
+  const {coinInfo,localCoin,setCoinInfo} = useContext(CoinInfoContext);
 
   const modifyCoin = (): void => {
-    setCoin({
+    console.log(name, whiteIcon, matchingNode)
+    setCoinInfo({
       coinName: name,
       whiteIcon,
       matchingNode
     });
-    saveAndReload({...uiSettings.get(), apiUrl: matchingNode});
+    // saveAndReload({...uiSettings.get(), apiUrl: matchingNode});
   }
-
+  console.log(coinInfo, localCoin)
   return (
     <Wrapper onClick={() => modifyCoin()}>
       <div className="left">

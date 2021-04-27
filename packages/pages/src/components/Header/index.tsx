@@ -18,7 +18,7 @@ function Header({className}: Props): React.ReactElement<Props> {
       <div className="cardListWrapper">
         <PolkadotAccount/>
         <PlatonAccount/>
-        <Endpoints className="blueCard"/>
+        <Endpoints className="orangeCard"/>
       </div>
     </div>
   );

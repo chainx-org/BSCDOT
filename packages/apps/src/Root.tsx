@@ -16,6 +16,7 @@ import { darkTheme, lightTheme } from './themes';
 import { BSCAccountsProvider } from '@polkadot/pages/components/BSCAccountsProvider';
 import { PolkadotAccountsProvider } from '@polkadot/pages/components/PolkadotAccountsProvider';
 import { NetWorkProvider } from '@polkadot/pages/components/NetWorkProvider';
+import { CoinInfoProvider } from '@polkadot/pages/components/CoinInfoProvider';
 
 
 interface Props {
@@ -44,15 +45,17 @@ function Root({store}: Props): React.ReactElement<Props> {
             url={settings.apiUrl}
           >
             <NetWorkProvider>
-              <PolkadotAccountsProvider>
-                <BSCAccountsProvider>
-                  <HashRouter>
-                    <WindowDimensions>
-                      <Apps/>
-                    </WindowDimensions>
-                  </HashRouter>
-                </BSCAccountsProvider>
-              </PolkadotAccountsProvider>
+              <CoinInfoProvider>
+                <PolkadotAccountsProvider>
+                  <BSCAccountsProvider>
+                    <HashRouter>
+                      <WindowDimensions>
+                        <Apps/>
+                      </WindowDimensions>
+                    </HashRouter>
+                  </BSCAccountsProvider>
+                </PolkadotAccountsProvider>
+              </CoinInfoProvider>
             </NetWorkProvider>
           </Api>
         </Queue>

@@ -4,6 +4,7 @@ import Button from '../Button';
 import { useTranslation } from '@polkadot/pages/components/translate';
 import { NetWorkContext } from '@polkadot/pages/components/NetWorkProvider';
 import CoinInfoList from '@polkadot/pages/components/Header/CoinInfoList';
+import { CoinInfoContext } from '@polkadot/pages/components/CoinInfoProvider';
 
 interface EndpointProps {
   className?: string;
@@ -19,24 +20,11 @@ export interface CoinItem {
 function Endpoints({className = ''}: EndpointProps): React.ReactElement<EndpointProps> {
   const [isEndpoints, setIsEndpoints] = useState<boolean>(false);
   const {t} = useTranslation();
-  const {localCoin, localNet} = useContext(NetWorkContext)
+  const {coinInfo} = useContext(CoinInfoContext)
 
   const _toggleEndpoints = (): void => setIsEndpoints(true);
 
-  const coinList: CoinItem[] = localNet.name ==='Alaya' ? [
-    {
-      name: `KSM`,
-      matchingNode: 'wss://supercube.pro/ws',
-      CoinIcon: 'http://lc-XLoqMObG.cn-n1.lcfile.com/bbc68996a01aa2e8c19a.svg',
-      whiteIcon: 'http://lc-XLoqMObG.cn-n1.lcfile.com/7f0b4956f9dd593c01ef.svg'
-    },
-    {
-      name: `XBTC`,
-      matchingNode: 'wss://testnet-2.chainx.org/ws',
-      CoinIcon: 'http://lc-XLoqMObG.cn-n1.lcfile.com/23004d06cafd179780c1.svg',
-      whiteIcon: 'http://lc-XLoqMObG.cn-n1.lcfile.com/e19d81cbc3ad30b636cd.svg'
-    },
-  ]: [
+  const coinList: CoinItem[] = [
     {
       name: `DOT`,
       matchingNode: 'wss://polkadot.elara.patract.io',
@@ -44,26 +32,32 @@ function Endpoints({className = ''}: EndpointProps): React.ReactElement<Endpoint
       whiteIcon: 'http://lc-XLoqMObG.cn-n1.lcfile.com/519b3e5ce282616f1cd7.svg'
     },
     {
+      name: `PCX`,
+      matchingNode: 'wss://chainx.supercube.pro/ws',
+      CoinIcon: 'http://lc-XLoqMObG.cn-n1.lcfile.com/786ca6353bc2f938d7b8.svg',
+      whiteIcon: 'http://lc-XLoqMObG.cn-n1.lcfile.com/9005a4ad230740127fc2.svg'
+    },
+    {
       name: `XBTC`,
-      matchingNode: 'wss://testnet-2.chainx.org/ws',
+      matchingNode: 'wss://chainx.supercube.pro/ws',
       CoinIcon: 'http://lc-XLoqMObG.cn-n1.lcfile.com/23004d06cafd179780c1.svg',
       whiteIcon: 'http://lc-XLoqMObG.cn-n1.lcfile.com/e19d81cbc3ad30b636cd.svg'
     },
-  ];
+  ]
 
   return (
     <div className={`isBasic ${className}`}>
       <div className='coinInfo'>
         <div className="leftIcon">
-          <img src={localCoin.whiteIcon} alt={localCoin.coinName}/>
+          <img src={coinInfo.whiteIcon} alt={coinInfo.coinName}/>
         </div>
         <div className="rightCon">
           <div className="title">{t('The current currency')}</div>
-          <p className="tabEndpoints">{localCoin.coinName}</p>
+          <p className="tabEndpoints">{coinInfo.coinName}</p>
         </div>
       </div>
 
-      <Button className="ui-tabEndpoint" isBasic label={t('Switch network')} onClick={_toggleEndpoints}/>
+      <Button className="ui-tabEndpoint" isBasic label={t('Switch currency')} onClick={_toggleEndpoints}/>
       {isEndpoints && (
         <CoinInfoList setIsOpen={setIsEndpoints} list={coinList}/>
       )}
@@ -114,7 +108,7 @@ export default React.memo(styled(Endpoints)`
     transform: translateX(-22%);
   }
 
-  &.blueCard {
-    background-image: linear-gradient(-45deg, #45b2ea 0%, #2394ce 100%);
+  &.orangeCard {
+    background-image: linear-gradient(-45deg, #FFC947 0%, #F99A14 100%);
   }
 `);
