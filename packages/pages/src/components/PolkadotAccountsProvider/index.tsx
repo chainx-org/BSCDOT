@@ -1,4 +1,4 @@
-import React, { createContext, FC, useEffect, useState } from 'react';
+import React, { createContext, FC, useContext, useEffect, useState } from 'react';
 import { InjectedAccountWithMeta } from '@polkadot/extension-inject/types';
 import useLocalStorage from '@polkadot/pages/hooks/useLocalStorage';
 import { usePolkadotAccounts } from '@polkadot/pages/hooks/usePolkadotAccounts';
@@ -7,7 +7,7 @@ import BigNumber from 'bignumber.js';
 import { interval, Subscription } from '@polkadot/x-rxjs';
 import { switchMap } from '@polkadot/x-rxjs/operators';
 import { fromPromise } from 'rxjs/internal-compatibility';
-import uiSettings from '@polkadot/ui-settings';
+import { CoinInfo, CoinInfoContext } from '@polkadot/pages/components/CoinInfoProvider';
 
 export interface PolkadotAccountsData {
   accountAddress: string[],
@@ -32,35 +32,35 @@ export const PolkadotAccountsProvider: FC = ({children}) => {
   const [usableBalance, setUsableBalance] = useState<number>(0);
   const [storedValue, setValue] = useLocalStorage<string>('currentAccount');
   const [currentAccount, setAccount] = useState<string>(storedValue);
+  const {coinInfo} = useContext(CoinInfoContext);
 
   useEffect(() => {
     let balance$: Subscription;
-    if (uiSettings.get().apiUrl === 'wss://testnet-2.chainx.org/ws') {
-      balance$ = interval(1000).pipe(
-        switchMap(() => {
-          return fromPromise(api.rpc.xassets.getAssetsByAccount(currentAccount));
-        })
-      ).subscribe(result => {
-        const formatResult = JSON.parse(JSON.stringify(result));
-        Object.keys(formatResult).length === 0 ?
-          setUsableBalance(0) :
-          setUsableBalance(new BigNumber(formatResult[1].Usable).toNumber());
-      });
-    } else {
-      balance$ = interval(1000).pipe(
-        switchMap(() => {
-          return fromPromise(api.query.system.account(currentAccount));
-        })
-      ).subscribe(result => {
-        const allBalance = JSON.parse(JSON.stringify(result.data));
-        const bgFree = new BigNumber(Number(allBalance.free));
-        setUsableBalance(bgFree.minus(new BigNumber(allBalance.miscFrozen)).toNumber());
-      });
-    }
-
+      if (Object.keys(coinInfo).length > 0 && coinInfo.coinName === 'XBTC') {
+        balance$ = interval(1000).pipe(
+          switchMap(() => {
+            return fromPromise(api.rpc.xassets.getAssetsByAccount(currentAccount));
+          })
+        ).subscribe(result => {
+          const formatResult = JSON.parse(JSON.stringify(result));
+          Object.keys(formatResult).length === 0 ?
+            setUsableBalance(0) :
+            setUsableBalance(new BigNumber(formatResult[1].Usable).toNumber());
+        });
+      } else {
+        balance$ = interval(1000).pipe(
+          switchMap(() => {
+            return fromPromise(api.query.system.account(currentAccount));
+          })
+        ).subscribe(result => {
+          const allBalance = JSON.parse(JSON.stringify(result.data));
+          const bgFree = new BigNumber(Number(allBalance.free));
+          setUsableBalance(bgFree.minus(new BigNumber(allBalance.miscFrozen)).toNumber());
+        });
+      }
 
     return () => balance$.unsubscribe();
-  });
+  }, [currentAccount, coinInfo]);
 
   window.api = api;
 
