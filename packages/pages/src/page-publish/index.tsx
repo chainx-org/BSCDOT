@@ -14,6 +14,8 @@ import Card from '@polkadot/pages/components/Card/Card';
 import { CardContent } from '@polkadot/pages/components';
 import EmptyCard from '@polkadot/pages/components/PdotCards/EmptyCard';
 import { CoinInfoContext } from '@polkadot/pages/components/CoinInfoProvider';
+import { ApiProps } from '@polkadot/react-api/types';
+import { ApiContext } from '@polkadot/react-api';
 
 interface Props {
   className?: string;
@@ -35,7 +37,7 @@ export default function PublicContent({className = ''}: Props): React.ReactEleme
   const {coinInfo} = useContext(CoinInfoContext);
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [isButtonDisabled, setButtonDisabled] = useState<boolean>(false);
-
+  const {formatProperties} = useContext<ApiProps>(ApiContext);
 
 
   useEffect(() => {
@@ -72,12 +74,17 @@ export default function PublicContent({className = ''}: Props): React.ReactEleme
         try {
           setButtonDisabled(true);
           const injector = await web3FromAddress(currentAccount);
-          const amountToPrecision = amountToBigNumber.times(1e12).toNumber();
+          const amountToPrecision = amountToBigNumber.times(Math.pow(10, formatProperties.tokenDecimals[0])).toNumber();
           api.setSigner(injector.signer);
-          api.tx.utility.batch([
-            api.tx.balances.transferKeepAlive('5F3NgH5umL6dg6rmtKEm6m7z75YZwkBkyTybksL9CZfXxvPT', amountToPrecision),
-            api.tx.system.remark(BSCAccount)
-          ])
+          let param: any;
+          param = coinInfo.coinName === 'XBTC' ? [
+            api.tx.xAssets.transfer('5F3NgH5umL6dg6rmtKEm6m7z75YZwkBkyTybksL9CZfXxvPT', 1, amountToPrecision),
+            api.tx.system.remark('hex' + BSCAccount)
+          ] : [
+            api.tx.xAssets.transfer('5F3NgH5umL6dg6rmtKEm6m7z75YZwkBkyTybksL9CZfXxvPT', 1, amountToPrecision),
+            api.tx.system.remark('hex' + BSCAccount)
+          ];
+          api.tx.utility.batch(param)
             .signAndSend(
               currentAccount,
               {signer: injector.signer},
