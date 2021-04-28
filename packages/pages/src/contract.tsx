@@ -24,6 +24,10 @@ if (coinInfo.coinName === 'XBTC') {
   erc20Address = '0xf0723e55127406FcAA17C6B2E5d2e68459cF40a6';
   resourceID = '0x0000000000000000000000000000000000000000000000000000000000000002';
   chainID = 5;
+}else {
+  erc20Address = '0x39b7FBbC38e4963A5cBCAd8d4A8ACbA21391CC55';
+  resourceID = '0x0000000000000000000000000000000000000000000000000000000000000001';
+  chainID = 3;
 }
 // if(netWorkInfo.platonNetUrl){
 //   web3 = new Web3(netWorkInfo.platonNetUrl);

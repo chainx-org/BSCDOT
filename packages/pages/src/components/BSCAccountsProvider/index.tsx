@@ -41,12 +41,12 @@ export const BSCAccountsProvider: FC = ({children}) => {
       ethereum.request({method: 'eth_requestAccounts'})
         .then((Accounts: string[]) => setBSCAccount(Accounts[0]));
     }
-  }, [BSCAccount]);
+  }, []);
 
   useEffect(() => {
     if (BSCAccount) {
       erc20_minter_contract.methods.balanceOf(BSCAccount).call()
-        .then(console.log);
+        .then(balance => setBSCAmount(balance));
     }
   }, [BSCAccount]);
 

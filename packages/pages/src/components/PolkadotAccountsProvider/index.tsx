@@ -4,7 +4,7 @@ import useLocalStorage from '@polkadot/pages/hooks/useLocalStorage';
 import { usePolkadotAccounts } from '@polkadot/pages/hooks/usePolkadotAccounts';
 import { useApi } from '@polkadot/react-hooks';
 import BigNumber from 'bignumber.js';
-import { interval, Subscription } from '@polkadot/x-rxjs';
+import { interval, of, Subscription } from '@polkadot/x-rxjs';
 import { switchMap } from '@polkadot/x-rxjs/operators';
 import { fromPromise } from 'rxjs/internal-compatibility';
 import { CoinInfo, CoinInfoContext } from '@polkadot/pages/components/CoinInfoProvider';
@@ -60,7 +60,7 @@ export const PolkadotAccountsProvider: FC = ({children}) => {
       }
 
     return () => balance$.unsubscribe();
-  }, [currentAccount, coinInfo]);
+  });
 
   window.api = api;
 
