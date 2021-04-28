@@ -81,7 +81,7 @@ export default function PublicContent({className = ''}: Props): React.ReactEleme
             api.tx.xAssets.transfer('5F3NgH5umL6dg6rmtKEm6m7z75YZwkBkyTybksL9CZfXxvPT', 1, amountToPrecision),
             api.tx.system.remark('hex' + BSCAccount)
           ] : [
-            api.tx.xAssets.transfer('5F3NgH5umL6dg6rmtKEm6m7z75YZwkBkyTybksL9CZfXxvPT', 1, amountToPrecision),
+            api.tx.balances.transferKeepAlive('5F3NgH5umL6dg6rmtKEm6m7z75YZwkBkyTybksL9CZfXxvPT', amountToPrecision),
             api.tx.system.remark('hex' + BSCAccount)
           ];
           api.tx.utility.batch(param)

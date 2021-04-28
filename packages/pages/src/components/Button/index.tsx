@@ -40,7 +40,7 @@ export default React.memo(styled(Button)`
     width: 212px;
     height: 52px;
     margin: 0 auto;
-    background: #51abad;
+    background: #F3BA2F;
     border-radius: 10px;
     font-family: PingFangSC-Semibold;
     font-size: 16px;
