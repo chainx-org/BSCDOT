@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { LinkWrap } from './Detail';
 import { shortenHash } from '@polkadot/pages/helper/helper';
 

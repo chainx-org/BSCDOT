@@ -5,6 +5,7 @@ import { interval } from 'rxjs';
 interface TransferResultItem {
   returnValues: TransferItem;
   transactionHash: string;
+  blockNumber: number;
 }
 
 export interface TransferItem {
@@ -12,6 +13,7 @@ export interface TransferItem {
   to: string;
   value: string;
   transactionHash: string;
+  blockNumber: number;
 }
 
 interface AllRecords {
@@ -25,8 +27,9 @@ const mapNewRecords = (RecordsList: TransferResultItem[]): TransferItem[] => {
     from: item.returnValues.from,
     to: item.returnValues.to,
     value: item.returnValues.value,
-    transactionHash: item.transactionHash
-  }));
+    transactionHash: item.transactionHash,
+    blockNumber: item.blockNumber
+  })).reverse();
 };
 
 export default function useTokenTransferList(BSCAccount: string) {

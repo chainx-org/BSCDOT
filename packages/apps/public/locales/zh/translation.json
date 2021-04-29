@@ -37,5 +37,7 @@
   "Confirm Redeem": "确定赎回",
   "The current currency": "当前币种",
   "In": "转入",
-  "Out": "转出"
+  "Out": "转出",
+  "Completed": "已完成",
+  "Block height": "块高"
 }

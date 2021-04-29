@@ -1,7 +1,6 @@
 import React, { useContext, useRef, useState } from 'react';
 import Hash from './Hash';
 import { Detail, Header, Account, Label, Line, Sequence, Inout, Amount } from './Detail';
-import moment from 'moment';
 import { useTranslation } from '@polkadot/pages/components/translate';
 import { useOutsideClick } from '../hooks';
 import { useApi } from '@polkadot/react-hooks';
@@ -31,7 +30,7 @@ export default function ({record, num, arrows}: Props): React.ReactElement {
   return (
     <Line className='transfer' onClick={() => setOpen(!open)} ref={wrapper}>
       <Header>
-        {/*<Sequence className='txNum'>{moment(new Date(records.blockTimestamp)).format('YYYY/MM/DD hh:mm:ss')}</Sequence>*/}
+        <Sequence className='txNum'>{t('Block height')}：{record.blockNumber}</Sequence>
         <Inout>{record.to === BSCAccount ? t('In') : t('Out')}</Inout>
       </Header>
       <Account className='account'>
@@ -42,7 +41,7 @@ export default function ({record, num, arrows}: Props): React.ReactElement {
       {isApiReady && open ? (
         <Detail className={`detail  lineDetail${num}`}>
           <div className='hashVal'>
-            <Label>交易哈希</Label>
+            <Label>{t('Transaction hash')}</Label>
             <Hash hash={record.transactionHash} className='hash'/>
           </div>
         </Detail>

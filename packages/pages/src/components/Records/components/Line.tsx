@@ -1,9 +1,8 @@
 import React, { useContext, useRef, useState } from 'react';
 import Hash from './Hash';
-import { Account, Detail, Header, Label, Line, Sequence, StatusText } from './Detail';
+import { Account, Detail, Header, Label, Line, LinkWrap, Sequence, StatusText } from './Detail';
 import { useOutsideClick } from '../hooks';
 import { useApi } from '@polkadot/react-hooks';
-import moment from 'moment';
 import { BSCAccountsContext } from '../../BSCAccountsProvider';
 import { PolkadotAccountsContext } from '../../PolkadotAccountsProvider';
 import { shortenHash } from '@polkadot/pages/helper/helper';
@@ -29,25 +28,25 @@ export default function ({record, num, arrows, isReverse}: Props): React.ReactEl
   useOutsideClick(wrapper, () => {
     setOpen(false);
   });
-window.moment = moment
+
   return (
     <Line className='publishandredeem' onClick={() => setOpen(!open)} ref={wrapper}>
       <Header>
-        {/*<Sequence className='txNum'>{moment(new Date()).format('YYYY/MM/DD hh:mm:ss')}</Sequence>*/}
-        <StatusText>已完成</StatusText>
+        <Sequence className='txNum'>{t('Block height')}：{record.blockNumber}</Sequence>
+        <StatusText>{t('Completed')}</StatusText>
       </Header>
       <Account>
         {
           isReverse ?
           <>
-            <Hash hash={BSCAccount} className='address'/>
+            <LinkWrap className='address' href={`https://testnet.bscscan.com/address/${BSCAccount}`} target="_blank">{shortenHash(BSCAccount)}</LinkWrap>
             {arrows ? <img src='http://lc-XLoqMObG.cn-n1.lcfile.com/cb023eeb56945d0cd674.svg' alt='Arrow' className='arrow'/> : ''}
             <div className='address'>{shortenHash(currentAccount)}</div>
           </>:
           <>
             <div className='address'>{shortenHash(currentAccount)}</div>
             {arrows ? <img src='http://lc-XLoqMObG.cn-n1.lcfile.com/cb023eeb56945d0cd674.svg' alt='Arrow' className='arrow'/> : ''}
-            <Hash hash={BSCAccount} className='address'/>
+            <LinkWrap className='address' href={`https://testnet.bscscan.com/address/${BSCAccount}`} target="_blank">{shortenHash(BSCAccount)}</LinkWrap>
           </>
         }
       </Account>
