@@ -55,7 +55,7 @@ const Wrapper = styled.div`
 `;
 
 function CoinInfo({name, bCoinName, icon, isSelected, matchingNode, whiteIcon}: Props): React.ReactElement<Props> {
-  const {coinInfo, localCoin, setCoinInfo} = useContext(CoinInfoContext);
+  const {setCoinInfo} = useContext(CoinInfoContext);
 
   const modifyCoin = (): void => {
     setCoinInfo({
@@ -66,7 +66,7 @@ function CoinInfo({name, bCoinName, icon, isSelected, matchingNode, whiteIcon}: 
     });
     saveAndReload({...uiSettings.get(), apiUrl: matchingNode});
   };
-  console.log(coinInfo, localCoin);
+
   return (
     <Wrapper onClick={() => modifyCoin()}>
       <div className="left">

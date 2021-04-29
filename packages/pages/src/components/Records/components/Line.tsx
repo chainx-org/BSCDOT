@@ -33,7 +33,7 @@ window.moment = moment
   return (
     <Line className='publishandredeem' onClick={() => setOpen(!open)} ref={wrapper}>
       <Header>
-        <Sequence className='txNum'>{moment(new Date()).format('YYYY/MM/DD hh:mm:ss')}</Sequence>
+        {/*<Sequence className='txNum'>{moment(new Date()).format('YYYY/MM/DD hh:mm:ss')}</Sequence>*/}
         <StatusText>已完成</StatusText>
       </Header>
       <Account>

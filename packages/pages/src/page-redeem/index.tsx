@@ -24,13 +24,13 @@ export default function RedeemContent({charge, setCharge, className=''}: Props):
   const {t} = useTranslation();
   const {isApiReady} = useApi();
   const {currentAccount, hasAccounts} = useContext(PolkadotAccountsContext);
-  const {BSCAccount, hasBSCAccount, RedeemRecords, fetchTransfers} = useContext(BSCAccountsContext);
+  const {BSCAccount, BSCAmount,hasBSCAccount, RedeemRecords, fetchTransfers} = useContext(BSCAccountsContext);
   const redeemLength = RedeemRecords.length;
   const [amount, setAmount] = useState<string>('0');
   const {queueAction} = useContext(StatusContext);
   const status = {action: 'redeem'} as ActionStatus;
-  const pdotAmountToBigNumber = (new BigNumber(BSCAccount)).div(1e18).toNumber();
-  const amountToBigNumber = new BigNumber(amount);
+  const pdotAmountToBigNumber = (new BigNumber(BSCAmount)).div(1e18).toNumber();
+  const amountToBigNumber = new BigNumber(Number(amount));
   const [isChargeEnough, setIsChargeEnough] = useState<boolean>(true);
   const {coinInfo} = useContext(CoinInfoContext);
   const [isButtonDisabled, setButtonDisabled] = useState<boolean>(false);
@@ -45,7 +45,7 @@ export default function RedeemContent({charge, setCharge, className=''}: Props):
 
   useEffect(() => {
     setIsChargeEnough(pdotAmountToBigNumber > charge && pdotAmountToBigNumber >= amountToBigNumber.toNumber());
-  }, [BSCAccount, charge]);
+  }, [amountToBigNumber, pdotAmountToBigNumber, charge]);
 
   useEffect(() => {
     if (!isChargeEnough) {

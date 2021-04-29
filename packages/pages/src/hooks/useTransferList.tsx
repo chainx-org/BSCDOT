@@ -18,7 +18,6 @@ interface AllRecords {
   PublishRecords: TransferItem[],
   RedeemRecords: TransferItem[],
   Transfers: TransferItem[],
-  // transferCompletion: boolean;
 }
 
 const mapNewRecords = (RecordsList: TransferResultItem[]): TransferItem[] => {
