@@ -181,6 +181,8 @@ export const LinkWrap = styled.a`
   &.address {
     opacity: 1;
     color: #6F7C7C;
+    font-size: 12px;
+    line-height: 16px;
     &:hover {
       color: #6F7C7C;
       opacity: 0.56;
@@ -207,4 +209,11 @@ export const LoadingWrapper = styled.div`
   justify-content: space-around;
   margin-top: 20px;
 `;
+
+export const StatusText = styled.span`
+  font-size: 14px;
+  line-height: 20px;
+  color: #444C5E;
+  font-weight: 600;
+`
 

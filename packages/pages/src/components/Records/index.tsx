@@ -15,7 +15,7 @@ interface RecordsProps {
   recordLength?: number;
   records: TransferItem[];
   arrows: boolean;
-  isReverse?: boolean;
+  isReverse: boolean;
 }
 
 export default function Records({ children, className = '', title, records, recordLength, arrows, isReverse }: RecordsProps): React.ReactElement<RecordsProps> {
@@ -34,7 +34,7 @@ export default function Records({ children, className = '', title, records, reco
   });
 
   const RecordsElement = arrows ? records?.map((record: TransferItem, index: number) => {
-    return <Line key={index} records={record} num={index} arrows={arrows} isReverse={isReverse} />;
+    return <Line key={index} record={record} num={index} arrows={arrows} isReverse={isReverse} />;
   }) : records?.map((record: TransferItem, index: number) => {
     return <Lines key={index} record={record} num={index} arrows={arrows} />;
   });
