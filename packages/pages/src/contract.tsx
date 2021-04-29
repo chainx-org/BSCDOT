@@ -1715,7 +1715,7 @@ const createApproveTransactionParameters = (from: string, amount: BigNumber) => 
     to: erc20Address,
     from, // must match user's active address.
     value: '0', // Only required to send ether to the recipient from the initiating external account.
-    data: erc20_minter_contract.methods.approve(handlerAddress, amount).encodeABI(),
+    data: erc20_minter_contract.methods.approve(handlerAddress, '0x'+ amount.toNumber().toString(16)).encodeABI(),
   };
 };
 

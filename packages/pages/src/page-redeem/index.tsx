@@ -6,7 +6,7 @@ import { PolkadotAccountsContext } from '@polkadot/pages/components/PolkadotAcco
 import EmptyCard from '../components/PdotCards/EmptyCard';
 import { StatusContext, CardContent } from '@polkadot/pages/components';
 import { ActionStatus } from '@polkadot/pages/components/Status/types';
-import { creatStatusInfo, tipInAlaya, tipInDOT, tipInPCX, tipInPlaton, tipInXBTC } from '@polkadot/pages/helper/helper';
+import { creatStatusInfo, tipInDOT, tipInPCX, tipInXBTC } from '@polkadot/pages/helper/helper';
 import { createDepositTransactionParameters, createApproveTransactionParameters } from '../contract';
 import BigNumber from 'bignumber.js';
 import { useTranslation } from '@polkadot/pages/components/translate';
