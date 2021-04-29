@@ -1,7 +1,13 @@
 import { decodeAddress } from '@polkadot/keyring';
+import { toUtf8Bytes } from 'ethers/lib/utils';
 import { u8aToHex } from '@polkadot/util';
 import BigNumber from 'bignumber.js';
 import { CoinInfo } from '@polkadot/pages/components/CoinInfoProvider';
+import { ethers } from 'ethers';
+import w from 'web3';
+
+const {utils} = w;
+const {bytesToHex} = utils;
 
 const Ethers = require('ethers');
 const Web3 = require('web3');
@@ -24,7 +30,7 @@ if (coinInfo.coinName === 'XBTC') {
   erc20Address = '0xf0723e55127406FcAA17C6B2E5d2e68459cF40a6';
   resourceID = '0x0000000000000000000000000000000000000000000000000000000000000002';
   chainID = 5;
-}else {
+} else {
   erc20Address = '0x39b7FBbC38e4963A5cBCAd8d4A8ACbA21391CC55';
   resourceID = '0x0000000000000000000000000000000000000000000000000000000000000001';
   chainID = 3;
@@ -1694,23 +1700,33 @@ const addressToPublicKey = (address: string): string => {
   return u8aToHex(decodeAddress(address));
 };
 
+var Zeros = '0x0000000000000000000000000000000000000000000000000000000000000000';
+
+function web3StringToBytes32(text) {
+  var result = ethers.utils.hexlify(ethers.utils.toUtf8Bytes(text));
+  while (result.length < 66) { result += '0'; }
+  if (result.length !== 66) { throw new Error('invalid web3 implicit bytes32'); }
+  return result;
+}
+
 const createApproveTransactionParameters = (from: string, amount: BigNumber) => {
   return {
     nonce: '0x00', // ignored by MetaMask
     to: erc20Address,
     from, // must match user's active address.
     value: '0', // Only required to send ether to the recipient from the initiating external account.
-    data: erc20_minter_contract.methods.approve(handlerAddress, amount.toString()).encodeABI(),
+    data: erc20_minter_contract.methods.approve(handlerAddress, amount).encodeABI(),
   };
 };
 
 const createDepositTransactionParameters = (from: string, to: string, amount: BigNumber) => {
+
   return {
     nonce: '0x00', // ignored by MetaMask
     to: bridgeAddress,
     from, // must match user's active address.
     value: '0', // Only required to send ether to the recipient from the initiating external account.
-    data: bridge_contract.methods.deposit(chainID, resourceID, createERCDepositData(amount.toNumber(), 32, to)).encodeABI(),
+    data: bridge_contract.methods.deposit(chainID, resourceID, createERCDepositData(amount.toNumber(), 32, addressToPublicKey(to))).encodeABI(),
   };
 };
 

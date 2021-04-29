@@ -7,7 +7,7 @@ import { web3FromAddress } from '@polkadot/extension-dapp';
 import { useApi } from '@polkadot/react-hooks';
 import { StatusContext } from '@polkadot/pages/components';
 import { ActionStatus } from '@polkadot/pages/components/Status/types';
-import { creatStatusInfo, tipInAlaya, tipInPlaton } from '@polkadot/pages/helper/helper';
+import { creatStatusInfo, tipInDOT, tipInPCX, tipInXBTC } from '@polkadot/pages/helper/helper';
 import BigNumber from 'bignumber.js';
 import { useTranslation } from '@polkadot/pages/components/translate';
 import Card from '@polkadot/pages/components/Card/Card';
@@ -19,9 +19,11 @@ import { ApiContext } from '@polkadot/react-api';
 
 interface Props {
   className?: string;
+  charge: number;
+  setCharge: React.Dispatch<number>;
 }
 
-export default function PublicContent({className = ''}: Props): React.ReactElement<Props> {
+export default function PublicContent({charge, setCharge, className = ''}: Props): React.ReactElement<Props> {
   const {t} = useTranslation();
   const {BSCAccount, hasBSCAccount, PublishRecords, fetchTransfers} = useContext(BSCAccountsContext);
   const publishLength = PublishRecords.length;
@@ -30,18 +32,27 @@ export default function PublicContent({className = ''}: Props): React.ReactEleme
   const {api, isApiReady} = useApi();
   const {queueAction} = useContext(StatusContext);
   const status = {action: 'publish'} as ActionStatus;
-  const [charge, setCharge] = useState(0);
   const [isChargeEnough, setIsChargeEnough] = useState<boolean>(true);
   const amountToBigNumber = new BigNumber(amount);
-  const usableBalanceToBigNumber = (new BigNumber(usableBalance)).div(1e12).toNumber();
   const {coinInfo} = useContext(CoinInfoContext);
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [isButtonDisabled, setButtonDisabled] = useState<boolean>(false);
   const {formatProperties} = useContext<ApiProps>(ApiContext);
-
+  const [usableBalanceToBigNumber, setUsableBalanceToBigNumber] = useState<BigNumber>(new BigNumber(usableBalance));
 
   useEffect(() => {
-    setIsChargeEnough(usableBalanceToBigNumber > charge && usableBalanceToBigNumber > amountToBigNumber.toNumber() + charge);
+    coinInfo.coinName === 'XBTC'? setCharge(tipInXBTC.toNumber()):
+      coinInfo.coinName === 'PCX'?
+        setCharge(amountToBigNumber.times(0.001).plus(tipInPCX).toNumber()):
+        setCharge(amountToBigNumber.times(0.001).plus(tipInDOT).toNumber())
+  }, [coinInfo, amountToBigNumber])
+
+  useEffect(() => {
+    formatProperties && formatProperties.tokenDecimals[0]? setUsableBalanceToBigNumber((new BigNumber(usableBalance).div(Math.pow(10, formatProperties.tokenDecimals[0])))): setUsableBalanceToBigNumber(new BigNumber(usableBalance))
+  }, [formatProperties, usableBalance])
+
+  useEffect(() => {
+    setIsChargeEnough(usableBalanceToBigNumber.toNumber() > charge && usableBalanceToBigNumber.toNumber() > amountToBigNumber.toNumber() + charge);
   }, [charge, usableBalance, amountToBigNumber]);
 
   useEffect(() => {

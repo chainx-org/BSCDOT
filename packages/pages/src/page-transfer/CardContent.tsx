@@ -21,14 +21,16 @@ function CardContent(): React.ReactElement{
   const {BSCAccount, fetchTransfers} = useContext(BSCAccountsContext);
   const {queueAction} = useContext(StatusContext);
   const [targetAddress, setTargetAddress] = useState<string>('');
+  const [date, setDate] = useState()
 
   const confirmTransfer = () => {
     if (BSCAccount && amount && targetAddress) {
       try {
         setWarning('');
-        alaya.request({
-          method: 'platon_sendTransaction',
-          params: [createTransferTransactionParameters(platonAccount, amount, targetAddress)]
+        //@ts-ignore
+        ethereum.request({
+          method: 'eth_sendTransaction',
+          params: [createTransferTransactionParameters(BSCAccount, amount, targetAddress)]
         })
           .then(result => {
             creatStatusInfo(status, 'success', `${t('Transaction hash')}: ${result}`);

@@ -23,13 +23,26 @@ const  classes = (...classNames: (boolean | null | string | undefined)[]): strin
     .join(' ');
 }
 
-const tipInAlaya: BigNumber = new BigNumber(0.03)
-const tipInPlaton: BigNumber = new BigNumber(0.5)
+const length = 5;
+
+const shortenHash = (hash: string): string => {
+  if (hash.length > 2 * length) {
+    return hash.substring(0, 5) + '...' + hash.substring(hash.length - 5)
+  }else{
+    return hash
+  }
+}
+
+const tipInXBTC: BigNumber = new BigNumber(0)
+const tipInDOT: BigNumber = new BigNumber(0.5)
+const tipInPCX: BigNumber = new BigNumber(0.1)
 
 export {
   creatStatusInfo,
   toPrecision,
   classes,
-  tipInAlaya,
-  tipInPlaton
+  tipInXBTC,
+  tipInDOT,
+  tipInPCX,
+  shortenHash
 }

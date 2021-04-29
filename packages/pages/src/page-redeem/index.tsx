@@ -6,7 +6,7 @@ import { PolkadotAccountsContext } from '@polkadot/pages/components/PolkadotAcco
 import EmptyCard from '../components/PdotCards/EmptyCard';
 import { StatusContext, CardContent } from '@polkadot/pages/components';
 import { ActionStatus } from '@polkadot/pages/components/Status/types';
-import { creatStatusInfo, tipInAlaya, tipInPlaton } from '@polkadot/pages/helper/helper';
+import { creatStatusInfo, tipInAlaya, tipInDOT, tipInPCX, tipInPlaton, tipInXBTC } from '@polkadot/pages/helper/helper';
 import { createDepositTransactionParameters, createApproveTransactionParameters } from '../contract';
 import BigNumber from 'bignumber.js';
 import { useTranslation } from '@polkadot/pages/components/translate';
@@ -16,18 +16,19 @@ import { CoinInfoContext } from '@polkadot/pages/components/CoinInfoProvider';
 
 interface Props {
   className?: string;
+  charge: number;
+  setCharge: React.Dispatch<number>;
 }
 
-export default function RedeemContent({className}: Props): React.ReactElement<Props> {
+export default function RedeemContent({charge, setCharge, className=''}: Props): React.ReactElement<Props> {
   const {t} = useTranslation();
   const {isApiReady} = useApi();
   const {currentAccount, hasAccounts} = useContext(PolkadotAccountsContext);
-  const {BSCAccount, hasBSCAccount, RedeemRecords, BSCAmount, fetchTransfers} = useContext(BSCAccountsContext);
+  const {BSCAccount, hasBSCAccount, RedeemRecords, fetchTransfers} = useContext(BSCAccountsContext);
   const redeemLength = RedeemRecords.length;
   const [amount, setAmount] = useState<string>('0');
   const {queueAction} = useContext(StatusContext);
   const status = {action: 'redeem'} as ActionStatus;
-  const [charge, setCharge] = useState(0);
   const pdotAmountToBigNumber = (new BigNumber(BSCAccount)).div(1e18).toNumber();
   const amountToBigNumber = new BigNumber(amount);
   const [isChargeEnough, setIsChargeEnough] = useState<boolean>(true);
@@ -35,6 +36,12 @@ export default function RedeemContent({className}: Props): React.ReactElement<Pr
   const [isButtonDisabled, setButtonDisabled] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>('');
 
+  useEffect(() => {
+    coinInfo.coinName === 'XBTC'? setCharge(tipInXBTC.toNumber()):
+      coinInfo.coinName === 'PCX'?
+        setCharge(amountToBigNumber.times(0.001).plus(tipInPCX).toNumber()):
+        setCharge(amountToBigNumber.times(0.001).plus(tipInDOT).toNumber())
+  }, [coinInfo, amountToBigNumber])
 
   useEffect(() => {
     setIsChargeEnough(pdotAmountToBigNumber > charge && pdotAmountToBigNumber >= amountToBigNumber.toNumber());
@@ -64,12 +71,12 @@ export default function RedeemContent({className}: Props): React.ReactElement<Pr
         const amountToPrecision: BigNumber = amountToBigNumber.times(1e18);
         //@ts-ignore
         ethereum.request({
-          method: 'platon_sendTransaction',
+          method: 'eth_sendTransaction',
           params: [createApproveTransactionParameters(BSCAccount, amountToPrecision)]
         }).then(() =>
           //@ts-ignore
           ethereum.request({
-            method: 'platon_sendTransaction',
+            method: 'eth_sendTransaction',
             params: [createDepositTransactionParameters(BSCAccount, currentAccount, amountToPrecision)]
           })
             .then(result => {

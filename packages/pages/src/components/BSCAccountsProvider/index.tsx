@@ -1,9 +1,9 @@
 import React, { createContext, FC, useEffect, useState } from 'react';
 import useBSCAccounts from '@polkadot/pages/hooks/useBSCAccounts';
-import useTokenTransferList, { PublishRecord, RedeemRecord, Transfer } from '@polkadot/pages/hooks/useTransferList';
+import useTokenTransferList, { TransferItem } from '@polkadot/pages/hooks/useTransferList';
 import { erc20_minter_contract } from '@polkadot/pages/contract';
-import { interval, of, Subscription } from '@polkadot/x-rxjs';
-import { filter, switchMap } from '@polkadot/x-rxjs/operators';
+import { interval, Subscription } from '@polkadot/x-rxjs';
+import { switchMap } from '@polkadot/x-rxjs/operators';
 import { fromPromise } from 'rxjs/internal-compatibility';
 
 export interface BSCAccountsProviderData {
@@ -12,10 +12,10 @@ export interface BSCAccountsProviderData {
   setBSCAccount: React.Dispatch<string>;
   BSCAmount: string;
   setBSCAmount: React.Dispatch<string>;
-  PublishRecords: PublishRecord[];
-  RedeemRecords: RedeemRecord[];
-  Transfers: Transfer[];
-  fetchTransfers: (account: string) => Promise<void>
+  PublishRecords: TransferItem[];
+  RedeemRecords: TransferItem[];
+  Transfers: TransferItem[];
+  fetchTransfers: (account: string) => void
 }
 
 export const BSCAccountsContext = createContext<BSCAccountsProviderData>({} as BSCAccountsProviderData);
@@ -46,7 +46,7 @@ export const BSCAccountsProvider: FC = ({children}) => {
   useEffect(() => {
     if (BSCAccount) {
       erc20_minter_contract.methods.balanceOf(BSCAccount).call()
-        .then(balance => setBSCAmount(balance));
+        .then((balance: string) => setBSCAmount(balance));
     }
   }, [BSCAccount]);
 

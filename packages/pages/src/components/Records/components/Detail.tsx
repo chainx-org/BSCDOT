@@ -29,6 +29,7 @@ export const Title = styled.p`
 `;
 
 export const RecordDetail = styled.div`
+  height: 100%;
   &.overflow {
     max-height: 324px;
     overflow-y: auto;

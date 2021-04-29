@@ -6,12 +6,15 @@ import { useApi } from '@polkadot/react-hooks';
 import moment from 'moment';
 import { BSCAccountsContext } from '../../BSCAccountsProvider';
 import { PolkadotAccountsContext } from '../../PolkadotAccountsProvider';
+import { shortenHash } from '@polkadot/pages/helper/helper';
+import { useTranslation } from '@polkadot/pages/components/translate';
 
 export default function ({records, num, arrows, isReverse}: any) {
   const {isApiReady} = useApi();
   const [open, setOpen] = useState(false);
   const { BSCAccount } = useContext(BSCAccountsContext)
   const { currentAccount } = useContext(PolkadotAccountsContext)
+  const {t} = useTranslation();
 
   const wrapper = useRef(null);
 
@@ -30,10 +33,10 @@ export default function ({records, num, arrows, isReverse}: any) {
           <>
             <Hash hash={BSCAccount} className='address'/>
             {arrows ? <img src='http://lc-XLoqMObG.cn-n1.lcfile.com/cb023eeb56945d0cd674.svg' alt='Arrow' className='arrow'/> : ''}
-            <Hash hash={currentAccount} className='address'/>
+            <div className='address'>{shortenHash(currentAccount)}</div>
           </>:
           <>
-            <Hash hash={currentAccount} className='address'/>
+            <div className='address'>{shortenHash(currentAccount)}</div>
             {arrows ? <img src='http://lc-XLoqMObG.cn-n1.lcfile.com/cb023eeb56945d0cd674.svg' alt='Arrow' className='arrow'/> : ''}
             <Hash hash={BSCAccount} className='address'/>
           </>
@@ -42,8 +45,8 @@ export default function ({records, num, arrows, isReverse}: any) {
       {isApiReady && open ? (
         <Detail className={`detail  lineDetail${num}`}>
           <div className='hashVal'>
-            <Label>交易哈希</Label>
-            <Hash hash={records.txHash} className='hash'/>
+            <Label>{t('Transaction hash')}</Label>
+            <Hash hash={records.transactionHash} className='hash'/>
           </div>
         </Detail>
       ) : null}

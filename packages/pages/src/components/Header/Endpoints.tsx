@@ -28,7 +28,7 @@ function Endpoints({className = ''}: EndpointProps): React.ReactElement<Endpoint
     {
       name: `DOT`,
       bCoinName: 'BDOT',
-      matchingNode: 'wss://polkadot.elara.patract.io',
+      matchingNode: 'wss://dot.supercube.pro/ws',
       CoinIcon: 'http://lc-XLoqMObG.cn-n1.lcfile.com/0a9cba405d7acad81643.svg',
       whiteIcon: 'http://lc-XLoqMObG.cn-n1.lcfile.com/519b3e5ce282616f1cd7.svg'
     },
