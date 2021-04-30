@@ -1,13 +1,14 @@
-import React, { useContext, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import Hash from './Hash';
 import { Account, Detail, Header, Label, Line, LinkWrap, Sequence, StatusText } from './Detail';
 import { useOutsideClick } from '../hooks';
 import { useApi } from '@polkadot/react-hooks';
 import { BSCAccountsContext } from '../../BSCAccountsProvider';
 import { PolkadotAccountsContext } from '../../PolkadotAccountsProvider';
-import { shortenHash } from '@polkadot/pages/helper/helper';
+import { blockNumberToDate, shortenHash } from '@polkadot/pages/helper/helper';
 import { useTranslation } from '@polkadot/pages/components/translate';
 import { TransferItem } from '@polkadot/pages/hooks/useTransferList';
+import moment from 'moment';
 
 interface Props{
   record: TransferItem;
@@ -22,6 +23,7 @@ export default function ({record, num, arrows, isReverse}: Props): React.ReactEl
   const { BSCAccount } = useContext(BSCAccountsContext)
   const { currentAccount } = useContext(PolkadotAccountsContext)
   const {t} = useTranslation();
+  const [date, setDate] = useState<string>('');
 
   const wrapper = useRef(null);
 
@@ -29,10 +31,16 @@ export default function ({record, num, arrows, isReverse}: Props): React.ReactEl
     setOpen(false);
   });
 
+  useEffect(() => {
+    blockNumberToDate(record.blockNumber).then((timestamp: number) =>
+      setDate(moment(timestamp).format('YYYY/MM/DD HH:mm:ss'))
+    );
+  }, [record.blockNumber]);
+
   return (
     <Line className='publishandredeem' onClick={() => setOpen(!open)} ref={wrapper}>
       <Header>
-        <Sequence className='txNum'>{t('Block height')}：{record.blockNumber}</Sequence>
+        <Sequence className='txNum'>{date}</Sequence>
         <StatusText>{t('Completed')}</StatusText>
       </Header>
       <Account>

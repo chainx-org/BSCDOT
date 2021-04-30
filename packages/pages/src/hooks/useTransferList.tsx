@@ -38,9 +38,27 @@ export default function useTokenTransferList(BSCAccount: string) {
   const fetchTransfers = (account: string) => {
     erc20_minter_contract.getPastEvents('Transfer', {fromBlock: 0},
       (error: Error, events: TransferResultItem[]) => {
-        const PublishRecords: TransferItem[] = mapNewRecords(events.filter((element) => element.returnValues.from === '0x0000000000000000000000000000000000000000' && element.returnValues.to.toLowerCase() === account.toLowerCase()));
-        const RedeemRecords: TransferItem[] = mapNewRecords(events.filter((element) => element.returnValues.from.toLowerCase() === account.toLowerCase() && element.returnValues.to === '0x0000000000000000000000000000000000000000'));
-        const Transfers: TransferItem[] = mapNewRecords(events.filter((element) => element.returnValues.from.toLowerCase() === account.toLowerCase() && element.returnValues.to !== '0x0000000000000000000000000000000000000000'));
+        const PublishRecords: TransferItem[] = mapNewRecords(
+          events.filter((element) =>
+            element.returnValues.from === '0x0000000000000000000000000000000000000000' &&
+            element.returnValues.to.toLowerCase() === account.toLowerCase()
+          )
+        );
+        const RedeemRecords: TransferItem[] = mapNewRecords(
+          events.filter((element) =>
+            element.returnValues.from.toLowerCase() === account.toLowerCase() &&
+            element.returnValues.to === '0x0000000000000000000000000000000000000000'
+          )
+        );
+        const Transfers: TransferItem[] = mapNewRecords(
+          events.filter((element) => (
+              (element.returnValues.from.toLowerCase() === account.toLowerCase() &&
+                element.returnValues.to !== '0x0000000000000000000000000000000000000000') ||
+              (element.returnValues.to.toLowerCase() === account.toLowerCase() &&
+                element.returnValues.from !== '0x0000000000000000000000000000000000000000')
+            )
+          )
+        );
         setState({
           PublishRecords,
           RedeemRecords,
@@ -49,11 +67,11 @@ export default function useTokenTransferList(BSCAccount: string) {
         });
       });
   };
-
+console.log(state.Transfers)
   useEffect((): () => void => {
     const fetchTransfers$ = interval(1000).subscribe(() => fetchTransfers(BSCAccount));
 
-    return () => fetchTransfers$.unsubscribe()
+    return () => fetchTransfers$.unsubscribe();
   }, [BSCAccount]);
 
   return {state, fetchTransfers};

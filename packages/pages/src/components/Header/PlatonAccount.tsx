@@ -7,15 +7,15 @@ import { CoinInfoContext } from '@polkadot/pages/components/CoinInfoProvider';
 
 function PlatonAccount() {
   const {t} = useTranslation();
-  const {hasBSCAccount, BSCAccount, BSCAmount} = useContext(BSCAccountsContext);
+  const {hasBSCAccount, BSCAccount, BSCAmount, setBSCAccount} = useContext(BSCAccountsContext);
   const {coinInfo} = useContext(CoinInfoContext);
 
   const openMetaMask = () => {
     //@ts-ignore
     if (typeof window.ethereum !== 'undefined') {
       //@ts-ignore
-      ethereum.request({method: 'platon_requestAccounts'})
-        // .then((platonAccounts: string[]) => setPlatonAccount(platonAccounts[0]));
+      ethereum.request({method: 'eth_requestAccounts'})
+        .then((Accounts: string[]) => setBSCAccount(Accounts[0]));
     } else {
       window.location.href = 'https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn'
     }

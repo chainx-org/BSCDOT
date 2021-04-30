@@ -1,5 +1,6 @@
 import {ActionStatus} from '@polkadot/pages/components/Status/types';
 import BigNumber from 'bignumber.js';
+import { web3 } from '@polkadot/pages/contract';
 
 const creatStatusInfo = (statusInfo: ActionStatus, status: string,message: string) => {
   statusInfo.status = status
@@ -33,6 +34,11 @@ const shortenHash = (hash: string): string => {
   }
 }
 
+const blockNumberToDate = async (blockNumber: number) => {
+  const {timestamp} = await web3.eth.getBlock(blockNumber);
+  return timestamp * 1000
+};
+
 const tipInXBTC: BigNumber = new BigNumber(0)
 const tipInDOT: BigNumber = new BigNumber(0.5)
 const tipInPCX: BigNumber = new BigNumber(0.1)
@@ -44,5 +50,6 @@ export {
   tipInXBTC,
   tipInDOT,
   tipInPCX,
-  shortenHash
+  shortenHash,
+  blockNumberToDate
 }

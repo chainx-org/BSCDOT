@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import Hash from './Hash';
 import { Detail, Header, Account, Label, Line, Sequence, Inout, Amount } from './Detail';
 import { useTranslation } from '@polkadot/pages/components/translate';
@@ -8,6 +8,8 @@ import { TransferItem } from '@polkadot/pages/hooks/useTransferList';
 import { CoinInfoContext } from '@polkadot/pages/components/CoinInfoProvider';
 import BigNumber from 'bignumber.js';
 import { BSCAccountsContext } from '@polkadot/pages/components/BSCAccountsProvider';
+import { blockNumberToDate } from '@polkadot/pages/helper/helper';
+import moment from 'moment';
 
 interface Props {
   record: TransferItem;
@@ -22,16 +24,23 @@ export default function ({record, num, arrows}: Props): React.ReactElement {
   const wrapper = useRef(null);
   const {coinInfo} = useContext(CoinInfoContext)
   const {BSCAccount} = useContext(BSCAccountsContext)
+  const [date, setDate] = useState<string>('');
 
   useOutsideClick(wrapper, () => {
     setOpen(false);
   });
 
+  useEffect(() => {
+    blockNumberToDate(record.blockNumber).then((timestamp: number) =>
+      setDate(moment(timestamp).format('YYYY/MM/DD HH:mm:ss'))
+    );
+  }, [record.blockNumber]);
+
   return (
     <Line className='transfer' onClick={() => setOpen(!open)} ref={wrapper}>
       <Header>
-        <Sequence className='txNum'>{t('Block height')}：{record.blockNumber}</Sequence>
-        <Inout>{record.to === BSCAccount ? t('In') : t('Out')}</Inout>
+        <Sequence className='txNum'>{date}</Sequence>
+        <Inout>{record.to.toLowerCase() === BSCAccount.toLowerCase() ? t('In') : t('Out')}</Inout>
       </Header>
       <Account className='account'>
         <Amount>{(new BigNumber(record.value).div(1e18)).toNumber().toFixed(4)} {coinInfo.bCoinName}</Amount>
