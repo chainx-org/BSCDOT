@@ -67,7 +67,6 @@ export default function useTokenTransferList(BSCAccount: string) {
         });
       });
   };
-console.log(state.Transfers)
   useEffect((): () => void => {
     const fetchTransfers$ = interval(1000).subscribe(() => fetchTransfers(BSCAccount));
 

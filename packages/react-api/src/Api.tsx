@@ -210,8 +210,31 @@ function Api({children, store, url}: Props): React.ReactElement<Props> | null {
     const provider = new WsProvider(url);
     const signer = new ApiSigner(queuePayload, queueSetTxStatus);
     const types = getDevTypes();
-
-    api = new ApiPromise(options({provider, registry, signer, types, typesBundle, typesChain, typesSpec}));
+    const rpc = {
+      "swap": {
+        "getAmountInPrice": {
+          "description": "Return amount in price by amount out",
+          "params": [
+            {
+              "name": "amount_out",
+              "type": "u128"
+            },
+            {
+              "name": "path",
+              "type": "Vec<AssetId>"
+            },
+            {
+              "name": "at",
+              "type": "Hash",
+              "isOptional": true
+            }
+          ],
+          "type": "string"
+        }
+    }
+    }
+    console.log('{provider, registry,rpc, signer, types, typesBundle, typesChain, typesSpec}', {provider, registry,rpc, signer, types, typesBundle, typesChain, typesSpec})
+    api = new ApiPromise(options({provider, registry,rpc, signer, types, typesBundle, typesChain, typesSpec}));
     const newTypes = {
       "Address": "IndicesLookupSource",
       "LookupSource": "IndicesLookupSource",

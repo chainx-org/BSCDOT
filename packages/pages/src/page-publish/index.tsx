@@ -72,6 +72,14 @@ export default function PublicContent({charge, setCharge, className = ''}: Props
         queueAction(status as ActionStatus);
         fetchTransfers(BSCAccount);
         setButtonDisabled(false);
+        console.log('formatStatusData', formatStatusData)
+        PublishRecords.push({
+          from: currentAccount,
+          to: BSCAccount,
+          value: '',
+          transactionHash: formatStatusData.status.inBlock,
+          blockNumber: 0,
+        })
       }
     } else {
       creatStatusInfo(status, 'sending', t('sending...'));

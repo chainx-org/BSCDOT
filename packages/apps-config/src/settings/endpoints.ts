@@ -61,7 +61,7 @@ function createLiveNetworks(t: TFunction): LinkOption[] {
       info: 'Kusama',
       text: t('Kusama Node'),
       textBy: t('rpc.hosted.by', 'hosted by Kusama', { ns: 'apps-config', replace: { host: 'Kusama' } }),
-      value: 'wss://chainx.supercube.pro/ws'
+      value: 'ws://127.0.0.1:9999'
     }
   ];
 }

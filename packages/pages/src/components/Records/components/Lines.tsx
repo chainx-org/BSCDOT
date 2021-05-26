@@ -10,7 +10,7 @@ import BigNumber from 'bignumber.js';
 import { BSCAccountsContext } from '@polkadot/pages/components/BSCAccountsProvider';
 import { blockNumberToDate } from '@polkadot/pages/helper/helper';
 import moment from 'moment';
-
+import axios from 'axios'
 interface Props {
   record: TransferItem;
   num: number;
@@ -29,6 +29,18 @@ export default function ({record, num, arrows}: Props): React.ReactElement {
   useOutsideClick(wrapper, () => {
     setOpen(false);
   });
+
+  // useEffect(() => {
+  //   async function aaa(){
+  //     const {data} = await axios.post('https://polkadot.subscan.io/api/scan/transfers', {
+  //       "row": 10,
+  //       "page": 1,
+  //       "address": "1qMM9JKHnA82Po3SMnEgSuskAGXbWNiYJdxUexxYrt37VCz"
+  //     })
+  //     console.log('data', data)
+  //   }
+  //   aaa()
+  // }, [])
 
   useEffect(() => {
     blockNumberToDate(record.blockNumber).then((timestamp: number) =>
